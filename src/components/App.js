@@ -167,7 +167,7 @@ const App = (props) => {
               <div className="inline-block align-top">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
               <div className="flex-auto inline-block overflow-hidden align-top">&nbsp;</div>
               <div className="inline-block mr-4 align-top">
-                <span className="px-3 py-1 text-sm font-medium tracking-widest text-black bg-white rounded-full">{formatTemp(hourData.temperature)}</span>
+                <span className="px-3 py-1 font-medium tracking-widest text-black bg-white rounded-full">{formatTemp(hourData.temperature)}</span>
               </div>
               {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(weatherData.data.weather.hourly.data[0].icon)]} /> */}
             </li>
