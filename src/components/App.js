@@ -114,7 +114,7 @@ const App = (props) => {
   };
 
   return (
-    <div className="mx-auto sm:container">
+    <div className="container max-w-md mx-auto">
       <div className="location-name">
         <h1>
           <FontAwesomeIcon icon="location-arrow" fixedWidth /> {locationName}
