@@ -1,19 +1,8 @@
-# netlify-starter
+# dark-sky-clone
 
-_**NOTE: Documentation in progress**_
+[![Netlify Status](https://api.netlify.com/api/v1/badges/22061d9b-0f4d-4609-82c4-823d926beefc/deploy-status)](https://app.netlify.com/sites/dark-sky/deploys)
 
-My basic project starter for Netlify (hosted) projects.
-
-Includes dependencies I commonly use when bootsrapping a new Netlify project.
-
-Sets up a barebones React PWA front-end with a Netlify function that can be used on the back-end.
-
-## Getting started
-
-1. `git clone https://github.com/mikesprague/netlify-starter.git your-project-name`
-1. `cd your-project-name`
-1. `rm -rf .git && git init`
-1. `npm start`
+WIP (work in progress)
 
 ## License
 
