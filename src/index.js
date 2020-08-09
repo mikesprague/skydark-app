@@ -14,6 +14,6 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-// if (!isDev()) {
-//   initServiceWorker();
-// }
+if (!isDev()) {
+  initServiceWorker();
+}
