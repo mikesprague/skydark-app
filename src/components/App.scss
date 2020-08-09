@@ -1,0 +1,53 @@
+.location-name {
+  @apply pt-2;
+  @apply w-full;
+  @apply sticky;
+  @apply text-center;
+  @apply mb-4;
+
+  h1 {
+    @apply text-xl;
+  }
+}
+
+.map {
+  @apply p-2;
+
+  .leaflet-container {
+    height: 7rem;
+    @apply w-full;
+    @apply rounded-lg;
+  }
+
+  .leaflet-control-container {
+    @apply hidden;
+  }
+}
+
+.current-conditions {
+  @apply w-full;
+  @apply flex;
+  @apply leading-10;
+
+  .temperature {
+    .actual-temp {
+      @apply text-5xl;
+      @apply font-semibold;
+    }
+
+    .feels-like-temp {
+      @apply text-sm;
+      @apply -mt-1;
+      @apply ml-1;
+    }
+  }
+
+  .icon,
+  .temperature {
+    @apply w-1/2;
+  }
+
+  .icon {
+    @apply text-right;
+  }
+}
