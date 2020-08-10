@@ -122,7 +122,7 @@ const App = (props) => {
           </h1>
         </div>
       </div>
-      <div className="h-screen mt-24">
+      <div className="content">
         <div className="current-conditions">
           <div className="icon">
             <FontAwesomeIcon

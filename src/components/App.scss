@@ -1,12 +1,29 @@
+@import "../scss/variables";
+
+.header {
+  background-color: $color-body-bg;
+  // @apply fixed;
+  // @apply top-0;
+  // @apply z-10;
+  // @apply w-full;
+  @apply p-4;
+  // @apply mt-0;
+}
+
+.content {
+  // @apply h-screen;
+  // @apply mt-24;
+}
+
 .location-name {
   @apply pt-2;
   @apply w-full;
-  @apply sticky;
   @apply text-center;
-  @apply mb-4;
+  // @apply mb-4;
 
   h1 {
     @apply text-xl;
+    @apply text-center;
   }
 }
 
