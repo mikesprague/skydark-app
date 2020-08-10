@@ -17,7 +17,6 @@ import './App.scss';
 initIcons();
 
 const App = (props) => {
-  console.log(props);
   const [locationName, setLocationName] = useState('Determining location');
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
   useEffect(() => {
