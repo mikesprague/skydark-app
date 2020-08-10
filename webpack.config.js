@@ -1,3 +1,4 @@
+require('dotenv').config();
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const path = require('path');
@@ -23,7 +24,7 @@ const postCssPluginsArray = [
       preset: 'default',
     }),
 ];
-// if (mode === 'production') {
+if (mode === 'production') {
   postCssPluginsArray.push(
     purgecss({
       content: [
@@ -43,7 +44,7 @@ const postCssPluginsArray = [
       whitelistPatternsChildren: cssWhitelistClassArray,
     })
   );
-// }
+}
 
 const webpackRules = [
   // {
@@ -94,6 +95,9 @@ const webpackRules = [
 
 const webpackPlugins = [
   new WebPackBar(),
+  new webpack.DefinePlugin({
+    'process.env.OPENWEATHERMAP_API_KEY': JSON.stringify(process.env.OPENWEATHERMAP_API_KEY)
+  }),
   new MiniCssExtractPlugin({
     filename: './css/styles.css',
     chunkFilename: './css/[id].css',

@@ -9,7 +9,7 @@ import {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App OPENWEATHERMAP_API_KEY={process.env.OPENWEATHERMAP_API_KEY} />
   </React.StrictMode>,
   document.getElementById('root'),
 );

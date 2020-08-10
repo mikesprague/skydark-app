@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import dompurify from 'dompurify';
 import he from 'he';
 import { nanoid } from 'nanoid';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
@@ -17,6 +17,7 @@ import './App.scss';
 initIcons();
 
 const App = (props) => {
+  console.log(props);
   const [locationName, setLocationName] = useState('Determining location');
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
   useEffect(() => {
@@ -114,68 +115,72 @@ const App = (props) => {
   };
 
   return (
-    <div className="container max-w-md mx-auto">
-      <div className="location-name">
-        <h1>
-          <FontAwesomeIcon icon="location-arrow" fixedWidth /> {locationName}
-        </h1>
-      </div>
-      <div className="current-conditions">
-        <div className="icon">
-          <FontAwesomeIcon
-            icon={weatherData && weatherData.data && ['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
-            fixedWidth
-            size="4x"
-          />
-        </div>
-        <div className="temperature">
-          <h2 className="actual-temp">{weatherData && weatherData.data ? formatTemp(weatherData.data.weather.currently.temperature) : ''}</h2>
-          <h3 className="feels-like-temp">{weatherData && weatherData.data ? 'Feels ' + formatTemp(weatherData.data.weather.currently.apparentTemperature) : ''}</h3>
+    <Fragment>
+      <div className="header">
+        <div className="location-name">
+          <h1>
+            <FontAwesomeIcon icon="location-arrow" fixedWidth /> {locationName}
+          </h1>
         </div>
       </div>
-      <div className="map">
-      {coordinates && coordinates.lat ? (
-        <Map
-          center={[coordinates.lat, coordinates.lng]}
-          zoom={4}
-          doubleClickZoom={false}
-          dragging={false}
-          keyboard={false}
-          scrollWheelZoom={false}
-          touchZoom={false}
-        >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution=""
-            opacity={.85}
-          />
-          <WMSTileLayer
-            layer="precipitation_new"
-            url="https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid=4f9c63bfe7c11826eec6f7a9e5145cae"
-          />
-          <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
-        </Map>
-        ) : ''}
+      <div className="h-screen mt-24">
+        <div className="current-conditions">
+          <div className="icon">
+            <FontAwesomeIcon
+              icon={weatherData && weatherData.data && ['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
+              fixedWidth
+              size="4x"
+            />
+          </div>
+          <div className="temperature">
+            <h2 className="actual-temp">{weatherData && weatherData.data ? formatTemp(weatherData.data.weather.currently.temperature) : ''}</h2>
+            <h3 className="feels-like-temp">{weatherData && weatherData.data ? 'Feels ' + formatTemp(weatherData.data.weather.currently.apparentTemperature) : ''}</h3>
+          </div>
+        </div>
+        <div className="map">
+        {coordinates && coordinates.lat ? (
+          <Map
+            center={[coordinates.lat, coordinates.lng]}
+            zoom={4}
+            doubleClickZoom={false}
+            dragging={false}
+            keyboard={false}
+            scrollWheelZoom={false}
+            touchZoom={false}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution=""
+              opacity={.85}
+            />
+            <WMSTileLayer
+              layer="precipitation_new"
+              url={`https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
+            />
+            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
+          </Map>
+          ) : ''}
+        </div>
+        <div className="p-3 today-hourly">
+          <ul className="flex flex-wrap">
+          {weatherData && weatherData.data && weatherData.data.weather.hourly.data.map((hourData, index) => {
+            return index <= 20 && index % 2 === 0 ? (
+              <li key={nanoid(7)} className="flex w-full h-12 m-0 text-lg leading-10 hour">
+                <div className={`inline-block w-6 h-full condition-bar${index === 20 ? 'rounded-b-md' : ''}${index === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                <div className="inline-block w-16 mr-4 text-right align-top">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
+                <div className="inline-block align-top">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
+                <div className="flex-auto inline-block overflow-hidden align-top">&nbsp;</div>
+                <div className="inline-block mr-4 align-top">
+                  <span className="px-3 py-1 font-medium tracking-widest text-black bg-white rounded-full">{formatTemp(hourData.temperature)}</span>
+                </div>
+                {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(weatherData.data.weather.hourly.data[0].icon)]} /> */}
+              </li>
+            ) : '';
+          })}
+          </ul>
+        </div>
       </div>
-      <div className="p-3 today-hourly">
-        <ul className="flex flex-wrap">
-        {weatherData && weatherData.data && weatherData.data.weather.hourly.data.map((hourData, index) => {
-          return index <= 20 && index % 2 === 0 ? (
-            <li key={nanoid(7)} className="flex w-full h-12 m-0 text-lg leading-10 hour">
-              <div className={`inline-block w-6 h-full condition-bar ${index === 20 ? 'rounded-b-md' : ''} ${index === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
-              <div className="inline-block w-16 mr-4 text-right align-top">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
-              <div className="inline-block align-top">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
-              <div className="flex-auto inline-block overflow-hidden align-top">&nbsp;</div>
-              <div className="inline-block mr-4 align-top">
-                <span className="px-3 py-1 font-medium tracking-widest text-black bg-white rounded-full">{formatTemp(hourData.temperature)}</span>
-              </div>
-              {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(weatherData.data.weather.hourly.data[0].icon)]} /> */}
-            </li>
-          ) : '';
-        })}
-        </ul>
-      </div>
-    </div>
+    </Fragment>
   );
 }
 
