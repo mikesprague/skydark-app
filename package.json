@@ -27,7 +27,7 @@
     "name": "Michael Sprague",
     "email": "mikesprague@gmail.com"
   },
-  "homepage": "",
+  "homepage": "https://dark-sky.netlify.app",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
