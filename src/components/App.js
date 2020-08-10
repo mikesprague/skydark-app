@@ -14,6 +14,7 @@ import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
 
+dayjs.extend(relativeTime)
 initIcons();
 
 const App = (props) => {
@@ -176,14 +177,14 @@ const App = (props) => {
             ) : '';
           })}
           </ul>
-          <div className="my-3 text-center">
+          <div className={weatherData && weatherData.data ? 'my-3 text-center' : 'my-3 text-center hidden'}>
             <select className="text-gray-100 bg-gray-800">
               <option>Temperature</option>
             </select>
           </div>
         </div>
         <div className="mb-3 text-lg text-center sunrise-sunset-time">
-          {weatherData && weatherData.data ? 'Sunset in approx ' + dayjs(dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime)).diff(dayjs(), 'hour') + ' hours ' + (dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime).format('h:mm A')) : ''}
+          {weatherData && weatherData.data ? 'Sunset in approx ' + dayjs().to(dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime), true) + ' (' + dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime).format('h:mm A') + ')' : ''}
         </div>
         <div className="p-3 daily">
         <ul className="flex flex-wrap">
