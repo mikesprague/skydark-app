@@ -165,14 +165,36 @@ const App = (props) => {
           {weatherData && weatherData.data && weatherData.data.weather.hourly.data.map((hourData, index) => {
             return index <= 20 && index % 2 === 0 ? (
               <li key={nanoid(7)} className="flex w-full h-12 m-0 text-lg leading-10 hour">
-                <div className={`inline-block w-6 h-full condition-bar${index === 20 ? 'rounded-b-md' : ''}${index === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                <div className={`inline-block w-6 h-full condition-bar${index === 20 ? ' rounded-b-md' : ''}${index === 0 ? ' rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
                 <div className="inline-block w-16 mr-4 text-right align-top">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
                 <div className="inline-block align-top">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
                 <div className="flex-auto inline-block overflow-hidden align-top">&nbsp;</div>
                 <div className="inline-block mr-4 align-top">
                   <span className="px-3 py-1 font-medium tracking-widest text-black bg-white rounded-full">{formatTemp(hourData.temperature)}</span>
                 </div>
-                {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(weatherData.data.weather.hourly.data[0].icon)]} /> */}
+              </li>
+            ) : '';
+          })}
+          </ul>
+        </div>
+        <div className="p-3 daily">
+        <ul className="flex flex-wrap">
+          {weatherData && weatherData.data && weatherData.data.weather.daily.data.map((dayData, index) => {
+            return index <= 7 ? (
+              <li key={nanoid(7)} className="flex w-full h-16 m-0 text-lg leading-10 day">
+                <div className="inline-block mr-4 text-sm leading-5 text-left align-top day-name">
+                  <strong>{index === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
+                  <br />
+                  <span className="text-blue-300">
+                    <FontAwesomeIcon icon={['fad', 'tint']} /> {Math.round(dayData.precipProbability * 100)}%
+                  </span>
+                </div>
+                <div className="inline-block w-12 mr-4 align-top">
+                  <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" />
+                </div>
+                <div className="flex-auto inline-block pl-4 align-top">
+                  {formatTemp(dayData.temperatureLow)} <span className="inline-block w-32 px-3 font-medium tracking-widest text-black bg-white rounded-full">&nbsp;</span> {formatTemp(dayData.temperatureHigh)}
+                </div>
               </li>
             ) : '';
           })}

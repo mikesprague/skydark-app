@@ -15,6 +15,12 @@
   // @apply mt-24;
 }
 
+.daily {
+  .day-name {
+    width: 50px;
+  }
+}
+
 .location-name {
   @apply pt-2;
   @apply w-full;
