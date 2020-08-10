@@ -176,6 +176,14 @@ const App = (props) => {
             ) : '';
           })}
           </ul>
+          <div className="my-3 text-center">
+            <select className="text-gray-100 bg-gray-800">
+              <option>Temperature</option>
+            </select>
+          </div>
+        </div>
+        <div className="mb-3 text-lg text-center sunrise-sunset-time">
+          {weatherData && weatherData.data ? 'Sunset in approx ' + dayjs(dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime)).diff(dayjs(), 'hour') + ' hours ' + (dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime).format('h:mm A')) : ''}
         </div>
         <div className="p-3 daily">
         <ul className="flex flex-wrap">
