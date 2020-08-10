@@ -51,6 +51,7 @@ const App = (props) => {
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
   useEffect(() => {
     setIsLoading(true);
@@ -96,22 +97,54 @@ const App = (props) => {
       returnClass = 'bg-gray-100';
     }
     if (isRaining) {
-      returnClass = 'bg-blue-300';
+      returnClass = 'bg-blue-400';
     }
     if (isCloudy) {
-      cloudCover >= 67 ? returnClass = 'bg-gray-800' : 'bg-gray-400';
+      returnClass = cloudCover >= 67 ? 'bg-gray-800' : 'bg-gray-400';
     }
 
     return returnClass;
   };
 
+
+  const formatCondition = (value, condition) => {
+    switch (condition) {
+      case 'temperature':
+      case 'apparentTemperature':
+      case 'dewPoint':
+        return formatTemp(value);
+        break;
+      case 'precipProbability':
+      case 'humidity':
+      case 'cloudCover':
+        return formatPercent(value);
+        break;
+      case 'precipIntensity':
+        return `${Math.round(value)} IN/HR`;
+      case 'pressure':
+        return `${Math.round(value)} MB`;
+      case 'windSpeed':
+      case 'windGust':
+        return `${Math.round(value)} MPH`
+      default:
+        return value;
+        break;
+    }
+  };
+
   const formatTemp = temp => `${Math.round(temp)}${String.fromCharCode(176)}`;
+  const formatPercent = num => `${Math.round(num * 100)}%`;
 
   const formatSummary = (currentHourData, allHourlyData, index) => {
     if (index === 0) {
       return currentHourData.summary;
     }
-    return currentHourData.summary === allHourlyData[index - 1].summary ? '' : currentHourData.summary;
+    return currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+  };
+
+  const selectHandler = (event) => {
+    console.log(event.target.value);
+    setHourlyConditionToShow(event.target.value);
   };
 
   return (
@@ -125,13 +158,15 @@ const App = (props) => {
       </div>
       <div className="content">
         <div className="current-conditions">
-          <div className="icon">
-            <FontAwesomeIcon
-              icon={weatherData && weatherData.data && ['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
-              fixedWidth
-              size="4x"
-            />
-          </div>
+          {weatherData && weatherData.data ? (
+            <div className="icon">
+              <FontAwesomeIcon
+                icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
+                fixedWidth
+                size="4x"
+              />
+            </div>
+          ) : ''}
           <div className="temperature">
             <h2 className="actual-temp">{weatherData && weatherData.data ? formatTemp(weatherData.data.weather.currently.temperature) : ''}</h2>
             <h3 className="feels-like-temp">{weatherData && weatherData.data ? 'Feels ' + formatTemp(weatherData.data.weather.currently.apparentTemperature) : ''}</h3>
@@ -161,48 +196,58 @@ const App = (props) => {
           </Map>
           ) : ''}
         </div>
-        <div className="p-3 today-hourly">
+        <div className="hourly">
           <ul className="flex flex-wrap">
-          {weatherData && weatherData.data && weatherData.data.weather.hourly.data.map((hourData, index) => {
+          {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, index) => {
             return index <= 20 && index % 2 === 0 ? (
-              <li key={nanoid(7)} className="flex w-full h-12 m-0 text-lg leading-10 hour">
-                <div className={`inline-block w-6 h-full condition-bar${index === 20 ? ' rounded-b-md' : ''}${index === 0 ? ' rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
-                <div className="inline-block w-16 mr-4 text-right align-top">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
-                <div className="inline-block align-top">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
-                <div className="flex-auto inline-block overflow-hidden align-top">&nbsp;</div>
-                <div className="inline-block mr-4 align-top">
-                  <span className="px-3 py-1 font-medium tracking-widest text-black bg-white rounded-full">{formatTemp(hourData.temperature)}</span>
+              <li key={nanoid(7)} className="hour">
+                <div className={`condition-bar${index === 20 ? ' rounded-b-md' : ''}${index === 0 ? ' rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
+                <div className="summary">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
+                <div className="spacer">&nbsp;</div>
+                <div className="condition">
+                  <span className="pill">{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
                 </div>
               </li>
             ) : '';
           })}
           </ul>
           <div className={weatherData && weatherData.data ? 'my-3 text-center' : 'my-3 text-center hidden'}>
-            <select className="text-gray-100 bg-gray-800">
-              <option>Temperature</option>
+            <select className="p-2 text-sm font-semibold text-black uppercase bg-blue-300 rounded-lg" onChange={selectHandler}>
+              <option value="temperature">Temp (&deg;F)</option>
+              <option value="apparentTemperature">Feels-Like (&deg;F)</option>
+              <option value="precipProbability">Precip Prob (%)</option>
+              <option value="precipIntensity">Precip Rate (IN/HR)</option>
+              <option value="windSpeed">Wind (MPH)</option>
+              <option value="windGust">Wind Gust (MPH)</option>
+              <option value="humidity">Humidity (%)</option>
+              <option value="dewPoint">Dew Point (&deg;F)</option>
+              <option value="uvIndex">UV Index</option>
+              <option value="cloudCover">Cloud Cover (%)</option>
+              <option value="pressure">Pressure (MB)</option>
             </select>
           </div>
         </div>
         <div className="mb-3 text-lg text-center sunrise-sunset-time">
-          {weatherData && weatherData.data ? 'Sunset in approx ' + dayjs().to(dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime), true) + ' (' + dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime).format('h:mm A') + ')' : ''}
+          {weatherData && weatherData.data ? 'Sunset in approx ' + dayjs(dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime)).fromNow(true) + ' (' + dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime).format('h:mm A') + ')' : ''}
         </div>
-        <div className="p-3 daily">
-        <ul className="flex flex-wrap">
+        <div className="daily-container">
+        <ul className="daily">
           {weatherData && weatherData.data && weatherData.data.weather.daily.data.map((dayData, index) => {
             return index <= 7 ? (
-              <li key={nanoid(7)} className="flex w-full h-16 m-0 text-lg leading-10 day">
-                <div className="inline-block mr-4 text-sm leading-5 text-left align-top day-name">
+              <li key={nanoid(7)} className="day">
+                <div className="name">
                   <strong>{index === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                   <br />
-                  <span className="text-blue-300">
+                  <span className="precip">
                     <FontAwesomeIcon icon={['fad', 'tint']} /> {Math.round(dayData.precipProbability * 100)}%
                   </span>
                 </div>
-                <div className="inline-block w-12 mr-4 align-top">
+                <div className="icon">
                   <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" />
                 </div>
-                <div className="flex-auto inline-block pl-4 align-top">
-                  {formatTemp(dayData.temperatureLow)} <span className="inline-block w-32 px-3 font-medium tracking-widest text-black bg-white rounded-full">&nbsp;</span> {formatTemp(dayData.temperatureHigh)}
+                <div className="temps">
+                  {formatTemp(dayData.temperatureLow)} <span className="temps-spacer">&nbsp;</span> {formatTemp(dayData.temperatureHigh)}
                 </div>
               </li>
             ) : '';
