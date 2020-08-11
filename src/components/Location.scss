@@ -1,0 +1,18 @@
+@import "../scss/variables";
+
+.header {
+  background-color: $color-body-bg;
+  @apply p-3;
+
+  .location-name {
+    @apply pt-2;
+    @apply w-full;
+    @apply text-center;
+    @apply mb-4;
+
+    h1 {
+      @apply text-xl;
+      @apply text-center;
+    }
+  }
+}

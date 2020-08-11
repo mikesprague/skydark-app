@@ -15,6 +15,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherMap } from '../components/WeatherMap';
+import { Location } from '../components/Location';
 
 dayjs.extend(relativeTime)
 initIcons();
@@ -152,17 +153,17 @@ const App = (props) => {
     setHourlyConditionToShow(event.target.value);
   };
 
+  const currentConditionsHandler = (event) => {
+    console.log(event.target);
+  };
+
   return (
     <Fragment>
-      <div className="header">
-        <div className="location-name">
-          <h1>
-            <FontAwesomeIcon icon="location-arrow" fixedWidth /> {locationName}
-          </h1>
-        </div>
-      </div>
+
+      <Location name={locationName} />
+
       <div className="content">
-        <div className="current-conditions">
+        <div className="current-conditions" onClick={currentConditionsHandler}>
           {weatherData && weatherData.data.weather ? (
             <div className="icon">
               <FontAwesomeIcon
