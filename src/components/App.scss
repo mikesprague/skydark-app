@@ -158,20 +158,6 @@
   }
 }
 
-.map {
-  @apply p-2;
-
-  .leaflet-container {
-    height: 7rem;
-    @apply w-full;
-    @apply rounded-lg;
-  }
-
-  .leaflet-control-container {
-    @apply hidden;
-  }
-}
-
 .current-conditions {
   @apply w-full;
   @apply flex;

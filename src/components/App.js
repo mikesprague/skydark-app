@@ -14,6 +14,7 @@ import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
 import { SunriseSunset } from '../components/SunriseSunset';
+import { WeatherMap } from '../components/WeatherMap';
 
 dayjs.extend(relativeTime)
 initIcons();
@@ -176,30 +177,9 @@ const App = (props) => {
             <h3 className="feels-like-temp">{weatherData && weatherData.data.weather ? 'Feels ' + formatTemp(weatherData.data.weather.currently.apparentTemperature) : ''}</h3>
           </div>
         </div>
-        <div className="map">
-        {coordinates && coordinates.lat ? (
-          <Map
-            center={[coordinates.lat, coordinates.lng]}
-            zoom={4}
-            doubleClickZoom={false}
-            dragging={false}
-            keyboard={false}
-            scrollWheelZoom={false}
-            touchZoom={false}
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution=""
-              opacity={.85}
-            />
-            <WMSTileLayer
-              layer="precipitation_new"
-              url={`https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-            />
-            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
-          </Map>
-          ) : ''}
-        </div>
+
+        {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
+
         <div className="hourly-container">
           <ul className="hourly">
           {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, index) => {
