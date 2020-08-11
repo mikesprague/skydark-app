@@ -73,25 +73,20 @@ import {
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
 
-export function isDev () {
+export const isDev = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return true;
   }
   return false;
-}
+};
 
-export function apiUrl () {
-  if (isDev()) {
-    return 'http://localhost:9000';
-  }
-  return `https://dark-sky.netlify.app/.netlify/functions`;
-}
+export const apiUrl = (useLocalhost = false) => useLocalhost ? 'http://localhost:9000' : 'https://dark-sky.netlify.app/.netlify/functions';
 
-export function handleError(error) {
+export const handleError = (error) => {
   console.error(error);
-}
+};
 
-export function initServiceWorker () {
+export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated(registration) {
       console.log(`Updated to the latest version.\n${registration}`);
@@ -197,4 +192,4 @@ export const getWeatherIcon = (icon) => {
     tornado: 'tornado',
   };
   return iconMap[icon];
-}
+};
