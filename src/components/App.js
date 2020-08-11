@@ -122,11 +122,14 @@ const App = (props) => {
         break;
       case 'precipIntensity':
         return `${Math.round(value)} IN/HR`;
+        break;
       case 'pressure':
         return `${Math.round(value)} MB`;
+        break;
       case 'windSpeed':
       case 'windGust':
-        return `${Math.round(value)} MPH`
+        return `${Math.round(value)} MPH`;
+        break;
       default:
         return value;
         break;
@@ -159,7 +162,7 @@ const App = (props) => {
       </div>
       <div className="content">
         <div className="current-conditions">
-          {weatherData && weatherData.data ? (
+          {weatherData && weatherData.data.weather ? (
             <div className="icon">
               <FontAwesomeIcon
                 icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
@@ -169,8 +172,8 @@ const App = (props) => {
             </div>
           ) : ''}
           <div className="temperature">
-            <h2 className="actual-temp">{weatherData && weatherData.data ? formatTemp(weatherData.data.weather.currently.temperature) : ''}</h2>
-            <h3 className="feels-like-temp">{weatherData && weatherData.data ? 'Feels ' + formatTemp(weatherData.data.weather.currently.apparentTemperature) : ''}</h3>
+            <h2 className="actual-temp">{weatherData && weatherData.data.weather ? formatTemp(weatherData.data.weather.currently.temperature) : ''}</h2>
+            <h3 className="feels-like-temp">{weatherData && weatherData.data.weather ? 'Feels ' + formatTemp(weatherData.data.weather.currently.apparentTemperature) : ''}</h3>
           </div>
         </div>
         <div className="map">
@@ -230,11 +233,11 @@ const App = (props) => {
           </div>
         </div>
 
-        {weatherData && weatherData.data ? <SunriseSunset data={weatherData.data.weather.daily.data} /> : ''}
+        {weatherData && weatherData.data.weather ? <SunriseSunset data={weatherData.data.weather.daily.data} /> : ''}
 
         <div className="daily-container">
         <ul className="daily">
-          {weatherData && weatherData.data && weatherData.data.weather.daily.data.map((dayData, index) => {
+          {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, index) => {
             return index <= 7 ? (
               <li key={nanoid(7)} className="day">
                 <div className="name">
@@ -252,7 +255,7 @@ const App = (props) => {
                 </div>
               </li>
             ) : '';
-          })}
+          }) : ''}
           </ul>
         </div>
       </div>

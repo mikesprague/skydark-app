@@ -80,7 +80,7 @@ export const isDev = () => {
   return false;
 };
 
-export const apiUrl = (useLocalhost = false) => useLocalhost ? 'http://localhost:9000' : 'https://dark-sky.netlify.app/.netlify/functions';
+export const apiUrl = (useLocalhost = false) => useLocalhost ? 'http://localhost:9000' : 'https://cleanst.art/.netlify/functions';
 
 export const handleError = (error) => {
   console.error(error);
