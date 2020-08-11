@@ -13,6 +13,7 @@ import { getWeatherIcon, initIcons } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
+import { SunriseSunset } from '../components/SunriseSunset';
 
 dayjs.extend(relativeTime)
 initIcons();
@@ -87,7 +88,7 @@ const App = (props) => {
   const getConditionBarClass = (data) => {
     const cloudCover = Math.round(data.cloudCover * 100);
     const currentIcon = data.icon;
-    const isCloudy = currentIcon.includes('cloudy') || cloudCover >= 60;
+    const isCloudy = currentIcon.includes('cloudy') || cloudCover >= 40;
     const isRaining = (currentIcon.includes('rain') || currentIcon.includes('thunderstorm'));
     const isSnowing = (currentIcon.includes('snow') || currentIcon.includes('sleet'));
 
@@ -100,7 +101,7 @@ const App = (props) => {
       returnClass = 'bg-blue-400';
     }
     if (isCloudy) {
-      returnClass = cloudCover >= 67 ? 'bg-gray-800' : 'bg-gray-400';
+      returnClass = cloudCover >= 60 || currentIcon.includes('mostly') ? 'bg-gray-600' : 'bg-gray-400';
     }
 
     return returnClass;
@@ -142,8 +143,8 @@ const App = (props) => {
     return currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
   };
 
-  const selectHandler = (event) => {
-    console.log(event.target.value);
+  const changeHandler = (event) => {
+    // console.log(event.target.value);
     setHourlyConditionToShow(event.target.value);
   };
 
@@ -196,12 +197,12 @@ const App = (props) => {
           </Map>
           ) : ''}
         </div>
-        <div className="hourly">
-          <ul className="flex flex-wrap">
+        <div className="hourly-container">
+          <ul className="hourly">
           {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, index) => {
             return index <= 20 && index % 2 === 0 ? (
               <li key={nanoid(7)} className="hour">
-                <div className={`condition-bar${index === 20 ? ' rounded-b-md' : ''}${index === 0 ? ' rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                <div className={`condition-bar ${index === 20 ? 'rounded-b-md' : ''} ${index === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
                 <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
                 <div className="summary">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
                 <div className="spacer">&nbsp;</div>
@@ -212,8 +213,8 @@ const App = (props) => {
             ) : '';
           })}
           </ul>
-          <div className={weatherData && weatherData.data ? 'my-3 text-center' : 'my-3 text-center hidden'}>
-            <select className="p-2 text-sm font-semibold text-black uppercase bg-blue-300 rounded-lg" onChange={selectHandler}>
+          <div className={weatherData && weatherData.data ? 'condition-select-container' : 'condition-select-container hidden'}>
+            <select className="select" onChange={changeHandler}>
               <option value="temperature">Temp (&deg;F)</option>
               <option value="apparentTemperature">Feels-Like (&deg;F)</option>
               <option value="precipProbability">Precip Prob (%)</option>
@@ -228,9 +229,9 @@ const App = (props) => {
             </select>
           </div>
         </div>
-        <div className="mb-3 text-lg text-center sunrise-sunset-time">
-          {weatherData && weatherData.data ? 'Sunset in approx ' + dayjs(dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime)).fromNow(true) + ' (' + dayjs.unix(weatherData.data.weather.daily.data[0].sunsetTime).format('h:mm A') + ')' : ''}
-        </div>
+
+        {weatherData && weatherData.data ? <SunriseSunset data={weatherData.data.weather.daily.data} /> : ''}
+
         <div className="daily-container">
         <ul className="daily">
           {weatherData && weatherData.data && weatherData.data.weather.daily.data.map((dayData, index) => {

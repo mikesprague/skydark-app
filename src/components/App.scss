@@ -2,16 +2,39 @@
 
 .header {
   background-color: $color-body-bg;
-  // @apply fixed;
-  // @apply top-0;
-  // @apply z-10;
-  // @apply w-full;
-  @apply p-4;
-  // @apply mt-0;
+  @apply p-3;
+}
+
+.hourly-container {
+  @apply p-3;
+}
+
+.condition-select-container {
+  @apply my-3;
+  @apply text-center;
+
+  .select {
+    @apply p-2;
+    @apply text-sm;
+    @apply font-semibold;
+    @apply text-black;
+    @apply uppercase;
+    @apply bg-blue-400;
+    @apply rounded-full;
+    @apply text-center;
+    @apply border-2;
+    @apply border-blue-900;
+
+    option {
+      @apply pl-4;
+      @apply text-center;
+    }
+  }
 }
 
 .hourly {
-  @apply p-3;
+  @apply flex;
+  @apply flex-wrap;
 
   .hour {
     @apply flex;
@@ -40,8 +63,6 @@
       @apply align-top;
       @apply text-sm;
       @apply w-40;
-      // line-height: 1.2;
-      // max-width: 150px;
     }
 
     .spacer {
