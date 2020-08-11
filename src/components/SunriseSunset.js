@@ -5,7 +5,7 @@ import he from 'he';
 import { nanoid } from 'nanoid';
 import React, { Fragment, useEffect, useState } from 'react';
 import './SunriseSunset.scss';
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 export const SunriseSunset = ({ data }) => {
   const [next, setNext] = useState(null);
@@ -27,7 +27,7 @@ export const SunriseSunset = ({ data }) => {
     init();
 
     // return () => {};
-  }, []);
+  }, [data]);
 
   return (
     <div className="sunrise-sunset-time">
