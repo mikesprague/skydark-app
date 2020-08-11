@@ -24,7 +24,7 @@ const postCssPluginsArray = [
       preset: 'default',
     }),
 ];
-if (mode === 'production') {
+// if (mode === 'production') {
   postCssPluginsArray.push(
     purgecss({
       content: [
@@ -44,7 +44,7 @@ if (mode === 'production') {
       whitelistPatternsChildren: cssWhitelistClassArray,
     })
   );
-}
+// }
 
 const webpackRules = [
   // {
