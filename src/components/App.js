@@ -9,7 +9,7 @@ import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
-import { getWeatherIcon, initIcons } from '../modules/helpers';
+import { apiUrl, getWeatherIcon, initIcons } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
@@ -60,7 +60,7 @@ const App = (props) => {
       const { lat, lng } = coordinates;
       const getWeatherData = async (lat, lng) => {
         setLocationName('Loading weather data')
-        const weatherApiurl = `https://cleanst.art/.netlify/functions/location-and-weather/?lat=${lat}&lng=${lng}`;
+        const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}`;
         const weatherApiData =  await axios
           .get(weatherApiurl)
           .then(response => response.data);
