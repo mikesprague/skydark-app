@@ -84,7 +84,7 @@ export function apiUrl () {
   if (isDev()) {
     return 'http://localhost:9000';
   }
-  return `https://${window.location.hostname}/.netlify/functions`;
+  return `https://dark-sky.netlify.app/.netlify/functions`;
 }
 
 export function handleError(error) {
