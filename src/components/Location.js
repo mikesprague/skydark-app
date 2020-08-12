@@ -12,7 +12,7 @@ export const Location = (props) => {
     return () => {};
   }, [props]);
 
-  return props.name && locationName ? (
+  return locationName ? (
     <div className="header">
       <div className="location-name">
         <h1>
