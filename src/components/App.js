@@ -103,7 +103,7 @@ const App = (props) => {
       returnClass = 'bg-blue-400';
     }
     if (isCloudy) {
-      returnClass = cloudCover >= 60 || currentIcon.includes('mostly') ? 'bg-gray-600' : 'bg-gray-400';
+      returnClass = cloudCover >= 60 || currentIcon.includes('mostly') ? 'bg-gray-600' : 'bg-gray-500';
     }
 
     return returnClass;
@@ -123,14 +123,14 @@ const App = (props) => {
         return formatPercent(value);
         break;
       case 'precipIntensity':
-        return `${Math.round(value)} IN/HR`;
+        return `${Math.round(value)}in/hr`;
         break;
       case 'pressure':
-        return `${Math.round(value)} MB`;
+        return `${Math.round(value)}mb`;
         break;
       case 'windSpeed':
       case 'windGust':
-        return `${Math.round(value)} MPH`;
+        return `${Math.round(value)}mph`;
         break;
       default:
         return value;
@@ -138,8 +138,9 @@ const App = (props) => {
     }
   };
 
-  const formatTemp = temp => `${Math.round(temp)}${String.fromCharCode(176)}`;
-  const formatPercent = num => `${Math.round(num * 100)}%`;
+  const formatTemp = temp => `${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
+  const formatPercent = num => `${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
+  const formatNumWithLabel = (num, label) => `${Math.round(num).toString().padStart(2, String.fromCharCode(160))}${label}`
 
   const formatSummary = (currentHourData, allHourlyData, index) => {
     if (index === 0) {
@@ -155,6 +156,24 @@ const App = (props) => {
 
   const currentConditionsHandler = (event) => {
     console.log(event.target);
+  };
+
+  const getUvIndexClasses = (uvIndex) => {
+    if (uvIndex <= 2) {
+      return 'pill green';
+    }
+    if (uvIndex <= 5) {
+      return 'pill yellow';
+    }
+    if (uvIndex <= 7) {
+      return 'pill orange';
+    }
+    if (uvIndex <= 10) {
+      return 'pill red';
+    }
+    if (uvIndex >= 11) {
+      return 'pill purple';
+    }
   };
 
   return (
@@ -191,7 +210,7 @@ const App = (props) => {
                 <div className="summary">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
                 <div className="spacer">&nbsp;</div>
                 <div className="condition">
-                  <span className="pill">{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
+                  <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
                 </div>
               </li>
             ) : '';
@@ -232,7 +251,7 @@ const App = (props) => {
                   <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" />
                 </div>
                 <div className="temps">
-                  {formatTemp(dayData.temperatureLow)} <span className="temps-spacer">&nbsp;</span> {formatTemp(dayData.temperatureHigh)}
+                  {formatTemp(dayData.temperatureLow)}<span className="temps-spacer"></span>{formatTemp(dayData.temperatureHigh)}
                 </div>
               </li>
             ) : '';

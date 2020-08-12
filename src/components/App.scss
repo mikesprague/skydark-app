@@ -80,6 +80,32 @@
         @apply text-black;
         @apply bg-white;
         @apply rounded-full;
+        @apply w-12;
+
+        &.orange {
+          @apply bg-orange-500;
+          @apply font-semibold;
+        }
+
+        &.yellow {
+          @apply bg-yellow-500;
+          @apply font-semibold;
+        }
+
+        &.green {
+          @apply bg-green-500;
+          @apply font-semibold;
+        }
+
+        &.red {
+          @apply bg-red-500;
+          @apply font-semibold;
+        }
+
+        &.purple {
+          @apply bg-purple-500;
+          @apply font-semibold;
+        }
       }
     }
   }
@@ -125,17 +151,18 @@
     .temps {
       @apply flex-auto;
       @apply inline-block;
-      @apply pl-3;
-      @apply text-base;
+      @apply pl-2;
       @apply align-top;
     }
 
     .temps-spacer {
       @apply w-3/4;
       @apply inline-block;
-      @apply text-xs;
+      @apply h-6;
+      @apply mx-2;
       @apply bg-white;
       @apply rounded-full;
+      @apply align-text-bottom;
     }
   }
 }
