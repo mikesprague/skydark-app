@@ -251,7 +251,7 @@ const App = (props) => {
                   <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" />
                 </div>
                 <div className="temps">
-                  {formatTemp(dayData.temperatureLow)}<span className="temps-spacer"></span>{formatTemp(dayData.temperatureHigh)}
+                  {formatTemp(dayData.temperatureLow)}<span className="temps-spacer w-2/3 sm:w-3/4"></span>{formatTemp(dayData.temperatureHigh)}
                 </div>
               </li>
             ) : '';

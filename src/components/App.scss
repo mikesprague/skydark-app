@@ -152,11 +152,12 @@
       @apply flex-auto;
       @apply inline-block;
       @apply pl-2;
+      @apply text-base;
       @apply align-top;
     }
 
     .temps-spacer {
-      @apply w-3/4;
+      // @apply w-2/3;
       @apply inline-block;
       @apply h-6;
       @apply mx-2;
