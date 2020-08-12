@@ -5,32 +5,32 @@
   "author": "Michael Sprague",
   "icons": [
     {
-      "src": "/images/weather-icon-32.png",
+      "src": "/images/dark-sky-clone-icon-32.png",
       "type": "image/png",
       "sizes": "16x16"
     },
     {
-      "src": "/images/weather-icon-32.png",
+      "src": "/images/dark-sky-clone-icon-32.png",
       "type": "image/png",
       "sizes": "24x24"
     },
     {
-      "src": "/images/weather-icon-32.png",
+      "src": "/images/dark-sky-clone-icon-32.png",
       "type": "image/png",
       "sizes": "32x32"
     },
     {
-      "src": "/images/weather-icon-48.png",
+      "src": "/images/dark-sky-clone-icon-48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/images/weather-icon-64.png",
+      "src": "/images/dark-sky-clone-icon-64.png",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "/images/weather-icon-128.png",
+      "src": "/images/dark-sky-clone-icon-128.png",
       "type": "image/png",
       "sizes": "128x128"
     }
