@@ -11,27 +11,34 @@ export const SunriseSunset = ({ data }) => {
   const [next, setNext] = useState(null);
 
   useEffect(() => {
+    const formatTimeString = (time) => {
+      const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
+      const minutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60;
+
+      return `${hours} hours ${minutes} minutes`;
+    };
     const init = () => {
       const { sunsetTime } = data[0];
       const { sunriseTime } = data[1];
       const isSunset = dayjs(dayjs()).isBefore(dayjs.unix(sunsetTime));
       const event = isSunset ? 'Sunset' : 'Sunrise';
       const time = isSunset ? dayjs.unix(sunsetTime).format('h:mm A') : dayjs.unix(sunriseTime).format('h:mm A');
-      const approxString = isSunset ? dayjs().to(dayjs.unix(sunsetTime), true) : dayjs().to(dayjs.unix(sunriseTime), true);
+      // const timeString = isSunset ? dayjs.unix(sunsetTime).fromNow(true) : dayjs.unix(sunriseTime).fromNow();
+      const timeString = isSunset ? formatTimeString(sunsetTime) : formatTimeString(sunriseTime);
       setNext({
         event,
         time,
-        approxString,
+        timeString,
       });
     };
     init();
 
     // return () => {};
-  }, [data]);
+  }, []);
 
   return (
     <div className="sunrise-sunset-time">
-      {next && next.event ? `${next.event} in approx ${next.approxString} (${next.time})` : ''}
+      {next && next.event ? `${next.event} in ${next.timeString} (${next.time})` : ''}
     </div>
   );
 }
