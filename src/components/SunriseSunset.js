@@ -30,6 +30,7 @@ export const SunriseSunset = ({ data }) => {
         timeString,
       });
     }
+    init();
     const clockInterval = setInterval(init, (1000));
 
     return () => clearInterval(clockInterval);
