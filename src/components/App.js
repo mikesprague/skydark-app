@@ -16,6 +16,7 @@ import './App.scss';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherMap } from '../components/WeatherMap';
 import { Location } from '../components/Location';
+import { LastUpdated } from '../components/LastUpdated';
 
 dayjs.extend(relativeTime)
 initIcons();
@@ -265,11 +266,7 @@ const App = (props) => {
         </div>
       </div>
 
-      {weatherData ? (
-        <div className="text-center last-updated-container">
-          <small>Last updated {dayjs(dayjs(weatherData.lastUpdated)).from()}</small>
-        </div>
-      ) : ''}
+      {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
     </Fragment>
   );
 }
