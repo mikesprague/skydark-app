@@ -14,8 +14,7 @@ export const SunriseSunset = ({ data }) => {
     const formatTimeString = (time) => {
       const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
       const minutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60;
-
-      return `${hours} hours ${minutes} minutes`;
+      return `${hours} hours ${minutes > 0 ? minutes + ' minutes' : ''}`;
     };
     const init = () => {
       const { sunsetTime } = data[0];
@@ -30,10 +29,10 @@ export const SunriseSunset = ({ data }) => {
         time,
         timeString,
       });
-    };
-    init();
+    }
+    const clockInterval = setInterval(init, (1000));
 
-    // return () => {};
+    return () => clearInterval(clockInterval);
   }, []);
 
   return (
