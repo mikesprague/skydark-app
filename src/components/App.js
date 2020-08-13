@@ -149,15 +149,6 @@ const App = (props) => {
     return currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
   };
 
-  const changeHandler = (event) => {
-    // console.log(event.target.value);
-    setHourlyConditionToShow(event.target.value);
-  };
-
-  const currentConditionsHandler = (event) => {
-    console.log(event.target);
-  };
-
   const getUvIndexClasses = (uvIndex) => {
     if (uvIndex <= 2) {
       return 'pill green';
@@ -175,6 +166,19 @@ const App = (props) => {
       return 'pill purple';
     }
   };
+
+  const changeHandler = (event) => {
+    // console.log(event.target.value);
+    setHourlyConditionToShow(event.target.value);
+  };
+
+  const currentConditionsHandler = (event) => {
+    console.log('currentConditionsHandler', event.target);
+  };
+
+  const dayClickHandler = (event) => {
+    console.log('dayClickHandler', event.target);
+  }
 
   return (
     <Fragment>
@@ -239,7 +243,7 @@ const App = (props) => {
         <ul className="daily">
           {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, index) => {
             return index <= 7 ? (
-              <li key={nanoid(7)} className="day">
+              <li key={nanoid(7)} className="day" onClick={dayClickHandler}>
                 <div className="name">
                   <strong>{index === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                   <br />
@@ -251,7 +255,7 @@ const App = (props) => {
                   <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" />
                 </div>
                 <div className="temps">
-                  {formatTemp(dayData.temperatureLow)}<span className="temps-spacer w-2/3 sm:w-3/4"></span>{formatTemp(dayData.temperatureHigh)}
+                  {formatTemp(dayData.temperatureLow)}<span className="w-2/3 temps-spacer sm:w-3/4"></span>{formatTemp(dayData.temperatureHigh)}
                 </div>
               </li>
             ) : '';
