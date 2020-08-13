@@ -109,7 +109,6 @@ const App = (props) => {
     return returnClass;
   };
 
-
   const formatCondition = (value, condition) => {
     switch (condition) {
       case 'temperature':
@@ -142,8 +141,8 @@ const App = (props) => {
   const formatPercent = num => `${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
   const formatNumWithLabel = (num, label) => `${Math.round(num).toString().padStart(2, String.fromCharCode(160))}${label}`
 
-  const formatSummary = (currentHourData, allHourlyData, index) => {
-    if (index === 0) {
+  const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
+    if (index === startIndex) {
       return currentHourData.summary;
     }
     return currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
@@ -207,11 +206,13 @@ const App = (props) => {
         <div className="hourly-container">
           <ul className="hourly">
           {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, index) => {
-            return index <= 20 && index % 2 === 0 ? (
+            const startIndex = dayjs().format('m') >= 30 ? 1 : 0;
+            const endIndex = startIndex + 20;
+            return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
               <li key={nanoid(7)} className="hour">
-                <div className={`condition-bar ${index === 20 ? 'rounded-b-md' : ''} ${index === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
                 <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
-                <div className="summary">{formatSummary(hourData, weatherData.data.weather.hourly.data, index)}</div>
+                <div className="summary">{hourData && weatherData.data.weather && formatSummary(hourData, weatherData.data.weather.hourly.data, index, startIndex)}</div>
                 <div className="spacer">&nbsp;</div>
                 <div className="condition">
                   <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
@@ -263,6 +264,12 @@ const App = (props) => {
           </ul>
         </div>
       </div>
+
+      {weatherData ? (
+        <div className="text-center last-updated-container">
+          <small>Last updated {dayjs(dayjs(weatherData.lastUpdated)).from()}</small>
+        </div>
+      ) : ''}
     </Fragment>
   );
 }
