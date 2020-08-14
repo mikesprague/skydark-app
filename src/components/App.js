@@ -155,6 +155,8 @@ const App = (props) => {
 
         {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
 
+        {weatherData ? <Conditions data={weatherData.data.weather} /> : ''}
+
         <div className="hourly-container">
           <ul className="hourly">
           {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, index) => {
@@ -218,8 +220,6 @@ const App = (props) => {
       </div>
 
       {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
-
-      {weatherData ? <Conditions data={weatherData.data.weather} isVisible={false} /> : ''}
 
     </Fragment>
   );

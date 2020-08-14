@@ -3,14 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition } from '../modules/helpers';
 import './Conditions.scss';
 
-export const Conditions = ({ data, isVisible }) => {
+export const Conditions = ({ data, date = null }) => {
   const [visible, setVisible] = useState(false);
+  const [conditionsHeading, setConditionsHeading] = useState('Current Conditions');
 
   useEffect(() => {
     const overlayContainer = document.querySelector('.overlay-container');
     const overlay = document.querySelector('.overlay');
     const modal = document.querySelector('.modal');
     const elementsToHide = [overlayContainer, overlay, modal];
+
+    if (date) {
+      setConditionsHeading(`${dayjs(date).format('DDD, MMMM, D')} at ${dayjs(date).format('h:mm A')}`)
+    }
 
     if (visible) {
       overlayContainer.classList.add('fixed');
@@ -37,7 +42,7 @@ export const Conditions = ({ data, isVisible }) => {
         <div className="z-50 px-4 pt-5 pb-4">
           <div className="z-50 sm:flex sm:items-start">
             <div className="z-50 mt-3 text-center">
-              <h3 className="mb-6 text-lg font-semibold leading-6" id="modal-headline">Current Conditions</h3>
+              <h3 className="mb-6 text-lg font-semibold leading-6" id="modal-headline">{conditionsHeading}</h3>
               <div className="flex flex-wrap mt-2">
                 <div className="w-1/2 mb-4 leading-5 text-center">
                   <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" />
