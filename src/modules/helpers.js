@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faChrome,
@@ -72,6 +74,7 @@ import {
 } from '@fortawesome/pro-duotone-svg-icons';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
+dayjs.extend(relativeTime)
 
 export const isDev = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -192,4 +195,90 @@ export const getWeatherIcon = (icon) => {
     tornado: 'tornado',
   };
   return iconMap[icon];
+};
+
+const formatTemp = temp => `${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
+const formatPercent = num => `${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
+const formatNumWithLabel = (num, label) => `${Math.round(num).toString().padStart(2, String.fromCharCode(160))}${label}`;
+
+export const formatCondition = (value, condition) => {
+  switch (condition) {
+    case 'temperature':
+    case 'apparentTemperature':
+    case 'dewPoint':
+      return formatTemp(value);
+      break;
+    case 'precipProbability':
+    case 'humidity':
+    case 'cloudCover':
+      return formatPercent(value);
+      break;
+    case 'precipIntensity':
+      return `${Math.round(value)}in/hr`;
+      break;
+    case 'pressure':
+      return `${Math.round(value)}mb`;
+      break;
+    case 'sunriseTime':
+    case 'sunsetTime':
+      return `${dayjs.unix(value).format('h:mm A')}`
+      break;
+    case 'visibility':
+      return `${Math.round(value)}mi`;
+      break;
+    case 'windSpeed':
+    case 'windGust':
+      return `${Math.round(value)}mph`;
+      break;
+    default:
+      return value;
+      break;
+  }
+};
+
+export const getConditionBarClass = (data) => {
+  const cloudCover = Math.round(data.cloudCover * 100);
+  const currentIcon = data.icon;
+  const isCloudy = currentIcon.includes('cloudy') || cloudCover >= 40;
+  const isRaining = (currentIcon.includes('rain') || currentIcon.includes('thunderstorm'));
+  const isSnowing = (currentIcon.includes('snow') || currentIcon.includes('sleet'));
+
+  let returnClass = 'bg-white';
+
+  if (isSnowing) {
+    returnClass = 'bg-gray-100';
+  }
+  if (isRaining) {
+    returnClass = 'bg-blue-400';
+  }
+  if (isCloudy) {
+    returnClass = cloudCover >= 60 || currentIcon.includes('mostly') ? 'bg-gray-600' : 'bg-gray-500';
+  }
+
+  return returnClass;
+};
+
+export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
+  if (index === startIndex) {
+    return currentHourData.summary;
+  }
+  return currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+};
+
+export const getUvIndexClasses = (uvIndex) => {
+  if (uvIndex <= 2) {
+    return 'pill green';
+  }
+  if (uvIndex <= 5) {
+    return 'pill yellow';
+  }
+  if (uvIndex <= 7) {
+    return 'pill orange';
+  }
+  if (uvIndex <= 10) {
+    return 'pill red';
+  }
+  if (uvIndex >= 11) {
+    return 'pill purple';
+  }
 };
