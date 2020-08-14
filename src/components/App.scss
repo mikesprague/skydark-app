@@ -1,4 +1,4 @@
-@import "../scss/variables";
+@import '../scss/variables';
 
 .hourly-container {
   @apply p-3;
@@ -189,9 +189,15 @@
   .icon,
   .temperature {
     @apply w-1/2;
+    @apply cursor-pointer;
   }
 
   .icon {
     @apply text-right;
+    margin-top: -.1rem;
   }
+}
+
+.modal {
+  background-color: $color-body-bg;
 }

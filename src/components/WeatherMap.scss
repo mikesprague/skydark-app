@@ -5,6 +5,11 @@
     height: 7rem;
     @apply w-full;
     @apply rounded-lg;
+    @apply z-0;
+  }
+
+  .leaflet-pane {
+    @apply z-0;
   }
 
   .leaflet-control-container {

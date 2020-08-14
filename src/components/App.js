@@ -128,6 +128,14 @@ const App = (props) => {
       case 'pressure':
         return `${Math.round(value)}mb`;
         break;
+      case 'sunriseTime':
+      case 'sunsetTime':
+        console.log(value);
+        return `${dayjs.unix(value).format('h:mm A')}`
+        break;
+      case 'visibility':
+        return `${Math.round(value)}mi`;
+        break;
       case 'windSpeed':
       case 'windGust':
         return `${Math.round(value)}mph`;
@@ -173,7 +181,13 @@ const App = (props) => {
   };
 
   const currentConditionsHandler = (event) => {
-    console.log('currentConditionsHandler', event.target);
+    const overlayContainer = document.querySelector('.overlay-container');
+    overlayContainer.classList.toggle('hidden');
+    overlayContainer.classList.toggle('fixed');
+    const overlay = document.querySelector('.overlay');
+    overlay.classList.toggle('hidden');
+    const modal = document.querySelector('.modal');
+    modal.classList.toggle('hidden');
   };
 
   const dayClickHandler = (event) => {
@@ -267,6 +281,90 @@ const App = (props) => {
       </div>
 
       {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
+
+      {weatherData && weatherData.data.weather ? (
+        <div className="inset-0 hidden px-4 pb-4 overlay-container">
+          <div className="fixed inset-0 hidden transition-opacity overlay" onClick={currentConditionsHandler}>
+            <div className="absolute inset-0 z-20 bg-black opacity-75"></div>
+          </div>
+
+          <div className="z-50 hidden w-full max-w-sm mx-auto mt-12 overflow-hidden transition-all transform shadow-xl modal" onClick={currentConditionsHandler} role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            <div className="z-50 px-4 pt-5 pb-4">
+              <div className="z-50 sm:flex sm:items-start">
+                <div className="z-50 mt-3 text-center">
+                  <h3 className="mb-6 text-lg font-semibold leading-6" id="modal-headline">Current Conditions</h3>
+                  <div className="flex flex-wrap mt-2">
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" /><br />
+                      <small>
+                        Temp: {formatCondition(weatherData.data.weather.currently.temperature, 'temperature')}<br />
+                        Feels Like: {formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'wind']} size="2x" swapOpacity /><br />
+                      <small>
+                        Wind: <FontAwesomeIcon icon={['fad', 'chevron-circle-up']} size="lg" transform={{ rotate: 42 }} /> {formatCondition(weatherData.data.weather.currently.windSpeed, 'windSpeed')}<br />
+                        Gusts: {formatCondition(weatherData.data.weather.currently.windGust, 'windGust')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'cloud']} size="2x" swapOpacity /><br />
+                      <small>
+                        Cloud Cover: {formatCondition(weatherData.data.weather.currently.cloudCover, 'cloudCover')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'eye']} size="2x" /><br />
+                      <small>
+                        Visibiity: {formatCondition(weatherData.data.weather.currently.visibility, 'visibility')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'humidity']} size="2x" /><br />
+                      <small>
+                        Humidity: {formatCondition(weatherData.data.weather.currently.humidity, 'humidity')}<br />
+                        Dew Point: {formatCondition(weatherData.data.weather.currently.dewPoint, 'dewPoint')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'tachometer']} size="2x" /><br />
+                      <small>
+                        Pressure: {formatCondition(weatherData.data.weather.currently.pressure, 'pressure')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'umbrella']} size="2x" swapOpacity /><br />
+                      <small>
+                        Precip: {formatCondition(weatherData.data.weather.currently.precipProbability, 'precipProbability')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'sun']} size="2x" /><br />
+                      <small>
+                        UV Index: {formatCondition(weatherData.data.weather.currently.uvIndex, 'uvIndex')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'sunrise']} size="2x" /><br />
+                      <small>
+                        Sunrise: {formatCondition(weatherData.data.weather.daily.data[0].sunriseTime, 'sunriseTime')}
+                      </small>
+                    </div>
+                    <div className="w-1/2 mb-4 leading-5 text-center">
+                      <FontAwesomeIcon icon={['fad', 'sunset']} size="2x" /><br />
+                      <small>
+                        Sunset: {formatCondition(weatherData.data.weather.daily.data[0].sunsetTime, 'sunsetTime')}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : ''}
+
     </Fragment>
   );
 }
