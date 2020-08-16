@@ -243,19 +243,17 @@ export const getConditionBarClass = (data) => {
   const isRaining = (currentIcon.includes('rain') || currentIcon.includes('thunderstorm'));
   const isSnowing = (currentIcon.includes('snow') || currentIcon.includes('sleet'));
 
-  let returnClass = 'bg-white';
-
   if (isSnowing) {
-    returnClass = 'bg-gray-100';
+    return 'bg-gray-200 opacity-75';
   }
   if (isRaining) {
-    returnClass = 'bg-blue-400';
+    return 'bg-blue-500';
   }
   if (isCloudy) {
-    returnClass = cloudCover >= 60 || currentIcon.includes('mostly') ? 'bg-gray-600' : 'bg-gray-500';
+    return currentIcon.includes('mostly') || cloudCover >= 60 ? 'bg-gray-600' : 'bg-gray-500';
   }
 
-  return returnClass;
+  return 'bg-white';
 };
 
 export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
