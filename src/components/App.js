@@ -195,12 +195,13 @@ const App = (props) => {
         {weatherData && weatherData.data.weather ? <SunriseSunset data={weatherData.data.weather.daily.data} /> : ''}
 
         <div className="daily-container">
-        <ul className="daily">
-          {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, index) => {
-            return index <= 7 ? (
-              <li key={nanoid(7)} className="day" onClick={dayClickHandler}>
+          <div className="daily">
+          {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
+            return dayIndex <= 7 ? (
+              <details key={nanoid(7)} className="day">
+                <summary>
                 <div className="name">
-                  <strong>{index === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
+                  <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                   <br />
                   <span className="precip">
                     <FontAwesomeIcon icon={['fad', 'tint']} /> {Math.round(dayData.precipProbability * 100)}%
@@ -212,10 +213,30 @@ const App = (props) => {
                 <div className="temps">
                   {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer sm:w-3/4"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
                 </div>
-              </li>
+                </summary>
+                <div className="hourly-container">
+                  <ul className="hourly">
+                  {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, hourIndex) => {
+                    {/* console.log(Math.floor(hourIndex / 7)); */}
+                      {/* console.log(dayjs.unix(dayData.time).format('d') === dayjs.unix(hourData.time).format('d') && dayjs.unix(hourData.time).format('d')); */}
+                      return ((dayjs.unix(dayData.time).format('d') === dayjs.unix(hourData.time).format('d')) && hourIndex % 2 === 0) ? (
+                        <li key={nanoid(7)} className="hour">
+                          <div className={`condition-bar ${hourIndex === 23 ? 'rounded-b-md' : ''} ${hourIndex === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                          <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
+                          <div className="summary">{hourData && weatherData.data.weather && formatSummary(hourData, weatherData.data.weather.hourly.data, hourIndex, 0)}</div>
+                          <div className="spacer">&nbsp;</div>
+                          <div className="condition">
+                            <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
+                          </div>
+                        </li>
+                      ) : '';
+                  })}
+                  </ul>
+                </div>
+              </details>
             ) : '';
           }) : ''}
-          </ul>
+          </div>
         </div>
       </div>
 

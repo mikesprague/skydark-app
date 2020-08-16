@@ -111,18 +111,24 @@
   }
 }
 
-.daily-container {
-  @apply p-3;
-}
-
 .daily {
+  @apply p-3;
   @apply flex;
   @apply flex-wrap;
+  @apply flex-grow;
+
+  details > summary {
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
 
   .day {
+    min-height: 4rem;
     @apply flex;
     @apply w-full;
-    @apply h-16;
     @apply m-0;
     @apply text-lg;
     @apply leading-10;
@@ -144,7 +150,7 @@
     .icon {
       @apply inline-block;
       @apply w-12;
-      @apply mr-4;
+      // @apply mr-4;
       @apply align-top;
     }
 
@@ -154,10 +160,10 @@
       @apply pl-2;
       @apply text-base;
       @apply align-top;
+      @apply w-2/3;
     }
 
     .temps-spacer {
-      // @apply w-2/3;
       @apply inline-block;
       @apply h-6;
       @apply mx-2;
