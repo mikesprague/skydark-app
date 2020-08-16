@@ -26,6 +26,12 @@ const cssWhitelistClassArray = [
   /yellow/,
   /green/,
   /purple/,
+  /bg-blue-500/,
+  /opacity-75/,
+  /bg-gray-200/,
+  /bg-gray-500/,
+  /bg-gray-600/,
+  /bg-white/,
 ];
 
 const postCssPluginsArray = [
