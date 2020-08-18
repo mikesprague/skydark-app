@@ -109,16 +109,19 @@ const App = (props) => {
   };
 
   const dayClickHandler = (event) => {
-    console.log('dayClickHandler', event.target);
-  }
-
-  const handleSummaryClick = (event) => {
-    // .hourly-container {
-    //   opacity: 0;
-    //   transition: opacity 1s ease-in-out;
-    // }
-    // event.preventDefault();
-    // console.log(event.target);
+    console.log('dayClickHandler', event.target.closest('details'));
+    const allDetails = document.querySelectorAll("details");
+    const currentDetail = event.target.closest('details');
+    allDetails.forEach(detail => {
+      if (detail !== currentDetail) {
+        detail.removeAttribute('open');
+      }
+    });
+    // details.forEach((detail) => {
+    //   // if (detail !== targetDetail) {
+    //   //   detail.removeAttribute("open");
+    //   // }
+    // });
   }
 
   return (
@@ -188,21 +191,21 @@ const App = (props) => {
           <div className="daily">
           {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
             return dayIndex <= 7 ? (
-              <details key={nanoid(7)} className="day">
-                <summary onClick={handleSummaryClick}>
-                <div className="name">
-                  <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
-                  <br />
-                  <span className="precip">
-                    <FontAwesomeIcon icon={['fad', 'tint']} /> {Math.round(dayData.precipProbability * 100)}%
-                  </span>
-                </div>
-                <div className="icon">
-                  <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
-                </div>
-                <div className="temps">
-                  {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer sm:w-3/4"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
-                </div>
+              <details key={nanoid(7)} className="day" onClick={dayClickHandler}>
+                <summary>
+                  <div className="name">
+                    <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
+                    <br />
+                    <span className="precip">
+                      <FontAwesomeIcon icon={['fad', 'tint']} /> {Math.round(dayData.precipProbability * 100)}%
+                    </span>
+                  </div>
+                  <div className="icon">
+                    <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
+                  </div>
+                  <div className="temps">
+                    {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer sm:w-3/4"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
+                  </div>
                 </summary>
                 <Hourly date={dayData.time} />
               </details>
