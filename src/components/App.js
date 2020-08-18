@@ -191,8 +191,8 @@ const App = (props) => {
           <div className="daily">
           {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
             return dayIndex <= 7 ? (
-              <details key={nanoid(7)} className="day" onClick={dayClickHandler}>
-                <summary>
+              <details key={nanoid(7)} className="day focus:outline-none" onClick={dayClickHandler}>
+                <summary className="focus:outline-none">
                   <div className="name">
                     <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                     <br />
@@ -204,7 +204,7 @@ const App = (props) => {
                     <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
                   </div>
                   <div className="temps">
-                    {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer sm:w-3/4"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
+                    {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
                   </div>
                 </summary>
                 <Hourly date={dayData.time} />

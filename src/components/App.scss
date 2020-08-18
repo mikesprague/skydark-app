@@ -117,13 +117,19 @@
   @apply flex-wrap;
   @apply flex-grow;
 
-  details > summary {
-    list-style: none;
+  details {
+    // @apply focus:outline-none;
+    // @apply focus:shadow-outline;
 
-    &::-webkit-details-marker {
-      display: none;
+    & > summary {
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
     }
   }
+
 
   // details {
   //   transition: height 1s ease-in-out;
@@ -172,6 +178,7 @@
       @apply text-base;
       @apply align-top;
       @apply w-2/3;
+      @apply text-right;
     }
 
     .temps-spacer {
