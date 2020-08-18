@@ -109,7 +109,6 @@ const App = (props) => {
   };
 
   const dayClickHandler = (event) => {
-    console.log('dayClickHandler', event.target.closest('details'));
     const allDetails = document.querySelectorAll("details");
     const currentDetail = event.target.closest('details');
     allDetails.forEach(detail => {
@@ -117,11 +116,6 @@ const App = (props) => {
         detail.removeAttribute('open');
       }
     });
-    // details.forEach((detail) => {
-    //   // if (detail !== targetDetail) {
-    //   //   detail.removeAttribute("open");
-    //   // }
-    // });
   }
 
   return (
@@ -207,7 +201,7 @@ const App = (props) => {
                     {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
                   </div>
                 </summary>
-                <Hourly date={dayData.time} />
+                <Hourly coordinates={coordinates} date={dayData.time} />
               </details>
             ) : '';
           }) : ''}

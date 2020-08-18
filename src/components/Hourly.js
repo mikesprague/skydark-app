@@ -8,39 +8,33 @@ import { Hour } from '../components/Hour';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './Hourly.scss';
 
-export const Hourly = ({ date }) => {
-  const [isLoading, setIsLoading] = useState(true);
+export const Hourly = ({ coordinates, date }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${date}`, null);
-  const { lat, lng } = getData('coordinates') || null;
+  const { lat, lng } = coordinates;
 
   useEffect(() => {
-    if (lat && lng) {
-      setIsLoading(true);
-
-      const getWeatherData = async (lat, lng) => {
-        const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
-        const weatherApiData =  await axios
-          .get(weatherApiurl)
-          .then(response => response.data);
+    const getWeatherData = async (lat, lng) => {
+      const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
+      const weatherApiData =  await axios
+        .get(weatherApiurl)
+        .then(response => response.data);
         setHourlyData({
           lastUpdated: dayjs().toString(),
           data: weatherApiData.weather.hourly.data,
         });
-        setIsLoading(false);
-      };
+    };
 
-      if (hourlyData && hourlyData.lastUpdated) {
-        const nextUpdateTime = dayjs(hourlyData.lastUpdated).add(20, 'minute');
-        if (dayjs().isAfter(nextUpdateTime)) {
-          getWeatherData(lat, lng);
-        }
-      } else {
+    if (hourlyData && hourlyData.lastUpdated) {
+      const nextUpdateTime = dayjs(hourlyData.lastUpdated).add(20, 'minute');
+      if (dayjs().isAfter(nextUpdateTime)) {
         getWeatherData(lat, lng);
       }
+    } else {
+      getWeatherData(lat, lng);
     }
 
-    // return () => {};
-  }, []);
+    return () => {};
+  }, [coordinates,date]);
 
 
   return (
