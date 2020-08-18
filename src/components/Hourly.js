@@ -11,7 +11,7 @@ import './Hourly.scss';
 export const Hourly = ({ date }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${date}`, null);
-  const { lat, lng } = getData('coordinates');
+  const { lat, lng } = getData('coordinates') || null;
 
   useEffect(() => {
     if (lat && lng) {
