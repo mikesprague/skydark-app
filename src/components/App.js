@@ -9,11 +9,14 @@ import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
-import { apiUrl, formatCondition, formatSummary, getUvIndexClasses, getWeatherIcon, initIcons } from '../modules/helpers';
+import {
+  apiUrl, formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses, getWeatherIcon, initIcons,
+} from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
 import { Conditions } from '../components/Conditions';
+import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
 import { Location } from '../components/Location';
 import { SunriseSunset } from '../components/SunriseSunset';
@@ -90,28 +93,6 @@ const App = (props) => {
     // return () => {};
   }, [coordinates]);
 
-  const getConditionBarClass = (data) => {
-    const cloudCover = Math.round(data.cloudCover * 100);
-    const currentIcon = data.icon;
-    const isCloudy = currentIcon.includes('cloudy') || cloudCover >= 40;
-    const isRaining = (currentIcon.includes('rain') || currentIcon.includes('thunderstorm'));
-    const isSnowing = (currentIcon.includes('snow') || currentIcon.includes('sleet'));
-
-    let returnClass = 'bg-white';
-
-    if (isSnowing) {
-      returnClass = 'bg-gray-100';
-    }
-    if (isRaining) {
-      returnClass = 'bg-blue-400';
-    }
-    if (isCloudy) {
-      returnClass = cloudCover >= 60 || currentIcon.includes('mostly') ? 'bg-gray-600' : 'bg-gray-500';
-    }
-
-    return returnClass;
-  };
-
   const changeHandler = (event) => {
     // console.log(event.target.value);
     setHourlyConditionToShow(event.target.value);
@@ -129,6 +110,15 @@ const App = (props) => {
 
   const dayClickHandler = (event) => {
     console.log('dayClickHandler', event.target);
+  }
+
+  const handleSummaryClick = (event) => {
+    // .hourly-container {
+    //   opacity: 0;
+    //   transition: opacity 1s ease-in-out;
+    // }
+    // event.preventDefault();
+    // console.log(event.target);
   }
 
   return (
@@ -164,7 +154,7 @@ const App = (props) => {
             const endIndex = startIndex + 20;
             return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
               <li key={nanoid(7)} className="hour">
-                <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+                <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData.icon, hourData.cloudCover)}`}></div>
                 <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
                 <div className="summary">{hourData && weatherData.data.weather && formatSummary(hourData, weatherData.data.weather.hourly.data, index, startIndex)}</div>
                 <div className="spacer">&nbsp;</div>
@@ -199,7 +189,7 @@ const App = (props) => {
           {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
             return dayIndex <= 7 ? (
               <details key={nanoid(7)} className="day">
-                <summary>
+                <summary onClick={handleSummaryClick}>
                 <div className="name">
                   <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                   <br />
@@ -208,31 +198,13 @@ const App = (props) => {
                   </span>
                 </div>
                 <div className="icon">
-                  <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" />
+                  <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
                 </div>
                 <div className="temps">
                   {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer sm:w-3/4"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
                 </div>
                 </summary>
-                <div className="hourly-container">
-                  <ul className="hourly">
-                  {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, hourIndex) => {
-                    {/* console.log(Math.floor(hourIndex / 7)); */}
-                      {/* console.log(dayjs.unix(dayData.time).format('d') === dayjs.unix(hourData.time).format('d') && dayjs.unix(hourData.time).format('d')); */}
-                      return ((dayjs.unix(dayData.time).format('d') === dayjs.unix(hourData.time).format('d')) && hourIndex % 2 === 0) ? (
-                        <li key={nanoid(7)} className="hour">
-                          <div className={`condition-bar ${hourIndex === 23 ? 'rounded-b-md' : ''} ${hourIndex === 0 ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
-                          <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
-                          <div className="summary">{hourData && weatherData.data.weather && formatSummary(hourData, weatherData.data.weather.hourly.data, hourIndex, 0)}</div>
-                          <div className="spacer">&nbsp;</div>
-                          <div className="condition">
-                            <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
-                          </div>
-                        </li>
-                      ) : '';
-                  })}
-                  </ul>
-                </div>
+                <Hourly date={dayData.time} />
               </details>
             ) : '';
           }) : ''}

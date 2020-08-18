@@ -125,6 +125,18 @@
     }
   }
 
+  // details {
+  //   transition: height 1s ease-in-out;
+
+  //   &:not([open]) {
+  //     height: 4rem;
+  //   }
+
+  //   &[open] {
+  //     height: 40.25rem;
+  //   }
+  // }
+
   .day {
     min-height: 4rem;
     @apply flex;
@@ -136,7 +148,7 @@
     .name {
       width: 50px;
       @apply inline-block;
-      @apply mr-4;
+      @apply mr-1;
       @apply text-sm;
       @apply leading-5;
       @apply text-left;
@@ -150,7 +162,6 @@
     .icon {
       @apply inline-block;
       @apply w-12;
-      // @apply mr-4;
       @apply align-top;
     }
 
