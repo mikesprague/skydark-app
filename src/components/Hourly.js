@@ -25,7 +25,7 @@ export const Hourly = ({ coordinates, date }) => {
     };
 
     if (hourlyData && hourlyData.lastUpdated) {
-      const nextUpdateTime = dayjs(hourlyData.lastUpdated).add(20, 'minute');
+      const nextUpdateTime = dayjs(hourlyData.lastUpdated).add(60, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
         getWeatherData(lat, lng);
       }
