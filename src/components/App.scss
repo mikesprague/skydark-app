@@ -222,6 +222,16 @@
   }
 }
 
+.footer {
+  @apply fixed;
+  @apply bottom-0;
+  @apply left-0;
+  @apply block;
+  @apply w-full;
+  @apply p-2;
+  background-color: $color-body-bg;
+}
+
 .modal {
   background-color: $color-body-bg;
 }

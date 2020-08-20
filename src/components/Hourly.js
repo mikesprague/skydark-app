@@ -13,15 +13,18 @@ export const Hourly = ({ coordinates, date }) => {
   const { lat, lng } = coordinates;
 
   useEffect(() => {
+    let isMounted = true;
     const getWeatherData = async (lat, lng) => {
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
       const weatherApiData =  await axios
         .get(weatherApiurl)
         .then(response => response.data);
-        setHourlyData({
-          lastUpdated: dayjs().toString(),
-          data: weatherApiData.weather.hourly.data,
-        });
+        if (isMounted) {
+          setHourlyData({
+            lastUpdated: dayjs().toString(),
+            data: weatherApiData.weather.hourly.data,
+          });
+        }
     };
 
     if (hourlyData && hourlyData.lastUpdated) {
@@ -33,7 +36,7 @@ export const Hourly = ({ coordinates, date }) => {
       getWeatherData(lat, lng);
     }
 
-    return () => {};
+    return () => { isMounted = false };
   }, [coordinates,date]);
 
 

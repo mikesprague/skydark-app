@@ -123,7 +123,7 @@ const App = (props) => {
 
       <Location name={locationName} />
 
-      <div className="content">
+      <div className="mb-20 content">
         <div className="current-conditions" onClick={currentConditionsHandler}>
           {weatherData && weatherData.data.weather ? (
             <div className="icon">
@@ -139,10 +139,9 @@ const App = (props) => {
             <h3 className="feels-like-temp">{weatherData && weatherData.data.weather ? 'Feels ' + formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature') : ''}</h3>
           </div>
         </div>
+        {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
 
         {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
-
-        {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
 
         <div className="hourly-container">
           <ul className="hourly">
@@ -207,9 +206,24 @@ const App = (props) => {
           }) : ''}
           </div>
         </div>
+
+        {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
       </div>
 
-      {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
+      <footer className="footer">
+        <div className="flex">
+          <div className="w-1/2 mx-4 text-right">
+            {/* <a href="#"> */}
+              <FontAwesomeIcon icon={['fad', 'house-day']} size="2x" fixedWidth />
+            {/* </a> */}
+          </div>
+          <div className="w-1/2 mx-4 text-left">
+            {/* <a href="#"> */}
+              <FontAwesomeIcon icon={['fad', 'globe-stand']} size="2x" fixedWidth />
+            {/* </a> */}
+          </div>
+        </div>
+      </footer>
 
     </Fragment>
   );
