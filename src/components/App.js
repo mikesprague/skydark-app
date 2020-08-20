@@ -123,7 +123,7 @@ const App = (props) => {
 
       <Location name={locationName} />
 
-      <div className="mb-20 content">
+      <div className="mb-16">
         <div className="current-conditions" onClick={currentConditionsHandler}>
           {weatherData && weatherData.data.weather ? (
             <div className="icon">
@@ -211,7 +211,7 @@ const App = (props) => {
         {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
       </div>
 
-      <footer className="footer">
+      <div className="footer">
         <div className="flex text-sm">
           <div className="footer-column"></div>
           <div className="footer-column">
@@ -230,7 +230,7 @@ const App = (props) => {
           </div>
           <div className="footer-column"></div>
         </div>
-      </footer>
+      </div>
 
     </Fragment>
   );
