@@ -139,9 +139,10 @@ const App = (props) => {
             <h3 className="feels-like-temp">{weatherData && weatherData.data.weather ? 'Feels ' + formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature') : ''}</h3>
           </div>
         </div>
-        {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
 
         {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
+
+        {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
 
         <div className="hourly-container">
           <ul className="hourly">
