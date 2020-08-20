@@ -119,6 +119,7 @@ dist
 .history
 .vscode
 .vscode-insiders
+*.code-workspace
 
 # Misc
 
