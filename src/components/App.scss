@@ -230,19 +230,22 @@
   @apply w-full;
   @apply p-2;
   @apply pb-1;
-  @apply z-50;
+  @apply z-40;
   background-color: $color-footer-bg;
 
   .footer-column {
     @apply w-1/4;
     @apply leading-4;
     @apply text-center;
-    @apply text-blue-400;
+    @apply text-gray-400;
     line-height: 1.2;
 
     a {
-      @apply text-blue-400;
       @apply no-underline;
+    }
+
+    .active {
+      @apply text-blue-400;
     }
 
     .footer-icon {

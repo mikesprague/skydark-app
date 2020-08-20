@@ -215,18 +215,18 @@ const App = (props) => {
         <div className="flex text-sm">
           <div className="footer-column"></div>
           <div className="footer-column">
-            {/* <a href="#"> */}
+            <a className="active" onClick={event => event.preventDefault()}>
               <FontAwesomeIcon icon={['fad', 'house-day']} className="footer-icon" fixedWidth />
               <br />
               <small>Forecast</small>
-            {/* </a> */}
+            </a>
           </div>
           <div className="footer-column">
-            {/* <a href="#"> */}
+            <a onClick={event => event.preventDefault()}>
               <FontAwesomeIcon icon={['fad', 'globe-stand']} className="footer-icon" fixedWidth />
               <br />
               <small>Map</small>
-            {/* </a> */}
+            </a>
           </div>
           <div className="footer-column"></div>
         </div>

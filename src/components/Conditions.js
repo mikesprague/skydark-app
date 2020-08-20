@@ -18,11 +18,11 @@ export const Conditions = ({ data, date = null }) => {
     }
 
     if (visible) {
-      overlayContainer.classList.add('fixed');
+      // overlayContainer.classList.add('flex');
       elementsToHide.forEach(elem => elem.classList.remove('hidden'));
       setVisible(false); // prevent needing to click twice to close - need to look into this for better fix
     } else {
-      overlayContainer.classList.remove('fixed');
+      // overlayContainer.classList.remove('flex');
       elementsToHide.forEach(elem => elem.classList.add('hidden'));
     }
 
@@ -34,20 +34,20 @@ export const Conditions = ({ data, date = null }) => {
   };
 
   return (
-    <div className="inset-0 hidden px-4 pb-4 overlay-container">
+    <div className="fixed inset-0 flex items-center justify-center hidden h-full px-4 pb-4 v-full overlay-container">
       <div onClick={clickHandler} className="fixed inset-0 hidden transition-opacity overlay">
-        <div className="absolute inset-0 z-20 bg-black opacity-75"></div>
+        <div className="absolute inset-0 bg-black opacity-75"></div>
       </div>
-      <div onClick={clickHandler} className="z-50 hidden w-11/12 max-w-sm mx-auto mt-8 overflow-hidden transition-all transform shadow-xl modal" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-        <div className="z-50 px-4 pt-5 pb-4">
-          <div className="z-50 sm:flex sm:items-start">
-            <div className="z-50 mt-3 text-center">
-              <h3 className="mb-2 text-xl font-semibold leading-6" id="modal-headline">{conditionsHeading}</h3>
-              <h4 className="mb-4 text-lg">
+      <div onClick={clickHandler} className="z-50 hidden w-11/12 max-w-sm mx-auto overflow-hidden transition-all transform shadow-xl modal" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        <div className="px-4 pt-5 pb-4">
+          <div className="flex items-start">
+            <div className="mt-3 text-center">
+              <h3 className="mb-4 text-lg font-semibold leading-6" id="modal-headline">{conditionsHeading}</h3>
+              {/* <h4 className="mb-4 text-lg">
                 <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" />
                 <br />
                 {data.currently.summary}
-              </h4>
+              </h4> */}
               <div className="flex flex-wrap mt-2">
                 <div className="w-1/2 mb-4 leading-5 text-center">
                   <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth />
