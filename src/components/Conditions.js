@@ -44,7 +44,9 @@ export const Conditions = ({ data, date = null }) => {
             <div className="z-50 mt-3 text-center">
               <h3 className="mb-2 text-xl font-semibold leading-6" id="modal-headline">{conditionsHeading}</h3>
               <h4 className="mb-4 text-lg">
-                <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" /> {data.currently.summary}
+                <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" />
+                <br />
+                {data.currently.summary}
               </h4>
               <div className="flex flex-wrap mt-2">
                 <div className="w-1/2 mb-4 leading-5 text-center">
