@@ -13,7 +13,7 @@ export const SunriseSunset = ({ data }) => {
   useEffect(() => {
     const formatTimeString = (time) => {
       const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
-      const minutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60;
+      const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60) + 1;
       return `${hours} hours ${minutes > 0 ? minutes + ' minutes' : ''}`;
     };
     const init = () => {
