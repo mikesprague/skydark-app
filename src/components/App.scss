@@ -225,12 +225,12 @@
 .footer {
   @apply fixed;
   @apply bottom-0;
-  // @apply left-0;
   @apply block;
   @apply max-w-md;
   @apply w-full;
   @apply p-2;
   @apply pb-1;
+  @apply z-50;
   background-color: $color-footer-bg;
 
   .footer-column {

@@ -123,7 +123,7 @@ const App = (props) => {
 
       <Location name={locationName} />
 
-      <div className="mb-16">
+      <div className="my-16">
         <div className="current-conditions" onClick={currentConditionsHandler}>
           {weatherData && weatherData.data.weather ? (
             <div className="icon">
