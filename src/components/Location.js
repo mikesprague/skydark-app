@@ -7,7 +7,18 @@ export const Location = (props) => {
 
   useEffect(() => {
     const { name } = props;
-    setLocationName(name);
+    const initScrollAndSetLocation = () => {
+      const headerEl = document.querySelector('.header');
+      window.onscroll = () => {
+        if (document.body.scrollTop > 5 || document.documentElement.scrollTop > 5) {
+          headerEl.classList.add('shadow-md')
+        } else {
+          headerEl.classList.remove('shadow-md')
+        }
+      };
+      setLocationName(name);
+    }
+    initScrollAndSetLocation();
 
     return () => {};
   }, [props]);
