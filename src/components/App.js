@@ -142,12 +142,12 @@ const App = (props) => {
 
         {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
 
-        {weatherData ? <Conditions data={weatherData.data.weather} /> : ''}
+        {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
 
         <div className="hourly-container">
           <ul className="hourly">
           {weatherData && weatherData.data.weather && weatherData.data.weather.hourly.data.map((hourData, index) => {
-            const startIndex = dayjs().format('m') >= 30 ? 1 : 0;
+            const startIndex = dayjs().format('m') <= 30 && dayjs.unix(weatherData.data.weather.hourly.data[0].time).format('h') === dayjs().format('h') ? 0 : 1;
             const endIndex = startIndex + 20;
             return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
               <li key={nanoid(7)} className="hour">
