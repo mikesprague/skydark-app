@@ -229,7 +229,24 @@
   @apply block;
   @apply w-full;
   @apply p-2;
-  background-color: $color-body-bg;
+  background-color: $color-footer-bg;
+
+  .footer-column {
+    @apply w-1/4;
+    @apply leading-4;
+    @apply text-center;
+    @apply text-blue-400;
+    line-height: 1.2;
+
+    a {
+      @apply text-blue-400;
+      @apply no-underline;
+    }
+
+    .footer-icon {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .modal {

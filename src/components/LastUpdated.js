@@ -18,7 +18,7 @@ export const LastUpdated = ({ time }) => {
   });
 
   return (
-    <div className="text-center last-updated-container">
+    <div className="pb-4 text-center last-updated-container">
       <small>Last updated {lastUpdatedString}</small>
     </div>
   );

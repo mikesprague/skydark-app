@@ -211,17 +211,23 @@ const App = (props) => {
       </div>
 
       <footer className="footer">
-        <div className="flex">
-          <div className="w-1/2 mx-4 text-right">
+        <div className="flex text-sm">
+          <div className="footer-column"></div>
+          <div className="footer-column">
             {/* <a href="#"> */}
-              <FontAwesomeIcon icon={['fad', 'house-day']} size="2x" fixedWidth />
+              <FontAwesomeIcon icon={['fad', 'house-day']} className="footer-icon" fixedWidth />
+              <br />
+              <small>Forecast</small>
             {/* </a> */}
           </div>
-          <div className="w-1/2 mx-4 text-left">
+          <div className="footer-column">
             {/* <a href="#"> */}
-              <FontAwesomeIcon icon={['fad', 'globe-stand']} size="2x" fixedWidth />
+              <FontAwesomeIcon icon={['fad', 'globe-stand']} className="footer-icon" fixedWidth />
+              <br />
+              <small>Map</small>
             {/* </a> */}
           </div>
+          <div className="footer-column"></div>
         </div>
       </footer>
 
