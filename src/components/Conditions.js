@@ -34,7 +34,7 @@ export const Conditions = ({ data, date = null }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center hidden h-full px-4 pb-4 v-full overlay-container">
+    <div className="fixed inset-0 z-50 flex items-center justify-center hidden h-full px-4 pb-4 v-full overlay-container">
       <div onClick={clickHandler} className="fixed inset-0 hidden transition-opacity overlay">
         <div className="absolute inset-0 bg-black opacity-75"></div>
       </div>
@@ -42,12 +42,12 @@ export const Conditions = ({ data, date = null }) => {
         <div className="px-4 pt-5 pb-4">
           <div className="flex items-start">
             <div className="mt-3 text-center">
-              <h3 className="mb-4 text-lg font-semibold leading-6" id="modal-headline">{conditionsHeading}</h3>
-              {/* <h4 className="mb-4 text-lg">
-                <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" />
-                <br />
+              <h3 className="mb-3 text-lg font-semibold leading-6" id="modal-headline">{conditionsHeading}</h3>
+              <h4 className="mb-2 text-lg">
+                {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" />
+                <br /> */}
                 {data.currently.summary}
-              </h4> */}
+              </h4>
               <div className="flex flex-wrap mt-2">
                 <div className="w-1/2 mb-4 leading-5 text-center">
                   <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth />
