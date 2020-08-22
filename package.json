@@ -38,7 +38,7 @@
     "@hot-loader/react-dom": "^16.13.0",
     "@tailwindcss/typography": "^0.2.0",
     "@tippyjs/react": "^4.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "cross-env": "^7.0.2",
     "dayjs": "^1.8.34",
     "dotenv": "^8.2.0",
@@ -52,7 +52,7 @@
     "register-service-worker": "^1.7.1",
     "snyk": "^1.381.1",
     "swr": "^0.3.1",
-    "tailwindcss": "^1.7.2"
+    "tailwindcss": "^1.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
