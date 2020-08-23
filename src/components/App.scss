@@ -7,6 +7,7 @@
 .condition-select-container {
   @apply my-3;
   @apply text-center;
+  @apply focus:outline-none;
 
   .select {
     @apply p-2;
@@ -19,6 +20,7 @@
     @apply text-center;
     @apply border-2;
     @apply border-blue-900;
+    @apply focus:outline-none;
 
     option {
       @apply pl-4;
@@ -118,11 +120,12 @@
   @apply flex-grow;
 
   details {
-    // @apply focus:outline-none;
-    // @apply focus:shadow-outline;
+    @apply focus:outline-none;
+    @apply focus:shadow-outline;
 
     & > summary {
       list-style: none;
+      @apply focus:outline-none;
 
       &::-webkit-details-marker {
         display: none;
@@ -188,6 +191,7 @@
       @apply bg-white;
       @apply rounded-full;
       @apply align-text-bottom;
+      @apply w-2/3;
     }
   }
 }

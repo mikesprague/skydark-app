@@ -16,7 +16,7 @@ export const Conditions = ({ data, date = null }) => {
   }, []);
 
   return (
-    <Modal heading={conditionsHeading} content={
+    <Modal id="conditions-modal" heading={conditionsHeading} content={
       <Fragment>
         <h4 className="mb-2 text-lg">
           {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" />
@@ -24,7 +24,7 @@ export const Conditions = ({ data, date = null }) => {
           {data.currently.summary}
         </h4>
         <div className="flex flex-wrap mt-2">
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth />
             <br />
             <small>
@@ -33,7 +33,7 @@ export const Conditions = ({ data, date = null }) => {
               Feels Like: {formatCondition(data.currently.apparentTemperature, 'apparentTemperature')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'wind']} size="2x" swapOpacity fixedWidth />
             <br />
             <small>
@@ -42,21 +42,21 @@ export const Conditions = ({ data, date = null }) => {
               Gusts: {formatCondition(data.currently.windGust, 'windGust')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'cloud']} size="2x" swapOpacity fixedWidth />
             <br />
             <small>
               Cloud Cover: {formatCondition(data.currently.cloudCover, 'cloudCover')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'eye']} size="2x" fixedWidth />
             <br />
             <small>
               Visibiity: {formatCondition(data.currently.visibility, 'visibility')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'humidity']} size="2x" fixedWidth />
             <br />
             <small>
@@ -65,35 +65,35 @@ export const Conditions = ({ data, date = null }) => {
               Dew Point: {formatCondition(data.currently.dewPoint, 'dewPoint')} */}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'tachometer']} size="2x" fixedWidth />
             <br />
             <small>
               Pressure: {formatCondition(data.currently.pressure, 'pressure')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'umbrella']} size="2x" swapOpacity fixedWidth />
             <br />
             <small>
               Precip: {formatCondition(data.currently.precipProbability, 'precipProbability')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'sun']} size="2x" fixedWidth />
             <br />
             <small>
               UV Index: {formatCondition(data.currently.uvIndex, 'uvIndex')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'sunrise']} size="2x" fixedWidth />
             <br />
             <small>
               Sunrise: {formatCondition(data.daily.data[0].sunriseTime, 'sunriseTime')}
             </small>
           </div>
-          <div className="w-1/2 mb-4 leading-5 text-center">
+          <div className="conditions-item">
             <FontAwesomeIcon icon={['fad', 'sunset']} size="2x" fixedWidth />
             <br />
             <small>

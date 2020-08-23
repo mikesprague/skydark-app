@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './Modal.scss';
 
-export const Modal = ({content, heading}) => {
+export const Modal = ({id, content, heading}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const overlayContainer = document.querySelector('.overlay-container');
-    const overlay = document.querySelector('.overlay');
-    const modal = document.querySelector('.modal');
+    const overlayContainer = document.getElementById(`${id}`);
+    const overlay = overlayContainer.querySelector('.overlay');
+    const modal = overlayContainer.querySelector('.modal');
     const elementsToHide = [overlayContainer, overlay, modal];
 
     if (visible) {
@@ -25,7 +25,7 @@ export const Modal = ({content, heading}) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center hidden h-full px-4 pb-4 v-full overlay-container">
+    <div id={id} className="fixed inset-0 z-50 flex items-center justify-center hidden h-full px-4 pb-4 v-full overlay-container">
       <div onClick={clickHandler} className="fixed inset-0 hidden transition-opacity overlay">
         <div className="absolute inset-0 bg-black opacity-75"></div>
       </div>

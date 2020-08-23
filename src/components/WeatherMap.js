@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
 import './WeatherMap.scss';
 
-export const WeatherMap = ({ coordinates, apiKey }) => {
+export const WeatherMap = memo(({ coordinates, apiKey }) => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
   useEffect(() => {
     setLocationCoordinates(coordinates);
@@ -35,6 +35,6 @@ export const WeatherMap = ({ coordinates, apiKey }) => {
       ) : ''}
     </div>
   );
-};
+});
 
 export default WeatherMap;

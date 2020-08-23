@@ -1,5 +1,8 @@
 module.exports = {
   purge: false,
+  experimental: {
+    applyComplexClasses: true,
+  },
   theme: {
     extend: {},
   },

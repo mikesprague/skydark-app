@@ -21,6 +21,7 @@ import { LastUpdated } from '../components/LastUpdated';
 import { Location } from '../components/Location';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherMap } from '../components/WeatherMap';
+import { Modal } from '../components/Modal';
 
 dayjs.extend(relativeTime)
 initIcons();
@@ -99,9 +100,19 @@ const App = (props) => {
   };
 
   const currentConditionsHandler = (event) => {
-    const overlayContainer = document.querySelector('.overlay-container');
-    const overlay = document.querySelector('.overlay');
-    const modal = document.querySelector('.modal');
+    const overlayContainer = document.getElementById('conditions-modal');
+    const overlay = overlayContainer.querySelector('.overlay');
+    const modal = overlayContainer.querySelector('.modal');
+    const elementsToHide = [overlayContainer, overlay, modal];
+
+    overlayContainer.classList.add('fixed');
+    elementsToHide.forEach(elem => elem.classList.remove('hidden'));
+  };
+
+  const weatherAlertHandler = (event) => {
+    const overlayContainer = document.getElementById('weather-alerts-modal');
+    const overlay = overlayContainer.querySelector('.overlay');
+    const modal = overlayContainer.querySelector('.modal');
     const elementsToHide = [overlayContainer, overlay, modal];
 
     overlayContainer.classList.add('fixed');
@@ -140,9 +151,20 @@ const App = (props) => {
           </div>
         </div>
 
-        {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
-
         {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
+
+        {weatherData && weatherData.data.weather.alerts ? (
+          <div className="mb-1 text-center weather-alert-container">
+            <button onClick={weatherAlertHandler} className="px-3 mt-1 mb-2 text-sm font-medium leading-6 tracking-wide text-orange-500 border border-orange-600 rounded-full focus:outline-none">
+              <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
+              &nbsp;
+              {weatherData.data.weather.alerts[0].title}
+            </button>
+            <Modal id="weather-alerts-modal" content={weatherData.data.weather.alerts[0].description} heading={weatherData.data.weather.alerts[0].title} />
+          </div>
+        ) : ''}
+
+        {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
 
         <div className="hourly-container">
           <ul className="hourly">
@@ -163,7 +185,7 @@ const App = (props) => {
           })}
           </ul>
           <div className={weatherData && weatherData.data ? 'condition-select-container' : 'condition-select-container hidden'}>
-            <select className="select focus:outline-none" onChange={changeHandler}>
+            <select className="select" onChange={changeHandler}>
               <option value="temperature">Temp (&deg;F)</option>
               <option value="apparentTemperature">Feels-Like (&deg;F)</option>
               <option value="precipProbability">Precip Prob (%)</option>
@@ -185,8 +207,8 @@ const App = (props) => {
           <div className="daily">
           {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
             return dayIndex <= 7 ? (
-              <details key={nanoid(7)} className="day focus:outline-none" onClick={dayClickHandler}>
-                <summary className="focus:outline-none">
+              <details key={nanoid(7)} className="day" onClick={dayClickHandler}>
+                <summary>
                   <div className="name">
                     <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                     <br />
@@ -198,7 +220,7 @@ const App = (props) => {
                     <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
                   </div>
                   <div className="temps">
-                    {formatCondition(dayData.temperatureMin, 'temperature')}<span className="w-2/3 temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}
+                    {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}
                   </div>
                 </summary>
                 <Hourly coordinates={coordinates} date={dayData.time} />

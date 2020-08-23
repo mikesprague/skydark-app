@@ -8,6 +8,9 @@ import {
   faLocationArrow,
 } from '@fortawesome/free-solid-svg-icons';
 import {
+  faExclamationCircle,
+} from '@fortawesome/pro-regular-svg-icons';
+import {
   faBolt, faCalendar, faHourglassHalf, faImage, faLocationCircle, faShareAlt, faSync, faUser, faTint, faClock, faCode,
   faWifiSlash, faMoonStars, faCloudRain, faCloudSnow, faCloudSleet, faFog, faClouds, faCloudsSun, faCloudsMoon,
   faCloudHail, faHurricane, faThunderstorm, faTornado, faTemperatureHigh, faTemperatureLow, faSpinner, faGlobe,
@@ -58,7 +61,7 @@ export const initIcons = () => {
     faExclamationTriangle, faArrowAltCircleDown, faArrowAltCircleUp, faBan, faSignal, faLongArrowAltDown, faFog,
     faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faClouds,
     faTachometer, faAngleUp, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faSun,
-    faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand,
+    faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand, faExclamationCircle,
   );
 };
 

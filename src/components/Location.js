@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Location.scss';
 
-export const Location = (props) => {
+export const Location = memo(({ name }) => {
   const [locationName, setLocationName] = useState(null);
 
   useEffect(() => {
-    const { name } = props;
     const initScrollAndSetLocation = () => {
       const headerEl = document.querySelector('.header');
       window.onscroll = () => {
@@ -21,7 +20,7 @@ export const Location = (props) => {
     initScrollAndSetLocation();
 
     return () => {};
-  }, [props]);
+  }, [name]);
 
   return locationName ? (
     <div className="header">
@@ -32,6 +31,6 @@ export const Location = (props) => {
       </div>
     </div>
   ) : '';
-};
+});
 
 export default Location;
