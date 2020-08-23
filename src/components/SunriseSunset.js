@@ -10,19 +10,19 @@ dayjs.extend(relativeTime);
 export const SunriseSunset = ({ data }) => {
   const [next, setNext] = useState(null);
 
+  const formatTimeString = (time) => {
+    const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
+    const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60);
+    return `${hours > 0 ? hours + ' hours ' : ''}${minutes > 0 ? minutes + ' minutes' : ''}`;
+  };
+
   useEffect(() => {
-    const formatTimeString = (time) => {
-      const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
-      const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60) + 1;
-      return `${hours} hours ${minutes > 0 ? minutes + ' minutes' : ''}`;
-    };
     const init = () => {
       const { sunsetTime } = data[0];
       const { sunriseTime } = data[1];
       const isSunset = dayjs(dayjs()).isBefore(dayjs.unix(sunsetTime));
       const event = isSunset ? 'Sunset' : 'Sunrise';
       const time = isSunset ? dayjs.unix(sunsetTime).format('h:mm A') : dayjs.unix(sunriseTime).format('h:mm A');
-      // const timeString = isSunset ? dayjs.unix(sunsetTime).fromNow(true) : dayjs.unix(sunriseTime).fromNow();
       const timeString = isSunset ? formatTimeString(sunsetTime) : formatTimeString(sunriseTime);
       setNext({
         event,
@@ -34,7 +34,7 @@ export const SunriseSunset = ({ data }) => {
     const clockInterval = setInterval(init, (1000));
 
     return () => clearInterval(clockInterval);
-  }, []);
+  }, [data]);
 
   return (
     <div className="sunrise-sunset-time">
