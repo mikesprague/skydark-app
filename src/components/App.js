@@ -198,7 +198,7 @@ const App = (props) => {
                     <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
                   </div>
                   <div className="temps">
-                    {formatCondition(dayData.temperatureLow, 'temperature')}<span className="w-2/3 temps-spacer"></span>{formatCondition(dayData.temperatureHigh, 'temperature')}
+                    {formatCondition(dayData.temperatureMin, 'temperature')}<span className="w-2/3 temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}
                   </div>
                 </summary>
                 <Hourly coordinates={coordinates} date={dayData.time} />
