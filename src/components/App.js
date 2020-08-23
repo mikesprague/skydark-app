@@ -163,7 +163,7 @@ const App = (props) => {
           })}
           </ul>
           <div className={weatherData && weatherData.data ? 'condition-select-container' : 'condition-select-container hidden'}>
-            <select className="select" onChange={changeHandler}>
+            <select className="select focus:outline-none" onChange={changeHandler}>
               <option value="temperature">Temp (&deg;F)</option>
               <option value="apparentTemperature">Feels-Like (&deg;F)</option>
               <option value="precipProbability">Precip Prob (%)</option>
