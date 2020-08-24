@@ -3,17 +3,29 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import dompurify from 'dompurify';
 import he from 'he';
 import { nanoid } from 'nanoid';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './SunriseSunset.scss';
 dayjs.extend(relativeTime);
 
-export const SunriseSunset = ({ data }) => {
+export const SunriseSunset = memo(({ data }) => {
   const [next, setNext] = useState(null);
 
   const formatTimeString = (time) => {
     const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
     const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60);
-    return `${hours > 0 ? hours + ' hours ' : ''}${minutes > 0 ? minutes + ' minutes' : ''}`;
+    const hoursText = hours > 0 ? hours : '';
+    let minutesFraction = '';
+    if (minutes > 7 && minutes <= 22) {
+      minutesFraction = String.fromCharCode(188);
+    }
+    if (minutes > 22 && minutes <= 37) {
+      minutesFraction = String.fromCharCode(189);
+    }
+    if (minutes > 37 && minutes <= 54) {
+      minutesFraction = String.fromCharCode(190);
+    }
+
+    return `${hoursText}${minutesFraction} hours`;
   };
 
   useEffect(() => {
@@ -38,9 +50,9 @@ export const SunriseSunset = ({ data }) => {
 
   return (
     <div className="sunrise-sunset-time">
-      {next && next.event ? `${next.event} in ${next.timeString} (${next.time})` : ''}
+      {next && next.event ? `${next.event} in approx ${next.timeString} (${next.time})` : ''}
     </div>
   );
-}
+});
 
 export default SunriseSunset;
