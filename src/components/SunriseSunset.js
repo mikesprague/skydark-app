@@ -50,7 +50,7 @@ export const SunriseSunset = memo(({ data }) => {
 
   return (
     <div className="sunrise-sunset-time">
-      {next && next.event ? `${next.event} in approx ${next.timeString} (${next.time})` : ''}
+      {next && next.event ? `${next.event} in ${next.timeString} (${next.time})` : ''}
     </div>
   );
 });
