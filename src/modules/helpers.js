@@ -30,7 +30,15 @@ export const isDev = () => {
   return false;
 };
 
-export const apiUrl = (useLocalhost = false) => useLocalhost ? 'http://localhost:9000' : `https://${window.location.hostname}/.netlify/functions`;
+export const apiUrl = (useLocalhost = false) => {
+  if (useLocalhost) {
+    return 'http://localhost:9000';
+  }
+  if (!isDev()) {
+    return `https://${window.location.hostname}/.netlify/functions`
+  }
+  return 'https://skydark.app/.netlify/functions';
+}
 
 export const handleError = (error) => {
   console.error(error);
