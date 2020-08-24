@@ -21,7 +21,9 @@ export const LastUpdated = ({ time }) => {
   return (
     <div className="text-center last-updated-container">
       <small>
-        Last updated {lastUpdatedString} &middot; <a href="https://darksky.net/poweredby/" rel="noopener" target="_blank">Powered by <FontAwesomeIcon icon={['fad', 'tint']} /> Dark Sky</a>
+        Last updated {lastUpdatedString}
+        <br />
+        <a href="https://darksky.net/poweredby/" rel="noopener" target="_blank">Powered by <FontAwesomeIcon icon={['fad', 'tint']} /> Dark Sky</a>
       </small>
     </div>
   );
