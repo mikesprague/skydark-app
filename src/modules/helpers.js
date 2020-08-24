@@ -139,13 +139,13 @@ export const getConditionBarClass = (icon, clouds) => {
   const isSnowing = (icon.includes('snow') || icon.includes('sleet'));
   const isClear = icon.includes('clear');
   if (isRaining) {
-    return 'bg-blue-500';
+    return 'bg-blue-400';
   }
   if (isSnowing) {
     return 'bg-gray-200 opacity-75';
   }
   if (isCloudy) {
-    return icon.includes('mostly') || cloudCover >= 60 ? 'bg-gray-600' : 'bg-gray-500';
+    return icon.includes('mostly') || cloudCover >= 60 ? 'bg-gray-600' : 'bg-gray-400';
   }
   if (isClear) {
     return 'bg-white';

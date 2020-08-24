@@ -26,10 +26,10 @@ const cssWhitelistClassArray = [
   /yellow/,
   /green/,
   /purple/,
-  /bg-blue-500/,
+  /bg-blue-400/,
   /opacity-75/,
   /bg-gray-200/,
-  /bg-gray-500/,
+  /bg-gray-400/,
   /bg-gray-600/,
   /bg-white/,
 ];
