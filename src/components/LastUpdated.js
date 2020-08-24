@@ -16,7 +16,7 @@ export const LastUpdated = memo(({ time }) => {
     updateString();
 
     return () => clearInterval(clockInterval);
-  });
+  }, [time]);
 
   return (
     <div className="last-updated-container">
