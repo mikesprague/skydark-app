@@ -10,7 +10,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WebPackBar = require('webpackbar');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const mode = process.env.NODE_ENV;
@@ -111,7 +110,6 @@ const webpackRules = [
 ];
 
 const webpackPlugins = [
-  new WebPackBar(),
   new webpack.DefinePlugin({
     'process.env.OPENWEATHERMAP_API_KEY': JSON.stringify(process.env.OPENWEATHERMAP_API_KEY)
   }),
