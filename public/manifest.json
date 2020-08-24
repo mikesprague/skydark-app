@@ -1,41 +1,41 @@
 {
-  "name": "Dark Sky Clone",
-  "short_name": "Dark Sky Clone",
-  "description": "Dark Sky Clone",
+  "name": "Sky Dark (Powered by Dark Sky)",
+  "short_name": "Sky Dark",
+  "description": "Sky Dark (Dark Sky for Android Clone) - Powered by Dark Sky",
   "author": "Michael Sprague",
   "icons": [
     {
-      "src": "/images/dark-sky-clone-icon-32.png",
+      "src": "/images/skydark-app-icon-32.png",
       "type": "image/png",
       "sizes": "16x16"
     },
     {
-      "src": "/images/dark-sky-clone-icon-32.png",
+      "src": "/images/skydark-app-icon-32.png",
       "type": "image/png",
       "sizes": "24x24"
     },
     {
-      "src": "/images/dark-sky-clone-icon-32.png",
+      "src": "/images/skydark-app-icon-32.png",
       "type": "image/png",
       "sizes": "32x32"
     },
     {
-      "src": "/images/dark-sky-clone-icon-48.png",
+      "src": "/images/skydark-app-icon-48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/images/dark-sky-clone-icon-64.png",
+      "src": "/images/skydark-app-icon-64.png",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "/images/dark-sky-clone-icon-128.png",
+      "src": "/images/skydark-app-icon-128.png",
       "type": "image/png",
       "sizes": "128x128"
     }
   ],
-  "homepage_url": "https://your-url/",
+  "homepage_url": "https://skydark.app/",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",

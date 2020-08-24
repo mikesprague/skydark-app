@@ -1,6 +1,6 @@
-# dark-sky-clone
+# skydark-app
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/22061d9b-0f4d-4609-82c4-823d926beefc/deploy-status)](https://app.netlify.com/sites/dark-sky/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/22061d9b-0f4d-4609-82c4-823d926beefc/deploy-status)](https://app.netlify.com/sites/skydark/deploys)
 
 WIP (work in progress)
 
