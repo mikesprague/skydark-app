@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import dompurify from 'dompurify';
 import he from 'he';
 import { nanoid } from 'nanoid';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
@@ -130,7 +130,7 @@ const App = (props) => {
   }
 
   return (
-    <Fragment>
+    <div className="contents">
 
       <Location name={locationName} />
 
@@ -259,7 +259,7 @@ const App = (props) => {
         </div>
       </div>
 
-    </Fragment>
+    </div>
   );
 }
 
