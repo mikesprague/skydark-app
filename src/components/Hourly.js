@@ -9,6 +9,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import './Hourly.scss';
 
 export const Hourly = ({ coordinates, date }) => {
+  const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${date}`, null);
   const { lat, lng } = coordinates;
 
@@ -37,8 +38,12 @@ export const Hourly = ({ coordinates, date }) => {
     }
 
     return () => { isMounted = false };
-  }, [coordinates,date]);
+  }, [coordinates, date]);
 
+  const changeHandler = (event) => {
+    // console.log(event.target.value);
+    setHourlyConditionToShow(event.target.value);
+  };
 
   return (
     <div className="hourly-container">
@@ -48,10 +53,25 @@ export const Hourly = ({ coordinates, date }) => {
         const isLast = index === 22;
         const showSummary = hourlyData.data && formatSummary(hour, hourlyData.data, index, 0).length;
         return (index % 2 === 0) ? (
-          <Hour key={nanoid(7)} data={hour} showSummary={showSummary} isFirst={isFirst} isLast={isLast} />
+          <Hour key={nanoid(7)} data={hour} showSummary={showSummary} isFirst={isFirst} isLast={isLast} conditionToShow={hourlyConditionToShow} />
         ) : '';
       })}
       </ul>
+      <div className="condition-select-container">
+        <select className="select" onChange={changeHandler}>
+          <option value="temperature">Temp (&deg;F)</option>
+          <option value="apparentTemperature">Feels-Like (&deg;F)</option>
+          <option value="precipProbability">Precip Prob (%)</option>
+          <option value="precipIntensity">Precip Rate (IN/HR)</option>
+          <option value="windSpeed">Wind (MPH)</option>
+          <option value="windGust">Wind Gust (MPH)</option>
+          <option value="humidity">Humidity (%)</option>
+          <option value="dewPoint">Dew Point (&deg;F)</option>
+          <option value="uvIndex">UV Index</option>
+          <option value="cloudCover">Cloud Cover (%)</option>
+          <option value="pressure">Pressure (MB)</option>
+        </select>
+      </div>
     </div>
   );
 };

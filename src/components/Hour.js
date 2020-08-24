@@ -4,7 +4,14 @@ import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses
 import './Hour.scss';
 
 export const Hour = memo((props) => {
-  const { data, showSummary, isFirst, isLast, } = props;
+  const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
+  const { data, showSummary, isFirst, isLast, conditionToShow, } = props;
+
+  useEffect(() => {
+    setHourlyConditionToShow(conditionToShow);
+
+    return () => {};
+  }, [hourlyConditionToShow]);
 
   return (
     <li className="hour">
@@ -13,7 +20,7 @@ export const Hour = memo((props) => {
       <div className="summary">{showSummary ? data.summary : ''}</div>
       <div className="spacer">&nbsp;</div>
       <div className="condition">
-        <span className="pill">{formatCondition(data.temperature, 'temperature')}</span>
+        <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(data[hourlyConditionToShow]) : 'pill'}>{formatCondition(data[hourlyConditionToShow], hourlyConditionToShow)}</span>
       </div>
     </li>
   );

@@ -1,0 +1,24 @@
+.condition-select-container {
+  @apply my-3;
+  @apply text-center;
+  @apply focus:outline-none;
+
+  .select {
+    @apply p-2;
+    @apply text-sm;
+    @apply font-semibold;
+    @apply text-black;
+    @apply uppercase;
+    @apply bg-blue-400;
+    @apply rounded-full;
+    @apply text-center;
+    @apply border-2;
+    @apply border-blue-900;
+    @apply focus:outline-none;
+
+    option {
+      @apply pl-4;
+      @apply text-center;
+    }
+  }
+}
