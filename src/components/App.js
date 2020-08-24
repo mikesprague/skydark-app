@@ -16,12 +16,13 @@ import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './App.scss';
 import { Conditions } from '../components/Conditions';
+import { Footer } from '../components/Footer';
 import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
 import { Location } from '../components/Location';
+import { Modal } from '../components/Modal';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherMap } from '../components/WeatherMap';
-import { Modal } from '../components/Modal';
 
 dayjs.extend(relativeTime)
 initIcons();
@@ -233,31 +234,7 @@ const App = (props) => {
         {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
       </div>
 
-      <div className="footer">
-        <div className="flex text-sm">
-          <div className="footer-column">
-            <a className="active" onClick={event => event.preventDefault()}>
-              <FontAwesomeIcon icon={['fad', 'house-day']} className="footer-icon" fixedWidth />
-              <br />
-              <small>Forecast</small>
-            </a>
-          </div>
-          <div className="footer-column">
-            <a onClick={event => event.preventDefault()}>
-              <FontAwesomeIcon icon={['fad', 'globe-stand']} className="footer-icon" fixedWidth />
-              <br />
-              <small>Map</small>
-            </a>
-          </div>
-          <div className="footer-column">
-            <a onClick={event => event.preventDefault()}>
-              <FontAwesomeIcon icon={['fad', 'info-circle']} className="footer-icon" fixedWidth />
-              <br />
-              <small>About</small>
-            </a>
-          </div>
-        </div>
-      </div>
+      <Footer />
 
     </div>
   );
