@@ -1,7 +1,7 @@
 {
-  "name": "dark-sky-clone",
+  "name": "skydark-app",
   "version": "0.1.0",
-  "description": "Clone of Dark SKy for Android App",
+  "description": "Clone of Dark Sky for Android App as a PWA",
   "private": true,
   "engines": {
     "node": ">= 12.x",
@@ -21,13 +21,13 @@
   },
   "keywords": [],
   "repository": {
-    "url": "https://github.com/mikesprague/dark-sky-clone"
+    "url": "https://github.com/mikesprague/skydark-app"
   },
   "author": {
     "name": "Michael Sprague",
     "email": "mikesprague@gmail.com"
   },
-  "homepage": "https://dark-sky.netlify.app",
+  "homepage": "https://skydark.app",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
