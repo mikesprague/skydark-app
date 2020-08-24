@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './LastUpdated.scss';
 dayjs.extend(relativeTime);
 
@@ -19,7 +20,9 @@ export const LastUpdated = ({ time }) => {
 
   return (
     <div className="text-center last-updated-container">
-      <small>Last updated {lastUpdatedString}</small>
+      <small>
+        Last updated {lastUpdatedString} &middot; <a href="https://darksky.net/poweredby/" rel="noopener" target="_blank">Powered by <FontAwesomeIcon icon={['fad', 'tint']} /> Dark Sky</a>
+      </small>
     </div>
   );
 };
