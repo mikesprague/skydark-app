@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers'
 import './Hour.scss';
 
-export const Hour = (props) => {
+export const Hour = memo((props) => {
   const { data, showSummary, isFirst, isLast, } = props;
 
   return (
@@ -17,4 +17,4 @@ export const Hour = (props) => {
       </div>
     </li>
   );
-};
+});
