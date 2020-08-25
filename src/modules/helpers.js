@@ -132,24 +132,26 @@ export const formatCondition = (value, condition) => {
   }
 };
 
-export const getConditionBarClass = (icon, clouds) => {
-  const cloudCover = Math.round(clouds * 100);
-  const isCloudy = icon.includes('cloudy') || cloudCover >= 40;
+export const getConditionBarClass = (data) => {
+  const { icon, cloudCover, summary } = data;
+  const clouds = Math.round(cloudCover * 100);
+  const isCloudy = icon.includes('cloudy') || clouds >= 40;
   const isRaining = (icon.includes('rain') || icon.includes('thunderstorm'));
   const isSnowing = (icon.includes('snow') || icon.includes('sleet'));
   const isClear = icon.includes('clear');
   if (isRaining) {
-    return 'bg-blue-400';
+    return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('drizzle') ? 'bg-blue-400' : 'bg-blue-500';
   }
   if (isSnowing) {
-    return 'bg-gray-200 opacity-75';
+    return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('flurries') ? 'bg-purple-400' : 'bg-purple-500';
   }
   if (isCloudy) {
-    return icon.includes('mostly') || cloudCover >= 60 ? 'bg-gray-600' : 'bg-gray-400';
+    return icon.includes('mostly') || summary.toLowerCase().includes('mostly') || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
   }
   if (isClear) {
     return 'bg-white';
   }
+  console.log(data);
   return 'unknown-condition-bar-class';
 };
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
-import { apiUrl, formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers'
+import { apiUrl, formatCondition, formatSummary, } from '../modules/helpers'
 import { getData } from '../modules/local-storage';
 import { Hour } from '../components/Hour';
 import { useLocalStorage } from '../hooks/useLocalStorage';

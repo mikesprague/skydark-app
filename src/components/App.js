@@ -156,7 +156,7 @@ const App = (props) => {
 
         {weatherData && weatherData.data.weather.alerts ? (
           <div className="mb-1 text-center weather-alert-container">
-            <button onClick={weatherAlertHandler} className="px-3 mt-1 mb-2 text-sm font-medium leading-6 tracking-wide text-orange-500 border border-orange-600 rounded-full focus:outline-none">
+            <button onClick={weatherAlertHandler} className="px-3 mt-1 mb-2 text-sm font-medium leading-6 tracking-wide text-orange-400 border border-orange-400 rounded-full focus:outline-none">
               <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
               &nbsp;
               {weatherData.data.weather.alerts[0].title}
@@ -174,7 +174,7 @@ const App = (props) => {
             const endIndex = startIndex + 20;
             return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
               <li key={nanoid(7)} className="hour">
-                <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData.icon, hourData.cloudCover)}`}></div>
+                <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
                 <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
                 <div className="summary">{hourData && weatherData.data.weather && formatSummary(hourData, weatherData.data.weather.hourly.data, index, startIndex)}</div>
                 <div className="spacer">&nbsp;</div>

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { memo, useEffect, useState } from 'react';
-import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers'
+import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers'
 import './Hour.scss';
 
 export const Hour = memo((props) => {
@@ -15,7 +15,7 @@ export const Hour = memo((props) => {
 
   return (
     <li className="hour">
-      <div className={`condition-bar ${isLast ? 'rounded-b-md' : ''} ${isFirst ? 'rounded-t-md' : ''} ${getConditionBarClass(data.icon, data.cloudCover)}`}></div>
+      <div className={`condition-bar ${isLast ? 'rounded-b-md' : ''} ${isFirst ? 'rounded-t-md' : ''} ${getConditionBarClass(data)}`}></div>
       <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
       <div className="summary">{showSummary ? data.summary : ''}</div>
       <div className="spacer">&nbsp;</div>
