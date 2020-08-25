@@ -14,6 +14,8 @@
     "clean": "rm -rf ./build && rm -rf ./lambda",
     "lambda:build": "netlify-lambda build ./src/functions",
     "lambda:serve": "netlify-lambda serve ./src/functions --config ./functions.config.js",
+    "prepublish": "yarn snyk",
+    "snyk": "snyk protect",
     "start": "concurrently 'yarn webpack:serve' 'yarn lambda:serve' --names '📦,💻' --prefix '[{name}] ' --kill-others",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "cross-env NODE_ENV=production webpack -p --colors",
