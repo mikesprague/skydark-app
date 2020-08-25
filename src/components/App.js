@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   NavLink,
