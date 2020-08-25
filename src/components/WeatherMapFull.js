@@ -15,8 +15,10 @@ export const WeatherMapFull = (props) => {
 
   const controlEl = Array.from(document.querySelectorAll('.leaflet-control-layers-selector'));
   controlEl.forEach(el => {
-    el.addEventListener('click', (event) => {
-      setMapLayerLabel(event.target.labels[0].innerText.trim())
+    el.addEventListener('change', (event) => {
+      if (event.target.checked) {
+        setMapLayerLabel(event.target.labels[0].innerText.trim())
+      }
     });
   });
 
