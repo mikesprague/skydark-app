@@ -1,3 +1,9 @@
+@import '../scss/variables';
+
+.modal {
+  background-color: $color-body-bg;
+}
+
 #weather-alerts-modal {
   #modal-headline {
     @apply text-orange-400;
