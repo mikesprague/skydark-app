@@ -1,6 +1,7 @@
 # skydark-app
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/22061d9b-0f4d-4609-82c4-823d926beefc/deploy-status)](https://app.netlify.com/sites/skydark/deploys)
+[![Known Vulnerabilities](https://snyk.io/test/github/mikesprague/skydark-app/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mikesprague/skydark-app?targetFile=package.json)
 
 WIP (work in progress)
 
