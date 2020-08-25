@@ -36,11 +36,27 @@ export const App = (props) => {
 };
 
 function About() {
-  return <h2>About</h2>;
+  return (
+    <div class="contents">
+      <div className="header">
+        <div className="section-name">
+          <h1>About</h1>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function Map() {
-  return <h2>Map</h2>;
+  return (
+    <div class="contents">
+      <div className="header">
+        <div className="section-name">
+          <h1>Map</h1>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default hot(App);

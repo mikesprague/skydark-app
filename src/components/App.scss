@@ -31,3 +31,24 @@
     }
   }
 }
+
+.header {
+  background-color: $color-body-bg;
+  @apply fixed;
+  @apply top-0;
+  @apply max-w-md;
+  @apply w-full;
+  @apply z-40;
+
+  .section-name {
+    @apply pt-2;
+    @apply w-full;
+    @apply text-center;
+    @apply mb-2;
+
+    h1 {
+      @apply text-xl;
+      @apply text-center;
+    }
+  }
+}
