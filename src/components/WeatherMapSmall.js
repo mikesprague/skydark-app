@@ -25,7 +25,7 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
           touchZoom={false}
         >
           <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+            url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
             opacity={.85}
           />
           <WMSTileLayer
