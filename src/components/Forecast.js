@@ -19,6 +19,7 @@ import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
 import { Modal } from '../components/Modal';
 import { SunriseSunset } from '../components/SunriseSunset';
+import { WeatherAlert } from '../components/WeatherAlert';
 import { WeatherMapSmall } from '../components/WeatherMapSmall';
 
 dayjs.extend(relativeTime)
