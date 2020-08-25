@@ -18,9 +18,9 @@ import './App.scss';
 import { Conditions } from '../components/Conditions';
 import { CurrentHourly } from '../components/CurrentHourly';
 import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
 import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
-import { Location } from '../components/Location';
 import { Modal } from '../components/Modal';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherMap } from '../components/WeatherMap';
@@ -105,16 +105,6 @@ const App = (props) => {
     elementsToHide.forEach(elem => elem.classList.remove('hidden'));
   };
 
-  const weatherAlertHandler = (event) => {
-    const overlayContainer = document.getElementById('weather-alerts-modal');
-    const overlay = overlayContainer.querySelector('.overlay');
-    const modal = overlayContainer.querySelector('.modal');
-    const elementsToHide = [overlayContainer, overlay, modal];
-
-    overlayContainer.classList.add('fixed');
-    elementsToHide.forEach(elem => elem.classList.remove('hidden'));
-  };
-
   const dayClickHandler = (event) => {
     const allDetails = document.querySelectorAll("details");
     const currentDetail = event.target.closest('details');
@@ -128,7 +118,7 @@ const App = (props) => {
   return (
     <div className="contents">
 
-      <Location name={locationName} />
+      <Header name={locationName} />
 
       <div className="my-16">
         <div className="current-conditions" onClick={currentConditionsHandler}>
@@ -149,16 +139,7 @@ const App = (props) => {
 
         {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
 
-        {weatherData && weatherData.data.weather.alerts ? (
-          <div className="mb-1 text-center weather-alert-container">
-            <button onClick={weatherAlertHandler} className="px-3 mt-1 mb-2 text-sm font-medium leading-6 tracking-wide text-orange-400 border border-orange-400 rounded-full focus:outline-none">
-              <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
-              &nbsp;
-              {weatherData.data.weather.alerts[0].title}
-            </button>
-            <Modal id="weather-alerts-modal" content={weatherData.data.weather.alerts[0].description} heading={weatherData.data.weather.alerts[0].title} />
-          </div>
-        ) : ''}
+        {weatherData && weatherData.data.weather.alerts ? <WeatherAlert alerts={weatherData.data.weather.alerts} /> : ''}
 
         {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
 
