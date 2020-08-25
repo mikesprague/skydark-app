@@ -1,0 +1,114 @@
+@import '../scss/variables';
+
+.daily {
+  @apply p-3;
+  @apply flex;
+  @apply flex-wrap;
+  @apply flex-grow;
+
+  .day {
+    min-height: 4rem;
+    @apply flex;
+    @apply w-full;
+    @apply m-0;
+    @apply text-lg;
+    @apply leading-10;
+
+    .name {
+      width: 50px;
+      @apply inline-block;
+      @apply mr-1;
+      @apply text-sm;
+      @apply leading-5;
+      @apply text-left;
+      @apply align-top;
+    }
+
+    .precip {
+      @apply text-blue-300;
+    }
+
+    .icon {
+      @apply inline-block;
+      @apply w-12;
+      @apply align-top;
+    }
+
+    .temps {
+      @apply flex-auto;
+      @apply inline-block;
+      @apply pl-2;
+      @apply text-base;
+      @apply align-top;
+      @apply w-2/3;
+      @apply text-right;
+    }
+
+    .temps-spacer {
+      @apply inline-block;
+      @apply h-6;
+      @apply mx-2;
+      @apply bg-white;
+      @apply rounded-full;
+      @apply align-text-bottom;
+      @apply w-2/3;
+    }
+  }
+
+  details {
+    @apply focus:outline-none;
+    @apply focus:shadow-outline;
+
+    & > summary {
+      list-style: none;
+      @apply focus:outline-none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
+  }
+
+  // details {
+  //   transition: height 1s ease-in-out;
+
+  //   &:not([open]) {
+  //     height: 4rem;
+  //   }
+
+  //   &[open] {
+  //     height: 40.25rem;
+  //   }
+  // }
+}
+
+.current-conditions {
+  @apply w-full;
+  @apply flex;
+  @apply leading-10;
+
+  .temperature {
+    .actual-temp {
+      @apply text-5xl;
+      @apply font-semibold;
+    }
+
+    .feels-like-temp {
+      @apply text-sm;
+      @apply -mt-1;
+      @apply ml-1;
+    }
+  }
+
+  .icon,
+  .temperature {
+    @apply w-1/2;
+    @apply cursor-pointer;
+  }
+
+  .icon {
+    @apply text-right;
+    margin-top: -.1rem;
+  }
+}
+

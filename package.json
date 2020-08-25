@@ -53,6 +53,7 @@
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
     "react-leaflet": "^2.7.0",
+    "react-router-dom": "^5.2.0",
     "register-service-worker": "^1.7.1",
     "snyk": "^1.382.0",
     "swr": "^0.3.1",
