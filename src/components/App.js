@@ -11,6 +11,7 @@ import {
 import { Footer } from '../components/Footer';
 import { Forecast } from '../components/Forecast';
 import { initIcons } from '../modules/helpers';
+import { getData } from '../modules/local-storage';
 import './App.scss';
 
 export const App = (props) => {
@@ -49,37 +50,35 @@ function About() {
 }
 
 function WeatherMap(props) {
-  const coordinates = {"lat":42.45254800065394,"lng":-76.49500060656183};
-  return (
+  const coordinates = getData('coordinates') || null;
+  return coordinates ? (
     <div className="h-full min-h-screen contents v-full">
-      {/* <div className="header">
-        <div className="section-name">
-          <h1>Map</h1>
-        </div>
-      </div> */}
       <div className="min-h-screen map-container">
         <Map
           center={[coordinates.lat, coordinates.lng]}
-          zoom={8}
-          // doubleClickZoom={false}
-          // dragging={false}
+          zoom={10}
+          doubleClickZoom={true}
+          dragging={true}
           keyboard={false}
           scrollWheelZoom={false}
-          touchZoom={false}
+          touchZoom={true}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            opacity={.85}
+            opacity={1}
+            zIndex={1}
           />
           <WMSTileLayer
             layer="precipitation_new"
             url={`https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
+            opacity={1}
+            zIndex={10}
           />
           <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
         </Map>
       </div>
     </div>
-  )
+  ) : '';
 }
 
 export default hot(App);
