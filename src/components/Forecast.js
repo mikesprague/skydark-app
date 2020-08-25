@@ -1,15 +1,12 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import dompurify from 'dompurify';
-import he from 'he';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tippy from '@tippyjs/react';
-import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
+// import Tippy from '@tippyjs/react';
 import {
-  apiUrl, formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses, getWeatherIcon, initIcons,
+  apiUrl, formatCondition, getWeatherIcon,
 } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -22,10 +19,9 @@ import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
 import { Modal } from '../components/Modal';
 import { SunriseSunset } from '../components/SunriseSunset';
-import { WeatherMap } from '../components/WeatherMap';
+import { WeatherMapSmall } from '../components/WeatherMapSmall';
 
 dayjs.extend(relativeTime)
-initIcons();
 
 export const Forecast = (props) => {
   const [locationName, setLocationName] = useState('Determining location');
@@ -140,7 +136,7 @@ export const Forecast = (props) => {
 
         {weatherData && weatherData.data.weather.alerts ? <WeatherAlert alerts={weatherData.data.weather.alerts} /> : ''}
 
-        {coordinates && coordinates.lat ? <WeatherMap coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
+        {coordinates && coordinates.lat ? <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
 
         {weatherData && weatherData.data.weather ? <CurrentHourly data={weatherData.data.weather} /> : ''}
 

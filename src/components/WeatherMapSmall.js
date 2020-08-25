@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
-import './WeatherMap.scss';
+import './WeatherMapSmall.scss';
 
-export const WeatherMap = memo(({ coordinates, apiKey }) => {
+export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
   useEffect(() => {
     setLocationCoordinates(coordinates);
@@ -25,7 +25,7 @@ export const WeatherMap = memo(({ coordinates, apiKey }) => {
           touchZoom={false}
         >
           <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
             opacity={.85}
           />
           <WMSTileLayer
@@ -40,4 +40,4 @@ export const WeatherMap = memo(({ coordinates, apiKey }) => {
   );
 });
 
-export default WeatherMap;
+export default WeatherMapSmall;
