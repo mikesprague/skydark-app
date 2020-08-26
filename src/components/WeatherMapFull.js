@@ -42,14 +42,14 @@ export const WeatherMapFull = (props) => {
             touchZoom={true}
           >
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-              opacity={0.6}
+              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+              opacity={.9}
               zIndex={1}
             />
             <WMSTileLayer
               url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
             />
-            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
+            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.75} />
             {/* <LayersControl position="topright">
               <LayersControl.BaseLayer name="Precipitation" checked>
                 <WMSTileLayer
