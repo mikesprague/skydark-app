@@ -41,15 +41,40 @@ export const WeatherMapFull = (props) => {
             scrollWheelZoom={false}
             touchZoom={true}
           >
-            <TileLayer
+            {/* <TileLayer
               url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
               opacity={.9}
               zIndex={1}
-            />
-            <WMSTileLayer
-              url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-            />
+            /> */}
             <Marker position={[coordinates.lat, coordinates.lng]} opacity={.75} />
+            <LayersControl position="topright">
+              <LayersControl.BaseLayer name="Dark (default)" checked>
+                <TileLayer
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+                  opacity={.95}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Standard">
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  opacity={.85}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="B/W">
+                <TileLayer
+                  url="http://{s}.tile.stamen.com/toner/{z}/{x}/{y}@2x.png"
+                  opacity={.9}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.Overlay name="Conditions" checked>
+                <WMSTileLayer
+                  url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
+                />
+              </LayersControl.Overlay>
+            </LayersControl>
             {/* <LayersControl position="topright">
               <LayersControl.BaseLayer name="Precipitation" checked>
                 <WMSTileLayer

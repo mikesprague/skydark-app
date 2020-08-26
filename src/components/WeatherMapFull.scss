@@ -51,7 +51,9 @@
     @apply mt-12;
   }
 
-  .leaflet-control-attribution {
+  .leaflet-control-attribution,
+  .leaflet-control-layers-overlays,
+  .leaflet-control-layers-separator {
     @apply hidden;
   }
 }
