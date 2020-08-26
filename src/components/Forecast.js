@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react';
 import {
   apiUrl, formatCondition, getWeatherIcon,
 } from '../modules/helpers';
@@ -17,6 +17,7 @@ import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
+import { Loading } from '../components/Loading';
 import { Modal } from '../components/Modal';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherAlert } from '../components/WeatherAlert';
@@ -104,6 +105,7 @@ export const Forecast = (props) => {
   const dayClickHandler = (event) => {
     const allDetails = document.querySelectorAll("details");
     const currentDetail = event.target.closest('details');
+    console.log(event.target.closest('summary').dataset.time);
     allDetails.forEach(detail => {
       if (detail !== currentDetail) {
         detail.removeAttribute('open');
@@ -111,44 +113,42 @@ export const Forecast = (props) => {
     });
   }
 
-  return (
+  return weatherData && coordinates ? (
     <div className="contents">
 
       <Header name={locationName} />
 
       <div className="my-16">
         <div className="current-conditions" onClick={currentConditionsHandler}>
-          {weatherData && weatherData.data.weather ? (
-            <div className="icon">
-              <FontAwesomeIcon
-                icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
-                fixedWidth
-                size="4x"
-              />
-            </div>
-          ) : ''}
+          <div className="icon">
+            <FontAwesomeIcon
+              icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
+              fixedWidth
+              size="4x"
+            />
+          </div>
           <div className="temperature">
-            <h2 className="actual-temp">{weatherData && weatherData.data.weather ? formatCondition(weatherData.data.weather.currently.temperature, 'temperature') : ''}</h2>
-            <h3 className="feels-like-temp">{weatherData && weatherData.data.weather ? 'Feels ' + formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature') : ''}</h3>
+            <h2 className="actual-temp">{formatCondition(weatherData.data.weather.currently.temperature, 'temperature')}</h2>
+            <h3 className="feels-like-temp">{'Feels ' + formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature')}</h3>
           </div>
         </div>
 
-        {weatherData && weatherData.data ? <Conditions data={weatherData.data.weather} /> : ''}
+        <Conditions data={weatherData.data.weather} />
 
-        {weatherData && weatherData.data.weather.alerts ? <WeatherAlert alerts={weatherData.data.weather.alerts} /> : ''}
+        {weatherData.data.weather.alerts ? <WeatherAlert alerts={weatherData.data.weather.alerts} /> : ''}
 
-        {coordinates && coordinates.lat ? <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} /> : ''}
+        <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} />
 
-        {weatherData && weatherData.data.weather ? <CurrentHourly data={weatherData.data.weather} /> : ''}
+        <CurrentHourly data={weatherData.data.weather} />
 
-        {weatherData && weatherData.data.weather ? <SunriseSunset data={weatherData.data.weather.daily.data} /> : ''}
+        <SunriseSunset data={weatherData.data.weather.daily.data} />
 
         <div className="daily-container">
           <div className="daily">
-          {weatherData && weatherData.data.weather ? weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
+          {weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
             return dayIndex <= 7 ? (
-              <details key={nanoid(7)} className="day" onClick={dayClickHandler}>
-                <summary>
+              <details key={nanoid(7)} className="day">
+                <summary data-time={dayData.time} onClick={dayClickHandler}>
                   <div className="name">
                     <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
                     <br />
@@ -166,15 +166,15 @@ export const Forecast = (props) => {
                 <Hourly coordinates={coordinates} date={dayData.time} />
               </details>
             ) : '';
-          }) : ''}
+          })}
           </div>
         </div>
 
-        {weatherData ? <LastUpdated time={weatherData.lastUpdated} /> : ''}
+        <LastUpdated time={weatherData.lastUpdated} />
       </div>
 
     </div>
-  );
+  ) : <Loading />;
 }
 
 export default Forecast;
