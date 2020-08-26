@@ -45,6 +45,9 @@ function About() {
           <h1>About</h1>
         </div>
       </div>
+      <div className="my-16">
+        <p>Work in progress. This page will have content soon ...</p>
+      </div>
     </div>
   )
 }

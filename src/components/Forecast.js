@@ -119,6 +119,7 @@ export const Forecast = (props) => {
       <Header name={locationName} />
 
       <div className="my-16">
+
         <div className="current-conditions" onClick={currentConditionsHandler}>
           <div className="icon">
             <FontAwesomeIcon
@@ -135,7 +136,7 @@ export const Forecast = (props) => {
 
         <Conditions data={weatherData.data.weather} />
 
-        {weatherData.data.weather.alerts ? <WeatherAlert alerts={weatherData.data.weather.alerts} /> : ''}
+        <WeatherAlert data={weatherData.data.weather} />
 
         <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} />
 
@@ -171,6 +172,7 @@ export const Forecast = (props) => {
         </div>
 
         <LastUpdated time={weatherData.lastUpdated} />
+
       </div>
 
     </div>

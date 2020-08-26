@@ -3,14 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal } from '../components/Modal';
 import './WeatherAlert.scss';
 
-export const WeatherAlert = memo(({ alerts }) => {
+export const WeatherAlert = memo(({ data }) => {
   const [alertData, setAlertData] = useState(null);
 
   useEffect(() => {
-    setAlertData(alerts[0]);
+    if (data.alerts && data.alerts.length) {
+      setAlertData(data.alerts[0]);
+    }
 
     return () => {};
-  }, [alertData, alerts]);
+  }, [alertData, data]);
 
   const weatherAlertHandler = (event) => {
     const overlayContainer = document.getElementById('weather-alerts-modal');
