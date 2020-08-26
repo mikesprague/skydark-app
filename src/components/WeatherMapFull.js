@@ -8,6 +8,9 @@ export const WeatherMapFull = (props) => {
   const coordinates = getData('coordinates') || null;
 
   useEffect(() => {
+    if (!coordinates) {
+      window.location.replace('/');
+    }
 
     return () => {};
   }, [mapView]);
@@ -41,16 +44,11 @@ export const WeatherMapFull = (props) => {
             scrollWheelZoom={false}
             touchZoom={true}
           >
-            {/* <TileLayer
-              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-              opacity={.9}
-              zIndex={1}
-            /> */}
             <Marker position={[coordinates.lat, coordinates.lng]} opacity={.75} />
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark (default)" checked>
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
                   opacity={.95}
                   zIndex={1}
                 />
@@ -75,43 +73,6 @@ export const WeatherMapFull = (props) => {
                 />
               </LayersControl.Overlay>
             </LayersControl>
-            {/* <LayersControl position="topright">
-              <LayersControl.BaseLayer name="Precipitation" checked>
-                <WMSTileLayer
-                  url={`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-                  opacity={1}
-                  zIndex={10}
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Clouds">
-                <WMSTileLayer
-                  url={`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-                  opacity={1}
-                  zIndex={10}
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Temperature">
-                <WMSTileLayer
-                  url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-                  opacity={1}
-                  zIndex={10}
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Wind Speed">
-                <WMSTileLayer
-                  url={`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-                  opacity={1}
-                  zIndex={10}
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Sea Level Pressure">
-                <WMSTileLayer
-                  url={`https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-                  opacity={1}
-                  zIndex={10}
-                />
-              </LayersControl.BaseLayer>
-            </LayersControl> */}
           </Map>
         </div>
       </div>
