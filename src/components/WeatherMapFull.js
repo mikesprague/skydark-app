@@ -1,7 +1,14 @@
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { Map, Marker, TileLayer, WMSTileLayer, LayersControl } from "react-leaflet";
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
+
+// {/* <TileLayer
+// url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
+// layers="nexrad-n0q-900913"
+// transparent="true"
+// /> */}
 
 export const WeatherMapFull = (props) => {
   const [mapView, setMapView] = useState('radar');
@@ -18,6 +25,17 @@ export const WeatherMapFull = (props) => {
   const changeHandler = (event) => {
     console.log(event.target.value);
     setMapView(event.target.value);
+  };
+
+  const getRadarTs = () => {
+    const now = dayjs();
+    const hours = now.hour();
+    let minutes = dayjs().format('m');
+    minutes = minutes - (minutes % 10);
+    const millisecondTs = dayjs().hour(hours).minute(minutes).second(0).millisecond(0).valueOf();
+    const ts = millisecondTs / 1000;
+    // console.log(ts);
+    return ts;
   };
 
   return (
@@ -45,7 +63,7 @@ export const WeatherMapFull = (props) => {
             scrollWheelZoom={false}
             touchZoom={true}
           >
-            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.75} />
+            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.9} />
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark (default)" checked>
                 <TileLayer
@@ -71,8 +89,7 @@ export const WeatherMapFull = (props) => {
               <LayersControl.Overlay name="Conditions" checked>
                 {mapView === 'radar' ? (
                   <TileLayer
-                    url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
-                    layers="nexrad-n0q-900913"
+                    url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
                     transparent="true"
                   />
                 ) : (

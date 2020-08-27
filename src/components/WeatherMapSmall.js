@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
@@ -10,6 +11,17 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
 
     return () => {};
   }, [coordinates]);
+
+  const getRadarTs = () => {
+    const now = dayjs();
+    const hours = now.hour();
+    let minutes = dayjs().format('m');
+    minutes = minutes - (minutes % 10);
+    const millisecondTs = dayjs().hour(hours).minute(minutes).second(0).millisecond(0).valueOf();
+    const ts = millisecondTs / 1000;
+    // console.log(ts);
+    return ts;
+  };
 
   return (
     <div className="map">
@@ -29,10 +41,8 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
             opacity={.85}
           />
           <TileLayer
-            url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
-            layers="nexrad-n0q-900913"
+            url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/256/{z}/{x}/{y}/8/1_1.png`}
             transparent="true"
-            opacity={.85}
           />
           <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
         </Map>
