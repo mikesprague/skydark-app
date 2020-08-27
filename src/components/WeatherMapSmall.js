@@ -28,9 +28,11 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
             url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
             opacity={.85}
           />
-          <WMSTileLayer
-            layer="precipitation_new"
-            url={`https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid=${apiKey}`}
+          <TileLayer
+            url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
+            layers="nexrad-n0q-900913"
+            transparent="true"
+            opacity={.85}
           />
           <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
         </Map>

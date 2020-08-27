@@ -4,7 +4,7 @@ import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
 
 export const WeatherMapFull = (props) => {
-  const [mapView, setMapView] = useState('precipitation_new');
+  const [mapView, setMapView] = useState('radar');
   const coordinates = getData('coordinates') || null;
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export const WeatherMapFull = (props) => {
       <div className="header">
         <div className="section-name">
           <select className="" onChange={changeHandler}>
+            <option value="radar">Radar</option>
             <option value="precipitation_new">Precipitation</option>
             <option value="clouds_new">Clouds</option>
             <option value="temp_new">Temperature</option>
@@ -68,9 +69,17 @@ export const WeatherMapFull = (props) => {
                 />
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Conditions" checked>
-                <WMSTileLayer
-                  url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
-                />
+                {mapView === 'radar' ? (
+                  <TileLayer
+                    url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
+                    layers="nexrad-n0q-900913"
+                    transparent="true"
+                  />
+                ) : (
+                  <WMSTileLayer
+                    url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
+                  />
+                )}
               </LayersControl.Overlay>
             </LayersControl>
           </Map>
