@@ -136,7 +136,9 @@ export const getRadarTs = () => {
   const now = dayjs();
   const hours = now.hour();
   let minutes = now.minute();
+  const seconds = now.second();
   minutes = minutes - (minutes % 10);
+  minutes = minutes % 10 === 0 && seconds < 10 ? minutes -= 10 : minutes;
   const millisecondTs = dayjs().hour(hours).minute(minutes).second(0).millisecond(0).valueOf();
   const ts = millisecondTs / 1000;
   // console.log(ts);
