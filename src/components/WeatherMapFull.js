@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { Map, Marker, TileLayer, WMSTileLayer, LayersControl } from "react-leaflet";
+import { getRadarTs } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
 
@@ -25,17 +26,6 @@ export const WeatherMapFull = (props) => {
   const changeHandler = (event) => {
     console.log(event.target.value);
     setMapView(event.target.value);
-  };
-
-  const getRadarTs = () => {
-    const now = dayjs();
-    const hours = now.hour();
-    let minutes = dayjs().format('m');
-    minutes = minutes - (minutes % 10);
-    const millisecondTs = dayjs().hour(hours).minute(minutes).second(0).millisecond(0).valueOf();
-    const ts = millisecondTs / 1000;
-    // console.log(ts);
-    return ts;
   };
 
   return (
@@ -89,8 +79,8 @@ export const WeatherMapFull = (props) => {
               <LayersControl.Overlay name="Conditions" checked>
                 {mapView === 'radar' ? (
                   <TileLayer
-                    url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-                    transparent="true"
+                    url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/256/{z}/{x}/{y}/8/1_1.png`}
+                    opacity={.67}
                   />
                 ) : (
                   <WMSTileLayer

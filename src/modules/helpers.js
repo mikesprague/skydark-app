@@ -132,6 +132,17 @@ export const formatCondition = (value, condition) => {
   }
 };
 
+export const getRadarTs = () => {
+  const now = dayjs();
+  const hours = now.hour();
+  let minutes = now.minute();
+  minutes = minutes - (minutes % 10);
+  const millisecondTs = dayjs().hour(hours).minute(minutes).second(0).millisecond(0).valueOf();
+  const ts = millisecondTs / 1000;
+  // console.log(ts);
+  return ts;
+};
+
 export const getConditionBarClass = (data) => {
   const { icon, cloudCover, summary } = data;
   const clouds = Math.round(cloudCover * 100);
