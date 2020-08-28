@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { Map, Marker, TileLayer, WMSTileLayer, LayersControl } from "react-leaflet";
+import { Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl } from "react-leaflet";
 import { getRadarTs } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
@@ -45,15 +45,21 @@ export const WeatherMapFull = (props) => {
       <div className="h-full min-h-screen contents v-full">
         <div className="min-h-screen map-container">
           <Map
+            animate={true}
+            boxZoom={true}
             center={[coordinates.lat, coordinates.lng]}
-            zoom={7}
             doubleClickZoom={true}
             dragging={true}
             keyboard={false}
             scrollWheelZoom={false}
+            tap={true}
             touchZoom={true}
+            zoom={7}
+            zoomControl={false}
           >
             <Marker position={[coordinates.lat, coordinates.lng]} opacity={.9} />
+            <ZoomControl position="topleft" />
+            <ScaleControl position="topleft" />
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark (default)" checked>
                 <TileLayer
@@ -80,7 +86,7 @@ export const WeatherMapFull = (props) => {
                 {mapView === 'radar' ? (
                   <TileLayer
                     url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/256/{z}/{x}/{y}/8/1_1.png`}
-                    opacity={.67}
+                    opacity={.8}
                   />
                 ) : (
                   <WMSTileLayer
