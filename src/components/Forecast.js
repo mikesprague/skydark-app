@@ -137,6 +137,7 @@ export const Forecast = (props) => {
         <Conditions data={weatherData.data.weather} />
 
         <WeatherAlert data={weatherData.data.weather} />
+        {/* {weatherData.data.weather && weatherData.data.weather.alerts ? <WeatherAlert data={weatherData.data.weather} /> : ''} */}
 
         <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} />
 

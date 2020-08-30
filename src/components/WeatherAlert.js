@@ -11,8 +11,8 @@ export const WeatherAlert = memo(({ data }) => {
       setAlertData(data.alerts[0]);
     }
 
-    return () => {};
-  }, [alertData, data]);
+    // return () => {};
+  }, [data]);
 
   const weatherAlertHandler = (event) => {
     const overlayContainer = document.getElementById('weather-alerts-modal');
@@ -24,14 +24,14 @@ export const WeatherAlert = memo(({ data }) => {
     elementsToHide.forEach(elem => elem.classList.remove('hidden'));
   };
 
-  return alertData ? (
+  return alertData && alertData.length ? (
     <div className="weather-alert-container">
       <button onClick={weatherAlertHandler} className="weather-alert-button">
         <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
         &nbsp;
         {alertData.title}
       </button>
-      <Modal id="weather-alerts-modal" content="" heading="" weatherAlert={true} weatherAlertData={alertData}  />
+      <Modal id="weather-alerts-modal" weatherAlert={true} weatherAlertData={alertData} content="" heading="" />
     </div>
   ) : '';
 });
