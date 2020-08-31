@@ -52,6 +52,19 @@
     @apply mt-12;
   }
 
+  .leaflet-control-layers {
+    background-color: $color-dark-gray;
+    color: $color-body-text;
+  }
+
+  .leaflet-bar {
+    a,
+    a:hover {
+      background-color: $color-dark-gray;
+      color: $color-body-text;
+    }
+  }
+
   .leaflet-control-attribution,
   .leaflet-control-layers-overlays,
   .leaflet-control-layers-separator {
