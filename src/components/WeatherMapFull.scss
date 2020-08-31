@@ -16,6 +16,7 @@
 
     select {
       background-color: $color-body-bg;
+      text-align-last: center;
       @apply text-xl;
       @apply text-center;
       @apply focus:outline-none;

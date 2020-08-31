@@ -32,7 +32,7 @@ export const WeatherMapFull = (props) => {
     <div className="contents">
       <div className="header">
         <div className="section-name">
-          <select className="" onChange={changeHandler}>
+          <select onChange={changeHandler}>
             <option value="radar">Radar</option>
             <option value="precipitation_new">Precipitation</option>
             <option value="clouds_new">Clouds</option>
