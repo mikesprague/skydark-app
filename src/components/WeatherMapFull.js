@@ -64,7 +64,14 @@ export const WeatherMapFull = (props) => {
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark" checked>
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+                  opacity={1}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Light">
+                <TileLayer
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
                   opacity={1}
                   zIndex={1}
                 />
@@ -76,16 +83,30 @@ export const WeatherMapFull = (props) => {
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Street (grayscale)">
+              <LayersControl.BaseLayer name="Street (Gray)">
                 <TileLayer
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={.8}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="B/W">
+              <LayersControl.BaseLayer name="Black/White">
                 <TileLayer
                   url="http://{s}.tile.stamen.com/toner/{z}/{x}/{y}@2x.png"
+                  opacity={.9}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Black/White/Gray">
+                <TileLayer
+                  url="http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}@2x.png"
+                  opacity={.9}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Watercolor">
+                <TileLayer
+                  url="http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
                   opacity={.9}
                   zIndex={1}
                 />
