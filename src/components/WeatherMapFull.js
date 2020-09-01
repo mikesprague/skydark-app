@@ -62,16 +62,23 @@ export const WeatherMapFull = (props) => {
             <ZoomControl position="topleft" />
             <ScaleControl position="topleft" />
             <LayersControl position="topright">
-              <LayersControl.BaseLayer name="Dark (default)" checked>
+              <LayersControl.BaseLayer name="Dark" checked>
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
                   opacity={1}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Standard">
+              <LayersControl.BaseLayer name="Street">
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  opacity={.8}
+                  zIndex={1}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Street (grayscale)">
+                <TileLayer
+                  url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={.8}
                   zIndex={1}
                 />
