@@ -44,7 +44,7 @@ export const WeatherMapFull = (props) => {
         </div>
       </div>
       <div className="h-full min-h-screen contents v-full">
-        <div className="min-h-screen map-container">
+        <div className="relative min-h-screen map-container">
           <Map
             animate={true}
             boxZoom={true}
@@ -125,6 +125,9 @@ export const WeatherMapFull = (props) => {
               </LayersControl.Overlay>
             </LayersControl>
           </Map>
+          <div className={mapView === 'radar' ? 'radar-key' : 'hidden'}>
+            <img src="/images/map-key.png" />
+          </div>
         </div>
       </div>
     </div>
