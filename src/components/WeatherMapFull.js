@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl } from "react-leaflet";
 import { getRadarTs } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
