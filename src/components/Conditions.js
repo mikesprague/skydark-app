@@ -25,7 +25,7 @@ export const Conditions = ({ data, date = null }) => {
         </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth style={{'--fa-primary-color': 'red', '--fa-secondary-color': '#fff', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Temp: {formatCondition(data.currently.temperature, 'temperature')}
@@ -34,7 +34,7 @@ export const Conditions = ({ data, date = null }) => {
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'wind']} size="2x" swapOpacity fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'wind-turbine']} size="2x" fixedWidth style={{'--fa-primary-color': 'dodgerblue', '--fa-secondary-color': '#f5f5f5', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Wind: <FontAwesomeIcon icon={['fad', 'chevron-circle-up']} size="lg" transform={{ rotate: 42 }} fixedWidth /> {formatCondition(data.currently.windSpeed, 'windSpeed')}
@@ -43,21 +43,21 @@ export const Conditions = ({ data, date = null }) => {
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'cloud']} size="2x" swapOpacity fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'clouds']} size="2x" fixedWidth style={{'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'darkgray', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Cloud Cover: {formatCondition(data.currently.cloudCover, 'cloudCover')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'eye']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'eye']} size="2x" fixedWidth style={{'--fa-primary-color': 'skyblue', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Visibiity: {formatCondition(data.currently.visibility, 'visibility')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'humidity']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'humidity']} size="2x" swapOpacity fixedWidth style={{'--fa-primary-color': 'black', '--fa-secondary-color': 'deepskyblue', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Humidity: {formatCondition(data.currently.humidity, 'humidity')}
@@ -66,35 +66,35 @@ export const Conditions = ({ data, date = null }) => {
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'tachometer']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'tachometer-alt']} size="2x" fixedWidth style={{'--fa-primary-color': 'crimson', '--fa-secondary-color': 'snow', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Pressure: {formatCondition(data.currently.pressure, 'pressure')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'umbrella']} size="2x" swapOpacity fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'umbrella']} size="2x" swapOpacity fixedWidth style={{'--fa-primary-color': 'royalblue', '--fa-secondary-color': 'sienna', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Precip: {formatCondition(data.currently.precipProbability, 'precipProbability')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'sun']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'sun']} size="2x" fixedWidth style={{'--fa-primary-color': 'gold', '--fa-secondary-color': 'darkorange', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               UV Index: {formatCondition(data.currently.uvIndex, 'uvIndex')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'sunrise']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'sunrise']} size="2x" swapOpacity fixedWidth style={{'--fa-primary-color': 'darkorange', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Sunrise: {formatCondition(data.daily.data[0].sunriseTime, 'sunriseTime')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'sunset']} size="2x" fixedWidth />
+            <FontAwesomeIcon icon={['fad', 'sunset']} size="2x" swapOpacity fixedWidth style={{'--fa-primary-color': 'darkorange', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
               Sunset: {formatCondition(data.daily.data[0].sunsetTime, 'sunsetTime')}
