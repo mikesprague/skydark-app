@@ -123,7 +123,8 @@ export const Forecast = (props) => {
         <div className="current-conditions" onClick={currentConditionsHandler}>
           <div className="icon">
             <FontAwesomeIcon
-              icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon)]}
+              icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon).icon]}
+              style={getWeatherIcon(weatherData.data.weather.currently.icon).iconStyles}
               fixedWidth
               size="4x"
             />
@@ -159,7 +160,7 @@ export const Forecast = (props) => {
                     </span>
                   </div>
                   <div className="icon">
-                    <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
+                    <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon).icon]} style={getWeatherIcon(dayData.icon).iconStyles} size="2x" fixedWidth />
                   </div>
                   <div className="temps">
                     {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}

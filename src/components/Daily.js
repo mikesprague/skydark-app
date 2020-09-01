@@ -65,7 +65,7 @@ export const Daily = ({ data, coordinates }) => {
                 </span>
               </div>
               <div className="icon">
-                <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon)]} size="2x" fixedWidth />
+                <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon).icon]} size="2x" fixedWidth />
               </div>
               <div className="temps">
                 {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}

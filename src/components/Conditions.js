@@ -19,13 +19,13 @@ export const Conditions = ({ data, date = null }) => {
     <Modal id="conditions-modal" heading={conditionsHeading} content={
       <Fragment>
         <h4 className="mb-2 text-lg">
-          {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon)]} fixedWidth size="2x" />
+          {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon).icon]} fixedWidth size="2x" />
           <br /> */}
           {data.currently.summary}
         </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth style={{'--fa-primary-color': 'red', '--fa-secondary-color': '#fff', '--fa-secondary-opacity': '.75'}} />
+            <FontAwesomeIcon icon={['fad', 'thermometer-half']} size="2x" fixedWidth style={{'--fa-primary-color': 'red', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9'}} />
             <br />
             <small>
               Temp: {formatCondition(data.currently.temperature, 'temperature')}
@@ -34,16 +34,16 @@ export const Conditions = ({ data, date = null }) => {
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'wind-turbine']} size="2x" fixedWidth style={{'--fa-primary-color': 'dodgerblue', '--fa-secondary-color': '#f5f5f5', '--fa-secondary-opacity': '.75'}} />
+            <FontAwesomeIcon icon={['fad', 'wind-turbine']} size="2x" fixedWidth style={{'--fa-primary-color': 'dodgerblue', '--fa-secondary-color': 'snow', '--fa-secondary-opacity': '.75'}} />
             <br />
             <small>
-              Wind: <FontAwesomeIcon icon={['fad', 'chevron-circle-up']} size="lg" transform={{ rotate: 42 }} fixedWidth /> {formatCondition(data.currently.windSpeed, 'windSpeed')}
+              Wind: <FontAwesomeIcon icon={['fad', 'chevron-circle-up']} size="lg" transform={{ rotate: data.currently.windBearing }} style={{'--fa-primary-color': 'ghostwhite', '--fa-secondary-color': 'darkslategray', '--fa-secondary-opacity': '1'}} fixedWidth /> {formatCondition(data.currently.windSpeed, 'windSpeed')}
               <br />
               Gusts: {formatCondition(data.currently.windGust, 'windGust')}
             </small>
           </div>
           <div className="conditions-item">
-            <FontAwesomeIcon icon={['fad', 'clouds']} size="2x" fixedWidth style={{'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'darkgray', '--fa-secondary-opacity': '.75'}} />
+            <FontAwesomeIcon icon={['fad', 'clouds']} size="2x" fixedWidth style={{'--fa-primary-color': 'darkgray', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '1'}} />
             <br />
             <small>
               Cloud Cover: {formatCondition(data.currently.cloudCover, 'cloudCover')}

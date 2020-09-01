@@ -77,20 +77,62 @@ export const initIcons = () => {
 
 export const getWeatherIcon = (icon) => {
   const iconMap = {
-    'clear-day': 'sun',
-    'clear-night': 'moon-stars',
-    rain: 'cloud-rain',
-    snow: 'cloud-snow',
-    sleet: 'cloud-sleet',
-    wind: 'wind',
-    fog: 'fog',
-    cloudy: 'clouds',
-    'partly-cloudy-day': 'clouds-sun',
-    'partly-cloudy-night': 'clouds-moon',
-    hail: 'cloud-hail',
-    hurricane: 'hurricane',
-    thunderstorm: 'thunderstorm',
-    tornado: 'tornado',
+    'clear-day': {
+      icon: 'sun',
+      iconStyles: {'--fa-primary-color': 'gold', '--fa-secondary-color': 'darkorange', '--fa-secondary-opacity': '.75'},
+    },
+    'clear-night': {
+      icon: 'moon-stars',
+      iconStyles: {'--fa-primary-color': 'lavender', '--fa-secondary-color': 'palegoldenrod', '--fa-secondary-opacity': '1'},
+    },
+    rain: {
+      icon: 'cloud-rain',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'dodgerblue', '--fa-secondary-opacity': '.75'},
+    },
+    snow: {
+      icon: 'cloud-snow',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '1'},
+    },
+    sleet: {
+      icon: 'cloud-sleet',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9'},
+    },
+    wind: {
+      icon: 'wind',
+      iconStyles: {'--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75'},
+    },
+    fog: {
+      icon: 'fog',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1'},
+    },
+    cloudy: {
+      icon: 'clouds',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'darkgray', '--fa-secondary-opacity': '.75'},
+    },
+    'partly-cloudy-day': {
+      icon: 'clouds-sun',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75'},
+    },
+    'partly-cloudy-night': {
+      icon: 'clouds-moon',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'lavender', '--fa-secondary-opacity': '1'},
+    },
+    hail: {
+      icon: 'cloud-hail',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9'},
+    },
+    hurricane: {
+      icon: 'hurricane',
+      iconStyles: {'--fa-primary-color': 'black', '--fa-secondary-color': 'crimson', '--fa-secondary-opacity': '.9'},
+    },
+    thunderstorm: {
+      icon: 'thunderstorm',
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'yellow', '--fa-secondary-opacity': '.8'},
+    },
+    tornado: {
+      icon: 'tornado',
+      iconStyles: {'--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75'},
+    },
   };
   return iconMap[icon];
 };
