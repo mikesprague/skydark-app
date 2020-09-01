@@ -105,7 +105,7 @@ export const Forecast = (props) => {
   const dayClickHandler = (event) => {
     const allDetails = document.querySelectorAll("details");
     const currentDetail = event.target.closest('details');
-    console.log(event.target.closest('summary').dataset.time);
+    // console.log(event.target.closest('summary').dataset.time);
     allDetails.forEach(detail => {
       if (detail !== currentDetail) {
         detail.removeAttribute('open');
@@ -133,9 +133,8 @@ export const Forecast = (props) => {
             <h2 className="actual-temp">{formatCondition(weatherData.data.weather.currently.temperature, 'temperature')}</h2>
             <h3 className="feels-like-temp">{'Feels ' + formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature')}</h3>
           </div>
+          <Conditions data={weatherData.data.weather} />
         </div>
-
-        <Conditions data={weatherData.data.weather} />
 
         <WeatherAlert data={weatherData.data.weather} />
         {/* {weatherData.data.weather && weatherData.data.weather.alerts ? <WeatherAlert data={weatherData.data.weather} /> : ''} */}
