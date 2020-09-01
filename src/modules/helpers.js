@@ -17,7 +17,8 @@ import {
   faMapMarkerAlt, faExclamationTriangle, faArrowAltCircleDown, faArrowAltCircleUp, faBan, faSignal, faLongArrowAltDown,
   faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faTachometer,
   faAngleUp, faInfoCircle, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faUmbrella,
-  faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine
+  faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
+  faTachometerAlt,
 } from '@fortawesome/pro-duotone-svg-icons';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
@@ -70,7 +71,7 @@ export const initIcons = () => {
     faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faClouds,
     faTachometer, faAngleUp, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faSun,
     faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand,
-    faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
+    faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine, faTachometerAlt,
   );
 };
 
