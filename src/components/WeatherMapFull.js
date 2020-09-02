@@ -18,10 +18,10 @@ export const WeatherMapFull = (props) => {
 
   useEffect(() => {
     if (!coordinates) {
-      window.location.replace('/');
+      window.location.href = '/';
     }
 
-    return () => {};
+    // return () => {};
   }, [mapView]);
 
   const changeHandler = (event) => {
