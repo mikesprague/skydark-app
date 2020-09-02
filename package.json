@@ -44,7 +44,7 @@
     "@tippyjs/react": "^4.1.0",
     "axios": "^0.20.0",
     "cross-env": "^7.0.2",
-    "dayjs": "^1.8.34",
+    "dayjs": "^1.8.35",
     "dotenv": "^8.2.0",
     "he": "^1.2.0",
     "leaflet": "^1.6.0",
@@ -55,8 +55,8 @@
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.387.0",
-    "swr": "^0.3.1",
+    "snyk": "^1.388.0",
+    "swr": "^0.3.2",
     "tailwindcss": "^1.7.6"
   },
   "devDependencies": {
