@@ -11,7 +11,7 @@ export const Hour = memo((props) => {
     setHourlyConditionToShow(conditionToShow);
 
     return () => {};
-  }, [hourlyConditionToShow]);
+  }, [hourlyConditionToShow, conditionToShow]);
 
   return (
     <li className="hour">
