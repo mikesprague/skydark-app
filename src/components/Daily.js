@@ -1,22 +1,15 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import React, { useEffect, useState } from 'react';
-import { apiUrl, formatCondition, formatSummary, getWeatherIcon, } from '../modules/helpers'
-import { getData } from '../modules/local-storage';
+import React from 'react';
+import { apiUrl, formatCondition, getWeatherIcon, } from '../modules/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Hourly } from '../components/Hourly';
-import { Loading } from '../components/Loading';
 import './Daily.scss';
 
 export const Daily = ({ data, coordinates }) => {
   const [hourlyData, setHourlyData] = useLocalStorage('hourlyData', null);
-
-  useEffect(() => {
-
-
-  }, []);
 
   const getWeatherData = async (lat, lng, date) => {
     const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
@@ -40,7 +33,7 @@ export const Daily = ({ data, coordinates }) => {
     });
 
     if (isOpen) {
-      if (!hourlyData || hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(20, 'minute'))) {
+      if (!hourlyData || (hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(20, 'minute')))) {
         const weatherData = await getWeatherData(lat, lng, time);
         setHourlyData({
           lastUpdated: dayjs().toString(),
