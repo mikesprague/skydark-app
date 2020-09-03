@@ -22,7 +22,7 @@ export const LastUpdated = memo(({ time }) => {
       <small>
         Last updated {lastUpdatedString}
         <br />
-        <a href="https://darksky.net/poweredby/" rel="noopener" target="_blank">Powered by Dark Sky</a>
+        <a href="https://darksky.net/poweredby/" rel="noopener noreferrer" target="_blank">Powered by Dark Sky</a>
       </small>
     </div>
   );

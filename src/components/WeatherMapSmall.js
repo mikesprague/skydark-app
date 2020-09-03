@@ -1,12 +1,12 @@
-import dayjs from 'dayjs';
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Map, Marker, TileLayer, WMSTileLayer } from "react-leaflet";
+import { Map, Marker, TileLayer } from "react-leaflet";
 import { getRadarTs } from '../modules/helpers';
 import './WeatherMapSmall.scss';
 
 export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
+
   useEffect(() => {
     setLocationCoordinates(coordinates);
 
@@ -15,10 +15,10 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
 
   return (
     <div className="map">
-    {coordinates && coordinates.lat ? (
+    {locationCoordinates && locationCoordinates.lat ? (
       <Link to="/map">
         <Map
-          center={[coordinates.lat, coordinates.lng]}
+          center={[locationCoordinates.lat, locationCoordinates.lng]}
           zoom={4}
           doubleClickZoom={false}
           dragging={false}
@@ -34,7 +34,7 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
             url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/256/{z}/{x}/{y}/8/1_1.png`}
             opacity={1}
           />
-          <Marker position={[coordinates.lat, coordinates.lng]} opacity={.85} />
+          <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} opacity={.85} />
         </Map>
       </Link>
       ) : ''}

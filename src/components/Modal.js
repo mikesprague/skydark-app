@@ -19,7 +19,7 @@ export const Modal = ({id, content, heading, weatherAlert = false, weatherAlertD
     }
 
     return () => {};
-  }, [visible]);
+  }, [visible, id]);
 
   const clickHandler = (event) => {
     setVisible(!visible);

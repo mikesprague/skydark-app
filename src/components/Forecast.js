@@ -4,7 +4,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tippy from '@tippyjs/react';
 import {
   apiUrl, formatCondition, getWeatherIcon,
 } from '../modules/helpers';
@@ -13,12 +12,10 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import './Forecast.scss';
 import { Conditions } from '../components/Conditions';
 import { CurrentHourly } from '../components/CurrentHourly';
-import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Hourly } from '../components/Hourly';
 import { LastUpdated } from '../components/LastUpdated';
 import { Loading } from '../components/Loading';
-import { Modal } from '../components/Modal';
 import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherAlert } from '../components/WeatherAlert';
 import { WeatherMapSmall } from '../components/WeatherMapSmall';
@@ -28,6 +25,7 @@ dayjs.extend(relativeTime)
 export const Forecast = (props) => {
   const [locationName, setLocationName] = useState('Determining location');
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
+  const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
 
   useEffect(() => {
     async function getPosition(position) {
@@ -57,12 +55,11 @@ export const Forecast = (props) => {
     }
 
     // return () => {};
-  }, []);
+  }, [coordinates, setCoordinates, weatherData]);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
+  // const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     if (coordinates) {
       const { lat, lng } = coordinates;
       const getWeatherData = async (lat, lng) => {
@@ -75,7 +72,7 @@ export const Forecast = (props) => {
           lastUpdated: dayjs().toString(),
           data: weatherApiData,
         });
-        setIsLoading(false);
+        // setIsLoading(false);
         setLocationName(weatherApiData.location.locationName);
       };
       if (weatherData && weatherData.lastUpdated) {
@@ -90,7 +87,7 @@ export const Forecast = (props) => {
     }
 
     // return () => {};
-  }, [coordinates]);
+  }, [coordinates, weatherData, setWeatherData]);
 
   const currentConditionsHandler = (event) => {
     const overlayContainer = document.getElementById('conditions-modal');

@@ -1,8 +1,5 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import dompurify from 'dompurify';
-import he from 'he';
-import { nanoid } from 'nanoid';
 import React, { memo, useEffect, useState } from 'react';
 import './SunriseSunset.scss';
 dayjs.extend(relativeTime);
