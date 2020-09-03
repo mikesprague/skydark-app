@@ -1,6 +1,7 @@
+import dayjs from 'dayjs';
 import React, { Fragment, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatCondition, getWeatherIcon } from '../modules/helpers';
+import { formatCondition } from '../modules/helpers';
 import { Modal } from '../components/Modal';
 import './Conditions.scss';
 
@@ -13,7 +14,7 @@ export const Conditions = ({ data, date = null }) => {
     }
 
     // return () => {};
-  }, []);
+  }, [date]);
 
   return (
     <Modal id="conditions-modal" heading={conditionsHeading} content={
