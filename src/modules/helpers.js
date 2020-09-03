@@ -83,7 +83,7 @@ export const getWeatherIcon = (icon) => {
     },
     'clear-night': {
       icon: 'moon-stars',
-      iconStyles: {'--fa-primary-color': 'lavender', '--fa-secondary-color': 'palegoldenrod', '--fa-secondary-opacity': '1'},
+      iconStyles: {'--fa-primary-color': 'plum', '--fa-secondary-color': 'palegoldenrod', '--fa-secondary-opacity': '1'},
     },
     rain: {
       icon: 'cloud-rain',
@@ -115,7 +115,7 @@ export const getWeatherIcon = (icon) => {
     },
     'partly-cloudy-night': {
       icon: 'clouds-moon',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'lavender', '--fa-secondary-opacity': '1'},
+      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'plum', '--fa-secondary-opacity': '1'},
     },
     hail: {
       icon: 'cloud-hail',
