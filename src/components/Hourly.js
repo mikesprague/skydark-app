@@ -2,8 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
-import { apiUrl, formatCondition, formatSummary, } from '../modules/helpers'
-import { getData } from '../modules/local-storage';
+import { apiUrl, formatSummary, } from '../modules/helpers'
 import { Hour } from '../components/Hour';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './Hourly.scss';
@@ -38,7 +37,7 @@ export const Hourly = ({ coordinates, date }) => {
     }
 
     return () => { isMounted = false };
-  }, [coordinates, date]);
+  }, [coordinates, date, lat, lng, hourlyData, setHourlyData]);
 
   const changeHandler = (event) => {
     // console.log(event.target.value);
