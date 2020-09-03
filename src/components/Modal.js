@@ -46,7 +46,7 @@ export const Modal = ({id, content, heading, weatherAlert = false, weatherAlertD
                   {weatherAlertData.description}
                 </p>
                 <p className="m-4 text-center">
-                  <a className="px-4 py-2 my-6 text-sm bg-blue-500" href={weatherAlertData.uri} rel="noopener" target="_blank">More Info</a>
+                  <a className="px-4 py-2 my-6 text-sm bg-blue-500" href={weatherAlertData.uri} rel="noopener noreferrer" target="_blank">More Info</a>
                 </p>
                 </Fragment>
               ) : content}
