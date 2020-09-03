@@ -9,14 +9,14 @@ export const Header = memo(({ name }) => {
     const initScrollAndSetLocation = () => {
       const headerEl = document.querySelector('.header');
       window.onscroll = () => {
-        if (document.body.scrollTop > 5 || document.documentElement.scrollTop > 5) {
-          headerEl.classList.add('shadow-md')
+        if ((document.body.scrollTop || document.documentElement.scrollTop) && (document.body.scrollTop > 5 || document.documentElement.scrollTop > 5)) {
+          headerEl.classList.add('shadow-md');
         } else {
-          headerEl.classList.remove('shadow-md')
+          headerEl.classList.remove('shadow-md');
         }
       };
       setLocationName(name);
-    }
+    };
     initScrollAndSetLocation();
 
     return () => {};

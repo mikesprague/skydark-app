@@ -12,10 +12,10 @@ export const Modal = ({id, content, heading, weatherAlert = false, weatherAlertD
     const elementsToHide = [overlayContainer, overlay, modal];
 
     if (visible) {
-      elementsToHide.forEach(elem => elem.classList.remove('hidden'));
+      elementsToHide.forEach((elem) => elem.classList.remove('hidden'));
       setVisible(false);
     } else {
-      elementsToHide.forEach(elem => elem.classList.add('hidden'));
+      elementsToHide.forEach((elem) => elem.classList.add('hidden'));
     }
 
     return () => {};
@@ -23,6 +23,7 @@ export const Modal = ({id, content, heading, weatherAlert = false, weatherAlertD
 
   const clickHandler = (event) => {
     setVisible(!visible);
+    console.log(event);
   };
 
   return (
@@ -57,3 +58,5 @@ export const Modal = ({id, content, heading, weatherAlert = false, weatherAlertD
     </div>
   );
 };
+
+export default Modal;
