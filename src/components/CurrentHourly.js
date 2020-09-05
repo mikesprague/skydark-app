@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { memo, useEffect, useState } from 'react';
-import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers'
+import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './CurrentHourly.scss';
 
 export const CurrentHourly = memo(({data}) => {

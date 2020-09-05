@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react';
 import './Modal.scss';
 
 export const Modal = ({id, content, heading, weatherAlert = false, weatherAlertData = null}) => {

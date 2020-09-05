@@ -20,7 +20,7 @@ import { SunriseSunset } from '../components/SunriseSunset';
 import { WeatherAlert } from '../components/WeatherAlert';
 import { WeatherMapSmall } from '../components/WeatherMapSmall';
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 export const Forecast = (props) => {
   const [locationName, setLocationName] = useState('Determining location');
@@ -32,7 +32,7 @@ export const Forecast = (props) => {
       setCoordinates({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      })
+      });
     }
     async function geolocationError(error) {
       console.error(error);
@@ -63,7 +63,7 @@ export const Forecast = (props) => {
     if (coordinates) {
       const { lat, lng } = coordinates;
       const getWeatherData = async (lat, lng) => {
-        setLocationName('Loading weather data')
+        setLocationName('Loading weather data');
         const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}`;
         const weatherApiData =  await axios
           .get(weatherApiurl)
@@ -100,7 +100,7 @@ export const Forecast = (props) => {
   };
 
   const dayClickHandler = (event) => {
-    const allDetails = document.querySelectorAll("details");
+    const allDetails = document.querySelectorAll('details');
     const currentDetail = event.target.closest('details');
     // console.log(event.target.closest('summary').dataset.time);
     allDetails.forEach(detail => {
@@ -108,7 +108,7 @@ export const Forecast = (props) => {
         detail.removeAttribute('open');
       }
     });
-  }
+  };
 
   return weatherData && coordinates ? (
     <div className="contents">
@@ -175,6 +175,6 @@ export const Forecast = (props) => {
 
     </div>
   ) : <Loading />;
-}
+};
 
 export default Forecast;

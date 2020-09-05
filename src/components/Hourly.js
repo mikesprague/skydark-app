@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
-import { apiUrl, formatSummary, } from '../modules/helpers'
+import { apiUrl, formatSummary, } from '../modules/helpers';
 import { Hour } from '../components/Hour';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './Hourly.scss';
@@ -36,7 +36,7 @@ export const Hourly = ({ coordinates, date }) => {
       getWeatherData(lat, lng);
     }
 
-    return () => { isMounted = false };
+    return () => { isMounted = false; };
   }, [coordinates, date, lat, lng, hourlyData, setHourlyData]);
 
   const changeHandler = (event) => {

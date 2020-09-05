@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { memo, useEffect, useState } from 'react';
-import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers'
+import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './Hour.scss';
 
 export const Hour = memo((props) => {

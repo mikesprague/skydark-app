@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl } from "react-leaflet";
+import { Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl } from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
@@ -126,7 +126,7 @@ export const WeatherMapFull = (props) => {
             </LayersControl>
           </Map>
           <div className={mapView === 'radar' ? 'radar-key' : 'hidden'}>
-            <img src="/images/map-key.png" />
+            <img src="/images/map-key.png" alt="Radar Map Key" />
           </div>
         </div>
       </div>

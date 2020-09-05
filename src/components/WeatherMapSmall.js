@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Map, Marker, TileLayer } from "react-leaflet";
+import { Map, Marker, TileLayer } from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
 import './WeatherMapSmall.scss';
 

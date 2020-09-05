@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Footer.scss';
 
@@ -30,5 +30,5 @@ export const Footer = memo(() => {
         </div>
       </div>
     </div>
-  )
+  );
 });

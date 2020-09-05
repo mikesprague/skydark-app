@@ -38,7 +38,7 @@ export const SunriseSunset = memo(({ data }) => {
         time,
         timeString,
       });
-    }
+    };
     init();
     const clockInterval = setInterval(init, (1000));
 

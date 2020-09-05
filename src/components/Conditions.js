@@ -10,7 +10,7 @@ export const Conditions = ({ data, date = null }) => {
 
   useEffect(() => {
     if (date) {
-      setConditionsHeading(`${dayjs(date).format('DDD, MMMM, D')} at ${dayjs(date).format('h:mm A')}`)
+      setConditionsHeading(`${dayjs(date).format('DDD, MMMM, D')} at ${dayjs(date).format('h:mm A')}`);
     }
 
     // return () => {};

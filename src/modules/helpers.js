@@ -22,7 +22,7 @@ import {
 } from '@fortawesome/pro-duotone-svg-icons';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 export const isDev = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -36,10 +36,10 @@ export const apiUrl = (useLocalhost = false) => {
     return 'http://localhost:9000';
   }
   if (!isDev()) {
-    return `https://${window.location.hostname}/.netlify/functions`
+    return `https://${window.location.hostname}/.netlify/functions`;
   }
   return 'https://skydark.app/.netlify/functions';
-}
+};
 
 export const handleError = (error) => {
   console.error(error);
@@ -157,7 +157,7 @@ export const formatCondition = (value, condition) => {
       return `${Math.round(value)}mb`;
     case 'sunriseTime':
     case 'sunsetTime':
-      return `${dayjs.unix(value).format('h:mm A')}`
+      return `${dayjs.unix(value).format('h:mm A')}`;
     case 'visibility':
       return `${Math.round(value)}mi`;
     case 'windSpeed':
