@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal } from '../components/Modal';
 import './WeatherAlert.scss';
 
-export const WeatherAlert = memo(({ data }) => {
+export const WeatherAlert = ({ data }) => {
   const [alertData, setAlertData] = useState(null);
 
   useEffect(() => {
@@ -34,6 +34,6 @@ export const WeatherAlert = memo(({ data }) => {
       <Modal id="weather-alerts-modal" weatherAlert={true} weatherAlertData={alertData} content="" heading="" />
     </div>
   ) : '';
-});
+};
 
 export default WeatherAlert;
