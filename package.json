@@ -179,14 +179,6 @@
           "avoidEscape": true,
           "allowTemplateLiterals": true
         }
-      ],
-      "max-len": [
-        "warn",
-        {
-          "code": 120,
-          "tabWidth": 2,
-          "ignoreUrls": true
-        }
       ]
     }
   },
