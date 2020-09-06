@@ -36,6 +36,7 @@
     }
   ],
   "homepage_url": "https://skydark.app/",
+  "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",
