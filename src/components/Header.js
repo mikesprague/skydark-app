@@ -1,8 +1,8 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Header.scss';
 
-export const Header = memo(({ name }) => {
+export const Header = ({ name }) => {
   const [locationName, setLocationName] = useState(null);
 
   useEffect(() => {
@@ -31,6 +31,6 @@ export const Header = memo(({ name }) => {
       </div>
     </div>
   ) : '';
-});
+};
 
 export default Header;

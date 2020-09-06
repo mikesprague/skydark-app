@@ -1,10 +1,10 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
 import './WeatherMapSmall.scss';
 
-export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
+export const WeatherMapSmall = ({ coordinates }) => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
           touchZoom={false}
         >
           <TileLayer
-            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png" //https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png, https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
             opacity={.95}
           />
           <TileLayer
@@ -40,6 +40,6 @@ export const WeatherMapSmall = memo(({ coordinates, apiKey }) => {
       ) : ''}
     </div>
   );
-});
+};
 
 export default WeatherMapSmall;

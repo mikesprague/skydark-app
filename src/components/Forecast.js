@@ -134,7 +134,6 @@ export const Forecast = (props) => {
         </div>
 
         <WeatherAlert data={weatherData.data.weather} />
-        {/* {weatherData.data.weather && weatherData.data.weather.alerts ? <WeatherAlert data={weatherData.data.weather} /> : ''} */}
 
         <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} />
 
@@ -144,28 +143,29 @@ export const Forecast = (props) => {
 
         <div className="daily-container">
           <div className="daily">
-          {weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
-            return dayIndex <= 7 ? (
-              <details key={nanoid(7)} className="day">
-                <summary data-time={dayData.time} onClick={dayClickHandler}>
-                  <div className="name">
-                    <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
-                    <br />
-                    <span className="precip">
-                      <FontAwesomeIcon icon={['fad', 'tint']} /> {Math.round(dayData.precipProbability * 100)}%
-                    </span>
-                  </div>
-                  <div className="icon">
-                    <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon).icon]} style={getWeatherIcon(dayData.icon).iconStyles} size="2x" fixedWidth />
-                  </div>
-                  <div className="temps">
-                    {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}
-                  </div>
-                </summary>
-                <Hourly coordinates={coordinates} date={dayData.time} />
-              </details>
-            ) : '';
-          })}
+            {weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
+              return dayIndex <= 7 ? (
+                <details key={nanoid(7)} className="day">
+                  <summary data-time={dayData.time} onClick={dayClickHandler}>
+                    <div className="name">
+                      <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
+                      <br />
+                      <span className="precip">
+                        <FontAwesomeIcon icon={['fad', 'tint']} />
+                        {` ${Math.round(dayData.precipProbability * 100)}%`}
+                      </span>
+                    </div>
+                    <div className="icon">
+                      <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon).icon]} style={getWeatherIcon(dayData.icon).iconStyles} size="2x" fixedWidth />
+                    </div>
+                    <div className="temps">
+                      {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}
+                    </div>
+                  </summary>
+                  <Hourly coordinates={coordinates} date={dayData.time} />
+                </details>
+              ) : '';
+            })}
           </div>
         </div>
 

@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SunriseSunset.scss';
+
 dayjs.extend(relativeTime);
 
-export const SunriseSunset = memo(({ data }) => {
+export const SunriseSunset = ({ data }) => {
   const [next, setNext] = useState(null);
 
   const formatTimeString = (time) => {
@@ -50,6 +51,6 @@ export const SunriseSunset = memo(({ data }) => {
       {next && next.event ? `${next.event} in ${next.timeString} (${next.time})` : ''}
     </div>
   );
-});
+};
 
 export default SunriseSunset;

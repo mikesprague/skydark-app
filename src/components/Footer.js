@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Footer.scss';
 
-export const Footer = memo(() => {
+export const Footer = () => {
   return (
     <div className="footer">
       <div className="flex text-sm">
@@ -31,4 +31,6 @@ export const Footer = memo(() => {
       </div>
     </div>
   );
-});
+};
+
+export default Footer;
