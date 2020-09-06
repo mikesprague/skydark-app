@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import {
   HashRouter as Router,
   Switch,
   Route,
-} from "react-router-dom";
-import { Footer } from '../components/Footer';
-import { Forecast } from '../components/Forecast';
-import { WeatherMapFull } from '../components/WeatherMapFull';
+} from 'react-router-dom';
+import { Footer } from './Footer';
+import { Forecast } from './Forecast';
+import { WeatherMapFull } from './WeatherMapFull';
 import { initIcons } from '../modules/helpers';
 import './App.scss';
 
-export const App = (props) => {
+export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   initIcons();
 
   return (
@@ -21,10 +21,10 @@ export const App = (props) => {
           <About />
         </Route>
         <Route path="/map">
-          <WeatherMapFull OPENWEATHERMAP_API_KEY={props.OPENWEATHERMAP_API_KEY} />
+          <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         </Route>
         <Route path="/">
-          <Forecast OPENWEATHERMAP_API_KEY={props.OPENWEATHERMAP_API_KEY} />
+          <Forecast OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         </Route>
       </Switch>
 
@@ -34,7 +34,7 @@ export const App = (props) => {
   );
 };
 
-function About() {
+export const About = () => {
   return (
     <div className="contents">
       <div className="header">
@@ -46,7 +46,7 @@ function About() {
         <p>Work in progress. This page will have content soon ...</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default hot(App);
