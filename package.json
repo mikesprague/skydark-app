@@ -49,6 +49,7 @@
     "he": "^1.2.0",
     "leaflet": "^1.7.1",
     "nanoid": "^3.1.12",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
@@ -70,8 +71,8 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/runtime": "^7.11.2",
     "@fullhuman/postcss-purgecss": "^2.3.0",
-    "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^2.34.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
     "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
@@ -81,21 +82,22 @@
     "css-loader": "^4.2.2",
     "cssnano": "^4.1.10",
     "dompurify": "^2.0.15",
-    "eslint": "^6.8.0",
+    "eslint": "^7.8.1",
     "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-react-app": "^5.2.1",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-compat": "^3.8.0",
-    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-html": "^6.1.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-markdown": "^1.0.2",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^2.5.1",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "eslint-plugin-security": "^1.4.0",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.4.1",
-    "inquirer": "^6.5.2",
+    "inquirer": "^7.3.3",
     "mini-css-extract-plugin": "^0.11.0",
     "netlify-cli": "^2.61.1",
     "netlify-lambda": "^2.0.1",
@@ -126,7 +128,7 @@
     ],
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-react"
+      "@babel/react"
     ]
   },
   "browserslist": {
@@ -148,7 +150,9 @@
       "node": true
     },
     "extends": [
-      "react-app",
+      "airbnb",
+      "prettier",
+      "prettier/react",
       "plugin:jsx-a11y/recommended"
     ],
     "plugins": [
@@ -157,14 +161,31 @@
       "import",
       "jsx-a11y",
       "markdown",
+      "prettier",
+      "react",
+      "react-hooks",
       "security"
     ],
     "parserOptions": {
-      "parser": "babel-parser"
+      "parser": "babel-parser",
+      "ecmaFeatures": {
+        "jsx": true
+      }
     },
     "rules": {
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
+      "jsx-a11y/no-static-element-interactions": "off",
+      "jsx-a11y/click-events-have-key-events": "off",
       "curly": "error",
       "object-curly-newline": "error",
       "semi": "error",
