@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses,
 } from '../modules/helpers';
@@ -9,12 +9,6 @@ import './CurrentHourly.scss';
 
 export const CurrentHourly = ({ data }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
-
-  useEffect(() => {
-    // setHourlyConditionToShow(conditionToShow);
-
-    return () => {};
-  }, [hourlyConditionToShow]);
 
   const changeHandler = (event) => {
     // console.log(event.target.value);

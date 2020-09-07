@@ -53,9 +53,7 @@ export const Forecast = () => {
     // return () => {};
   }, [coordinates, setCoordinates, weatherData]);
 
-  // const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    // setIsLoading(true);
     if (coordinates) {
       const { lat, lng } = coordinates;
       const getWeatherData = async (latitude, longitude) => {
@@ -68,7 +66,6 @@ export const Forecast = () => {
           lastUpdated: dayjs().toString(),
           data: weatherApiData,
         });
-        // setIsLoading(false);
         setLocationName(weatherApiData.location.locationName);
       };
       if (weatherData && weatherData.lastUpdated) {
@@ -87,9 +84,8 @@ export const Forecast = () => {
     // return () => {};
   }, [coordinates, weatherData, setWeatherData]);
 
-  return weatherData && coordinates ? (
-    <div className="contents">
-
+  return weatherData && weatherData.data ? (
+    <>
       <Header name={locationName} />
 
       <div className="my-16">
@@ -102,7 +98,7 @@ export const Forecast = () => {
 
         <CurrentHourly data={weatherData.data.weather} />
 
-        <SunriseSunset data={weatherData.data.weather.daily.data} />
+        <SunriseSunset data={weatherData.data.weather} />
 
         <Daily data={weatherData.data.weather} coordinates={coordinates} />
 
@@ -110,7 +106,7 @@ export const Forecast = () => {
 
       </div>
 
-    </div>
+    </>
   ) : <Loading />;
 };
 

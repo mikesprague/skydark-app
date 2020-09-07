@@ -29,7 +29,7 @@ export const SunriseSunset = ({ data }) => {
 
   useEffect(() => {
     const init = () => {
-      const [today, tomorrow] = data;
+      const [today, tomorrow] = data.daily.data;
       const now = dayjs();
       let isSunset = false;
       let datetime = today.sunriseTime;
@@ -63,7 +63,7 @@ export const SunriseSunset = ({ data }) => {
 };
 
 SunriseSunset.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
 };
 
 export default SunriseSunset;
