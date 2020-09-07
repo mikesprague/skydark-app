@@ -33,7 +33,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     });
 
     if (isOpen) {
-      if (!hourlyData || (hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(20, 'minute')))) {
+      if (!hourlyData || (hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(60, 'minute')))) {
         const weatherData = await getDailyWeatherData(lat, lng, date);
         setHourlyData({
           lastUpdated: dayjs().toString(),

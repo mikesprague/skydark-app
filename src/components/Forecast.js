@@ -41,7 +41,7 @@ export const Forecast = () => {
       await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
     }
     if (coordinates && weatherData && weatherData.lastUpdated) {
-      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(20, 'minute');
+      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(15, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
         clearData('coordinates');
         doGeolocation();
@@ -69,7 +69,7 @@ export const Forecast = () => {
         setLocationName(weatherApiData.location.locationName);
       };
       if (weatherData && weatherData.lastUpdated) {
-        const nextUpdateTime = dayjs(weatherData.lastUpdated).add(20, 'minute');
+        const nextUpdateTime = dayjs(weatherData.lastUpdated).add(15, 'minute');
         if (dayjs().isAfter(nextUpdateTime)) {
           getWeatherData(lat, lng);
         }
