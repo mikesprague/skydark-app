@@ -10,19 +10,19 @@ import {
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import './Forecast.scss';
-import { Conditions } from '../components/Conditions';
-import { CurrentHourly } from '../components/CurrentHourly';
-import { Header } from '../components/Header';
-import { Hourly } from '../components/Hourly';
-import { LastUpdated } from '../components/LastUpdated';
-import { Loading } from '../components/Loading';
-import { SunriseSunset } from '../components/SunriseSunset';
-import { WeatherAlert } from '../components/WeatherAlert';
-import { WeatherMapSmall } from '../components/WeatherMapSmall';
+import { Conditions } from './Conditions';
+import { CurrentHourly } from './CurrentHourly';
+import { Header } from './Header';
+import { Hourly } from './Hourly';
+import { LastUpdated } from './LastUpdated';
+import { Loading } from './Loading';
+import { SunriseSunset } from './SunriseSunset';
+import { WeatherAlert } from './WeatherAlert';
+import { WeatherMapSmall } from './WeatherMapSmall';
 
 dayjs.extend(relativeTime);
 
-export const Forecast = (props) => {
+export const Forecast = () => {
   const [locationName, setLocationName] = useState('Determining location');
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
@@ -62,9 +62,9 @@ export const Forecast = (props) => {
     // setIsLoading(true);
     if (coordinates) {
       const { lat, lng } = coordinates;
-      const getWeatherData = async (lat, lng) => {
+      const getWeatherData = async (latitude, longitude) => {
         setLocationName('Loading weather data');
-        const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}`;
+        const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
         const weatherApiData =  await axios
           .get(weatherApiurl)
           .then(response => response.data);
@@ -83,13 +83,15 @@ export const Forecast = (props) => {
       } else {
         getWeatherData(lat, lng);
       }
-      weatherData && weatherData.data && setLocationName(weatherData.data.location.locationName);
+      if (weatherData && weatherData.data) {
+        setLocationName(weatherData.data.location.locationName);
+      }
     }
 
     // return () => {};
   }, [coordinates, weatherData, setWeatherData]);
 
-  const currentConditionsHandler = (event) => {
+  const currentConditionsHandler = () => {
     const overlayContainer = document.getElementById('conditions-modal');
     const overlay = overlayContainer.querySelector('.overlay');
     const modal = overlayContainer.querySelector('.modal');
@@ -128,14 +130,14 @@ export const Forecast = (props) => {
           </div>
           <div className="temperature">
             <h2 className="actual-temp">{formatCondition(weatherData.data.weather.currently.temperature, 'temperature')}</h2>
-            <h3 className="feels-like-temp">{'Feels ' + formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature')}</h3>
+            <h3 className="feels-like-temp">{`Feels ${formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature')}`}</h3>
           </div>
           <Conditions data={weatherData.data.weather} />
         </div>
 
         <WeatherAlert data={weatherData.data.weather} />
 
-        <WeatherMapSmall coordinates={coordinates} apiKey={props.OPENWEATHERMAP_API_KEY} />
+        <WeatherMapSmall coordinates={coordinates} />
 
         <CurrentHourly data={weatherData.data.weather} />
 
@@ -159,7 +161,7 @@ export const Forecast = (props) => {
                       <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon).icon]} style={getWeatherIcon(dayData.icon).iconStyles} size="2x" fixedWidth />
                     </div>
                     <div className="temps">
-                      {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer"></span>{formatCondition(dayData.temperatureMax, 'temperature')}
+                      {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer" />{formatCondition(dayData.temperatureMax, 'temperature')}
                     </div>
                   </summary>
                   <Hourly coordinates={coordinates} date={dayData.time} />

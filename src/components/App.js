@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import {
@@ -24,7 +25,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
           <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         </Route>
         <Route path="/">
-          <Forecast OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+          <Forecast />
         </Route>
       </Switch>
 
@@ -47,6 +48,10 @@ export const About = () => {
       </div>
     </div>
   );
+};
+
+App.propTypes = {
+  OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
 export default hot(App);
