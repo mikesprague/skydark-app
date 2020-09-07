@@ -38,7 +38,7 @@ export const WeatherAlert = ({ data }) => {
 };
 
 WeatherAlert.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
 };
 
 export default WeatherAlert;
