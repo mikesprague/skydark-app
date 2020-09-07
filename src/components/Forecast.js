@@ -9,7 +9,6 @@ import {
 } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import './Forecast.scss';
 import { Conditions } from './Conditions';
 import { CurrentHourly } from './CurrentHourly';
 import { Header } from './Header';
@@ -19,6 +18,7 @@ import { Loading } from './Loading';
 import { SunriseSunset } from './SunriseSunset';
 import { WeatherAlert } from './WeatherAlert';
 import { WeatherMapSmall } from './WeatherMapSmall';
+import './Forecast.scss';
 
 dayjs.extend(relativeTime);
 
