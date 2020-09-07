@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './Hour.scss';
@@ -26,6 +27,16 @@ export const Hour = (props) => {
       </div>
     </li>
   );
+};
+
+Hour.propTypes = {
+  data: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])
+  ).isRequired,
+  showSummary: PropTypes.bool.isRequired,
+  isFirst: PropTypes.bool.isRequired,
+  isLast: PropTypes.bool.isRequired,
+  conditionToShow: PropTypes.string.isRequired,
 };
 
 export default Hour;

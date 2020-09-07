@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
-import React, { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition } from '../modules/helpers';
-import { Modal } from '../components/Modal';
+import { Modal } from './Modal';
 import './Conditions.scss';
 
 export const Conditions = ({ data, date = null }) => {
@@ -17,8 +18,8 @@ export const Conditions = ({ data, date = null }) => {
   }, [date]);
 
   return (
-    <Modal id="conditions-modal" heading={conditionsHeading} content={
-      <Fragment>
+    <Modal id="conditions-modal" weatherAlert={false} heading={conditionsHeading} content={
+      <>
         <h4 className="mb-2 text-lg">
           {/* <FontAwesomeIcon icon={['fad', getWeatherIcon(data.currently.icon).icon]} fixedWidth size="2x" />
           <br /> */}
@@ -102,9 +103,22 @@ export const Conditions = ({ data, date = null }) => {
             </small>
           </div>
         </div>
-      </Fragment>
+      </>
     } />
   );
+};
+
+Conditions.propTypes = {
+  data: PropTypes.objectOf(
+    PropTypes.oneOfType(
+      [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]
+    ),
+  ).isRequired,
+  date: PropTypes.string,
+};
+
+Conditions.defaultProps = {
+  date: null,
 };
 
 export default Conditions;

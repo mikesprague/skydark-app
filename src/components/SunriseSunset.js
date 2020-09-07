@@ -55,11 +55,11 @@ export const SunriseSunset = ({ data }) => {
     return () => clearInterval(clockInterval);
   }, [data]);
 
-  return (
+  return next && next.event ? (
     <div className="sunrise-sunset-time">
-      {next && next.event ? `${next.event} in ${next.timeString} (${next.time})` : ''}
+      {`${next.event} in ${next.timeString} (${next.time})`}
     </div>
-  );
+  ) : '';
 };
 
 SunriseSunset.propTypes = {

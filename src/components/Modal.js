@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './Modal.scss';
 
 export const Modal = ({
-  id, content, heading, weatherAlert = false, weatherAlertData = null
+  id, content = '', heading = '', weatherAlert = true, weatherAlertData = null
 }) => {
   const [visible, setVisible] = useState(false);
 

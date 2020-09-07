@@ -32,7 +32,7 @@ export const WeatherAlert = ({ data }) => {
         &nbsp;
         {alertData.title}
       </button>
-      <Modal id="weather-alerts-modal" weatherAlert={true} weatherAlertData={alertData} content="" heading="" />
+      <Modal id="weather-alerts-modal" weatherAlertData={alertData} />
     </div>
   ) : '';
 };

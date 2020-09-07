@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Header.scss';
@@ -31,6 +32,10 @@ export const Header = ({ name }) => {
       </div>
     </div>
   ) : '';
+};
+
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
 };
 
 export default Header;
