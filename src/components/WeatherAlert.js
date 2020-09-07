@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal } from '../components/Modal';
+import { Modal } from './Modal';
 import './WeatherAlert.scss';
 
 export const WeatherAlert = ({ data }) => {
@@ -14,7 +15,7 @@ export const WeatherAlert = ({ data }) => {
     // return () => {};
   }, [data]);
 
-  const weatherAlertHandler = (event) => {
+  const weatherAlertHandler = () => {
     const overlayContainer = document.getElementById('weather-alerts-modal');
     const overlay = overlayContainer.querySelector('.overlay');
     const modal = overlayContainer.querySelector('.modal');
@@ -26,7 +27,7 @@ export const WeatherAlert = ({ data }) => {
 
   return alertData && alertData.length ? (
     <div className="weather-alert-container">
-      <button onClick={weatherAlertHandler} className="weather-alert-button">
+      <button type="button" onClick={weatherAlertHandler} className="weather-alert-button">
         <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
         &nbsp;
         {alertData.title}
@@ -34,6 +35,10 @@ export const WeatherAlert = ({ data }) => {
       <Modal id="weather-alerts-modal" weatherAlert={true} weatherAlertData={alertData} content="" heading="" />
     </div>
   ) : '';
+};
+
+WeatherAlert.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default WeatherAlert;
