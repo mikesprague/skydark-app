@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
@@ -40,6 +41,10 @@ export const WeatherMapSmall = ({ coordinates }) => {
       ) : ''}
     </div>
   );
+};
+
+WeatherMapSmall.propTypes = {
+  coordinates: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 export default WeatherMapSmall;
