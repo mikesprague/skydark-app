@@ -1,18 +1,14 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  apiUrl, formatCondition, getWeatherIcon,
-} from '../modules/helpers';
+import { apiUrl } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { Conditions } from './Conditions';
+import { Currently } from './Currently';
 import { CurrentHourly } from './CurrentHourly';
+import { Daily } from './Daily';
 import { Header } from './Header';
-import { Hourly } from './Hourly';
 import { LastUpdated } from './LastUpdated';
 import { Loading } from './Loading';
 import { SunriseSunset } from './SunriseSunset';
@@ -91,27 +87,6 @@ export const Forecast = () => {
     // return () => {};
   }, [coordinates, weatherData, setWeatherData]);
 
-  const currentConditionsHandler = () => {
-    const overlayContainer = document.getElementById('conditions-modal');
-    const overlay = overlayContainer.querySelector('.overlay');
-    const modal = overlayContainer.querySelector('.modal');
-    const elementsToHide = [overlayContainer, overlay, modal];
-
-    overlayContainer.classList.add('fixed');
-    elementsToHide.forEach(elem => elem.classList.remove('hidden'));
-  };
-
-  const dayClickHandler = (event) => {
-    const allDetails = document.querySelectorAll('details');
-    const currentDetail = event.target.closest('details');
-    // console.log(event.target.closest('summary').dataset.time);
-    allDetails.forEach(detail => {
-      if (detail !== currentDetail) {
-        detail.removeAttribute('open');
-      }
-    });
-  };
-
   return weatherData && coordinates ? (
     <div className="contents">
 
@@ -119,21 +94,7 @@ export const Forecast = () => {
 
       <div className="my-16">
 
-        <div className="current-conditions" onClick={currentConditionsHandler}>
-          <div className="icon">
-            <FontAwesomeIcon
-              icon={['fad', getWeatherIcon(weatherData.data.weather.currently.icon).icon]}
-              style={getWeatherIcon(weatherData.data.weather.currently.icon).iconStyles}
-              fixedWidth
-              size="4x"
-            />
-          </div>
-          <div className="temperature">
-            <h2 className="actual-temp">{formatCondition(weatherData.data.weather.currently.temperature, 'temperature')}</h2>
-            <h3 className="feels-like-temp">{`Feels ${formatCondition(weatherData.data.weather.currently.apparentTemperature, 'apparentTemperature')}`}</h3>
-          </div>
-          <Conditions data={weatherData.data.weather} />
-        </div>
+        <Currently data={weatherData.data.weather} />
 
         <WeatherAlert data={weatherData.data.weather} />
 
@@ -143,33 +104,7 @@ export const Forecast = () => {
 
         <SunriseSunset data={weatherData.data.weather.daily.data} />
 
-        <div className="daily-container">
-          <div className="daily">
-            {weatherData.data.weather.daily.data.map((dayData, dayIndex) => {
-              return dayIndex <= 7 ? (
-                <details key={nanoid(7)} className="day">
-                  <summary data-time={dayData.time} onClick={dayClickHandler}>
-                    <div className="name">
-                      <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(dayData.time).format('ddd').toUpperCase()}</strong>
-                      <br />
-                      <span className="precip">
-                        <FontAwesomeIcon icon={['fad', 'tint']} />
-                        {` ${Math.round(dayData.precipProbability * 100)}%`}
-                      </span>
-                    </div>
-                    <div className="icon">
-                      <FontAwesomeIcon icon={['fad', getWeatherIcon(dayData.icon).icon]} style={getWeatherIcon(dayData.icon).iconStyles} size="2x" fixedWidth />
-                    </div>
-                    <div className="temps">
-                      {formatCondition(dayData.temperatureMin, 'temperature')}<span className="temps-spacer" />{formatCondition(dayData.temperatureMax, 'temperature')}
-                    </div>
-                  </summary>
-                  <Hourly coordinates={coordinates} date={dayData.time} />
-                </details>
-              ) : '';
-            })}
-          </div>
-        </div>
+        <Daily data={weatherData.data.weather} coordinates={coordinates} />
 
         <LastUpdated time={weatherData.lastUpdated} />
 

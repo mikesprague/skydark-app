@@ -33,7 +33,7 @@ Hour.propTypes = {
   data: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])
   ).isRequired,
-  showSummary: PropTypes.bool.isRequired,
+  showSummary: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
   conditionToShow: PropTypes.string.isRequired,
