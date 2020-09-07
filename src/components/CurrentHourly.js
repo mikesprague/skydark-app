@@ -1,10 +1,13 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
+import {
+  formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses,
+} from '../modules/helpers';
 import './CurrentHourly.scss';
 
-export const CurrentHourly = ({data}) => {
+export const CurrentHourly = ({ data }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export const CurrentHourly = ({data}) => {
         const endIndex = startIndex + 20;
         return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
           <li key={nanoid(7)} className="hour">
-            <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}></div>
+            <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}  />
             <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
             <div className="summary">{hourData && data && formatSummary(hourData, data.hourly.data, index, startIndex)}</div>
             <div className="spacer">&nbsp;</div>
@@ -54,6 +57,10 @@ export const CurrentHourly = ({data}) => {
       </div>
     </div>
   );
+};
+
+CurrentHourly.propTypes = {
+  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
 };
 
 export default CurrentHourly;
