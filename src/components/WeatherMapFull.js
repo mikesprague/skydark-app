@@ -1,7 +1,8 @@
-import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl } from 'react-leaflet';
+import {
+  Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl,
+} from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
@@ -12,20 +13,20 @@ import './WeatherMapFull.scss';
 // transparent="true"
 // /> */}
 
-export const WeatherMapFull = (props) => {
+export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [mapView, setMapView] = useState('radar');
   const coordinates = getData('coordinates') || null;
 
   useEffect(() => {
     if (!coordinates) {
-      window.location.href = '/';
+      window.location.replace('/');
     }
 
     // return () => {};
-  }, [mapView]);
+  }, [mapView, coordinates]);
 
   const changeHandler = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setMapView(event.target.value);
   };
 
@@ -119,7 +120,7 @@ export const WeatherMapFull = (props) => {
                   />
                 ) : (
                   <WMSTileLayer
-                    url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${props.OPENWEATHERMAP_API_KEY}`}
+                    url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
                   />
                 )}
               </LayersControl.Overlay>
@@ -132,6 +133,10 @@ export const WeatherMapFull = (props) => {
       </div>
     </div>
   );
+};
+
+WeatherMapFull.propTypes = {
+  OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
 export default WeatherMapFull;
