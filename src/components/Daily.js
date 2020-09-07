@@ -15,7 +15,7 @@ export const Daily = ({ data, coordinates }) => {
     // return () => {};
   }, [data]);
 
-  return dailyData ? (
+  return dailyData && dailyData.daily ? (
     <div className="daily-container">
       <div className="daily">
         {dailyData.daily.data.map((dayData, dayIndex) => {

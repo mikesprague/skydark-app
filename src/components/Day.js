@@ -43,7 +43,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     }
   };
 
-  return data && hourlyData ? (
+  return (
     <details className="day">
       <summary data-time={data.time} onClick={clickHandler}>
         <div className="name">
@@ -63,7 +63,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
       </summary>
       <Hourly data={hourlyData} />
     </details>
-  ) : '';
+  );
 };
 
 Day.propTypes = {
