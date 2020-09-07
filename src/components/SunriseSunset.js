@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useEffect, useState } from 'react';
 import './SunriseSunset.scss';
@@ -23,17 +24,25 @@ export const SunriseSunset = ({ data }) => {
       minutesFraction = String.fromCharCode(190);
     }
 
-    return `${hoursText}${minutesFraction} hours`;
+    return `${hoursText}${minutesFraction} hour${hours === 1 ? '' : 's'}`;
   };
 
   useEffect(() => {
     const init = () => {
-      const { sunsetTime } = data[0];
-      const { sunriseTime } = data[1];
-      const isSunset = dayjs(dayjs()).isBefore(dayjs.unix(sunsetTime));
+      const [today, tomorrow] = data;
+      const now = dayjs();
+      let isSunset = false;
+      let datetime = today.sunriseTime;
+      if (dayjs(now).isAfter(dayjs.unix(today.sunriseTime)) && dayjs(now).isBefore(dayjs.unix(today.sunsetTime))) {
+        datetime = today.sunsetTime;
+        isSunset = true;
+      }
+      if (dayjs(now).isAfter(dayjs.unix(today.sunsetTime)) && dayjs(now).isBefore(dayjs.unix(tomorrow.sunriseTime))) {
+        datetime = tomorrow.sunriseTime;
+      }
       const event = isSunset ? 'Sunset' : 'Sunrise';
-      const time = isSunset ? dayjs.unix(sunsetTime).format('h:mm A') : dayjs.unix(sunriseTime).format('h:mm A');
-      const timeString = isSunset ? formatTimeString(sunsetTime) : formatTimeString(sunriseTime);
+      const time = dayjs.unix(datetime).format('h:mm A');
+      const timeString = formatTimeString(datetime);
       setNext({
         event,
         time,
@@ -51,6 +60,10 @@ export const SunriseSunset = ({ data }) => {
       {next && next.event ? `${next.event} in ${next.timeString} (${next.time})` : ''}
     </div>
   );
+};
+
+SunriseSunset.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default SunriseSunset;
