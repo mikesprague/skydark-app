@@ -50,39 +50,37 @@ export const Forecast = () => {
       doGeolocation();
     }
 
-    // return () => {};
-  }, [coordinates, setCoordinates, weatherData]);
+  }, []);
 
   useEffect(() => {
-    if (coordinates) {
-      const { lat, lng } = coordinates;
-      const getWeatherData = async (latitude, longitude) => {
-        setLocationName('Loading weather data');
-        const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
-        const weatherApiData =  await axios
-          .get(weatherApiurl)
-          .then(response => response.data);
-        setWeatherData({
-          lastUpdated: dayjs().toString(),
-          data: weatherApiData,
-        });
-        setLocationName(weatherApiData.location.locationName);
-      };
-      if (weatherData && weatherData.lastUpdated) {
-        const nextUpdateTime = dayjs(weatherData.lastUpdated).add(15, 'minute');
-        if (dayjs().isAfter(nextUpdateTime)) {
-          getWeatherData(lat, lng);
-        }
-      } else {
+    if (!coordinates) { return; };
+
+    const { lat, lng } = coordinates;
+    const getWeatherData = async (latitude, longitude) => {
+      setLocationName('Loading weather data');
+      const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
+      const weatherApiData =  await axios
+        .get(weatherApiurl)
+        .then(response => response.data);
+      setWeatherData({
+        lastUpdated: dayjs().toString(),
+        data: weatherApiData,
+      });
+      setLocationName(weatherApiData.location.locationName);
+    };
+    if (weatherData && weatherData.lastUpdated) {
+      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(15, 'minute');
+      if (dayjs().isAfter(nextUpdateTime)) {
         getWeatherData(lat, lng);
       }
-      if (weatherData && weatherData.data) {
-        setLocationName(weatherData.data.location.locationName);
-      }
+    } else {
+      getWeatherData(lat, lng);
+    }
+    if (weatherData && weatherData.data) {
+      setLocationName(weatherData.data.location.locationName);
     }
 
-    // return () => {};
-  }, [coordinates, weatherData, setWeatherData]);
+  }, [coordinates]);
 
   return weatherData && weatherData.data ? (
     <>
