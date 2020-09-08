@@ -1,22 +1,25 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { apiUrl } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Currently } from './Currently';
-import { CurrentHourly } from './CurrentHourly';
-import { Daily } from './Daily';
 import { Header } from './Header';
-import { LastUpdated } from './LastUpdated';
-import { Loading } from './Loading';
-import { SunriseSunset } from './SunriseSunset';
 import { WeatherAlert } from './WeatherAlert';
 import { WeatherMapSmall } from './WeatherMapSmall';
+import { Loading } from './Loading';
 import './Forecast.scss';
 
 dayjs.extend(relativeTime);
+
+const CurrentHourly = lazy(() => import('./CurrentHourly'));
+const Daily = lazy(() => import('./Daily'));
+const LastUpdated = lazy(() => import('./LastUpdated'));
+const SunriseSunset = lazy(() => import('./SunriseSunset'));
+
+const renderLoader = () => <Loading />;
 
 export const Forecast = () => {
   const [locationName, setLocationName] = useState('Determining location');
@@ -94,16 +97,19 @@ export const Forecast = () => {
 
         <WeatherMapSmall coordinates={coordinates} />
 
-        <CurrentHourly data={weatherData.data.weather} />
+        <Suspense fallback={renderLoader()}>
 
-        <SunriseSunset data={weatherData.data.weather} />
+          <CurrentHourly data={weatherData.data.weather} />
 
-        <Daily data={weatherData.data.weather} coordinates={coordinates} />
+          <SunriseSunset data={weatherData.data.weather} />
 
-        <LastUpdated time={weatherData.lastUpdated} />
+          <Daily data={weatherData.data.weather} coordinates={coordinates} />
+
+          <LastUpdated time={weatherData.lastUpdated} />
+
+        </Suspense>
 
       </div>
-
     </>
   ) : <Loading />;
 };

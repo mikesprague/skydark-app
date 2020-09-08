@@ -1,12 +1,15 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiUrl, formatCondition, getWeatherIcon, } from '../modules/helpers';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { Hourly } from './Hourly';
+import { Loading } from './Loading';
 import './Day.scss';
+
+const Hourly = lazy(() => import('./Hourly'));
+const renderLoader = () => <Loading />;
 
 export const Day = ({ data, dayIndex, coordinates }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
@@ -61,7 +64,9 @@ export const Day = ({ data, dayIndex, coordinates }) => {
           {formatCondition(data.temperatureMin, 'temperature')}<span className="temps-spacer" />{formatCondition(data.temperatureMax, 'temperature')}
         </div>
       </summary>
-      {hourlyData ? <Hourly data={hourlyData} /> : ''}
+      <Suspense fallback={renderLoader()}>
+        {hourlyData ? <Hourly data={hourlyData} /> : ''}
+      </Suspense>
     </details>
   );
 };
