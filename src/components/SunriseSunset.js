@@ -24,7 +24,7 @@ export const SunriseSunset = ({ data }) => {
       minutesFraction = String.fromCharCode(190);
     }
 
-    return `${hoursText}${minutesFraction} hour${hours === 1 ? '' : 's'}`;
+    return (hoursText === '' && minutesFraction === '') ? 'now' : `in ${hoursText}${minutesFraction} hour${hours === 1 ? '' : 's'}`;
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const SunriseSunset = ({ data }) => {
 
   return next && next.event ? (
     <div className="sunrise-sunset-time">
-      {`${next.event} in ${next.timeString} (${next.time})`}
+      {`${next.event} ${next.timeString} (${next.time})`}
     </div>
   ) : '';
 };
