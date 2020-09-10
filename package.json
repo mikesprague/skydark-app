@@ -93,7 +93,7 @@
     "eslint-plugin-markdown": "^1.0.2",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
+    "eslint-plugin-react-hooks": "^4.1.1",
     "eslint-plugin-security": "^1.4.0",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.4.1",
