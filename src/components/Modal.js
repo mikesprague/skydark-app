@@ -41,17 +41,17 @@ export const Modal = ({
               <h3 className="mb-3 text-lg font-semibold leading-6" id="modal-headline">{weatherAlert ? weatherAlertData.title : heading}</h3>
               {weatherAlert ? (
                 <>
-                <p className="pl-4 mb-4 text-sm text-left">
-                  <strong>Effective:</strong> {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A (Z)')}
-                  <br />
-                  <strong>Expires:</strong> {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A (Z)')}
-                </p>
-                <p className="mb-6 text-center">
-                  {weatherAlertData.description}
-                </p>
-                <p className="m-4 text-center">
-                  <a className="px-4 py-2 my-6 text-sm bg-blue-500" href={weatherAlertData.uri} rel="noopener noreferrer" target="_blank">More Info</a>
-                </p>
+                  <p className="pl-4 mb-4 text-sm text-left">
+                    <strong>Effective:</strong> {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A (Z)')}
+                    <br />
+                    <strong>Expires:</strong> {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A (Z)')}
+                  </p>
+                  <p className="mb-6 text-center">
+                    {weatherAlertData.description}
+                  </p>
+                  <p className="m-4 text-center">
+                    <a className="px-4 py-2 my-6 text-sm bg-blue-500" href={weatherAlertData.uri} rel="noopener noreferrer" target="_blank">More Info</a>
+                  </p>
                 </>
               ) : content}
             </div>
