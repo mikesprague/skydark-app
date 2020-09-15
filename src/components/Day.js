@@ -65,7 +65,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
         </div>
       </summary>
       <Suspense fallback={renderLoader()}>
-        {hourlyData ? <Hourly data={hourlyData} /> : ''}
+        {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : ''}
       </Suspense>
     </details>
   );
