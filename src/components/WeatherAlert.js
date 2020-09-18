@@ -8,6 +8,7 @@ export const WeatherAlert = ({ data }) => {
   const [alertData, setAlertData] = useState(null);
 
   useEffect(() => {
+    console.log(data);
     if (data.alerts && data.alerts.length) {
       setAlertData(data.alerts[0]);
     }
@@ -25,14 +26,14 @@ export const WeatherAlert = ({ data }) => {
     elementsToHide.forEach(elem => elem.classList.remove('hidden'));
   };
 
-  return alertData && alertData.length ? (
+  return alertData ? (
     <div className="weather-alert-container">
       <button type="button" onClick={weatherAlertHandler} className="weather-alert-button">
         <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
         &nbsp;
         {alertData.title}
       </button>
-      <Modal id="weather-alerts-modal" weatherAlertData={alertData} />
+      <Modal id="weather-alerts-modal" weatherAlertData={alertData} weatherAlert={true} />
     </div>
   ) : '';
 };

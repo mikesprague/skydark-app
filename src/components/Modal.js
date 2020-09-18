@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './Modal.scss';
 
 export const Modal = ({
-  id, content = '', heading = '', weatherAlert = true, weatherAlertData = null
+  id, content = '', heading = '', weatherAlert = true, weatherAlertData = null,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -20,13 +20,14 @@ export const Modal = ({
     } else {
       elementsToHide.forEach((elem) => elem.classList.add('hidden'));
     }
+    console.log(weatherAlert);
 
     return () => {};
   }, [visible, id]);
 
   const clickHandler = (event) => {
     setVisible(!visible);
-    console.log(event);
+    // console.log(event);
   };
 
   return (
