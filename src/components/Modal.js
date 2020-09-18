@@ -43,9 +43,9 @@ export const Modal = ({
               {weatherAlert ? (
                 <>
                   <p className="pl-4 mb-4 text-sm text-left">
-                    <strong>Effective:</strong> {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A (Z)')}
+                    <strong>Effective:</strong> {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A')}
                     <br />
-                    <strong>Expires:</strong> {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A (Z)')}
+                    <strong>Expires:</strong> {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A')}
                   </p>
                   <p className="mb-6 text-center">
                     {weatherAlertData.description}
