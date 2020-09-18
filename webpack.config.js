@@ -39,11 +39,11 @@ const cssWhitelistClassArray = [
 ];
 
 const postCssPluginsArray = [
-    autoprefixer(),
-    tailwindcss(),
-    cssnano({
-      preset: 'default',
-    }),
+  autoprefixer(),
+  tailwindcss(),
+  cssnano({
+    preset: 'default',
+  }),
 ];
 if (mode === 'production') {
   postCssPluginsArray.push(
@@ -63,7 +63,7 @@ if (mode === 'production') {
       fontFace: false,
       whitelistPatterns: cssWhitelistClassArray,
       whitelistPatternsChildren: cssWhitelistClassArray,
-    })
+    }),
   );
 }
 
@@ -85,6 +85,7 @@ const webpackRules = [
       {
         loader: 'css-loader',
         options: {
+          importLoaders: true,
           sourceMap: true,
         },
       },
@@ -116,7 +117,7 @@ const webpackRules = [
 
 const webpackPlugins = [
   new webpack.DefinePlugin({
-    'process.env.OPENWEATHERMAP_API_KEY': JSON.stringify(process.env.OPENWEATHERMAP_API_KEY)
+    'process.env.OPENWEATHERMAP_API_KEY': JSON.stringify(process.env.OPENWEATHERMAP_API_KEY),
   }),
   new MiniCssExtractPlugin({
     filename: './css/styles.css',
@@ -167,7 +168,7 @@ const webpackPlugins = [
     clientsClaim: true,
     skipWaiting: true,
   }),
-  new webpack.HotModuleReplacementPlugin()
+  new webpack.HotModuleReplacementPlugin(),
 ];
 
 if (mode === 'production') {
