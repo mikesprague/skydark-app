@@ -72,7 +72,7 @@ export const Forecast = () => {
       setLocationName(weatherApiData.location.locationName);
     };
     if (weatherData && weatherData.lastUpdated) {
-      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(15, 'minute');
+      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
         getWeatherData(lat, lng);
       }
