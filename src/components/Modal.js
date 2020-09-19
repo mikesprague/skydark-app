@@ -20,7 +20,6 @@ export const Modal = ({
     } else {
       elementsToHide.forEach((elem) => elem.classList.add('hidden'));
     }
-    console.log(weatherAlert);
 
     return () => {};
   }, [visible, id]);
