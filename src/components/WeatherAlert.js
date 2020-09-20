@@ -8,11 +8,12 @@ export const WeatherAlert = ({ data }) => {
   const [alertData, setAlertData] = useState(null);
 
   useEffect(() => {
-    if (data.alerts && data.alerts.length) {
-      setAlertData(data.alerts[0]);
+    if (!data.alerts) {
+      return;
     }
+    setAlertData(data.alerts[0]);
 
-    // return () => {};
+    return () => setAlertData(null);
   }, [data]);
 
   const weatherAlertHandler = () => {
@@ -22,7 +23,7 @@ export const WeatherAlert = ({ data }) => {
     const elementsToHide = [overlayContainer, overlay, modal];
 
     overlayContainer.classList.add('fixed');
-    elementsToHide.forEach(elem => elem.classList.remove('hidden'));
+    elementsToHide.forEach((elem) => elem.classList.remove('hidden'));
   };
 
   return alertData ? (
