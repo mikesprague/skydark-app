@@ -7,14 +7,18 @@ import './WeatherAlert.scss';
 export const WeatherAlert = ({ data }) => {
   const [alertData, setAlertData] = useState(null);
 
+  const { alerts } = data || null;
+  // console.log(alerts);
+
   useEffect(() => {
-    if (!data.alerts) {
+    if (!alerts) {
+      setAlertData(null);
       return;
     }
-    setAlertData(data.alerts[0]);
+    setAlertData(alerts[0]);
 
     return () => setAlertData(null);
-  }, [data]);
+  }, [alerts]);
 
   const weatherAlertHandler = () => {
     const overlayContainer = document.getElementById('weather-alerts-modal');
