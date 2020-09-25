@@ -41,7 +41,7 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@hot-loader/react-dom": "^16.13.0",
     "@tailwindcss/typography": "^0.2.0",
-    "@tippyjs/react": "^4.1.0",
+    "@tippyjs/react": "^4.2.0",
     "axios": "^0.20.0",
     "cross-env": "^7.0.2",
     "dayjs": "^1.8.36",
