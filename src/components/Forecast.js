@@ -22,7 +22,6 @@ const SunriseSunset = lazy(() => import('./SunriseSunset'));
 const renderLoader = () => <Loading />;
 
 export const Forecast = () => {
-  const [locationName, setLocationName] = useState('Determining location');
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
 
@@ -44,7 +43,7 @@ export const Forecast = () => {
       await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
     }
     if (coordinates && weatherData && weatherData.lastUpdated) {
-      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(15, 'minute');
+      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
         clearData('coordinates');
         doGeolocation();
@@ -60,7 +59,7 @@ export const Forecast = () => {
 
     const { lat, lng } = coordinates;
     const getWeatherData = async (latitude, longitude) => {
-      setLocationName('Loading weather data');
+      // setLocationName('Loading weather data');
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
       const weatherApiData =  await axios
         .get(weatherApiurl)
@@ -69,7 +68,7 @@ export const Forecast = () => {
         lastUpdated: dayjs().toString(),
         data: weatherApiData,
       });
-      setLocationName(weatherApiData.location.locationName);
+      // setLocationName(weatherApiData.location.locationName);
     };
     if (weatherData && weatherData.lastUpdated) {
       const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
@@ -79,15 +78,12 @@ export const Forecast = () => {
     } else {
       getWeatherData(lat, lng);
     }
-    if (weatherData && weatherData.data) {
-      setLocationName(weatherData.data.location.locationName);
-    }
 
   }, [coordinates]);
 
   return weatherData && weatherData.data ? (
     <>
-      <Header name={locationName} />
+      <Header data={weatherData.data.location} />
 
       <div className="my-16">
 

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Header.scss';
 
-export const Header = ({ name }) => {
-  const [locationName, setLocationName] = useState(null);
+export const Header = ({ data }) => {
+  const [locationName, setLocationName] = useState('Acquiring location');
 
   useEffect(() => {
     const initScrollAndSetLocation = () => {
@@ -16,26 +16,27 @@ export const Header = ({ name }) => {
           headerEl.classList.remove('shadow-md');
         }
       };
-      setLocationName(name);
+      setLocationName(data.locationName);
     };
     initScrollAndSetLocation();
 
-    return () => {};
-  }, [name]);
+    // return () => {};
+  }, [data]);
 
-  return locationName ? (
+  return (
     <div className="header">
       <div className="location-name">
         <h1>
-          <FontAwesomeIcon icon="location-arrow" fixedWidth /> {locationName}
+          <FontAwesomeIcon icon="location-arrow" fixedWidth />
+          {` ${locationName}`}
         </h1>
       </div>
     </div>
-  ) : '';
+  );
 };
 
 Header.propTypes = {
-  name: PropTypes.string.isRequired,
+  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
 };
 
 export default Header;
