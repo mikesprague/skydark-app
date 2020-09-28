@@ -1,11 +1,14 @@
+import LogRocket from 'logrocket';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import { App } from './components/App';
 import {
   initServiceWorker,
-  isDev
+  isDev,
 } from './modules/helpers';
+
+LogRocket.init('skxlwh/sky-dark');
 
 window.screen.lockOrientationUniversal = window.screen.lockOrientation || window.screen.mozLockOrientation || window.screen.msLockOrientation;
 if (window.screen.lockOrientationUniversal) {
