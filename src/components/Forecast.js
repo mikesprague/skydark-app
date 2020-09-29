@@ -1,25 +1,22 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { apiUrl } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Currently } from './Currently';
+import { CurrentHourly } from './CurrentHourly';
+import { Daily } from './Daily';
 import { Header } from './Header';
+import { LastUpdated } from './LastUpdated';
+import { SunriseSunset } from './SunriseSunset';
 import { WeatherAlert } from './WeatherAlert';
 import { WeatherMapSmall } from './WeatherMapSmall';
 import { Loading } from './Loading';
 import './Forecast.scss';
 
 dayjs.extend(relativeTime);
-
-const CurrentHourly = lazy(() => import('./CurrentHourly'));
-const Daily = lazy(() => import('./Daily'));
-const LastUpdated = lazy(() => import('./LastUpdated'));
-const SunriseSunset = lazy(() => import('./SunriseSunset'));
-
-const renderLoader = () => <Loading />;
 
 export const Forecast = () => {
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
@@ -42,6 +39,7 @@ export const Forecast = () => {
       };
       await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
     }
+
     if (coordinates && weatherData && weatherData.lastUpdated) {
       const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
@@ -52,18 +50,19 @@ export const Forecast = () => {
       doGeolocation();
     }
 
+    // return () => {};
   }, []);
 
   useEffect(() => {
-    if (!coordinates) { return; };
+    if (!coordinates) { return; }
 
     const { lat, lng } = coordinates;
     const getWeatherData = async (latitude, longitude) => {
       // setLocationName('Loading weather data');
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
-      const weatherApiData =  await axios
+      const weatherApiData = await axios
         .get(weatherApiurl)
-        .then(response => response.data);
+        .then((response) => response.data);
       setWeatherData({
         lastUpdated: dayjs().toString(),
         data: weatherApiData,
@@ -73,12 +72,15 @@ export const Forecast = () => {
     if (weatherData && weatherData.lastUpdated) {
       const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
+        clearData('weatherData');
         getWeatherData(lat, lng);
       }
     } else {
+      clearData('weatherData');
       getWeatherData(lat, lng);
     }
 
+    // return() => {};
   }, [coordinates]);
 
   return weatherData && weatherData.data ? (
@@ -91,23 +93,19 @@ export const Forecast = () => {
 
         <WeatherAlert data={weatherData.data.weather} />
 
-        <WeatherMapSmall coordinates={coordinates} />
+        <WeatherMapSmall data={weatherData.data.weather} />
 
-        <Suspense fallback={renderLoader()}>
+        <CurrentHourly data={weatherData.data.weather} />
 
-          <CurrentHourly data={weatherData.data.weather} />
+        <SunriseSunset data={weatherData.data.weather} />
 
-          <SunriseSunset data={weatherData.data.weather} />
+        <Daily data={weatherData.data.weather} />
 
-          <Daily data={weatherData.data.weather} coordinates={coordinates} />
-
-          <LastUpdated time={weatherData.lastUpdated} />
-
-        </Suspense>
+        <LastUpdated time={weatherData.lastUpdated} />
 
       </div>
     </>
-  ) : <Loading />;
+  ) : <Loading className="min-h-screen" />;
 };
 
 export default Forecast;
