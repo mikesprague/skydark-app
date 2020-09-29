@@ -1,24 +1,22 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { apiUrl, formatCondition, getWeatherIcon, } from '../modules/helpers';
+import { apiUrl, formatCondition, getWeatherIcon } from '../modules/helpers';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { Hourly } from './Hourly';
 import { Loading } from './Loading';
 import './Day.scss';
-
-const Hourly = lazy(() => import('./Hourly'));
-const renderLoader = () => <Loading />;
 
 export const Day = ({ data, dayIndex, coordinates }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
-    const weatherApiData =  await axios
+    const weatherApiData = await axios
       .get(weatherApiurl)
-      .then(response => response.data);
+      .then((response) => response.data);
     return weatherApiData;
   };
 
@@ -29,7 +27,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     const isOpen = currentDetail.getAttribute('open') === null;
     const date = event.target.closest('summary').dataset.time;
 
-    allDetails.forEach(detail => {
+    allDetails.forEach((detail) => {
       if (detail !== currentDetail) {
         detail.removeAttribute('open');
       }
@@ -58,15 +56,20 @@ export const Day = ({ data, dayIndex, coordinates }) => {
           </span>
         </div>
         <div className="icon">
-          <FontAwesomeIcon icon={['fad', getWeatherIcon(data.icon).icon]} style={getWeatherIcon(data.icon).iconStyles} size="2x" fixedWidth />
+          <FontAwesomeIcon
+            icon={['fad', getWeatherIcon(data.icon).icon]}
+            style={getWeatherIcon(data.icon).iconStyles}
+            size="2x"
+            fixedWidth
+          />
         </div>
         <div className="temps">
-          {formatCondition(data.temperatureMin, 'temperature')}<span className="temps-spacer" />{formatCondition(data.temperatureMax, 'temperature')}
+          {formatCondition(data.temperatureMin, 'temperature')}
+          <span className="temps-spacer" />
+          {formatCondition(data.temperatureMax, 'temperature')}
         </div>
       </summary>
-      <Suspense fallback={renderLoader()}>
-        {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : ''}
-      </Suspense>
+      {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : <Loading fullHeight={false} />}
     </details>
   );
 };
