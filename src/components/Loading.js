@@ -9,8 +9,6 @@ export const Loading = ({ fullHeight }) => {
     classList = `${classList} min-h-screen`;
   }
 
-  console.log(classList);
-
   return (
     <div className={classList}>
       <FontAwesomeIcon icon={['fad', 'spinner']} size="3x" className="m-8" pulse />
