@@ -48,7 +48,7 @@ export const handleError = (error) => {
 export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated(registration) {
-      console.log(`Updated to the latest version.\n${registration}`);
+      console.log(`Updated Sky Dark to the latest version.\n${registration}`);
       resetData();
       window.location.reload(true);
     },
