@@ -56,7 +56,6 @@ export const Forecast = () => {
   useEffect(() => {
     if (!coordinates) { return; }
 
-    const { lat, lng } = coordinates;
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
       const weatherApiData = await axios
@@ -67,6 +66,8 @@ export const Forecast = () => {
         data: weatherApiData,
       });
     };
+
+    const { lat, lng } = coordinates;
     if (weatherData && weatherData.lastUpdated) {
       const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
       if (dayjs().isAfter(nextUpdateTime)) {
