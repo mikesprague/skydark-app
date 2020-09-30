@@ -23,7 +23,7 @@ export const Currently = ({ data }) => {
     const elementsToHide = [overlayContainer, overlay, modal];
 
     overlayContainer.classList.add('fixed');
-    elementsToHide.forEach(elem => elem.classList.remove('hidden'));
+    elementsToHide.forEach((elem) => elem.classList.remove('hidden'));
   };
 
   return currentData ? (
@@ -37,8 +37,8 @@ export const Currently = ({ data }) => {
         />
       </div>
       <div className="temperature">
-        <h2 className="actual-temp">{formatCondition(currentData.currently.temperature, 'temperature')}</h2>
-        <h3 className="feels-like-temp">{`Feels ${formatCondition(currentData.currently.apparentTemperature, 'apparentTemperature')}`}</h3>
+        <h2 className="actual-temp">{formatCondition(currentData.currently.temperature, 'temperature').trim()}</h2>
+        <h3 className="feels-like-temp">{`Feels ${formatCondition(currentData.currently.apparentTemperature, 'apparentTemperature').trim()}`}</h3>
       </div>
       <Conditions data={currentData} />
     </div>
