@@ -1,3 +1,5 @@
+@import '../scss/variables';
+
 .hourly-container {
   @apply p-3;
 }
@@ -38,10 +40,24 @@
     @apply m-0;
     @apply leading-10;
 
+    &::after {
+      @apply border-b;
+      @apply border-solid;
+      @apply flex-grow;
+      @apply mr-2;
+      @apply order-4;
+      @apply relative;
+      border-color: $color-lighter-gray;
+      content: '';
+      top: -1.65rem;
+    }
+
     .condition-bar {
       @apply inline-block;
       @apply w-6;
       @apply h-full;
+      @apply order-1;
+      @apply flex-grow-0;
     }
 
     .time {
@@ -50,6 +66,8 @@
       @apply mr-4;
       @apply text-right;
       @apply align-top;
+      @apply order-2;
+      @apply flex-grow-0;
     }
 
     .summary {
@@ -57,19 +75,23 @@
       @apply overflow-hidden;
       @apply align-top;
       @apply text-sm;
-      @apply w-52;
+      @apply flex-grow-0;
+      @apply order-3;
+      @apply mr-2;
     }
 
-    .spacer {
-      @apply flex-auto;
-      @apply inline-block;
-      @apply overflow-hidden;
-      @apply align-top;
-    }
+    // .spacer {
+    //   @apply flex-auto;
+    //   @apply inline-block;
+    //   @apply overflow-hidden;
+    //   @apply align-top;
+    // }
 
     .condition {
       @apply inline-block;
       @apply align-top;
+      @apply order-5;
+      @apply flex-grow-0;
 
       .pill {
         @apply px-3;

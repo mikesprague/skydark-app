@@ -18,21 +18,20 @@ export const CurrentHourly = ({ data }) => {
   return (
     <div className="hourly-container">
       <ul className="hourly">
-      {data.hourly.data.map((hourData, index) => {
-        const startIndex = dayjs().format('m') <= 30 && dayjs.unix(data.hourly.data[0].time).format('h') === dayjs().format('h') ? 0 : 1;
-        const endIndex = startIndex + 20;
-        return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
-          <li key={nanoid(7)} className="hour">
-            <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`}  />
-            <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
-            <div className="summary">{hourData && data && formatSummary(hourData, data.hourly.data, index, startIndex)}</div>
-            <div className="spacer">&nbsp;</div>
-            <div className="condition">
-              <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}</span>
-            </div>
-          </li>
-        ) : '';
-      })}
+        {data.hourly.data.map((hourData, index) => {
+          const startIndex = dayjs().format('m') <= 30 && dayjs.unix(data.hourly.data[0].time).format('h') === dayjs().format('h') ? 0 : 1;
+          const endIndex = startIndex + 20;
+          return (index >= startIndex && index <= endIndex) && index % 2 === startIndex ? (
+            <li key={nanoid(7)} className="hour">
+              <div className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${index === startIndex ? 'rounded-t-md' : ''} ${getConditionBarClass(hourData)}`} />
+              <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
+              <div className="summary">{hourData && data && formatSummary(hourData, data.hourly.data, index, startIndex)}</div>
+              <div className="condition">
+                <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>{formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow).trim()}</span>
+              </div>
+            </li>
+          ) : '';
+        })}
       </ul>
       <div className="condition-select-container">
         <select className="select" onChange={changeHandler}>
@@ -54,7 +53,9 @@ export const CurrentHourly = ({ data }) => {
 };
 
 CurrentHourly.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
+  data: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+  ).isRequired,
 };
 
 export default CurrentHourly;
