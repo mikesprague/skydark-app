@@ -30,7 +30,7 @@ exports.handler = async (event, context, callback) => {
 
   const units = event.queryStringParameters.units || 'auto';
   const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
-  const weatherApiUrl = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}${time ? ',' + time : ''}/?units=${units}&exclude=minutely`;
+  const weatherApiUrl = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}${time ? ',' + time : ''}/?units=${units}`;
   // const openWeatherMapApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&&units=${units}&appid=${OPEN_WEATHERMAP_API_KEI}`;
 
   const geocodePromise = await axios.get(geocodeApiUrl)
