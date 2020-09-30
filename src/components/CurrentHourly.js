@@ -17,6 +17,7 @@ export const CurrentHourly = ({ data }) => {
 
   return (
     <div className="hourly-container">
+      <p className="mb-2 -mt-4 text-base text-center">Next Hour: {data.minutely.summary.replace(' for the hour.', '')}</p>
       <ul className="hourly">
         {data.hourly.data.map((hourData, index) => {
           const startIndex = dayjs().format('m') <= 30 && dayjs.unix(data.hourly.data[0].time).format('h') === dayjs().format('h') ? 0 : 1;
