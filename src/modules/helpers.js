@@ -22,6 +22,7 @@ import {
 } from '@fortawesome/pro-duotone-svg-icons';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
+
 dayjs.extend(relativeTime);
 
 export const isDev = () => {
@@ -79,66 +80,66 @@ export const getWeatherIcon = (icon) => {
   const iconMap = {
     'clear-day': {
       icon: 'sun',
-      iconStyles: {'--fa-primary-color': 'gold', '--fa-secondary-color': 'darkorange', '--fa-secondary-opacity': '.75'},
+      iconStyles: { '--fa-primary-color': 'gold', '--fa-secondary-color': 'darkorange', '--fa-secondary-opacity': '.75' },
     },
     'clear-night': {
       icon: 'moon-stars',
-      iconStyles: {'--fa-primary-color': 'plum', '--fa-secondary-color': 'palegoldenrod', '--fa-secondary-opacity': '1'},
+      iconStyles: { '--fa-primary-color': 'plum', '--fa-secondary-color': 'palegoldenrod', '--fa-secondary-opacity': '1' },
     },
     rain: {
       icon: 'cloud-rain',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'dodgerblue', '--fa-secondary-opacity': '.75'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'dodgerblue', '--fa-secondary-opacity': '.75' },
     },
     snow: {
       icon: 'cloud-snow',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '1'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '1' },
     },
     sleet: {
       icon: 'cloud-sleet',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9' },
     },
     wind: {
       icon: 'wind',
-      iconStyles: {'--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75'},
+      iconStyles: { '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' },
     },
     fog: {
       icon: 'fog',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1' },
     },
     cloudy: {
       icon: 'clouds',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'darkgray', '--fa-secondary-opacity': '.75'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'darkgray', '--fa-secondary-opacity': '.75' },
     },
     'partly-cloudy-day': {
       icon: 'clouds-sun',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75' },
     },
     'partly-cloudy-night': {
       icon: 'clouds-moon',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'plum', '--fa-secondary-opacity': '1'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'plum', '--fa-secondary-opacity': '1' },
     },
     hail: {
       icon: 'cloud-hail',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9' },
     },
     hurricane: {
       icon: 'hurricane',
-      iconStyles: {'--fa-primary-color': 'black', '--fa-secondary-color': 'crimson', '--fa-secondary-opacity': '.9'},
+      iconStyles: { '--fa-primary-color': 'black', '--fa-secondary-color': 'crimson', '--fa-secondary-opacity': '.9' },
     },
     thunderstorm: {
       icon: 'thunderstorm',
-      iconStyles: {'--fa-primary-color': 'lightgray', '--fa-secondary-color': 'yellow', '--fa-secondary-opacity': '.8'},
+      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'yellow', '--fa-secondary-opacity': '.8' },
     },
     tornado: {
       icon: 'tornado',
-      iconStyles: {'--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75'},
+      iconStyles: { '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' },
     },
   };
   return iconMap[icon];
 };
 
-const formatTemp = temp => ` ${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
-const formatPercent = num => ` ${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
+const formatTemp = (temp) => ` ${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
+const formatPercent = (num) => ` ${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
 // const formatNumWithLabel = (num, label) => ` ${Math.round(num).toString().padStart(2, String.fromCharCode(160))}${label}`;
 
 export const formatCondition = (value, condition) => {
@@ -173,9 +174,14 @@ export const getRadarTs = () => {
   const hours = now.hour();
   let minutes = now.minute();
   const seconds = now.second();
-  minutes = minutes - (minutes % 10);
+  minutes -= (minutes % 10);
   minutes = minutes % 10 === 0 && seconds < 10 ? minutes -= 10 : minutes;
-  const millisecondTs = dayjs().hour(hours).minute(minutes).second(0).millisecond(0).valueOf();
+  const millisecondTs = dayjs()
+    .hour(hours)
+    .minute(minutes)
+    .second(0)
+    .millisecond(0)
+    .valueOf();
   const ts = millisecondTs / 1000;
   // console.log(ts);
   return ts;
@@ -227,4 +233,5 @@ export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex >= 11) {
     return 'pill purple';
   }
+  return 'unknownUvIndexClass';
 };
