@@ -35,7 +35,7 @@ export const Forecast = () => {
     async function doGeolocation() {
       const geolocationOptions = {
         enableHighAccuracy: true,
-        maximumAge: 3600000 // 1 hour (number of seconds * 1000 milliseconds)
+        maximumAge: 3600000, // 1 hour (number of seconds * 1000 milliseconds)
       };
       await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
     }
