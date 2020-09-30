@@ -61,7 +61,7 @@
     .time {
       @apply inline-block;
       @apply w-16;
-      @apply mr-4;
+      @apply mr-3;
       @apply text-right;
       @apply align-top;
       @apply order-2;
@@ -76,6 +76,7 @@
       @apply flex-grow-0;
       @apply order-3;
       @apply mr-2;
+      @apply italic;
     }
 
     // .spacer {
