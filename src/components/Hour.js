@@ -23,7 +23,7 @@ export const Hour = (props) => {
       <div className="summary">{showSummary ? data.summary : ''}</div>
       <div className="spacer">&nbsp;</div>
       <div className="condition">
-        <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(data[hourlyConditionToShow]) : 'pill'}>{formatCondition(data[hourlyConditionToShow], hourlyConditionToShow)}</span>
+        <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(data[hourlyConditionToShow]) : 'pill'}>{formatCondition(data[hourlyConditionToShow], hourlyConditionToShow).trim()}</span>
       </div>
     </li>
   );

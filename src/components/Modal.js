@@ -24,7 +24,7 @@ export const Modal = ({
     return () => {};
   }, [visible, id]);
 
-  const clickHandler = (event) => {
+  const clickHandler = () => {
     setVisible(!visible);
     // console.log(event);
   };
@@ -42,9 +42,11 @@ export const Modal = ({
               {weatherAlert ? (
                 <>
                   <p className="pl-4 mb-4 text-sm text-left">
-                    <strong>Effective:</strong> {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A')}
+                    <strong>Effective: </strong>
+                    {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A')}
                     <br />
-                    <strong>Expires:</strong> {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A')}
+                    <strong>Expires: </strong>
+                    {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A')}
                   </p>
                   <p className="mb-6 text-center">
                     {weatherAlertData.description}
@@ -68,7 +70,7 @@ Modal.propTypes = {
   heading: PropTypes.string,
   weatherAlert: PropTypes.bool,
   weatherAlertData: PropTypes.objectOf(PropTypes.oneOfType(
-    [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]
+    [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object],
   )),
 };
 

@@ -64,9 +64,9 @@ export const Day = ({ data, dayIndex, coordinates }) => {
           />
         </div>
         <div className="temps">
-          {formatCondition(data.temperatureMin, 'temperature')}
+          {formatCondition(data.temperatureMin, 'temperature').trim()}
           <span className="temps-spacer" />
-          {formatCondition(data.temperatureMax, 'temperature')}
+          {formatCondition(data.temperatureMax, 'temperature').trim()}
         </div>
       </summary>
       {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : <Loading fullHeight={false} />}

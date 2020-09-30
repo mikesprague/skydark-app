@@ -116,7 +116,7 @@ export const Conditions = ({ data, date = null }) => {
                 icon={['fad', 'tachometer-alt']}
                 size="2x"
                 fixedWidth
-                style={{'--fa-primary-color': 'crimson', '--fa-secondary-color': 'snow', '--fa-secondary-opacity': '.75'}}
+                style={{ '--fa-primary-color': 'crimson', '--fa-secondary-color': 'snow', '--fa-secondary-opacity': '.75' }}
               />
               <br />
               <small>
