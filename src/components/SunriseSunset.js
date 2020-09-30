@@ -12,7 +12,12 @@ export const SunriseSunset = ({ data }) => {
   const formatTimeString = (time) => {
     const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
     const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60);
-    const hoursText = hours > 0 ? hours : '';
+    const currentHour = dayjs().format('h');
+    const eventHour = dayjs(dayjs.unix(time)).format('h');
+    let hoursText = hours > 0 ? hours : '';
+    if (hoursText === '' && currentHour !== eventHour) {
+      hoursText = 1;
+    }
     let minutesFraction = '';
     if (minutes > 7 && minutes <= 22) {
       minutesFraction = String.fromCharCode(188);
@@ -24,7 +29,9 @@ export const SunriseSunset = ({ data }) => {
       minutesFraction = String.fromCharCode(190);
     }
 
-    return (hoursText === '' && minutesFraction === '') ? 'now' : `in ${hoursText}${minutesFraction} hour${hours === 1 ? '' : 's'}`;
+    return (hoursText === '' && minutesFraction === '' && currentHour === eventHour)
+      ? 'now'
+      : `in ${hoursText}${minutesFraction} hour${hoursText === 1 || minutesFraction !== '' ? '' : 's'}`;
   };
 
   useEffect(() => {
