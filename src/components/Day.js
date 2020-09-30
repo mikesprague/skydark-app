@@ -47,26 +47,28 @@ export const Day = ({ data, dayIndex, coordinates }) => {
   return (
     <details className="day">
       <summary data-time={data.time} onClick={clickHandler}>
-        <div className="name">
-          <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(data.time).format('ddd').toUpperCase()}</strong>
-          <br />
-          <span className="precip">
-            <FontAwesomeIcon icon={['fad', 'tint']} />
-            {` ${Math.round(data.precipProbability * 100)}%`}
-          </span>
-        </div>
-        <div className="icon">
-          <FontAwesomeIcon
-            icon={['fad', getWeatherIcon(data.icon).icon]}
-            style={getWeatherIcon(data.icon).iconStyles}
-            size="2x"
-            fixedWidth
-          />
-        </div>
-        <div className="temps">
-          {formatCondition(data.temperatureMin, 'temperature').trim()}
-          <span className="temps-spacer" />
-          {formatCondition(data.temperatureMax, 'temperature').trim()}
+        <div className="flex flex-grow">
+          <div className="name">
+            <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(data.time).format('ddd').toUpperCase()}</strong>
+            <br />
+            <span className="precip">
+              <FontAwesomeIcon icon={['fad', 'tint']} />
+              {` ${Math.round(data.precipProbability * 100)}%`}
+            </span>
+          </div>
+          <div className="icon">
+            <FontAwesomeIcon
+              icon={['fad', getWeatherIcon(data.icon).icon]}
+              style={getWeatherIcon(data.icon).iconStyles}
+              size="2x"
+              fixedWidth
+            />
+          </div>
+          <div className="temps">
+            {formatCondition(data.temperatureMin, 'temperature').trim()}
+            <span className="temps-spacer" />
+            {formatCondition(data.temperatureMax, 'temperature').trim()}
+          </div>
         </div>
       </summary>
       {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : <Loading fullHeight={false} />}
