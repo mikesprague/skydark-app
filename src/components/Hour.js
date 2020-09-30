@@ -31,7 +31,7 @@ export const Hour = (props) => {
 
 Hour.propTypes = {
   data: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
   ).isRequired,
   showSummary: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,
