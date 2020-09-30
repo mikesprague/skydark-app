@@ -1,3 +1,10 @@
+details {
+  .hourly-container {
+    @apply py-3;
+    @apply px-0;
+  }
+}
+
 .condition-select-container {
   @apply my-3;
   @apply text-center;

@@ -1,0 +1,29 @@
+.current-conditions {
+  @apply w-full;
+  @apply flex;
+  @apply leading-10;
+
+  .temperature {
+    .actual-temp {
+      @apply text-5xl;
+      @apply font-semibold;
+    }
+
+    .feels-like-temp {
+      @apply text-sm;
+      @apply -mt-1;
+      @apply ml-1;
+    }
+  }
+
+  .icon,
+  .temperature {
+    @apply w-1/2;
+    @apply cursor-pointer;
+  }
+
+  .icon {
+    @apply text-right;
+    margin-top: -.1rem;
+  }
+}
