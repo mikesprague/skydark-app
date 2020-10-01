@@ -40,10 +40,10 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Temp:
-                {formatCondition(data.currently.temperature, 'temperature')}
+                {` ${formatCondition(data.currently.temperature, 'temperature')}`}
                 <br />
                 Feels Like:
-                {formatCondition(data.currently.apparentTemperature, 'apparentTemperature')}
+                {` ${formatCondition(data.currently.apparentTemperature, 'apparentTemperature')}`}
               </small>
             </div>
             <div className="conditions-item">
@@ -63,10 +63,10 @@ export const Conditions = ({ data, date = null }) => {
                   style={{ '--fa-primary-color': 'ghostwhite', '--fa-secondary-color': 'darkslategray', '--fa-secondary-opacity': '1' }}
                   fixedWidth
                 />
-                {formatCondition(data.currently.windSpeed, 'windSpeed')}
+                {` ${formatCondition(data.currently.windSpeed, 'windSpeed')}mph`}
                 <br />
                 Gusts:
-                {formatCondition(data.currently.windGust, 'windGust')}
+                {` ${formatCondition(data.currently.windGust, 'windGust')}mph`}
               </small>
             </div>
             <div className="conditions-item">
@@ -79,7 +79,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Cloud Cover:
-                {formatCondition(data.currently.cloudCover, 'cloudCover')}
+                {` ${formatCondition(data.currently.cloudCover, 'cloudCover')}`}
               </small>
             </div>
             <div className="conditions-item">
@@ -92,7 +92,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Visibiity:
-                {formatCondition(data.currently.visibility, 'visibility')}
+                {` ${formatCondition(data.currently.visibility, 'visibility')}mi`}
               </small>
             </div>
             <div className="conditions-item">
@@ -106,9 +106,9 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Humidity:
-                {formatCondition(data.currently.humidity, 'humidity')}
+                {` ${formatCondition(data.currently.humidity, 'humidity')}`}
                 {/* <br />
-                Dew Point: {formatCondition(data.currently.dewPoint, 'dewPoint')} */}
+                Dew Point: {` ${formatCondition(data.currently.dewPoint, 'dewPoint')}`} */}
               </small>
             </div>
             <div className="conditions-item">
@@ -121,7 +121,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Pressure:
-                {formatCondition(data.currently.pressure, 'pressure')}
+                {` ${formatCondition(data.currently.pressure, 'pressure')}mb`}
               </small>
             </div>
             <div className="conditions-item">
@@ -135,7 +135,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Precip:
-                {formatCondition(data.currently.precipProbability, 'precipProbability')}
+                {` ${formatCondition(data.currently.precipProbability, 'precipProbability')}`}
               </small>
             </div>
             <div className="conditions-item">
@@ -148,7 +148,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 UV Index:
-                {formatCondition(data.currently.uvIndex, 'uvIndex')}
+                {` ${formatCondition(data.currently.uvIndex, 'uvIndex')}`}
               </small>
             </div>
             <div className="conditions-item">
@@ -162,7 +162,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Sunrise:
-                {formatCondition(data.daily.data[0].sunriseTime, 'sunriseTime')}
+                {` ${formatCondition(data.daily.data[0].sunriseTime, 'sunriseTime')}`}
               </small>
             </div>
             <div className="conditions-item">
@@ -176,7 +176,7 @@ export const Conditions = ({ data, date = null }) => {
               <br />
               <small>
                 Sunset:
-                {formatCondition(data.daily.data[0].sunsetTime, 'sunsetTime')}
+                {` ${formatCondition(data.daily.data[0].sunsetTime, 'sunsetTime')}`}
               </small>
             </div>
           </div>
