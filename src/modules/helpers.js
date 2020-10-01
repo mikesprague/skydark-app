@@ -140,7 +140,7 @@ export const getWeatherIcon = (icon) => {
 
 const formatTemp = (temp) => ` ${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
 const formatPercent = (num) => ` ${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
-// const formatNumWithLabel = (num, label) => ` ${Math.round(num).toString().padStart(2, String.fromCharCode(160))}${label}`;
+const formatNum = (num) => ` ${Math.round(num).toString().padStart(2, String.fromCharCode(160))}`;
 
 export const formatCondition = (value, condition) => {
   switch (condition) {
@@ -153,17 +153,19 @@ export const formatCondition = (value, condition) => {
     case 'cloudCover':
       return formatPercent(value);
     case 'precipIntensity':
-      return ` ${Math.round(value)}in/hr`;
+      return formatNum(value);
     case 'pressure':
-      return ` ${Math.round(value)}mb`;
+      return formatNum(value);
     case 'sunriseTime':
     case 'sunsetTime':
       return ` ${dayjs.unix(value).format('h:mm A')}`;
+    case 'uvIndex':
+      return formatNum(value);
     case 'visibility':
-      return ` ${Math.round(value)}mi`;
+      return formatNum(value);
     case 'windSpeed':
     case 'windGust':
-      return ` ${Math.round(value)}mph`;
+      return formatNum(value);
     default:
       return ` ${value}`;
   }
