@@ -35,7 +35,7 @@ export const CurrentHourly = ({ data }) => {
               <div className="summary">{hourData && data && formatSummary(hourData, data.hourly.data, index, startIndex)}</div>
               <div className="condition">
                 <span className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'}>
-                  {formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}
+                  {formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow).trim()}
                 </span>
               </div>
             </li>
