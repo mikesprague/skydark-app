@@ -138,9 +138,9 @@ export const getWeatherIcon = (icon) => {
   return iconMap[icon];
 };
 
-const formatTemp = (temp) => ` ${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
-const formatPercent = (num) => ` ${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
-const formatNum = (num) => ` ${Math.round(num).toString().padStart(2, String.fromCharCode(160))}`;
+const formatTemp = (temp) => `${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
+const formatPercent = (num) => `${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
+const formatNum = (num) => `${Math.round(num).toString().padStart(2, String.fromCharCode(160))}`;
 
 export const formatCondition = (value, condition) => {
   switch (condition) {
@@ -158,7 +158,7 @@ export const formatCondition = (value, condition) => {
       return formatNum(value);
     case 'sunriseTime':
     case 'sunsetTime':
-      return ` ${dayjs.unix(value).format('h:mm A')}`;
+      return `${dayjs.unix(value).format('h:mm A')}`;
     case 'uvIndex':
       return formatNum(value);
     case 'visibility':
@@ -167,7 +167,7 @@ export const formatCondition = (value, condition) => {
     case 'windGust':
       return formatNum(value);
     default:
-      return ` ${value}`;
+      return `${value}`;
   }
 };
 
