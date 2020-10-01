@@ -962,6 +962,13 @@
   dependencies:
     "@bugsnag/core" "^7.3.5"
 
+"@bugsnag/browser@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.4.0.tgz#0d32b5aa515034e1a6ce447510345c931f48af6a"
+  integrity sha512-WmBJLCFvM2dvj0ZUCCx2QO9xxKJ1V7qZC4zE3kzxBdEgG1UKmKe2MSOJv8Igr933t6gY7Wzd5e7j6EpRuyvIyg==
+  dependencies:
+    "@bugsnag/core" "^7.3.5"
+
 "@bugsnag/core@^7.3.5":
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-7.3.5.tgz#688841abc8091dfcb6fda021b7fbc5519f23196e"
@@ -986,6 +993,14 @@
     "@bugsnag/browser" "^7.3.5"
     "@bugsnag/node" "^7.3.5"
 
+"@bugsnag/js@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.4.0.tgz#95ea7293f5ea136cc8cb2980d0848ae0c9ddc1c5"
+  integrity sha512-v+LA3d1DJf5Oxpy93K+/2TBGHNQoVldNaiN0du/9sUTuc8thkx9tgtaj/BiUWINIEX6y3j7y28cRKUhfffdsIQ==
+  dependencies:
+    "@bugsnag/browser" "^7.4.0"
+    "@bugsnag/node" "^7.3.5"
+
 "@bugsnag/node@^7.3.5":
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-7.3.5.tgz#6400520cb3a61fb531ee2ba04d0b5407618818b4"
@@ -997,6 +1012,11 @@
     iserror "^0.0.2"
     pump "^3.0.0"
     stack-generator "^2.0.3"
+
+"@bugsnag/plugin-react@^7.3.5":
+  version "7.3.5"
+  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.3.5.tgz#0bdb462c274fdbe02cf43698aca4ae0035dbf2e3"
+  integrity sha512-y9J9hRJXwuQ+IqoURtbYpW4WRcku2PPE1JYyRFzKEN9YEPXEkG6ZPTBfa+MydoIF+hey1rsJ10OLukJZlFv3BQ==
 
 "@bugsnag/safe-json-stringify@^6.0.0":
   version "6.0.0"

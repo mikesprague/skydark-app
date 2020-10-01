@@ -1,4 +1,7 @@
 const axios = require('axios');
+const Bugsnag = require('@bugsnag/js');
+
+Bugsnag.start({ apiKey: process.env.BUGSNAG_API_KEY });
 
 exports.handler = async (event, context, callback) => {
   const { lat, lng, time } = event.queryStringParameters || null;
