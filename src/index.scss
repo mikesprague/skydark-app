@@ -1,7 +1,5 @@
-// purgecss start ignore
 @tailwind base;
 @tailwind components;
-// purgecss end ignore
 
 @import './scss/variables';
 @import '~tippy.js/dist/tippy';
@@ -17,6 +15,14 @@ body {
   background-color: $color-body-bg;
   color: $color-body-text;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@media only screen and (orientation:portrait) {
+  html,
+  body {
+    height: 100vw;
+    transform: rotate(90deg);
+  }
 }
 
 @tailwind utilities;
