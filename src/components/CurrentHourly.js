@@ -11,13 +11,19 @@ export const CurrentHourly = ({ data }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
 
   const changeHandler = (event) => {
-    // console.log(event.target.value);
-    setHourlyConditionToShow(event.target.value);
+    const lastSelected = document.querySelector('.current-hourly-container .condition-select-container .pill-selected');
+    setHourlyConditionToShow(event.target.dataset.label);
+    event.target.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    lastSelected.classList.add('pill');
+    lastSelected.classList.remove('pill-selected');
+    event.target.classList.add('pill-selected');
   };
 
   return (
-    <div className="hourly-container">
-      <p className="mb-2 -mt-4 text-base text-center">Next Hour: {data.minutely.summary.replace(' for the hour.', '')}</p>
+    <div className="current-hourly-container">
+      <p className="mb-2 text-base text-center">
+        {`Next Hour: ${data.minutely.summary.replace(' for the hour.', '')}`}
+      </p>
       <ul className="hourly">
         {data.hourly.data.map((hourData, index) => {
           const startIndex = dayjs().format('m') <= 30 && dayjs.unix(data.hourly.data[0].time).format('h') === dayjs().format('h') ? 0 : 1;
@@ -34,20 +40,18 @@ export const CurrentHourly = ({ data }) => {
           ) : '';
         })}
       </ul>
-      <div className="condition-select-container">
-        <select className="select" onChange={changeHandler}>
-          <option value="temperature">Temp (&deg;F)</option>
-          <option value="apparentTemperature">Feels-Like (&deg;F)</option>
-          <option value="precipProbability">Precip Prob (%)</option>
-          <option value="precipIntensity">Precip Rate (IN/HR)</option>
-          <option value="windSpeed">Wind (MPH)</option>
-          <option value="windGust">Wind Gust (MPH)</option>
-          <option value="humidity">Humidity (%)</option>
-          <option value="dewPoint">Dew Point (&deg;F)</option>
-          <option value="uvIndex">UV Index</option>
-          <option value="cloudCover">Cloud Cover (%)</option>
-          <option value="pressure">Pressure (MB)</option>
-        </select>
+      <div className="flex condition-select-container">
+        <div className="pill-selected" onClick={changeHandler} data-label="temperature">Temp (&deg;F)</div>
+        <div className="pill" onClick={changeHandler} data-label="apparentTemperature">Feels-Like (&deg;F)</div>
+        <div className="pill" onClick={changeHandler} data-label="precipProbability">Precip Prob (%)</div>
+        <div className="pill" onClick={changeHandler} data-label="precipIntensity">Precip Rate (IN/HR)</div>
+        <div className="pill" onClick={changeHandler} data-label="windSpeed">Wind (MPH)</div>
+        <div className="pill" onClick={changeHandler} data-label="windGust">Wind Gust (MPH)</div>
+        <div className="pill" onClick={changeHandler} data-label="humidity">Humidity (%)</div>
+        <div className="pill" onClick={changeHandler} data-label="dewPoint">Dew Point (&deg;F)</div>
+        <div className="pill" onClick={changeHandler} data-label="uvIndex">UV Index</div>
+        <div className="pill" onClick={changeHandler} data-label="cloudCover">Cloud Cover (%)</div>
+        <div className="pill" onClick={changeHandler} data-label="pressure">Pressure (MB)</div>
       </div>
     </div>
   );

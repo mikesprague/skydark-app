@@ -19,7 +19,12 @@ export const Hourly = ({ data, summary }) => {
   }, [data]);
 
   const changeHandler = (event) => {
-    setHourlyConditionToShow(event.target.value);
+    const lastSelected = document.querySelector('.hourly-container .condition-select-container .pill-selected');
+    setHourlyConditionToShow(event.target.dataset.label);
+    event.target.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    lastSelected.classList.add('pill');
+    lastSelected.classList.remove('pill-selected');
+    event.target.classList.add('pill-selected');
   };
 
   return hourlyData ? (
@@ -42,20 +47,18 @@ export const Hourly = ({ data, summary }) => {
           ) : '';
         })}
       </ul>
-      <div className="condition-select-container">
-        <select className="select" onChange={changeHandler}>
-          <option value="temperature">Temp (&deg;F)</option>
-          <option value="apparentTemperature">Feels-Like (&deg;F)</option>
-          <option value="precipProbability">Precip Prob (%)</option>
-          <option value="precipIntensity">Precip Rate (IN/HR)</option>
-          <option value="windSpeed">Wind (MPH)</option>
-          <option value="windGust">Wind Gust (MPH)</option>
-          <option value="humidity">Humidity (%)</option>
-          <option value="dewPoint">Dew Point (&deg;F)</option>
-          <option value="uvIndex">UV Index</option>
-          <option value="cloudCover">Cloud Cover (%)</option>
-          <option value="pressure">Pressure (MB)</option>
-        </select>
+      <div className="flex condition-select-container">
+        <div className="pill-selected" onClick={changeHandler} data-label="temperature">Temp (&deg;F)</div>
+        <div className="pill" onClick={changeHandler} data-label="apparentTemperature">Feels-Like (&deg;F)</div>
+        <div className="pill" onClick={changeHandler} data-label="precipProbability">Precip Prob (%)</div>
+        <div className="pill" onClick={changeHandler} data-label="precipIntensity">Precip Rate (IN/HR)</div>
+        <div className="pill" onClick={changeHandler} data-label="windSpeed">Wind (MPH)</div>
+        <div className="pill" onClick={changeHandler} data-label="windGust">Wind Gust (MPH)</div>
+        <div className="pill" onClick={changeHandler} data-label="humidity">Humidity (%)</div>
+        <div className="pill" onClick={changeHandler} data-label="dewPoint">Dew Point (&deg;F)</div>
+        <div className="pill" onClick={changeHandler} data-label="uvIndex">UV Index</div>
+        <div className="pill" onClick={changeHandler} data-label="cloudCover">Cloud Cover (%)</div>
+        <div className="pill" onClick={changeHandler} data-label="pressure">Pressure (MB)</div>
       </div>
     </div>
   ) : <Loading />;

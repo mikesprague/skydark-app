@@ -23,9 +23,10 @@ export const Day = ({ data, dayIndex, coordinates }) => {
   const clickHandler = async (event) => {
     const allDetails = document.querySelectorAll('details');
     const currentDetail = event.target.closest('details');
+    const currentSummary = event.target.closest('summary');
     const { lat, lng } = coordinates;
     const isOpen = currentDetail.getAttribute('open') === null;
-    const date = event.target.closest('summary').dataset.time;
+    const date = currentSummary.dataset.time;
 
     allDetails.forEach((detail) => {
       if (detail !== currentDetail) {
@@ -34,6 +35,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     });
 
     if (isOpen) {
+      currentSummary.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
       if (!hourlyData || (hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(60, 'minute')))) {
         const weatherData = await getDailyWeatherData(lat, lng, date);
         setHourlyData({
