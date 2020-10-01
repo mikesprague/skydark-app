@@ -23,7 +23,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     // return () => {};
-  }, [mapView, coordinates]);
+  }, [coordinates]);
 
   const changeHandler = (event) => {
     // console.log(event.target.value);
