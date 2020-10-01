@@ -21,7 +21,7 @@ export const CurrentHourly = ({ data }) => {
 
   return (
     <div className="current-hourly-container">
-      <p className="mb-2 text-base text-center">
+      <p className="px-8 mb-2 text-base text-center">
         {`Next Hour: ${data.minutely.summary.replace(' for the hour.', '')}`}
       </p>
       <ul className="hourly">
