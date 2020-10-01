@@ -58,7 +58,7 @@
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.405.1",
+    "snyk": "^1.406.0",
     "swr": "^0.3.5",
     "tailwindcss": "^1.8.10"
   },
@@ -202,7 +202,7 @@
       "no-param-reassign": "warn",
       "eqeqeq": "error",
       "max-len": [
-        "warn",
+        "off",
         {
           "code": 120
         }
