@@ -138,9 +138,9 @@ export const getWeatherIcon = (icon) => {
   return iconMap[icon];
 };
 
-const formatTemp = (temp) => `${Math.round(temp).toString().padStart(2, String.fromCharCode(160))}${String.fromCharCode(176)}`;
-const formatPercent = (num) => `${Math.round(num * 100).toString().padStart(2, String.fromCharCode(160))}%`;
-const formatNum = (num) => `${Math.round(num).toString().padStart(2, String.fromCharCode(160))}`;
+const formatTemp = (temp) => `${Math.round(temp).toString()}${String.fromCharCode(176)}`;
+const formatPercent = (num) => `${Math.round(num * 100).toString()}%`;
+const formatNum = (num) => `${Math.round(num).toString()}`;
 
 export const formatCondition = (value, condition) => {
   switch (condition) {
