@@ -30,7 +30,6 @@
     @apply text-center;
     @apply border-2;
     @apply focus:outline-none;
-
   }
 
   .pill {
@@ -98,13 +97,6 @@
       @apply italic;
     }
 
-    // .spacer {
-    //   @apply flex-auto;
-    //   @apply inline-block;
-    //   @apply overflow-hidden;
-    //   @apply align-top;
-    // }
-
     .condition {
       @apply inline-block;
       @apply align-top;
@@ -121,6 +113,10 @@
         @apply bg-white;
         @apply rounded-full;
         @apply w-12;
+        @apply text-center;
+        @apply inline-block;
+        @apply leading-6;
+        @apply w-14;
 
         &.orange {
           @apply bg-orange-500;
