@@ -116,7 +116,9 @@
         @apply text-center;
         @apply inline-block;
         @apply leading-5;
-        @apply w-14;
+        // @apply w-14;
+	min-width: 3.5rem;
+	width: auto;
 
         &.orange {
           @apply bg-orange-500;
