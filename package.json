@@ -33,6 +33,7 @@
   "homepage": "https://skydark.app",
   "license": "MIT",
   "dependencies": {
+    "@bugsnag/core": "^7.3.5",
     "@bugsnag/js": "^7.4.0",
     "@bugsnag/plugin-react": "^7.3.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.31",
@@ -103,7 +104,7 @@
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",
     "inquirer": "^7.3.3",
-    "mini-css-extract-plugin": "^0.11.2",
+    "mini-css-extract-plugin": "^0.11.3",
     "netlify-cli": "^2.64.1",
     "netlify-lambda": "^2.0.1",
     "node-sass": "^4.14.1",
