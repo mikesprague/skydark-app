@@ -25,6 +25,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     const allDetails = document.querySelectorAll('details');
     const currentDetail = clickedEl.closest('details');
     const currentSummary = clickedEl.closest('summary');
+    const scrollMarker = currentDetail.querySelector('.scroll-marker');
     const { lat, lng } = coordinates;
     const isOpen = currentDetail.getAttribute('open') === null;
     const date = currentSummary.dataset.time;
@@ -32,6 +33,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     allDetails.forEach((detail) => {
       if (detail !== currentDetail) {
         detail.removeAttribute('open');
+        detail.querySelector('.scroll-marker').classList.add('hidden');
       }
     });
 
@@ -43,13 +45,17 @@ export const Day = ({ data, dayIndex, coordinates }) => {
           data: weatherData.weather.hourly.data,
         });
       }
-      currentDetail.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+      scrollMarker.classList.remove('hidden')
+      scrollMarker.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+    } else {
+      scrollMarker.classList.add('hidden');
     }
   };
 
   return (
     <details className="day">
       <summary data-time={data.time} onClick={clickHandler}>
+        <div className="relative hidden text-transparent scroll-marker -top-6">&nbsp;</div>
         <div className="flex flex-grow">
           <div className="name">
             <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(data.time).format('ddd').toUpperCase()}</strong>
