@@ -37,6 +37,8 @@ export const Day = ({ data, dayIndex, coordinates }) => {
       }
     });
 
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     if (isOpen) {
       if (!hourlyData || (hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(60, 'minute')))) {
         const weatherData = await getDailyWeatherData(lat, lng, date);
@@ -45,8 +47,10 @@ export const Day = ({ data, dayIndex, coordinates }) => {
           data: weatherData.weather.hourly.data,
         });
       }
-      scrollMarker.classList.remove('hidden')
-      scrollMarker.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+      scrollMarker.classList.remove('hidden');
+      sleep(250).then(() => {
+        scrollMarker.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+      });
     } else {
       scrollMarker.classList.add('hidden');
     }
@@ -55,7 +59,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
   return (
     <details className="day">
       <summary data-time={data.time} onClick={clickHandler}>
-        <div className="relative hidden text-transparent scroll-marker -top-6">&nbsp;</div>
+        <div className="relative hidden w-0 h-0 text-transparent scroll-marker -top-12">&nbsp;</div>
         <div className="flex flex-grow">
           <div className="name">
             <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(data.time).format('ddd').toUpperCase()}</strong>

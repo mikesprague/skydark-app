@@ -50,7 +50,7 @@ module.exports = {
     require('cssnano')({
       preset: 'default',
     }),
-    purgecss,
-    // ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
+    // purgecss,
+    ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
   ],
 };
