@@ -26,11 +26,9 @@ ReactDOM.render(
     <React.StrictMode>
       <App OPENWEATHERMAP_API_KEY={process.env.OPENWEATHERMAP_API_KEY} />
     </React.StrictMode>
-  </ErrorBoundary>
-  , document.getElementById('root'),
+  </ErrorBoundary>, document.getElementById('root'),
 );
 
 if (!isDev()) {
   initServiceWorker();
 }
-

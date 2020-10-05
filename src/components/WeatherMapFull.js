@@ -59,7 +59,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             zoom={7}
             zoomControl={false}
           >
-            <Marker position={[coordinates.lat, coordinates.lng]} opacity={.9} />
+            <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9} />
             <ZoomControl position="topleft" />
             <ScaleControl position="topleft" />
             <LayersControl position="topright">
@@ -80,35 +80,35 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               <LayersControl.BaseLayer name="Street">
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  opacity={.8}
+                  opacity={0.8}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street (Gray)">
                 <TileLayer
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                  opacity={.8}
+                  opacity={0.8}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White">
                 <TileLayer
                   url="http://{s}.tile.stamen.com/toner/{z}/{x}/{y}@2x.png"
-                  opacity={.9}
+                  opacity={0.9}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White/Gray">
                 <TileLayer
                   url="http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}@2x.png"
-                  opacity={.9}
+                  opacity={0.9}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Watercolor">
                 <TileLayer
                   url="http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
-                  opacity={.9}
+                  opacity={0.9}
                   zIndex={1}
                 />
               </LayersControl.BaseLayer>
@@ -116,7 +116,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                 {mapView === 'radar' ? (
                   <TileLayer
                     url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-                    opacity={.8}
+                    opacity={0.8}
                   />
                 ) : (
                   <WMSTileLayer
