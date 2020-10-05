@@ -104,8 +104,7 @@
       @apply flex-grow-0;
 
       .pill {
-        @apply px-3;
-        @apply py-1;
+        @apply p-1;
         @apply font-semibold;
         @apply text-sm;
         @apply tracking-widest;
@@ -116,9 +115,9 @@
         @apply text-center;
         @apply inline-block;
         @apply leading-5;
-        // @apply w-14;
-	min-width: 3.5rem;
-	width: auto;
+        @apply tracking-tight;
+        @apply w-auto;
+        min-width: 2.75rem;
 
         &.orange {
           @apply bg-orange-500;
