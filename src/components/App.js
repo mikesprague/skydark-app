@@ -35,20 +35,18 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   );
 };
 
-export const About = () => {
-  return (
-    <div className="contents">
-      <div className="header">
-        <div className="section-name">
-          <h1>About</h1>
-        </div>
-      </div>
-      <div className="my-16">
-        <p>Work in progress. This page will have content soon ...</p>
+export const About = () => (
+  <div className="contents">
+    <div className="header">
+      <div className="section-name">
+        <h1>About</h1>
       </div>
     </div>
-  );
-};
+    <div className="my-16">
+      <p>Work in progress. This page will have content soon ...</p>
+    </div>
+  </div>
+);
 
 App.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
