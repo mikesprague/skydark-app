@@ -57,6 +57,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-google-charts": "^3.0.15",
     "react-hot-loader": "^4.13.0",
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
