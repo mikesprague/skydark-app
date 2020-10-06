@@ -1,3 +1,4 @@
+import Bugsnag from '@bugsnag/js';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -43,7 +44,10 @@ export const apiUrl = (useLocalhost = false) => {
 };
 
 export const handleError = (error) => {
-  console.error(error);
+  if (isDev()) {
+    console.error(error);
+  }
+  Bugsnag.notify(error);
 };
 
 export const initServiceWorker = () => {
