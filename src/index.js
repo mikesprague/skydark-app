@@ -21,8 +21,12 @@ setupLogRocketReact(LogRocket);
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
+const ErrorView = () => (
+  <div className="text-red-500">Sorry, an error has occured.</div>
+);
+
 ReactDOM.render(
-  <ErrorBoundary>
+  <ErrorBoundary FallbackComponent={ErrorView} onError={console.error}>
     <React.StrictMode>
       <App OPENWEATHERMAP_API_KEY={process.env.OPENWEATHERMAP_API_KEY} />
     </React.StrictMode>
