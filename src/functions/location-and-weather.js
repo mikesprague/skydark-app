@@ -4,11 +4,19 @@ const Bugsnag = require('@bugsnag/js');
 Bugsnag.start({ apiKey: process.env.BUGSNAG_API_KEY });
 
 exports.handler = async (event, context, callback) => {
-  const { lat, lng, time } = event.queryStringParameters || null;
+  const { lat, lng, time, healthcheck } = event.queryStringParameters || null;
   const callbackHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
+
+  if (healthcheck) {
+    return {
+      headers: callbackHeaders,
+      statusCode: 200,
+      body: 'API is up and running',
+    };
+  }
 
   if (!lat) {
     return {
