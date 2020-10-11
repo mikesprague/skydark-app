@@ -51,7 +51,7 @@
     "dotenv": "^8.2.0",
     "he": "^1.2.0",
     "leaflet": "^1.7.1",
-    "logrocket": "^1.0.13",
+    "logrocket": "^1.0.14",
     "logrocket-react": "^4.0.1",
     "nanoid": "^3.1.12",
     "prop-types": "^15.7.2",
@@ -63,9 +63,9 @@
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.409.1",
+    "snyk": "^1.413.2",
     "swr": "^0.3.5",
-    "tailwindcss": "^1.8.10"
+    "tailwindcss": "^1.8.13"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
