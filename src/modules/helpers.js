@@ -46,8 +46,9 @@ export const apiUrl = (useLocalhost = false) => {
 export const handleError = (error) => {
   if (isDev()) {
     console.error(error);
+  } else {
+    Bugsnag.notify(error);
   }
-  Bugsnag.notify(error);
 };
 
 export const initServiceWorker = () => {

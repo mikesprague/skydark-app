@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useEffect } from 'react';
-import { apiUrl } from '../modules/helpers';
+import { apiUrl, handleError } from '../modules/helpers';
 import { clearData } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Currently } from './Currently';
@@ -30,7 +30,7 @@ export const Forecast = () => {
       });
     }
     async function geolocationError(error) {
-      console.error(error);
+      handleError(error);
     }
     async function doGeolocation() {
       const geolocationOptions = {
@@ -40,10 +40,14 @@ export const Forecast = () => {
       await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
     }
 
-    if (coordinates && weatherData && weatherData.lastUpdated) {
-      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
-      if (dayjs().isAfter(nextUpdateTime)) {
-        clearData('coordinates');
+    if (coordinates) {
+      try {
+        const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
+        if (dayjs().isAfter(nextUpdateTime)) {
+          clearData('coordinates');
+          doGeolocation();
+        }
+      } catch (error) {
         doGeolocation();
       }
     } else {
