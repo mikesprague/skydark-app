@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
+import { Chart } from 'react-google-charts';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import {
@@ -19,9 +20,63 @@ export const CurrentHourly = ({ data }) => {
     event.target.classList.add('pill-selected');
   };
 
+  const nextHourRain = () => {
+    const { summary } = data.minutely;
+    if (summary && (summary.toLowerCase().includes('rain') || summary.toLowerCase().includes('drizzle') || summary.toLowerCase().includes('start') || summary.toLowerCase().includes('stop'))) {
+      return true;
+    }
+    return false;
+  };
+
+  const dataArray = [
+    ['Minute', 'Precipitation'],
+  ];
+
+  data.minutely.data.forEach((minute, index) => {
+    dataArray.push([`${index}`, minute.precipIntensity]);
+  });
+
   return (
     <div className="current-hourly-container">
-      <p className="px-8 mb-2 text-base text-center">
+      {nextHourRain()
+        ? (
+          <Chart
+            width="100%"
+            height="100px"
+            chartType="AreaChart"
+            loader={<div className="text-center text-transparent">Loading...</div>}
+            data={dataArray}
+            options={{
+              backgroundColor: 'transparent',
+              series: [
+                { color: '#76a9fa' },
+              ],
+              hAxis: {
+                baselineColor: '#333',
+                minValue: 0,
+                textPosition: 'none',
+              },
+              vAxis: {
+                baselineColor: '#333',
+                gridlines: { color: '#333', count: 4 },
+                textStyle: { color: '#999' },
+                ticks: [{ v: 0, f: '' }, { v: 0.1, f: 'Light' }, { v: 0.2, f: 'Medium' }, { v: 0.3, f: 'Heavy' }],
+                viewWindow: { min: 0, max: 0.3 },
+                viewWindowMode: 'maximized',
+              },
+              tooltip: {
+                trigger: 'none',
+              },
+              enableInteractivity: false,
+              legend: 'none',
+              lineWidth: 1,
+              pointsVisible: false,
+              theme: 'maximized',
+            }}
+          />
+        )
+        : ''}
+      <p className="px-6 mb-2 text-base text-center">
         {`Next Hour: ${data.minutely.summary.replace(' for the hour.', '')}`}
       </p>
       <ul className="hourly">
