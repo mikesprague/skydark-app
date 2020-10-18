@@ -49,31 +49,29 @@ export const CurrentHourly = ({ data }) => {
             options={{
               backgroundColor: 'transparent',
               series: [
-                { color: '#76a9fa' },
+                { color: '#76a9fa', areaOpacity: 0.75 },
               ],
               hAxis: {
                 baselineColor: 'transparent',
                 gridlines: { color: 'transparent', count: 5 },
                 textPosition: 'out',
-                textStyle: { color: '#aaa' },
+                textStyle: { color: '#999' },
                 ticks: [{ v: 0, f: '' }, { v: 10, f: '10 min' }, { v: 20, f: '20 min' }, { v: 30, f: '30 min' }, { v: 40, f: '40 min' }, { v: 50, f: '50 min' }, { v: 60, f: '' }],
-                // viewWindow: { min: 0, max: 60 },
-                // viewWindowMode: 'maximized',
               },
               vAxis: {
-                baselineColor: '#aaa',
-                gridlines: { color: '#aaa', minSpacing: 40 },
+                baselineColor: 'transparent',
+                gridlines: { color: '#666'},
                 textPosition: 'in',
-                textStyle: { color: '#aaa' },
-                ticks: [{ v: 0, f: '' }, { v: 0.075, f: 'LIGHT' }, { v: 0.15, f: 'MED' }, { v: 0.225, f: 'HEAVY' }],
-                viewWindow: { min: 0, max: 0.25 },
+                textStyle: { color: '#999' },
+                ticks: [{ v: 0, f: '' }, { v: 0.1, f: 'LIGHT' }, { v: 0.2, f: 'MED' }, { v: 0.3, f: 'HEAVY' }],
+                viewWindow: { min: 0, max: 0.34 },
                 viewWindowMode: 'maximized',
               },
               tooltip: {
                 trigger: 'none',
               },
               enableInteractivity: false,
-              lineWidth: 1,
+              lineWidth: 0.25,
               pointsVisible: false,
               chartArea: { width: '100%', height: '140px', top: 0 },
               titlePosition: 'in',
@@ -83,7 +81,7 @@ export const CurrentHourly = ({ data }) => {
           />
         )
         : ''}
-      <p className={nextHourRain() ? '-mt-6 px-2 mb-2 text-base text-center' : 'px-2 mb-2 text-base text-center'}>
+      <p className={nextHourRain() ? '-mt-6 px-2 mb-4 text-base text-center' : 'px-2 mb-2 text-base text-center'}>
         {`Next Hour: ${data.minutely.summary.replace(' for the hour.', '')}`}
       </p>
       <ul className="hourly">
