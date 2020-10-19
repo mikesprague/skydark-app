@@ -5,7 +5,7 @@ module.exports = {
     uniformColorPalette: true,
     extendedSpacingScale: true,
     extendedFontSizeScale: true,
-    defaultLineHeights: false,
+    defaultLineHeights: true,
   },
   theme: {
     extend: {},
