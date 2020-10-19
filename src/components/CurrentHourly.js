@@ -62,7 +62,7 @@ export const CurrentHourly = ({ data }) => {
                 baselineColor: 'transparent',
                 gridlines: { color: '#666'},
                 textPosition: 'in',
-                textStyle: { color: '#999' },
+                textStyle: { color: '#aaa' },
                 ticks: [{ v: 0, f: '' }, { v: 0.1, f: 'LIGHT' }, { v: 0.2, f: 'MED' }, { v: 0.3, f: 'HEAVY' }],
                 viewWindow: { min: 0, max: 0.34 },
                 viewWindowMode: 'maximized',
