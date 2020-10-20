@@ -13,7 +13,7 @@ export const Hour = (props) => {
   useEffect(() => {
     setHourlyConditionToShow(conditionToShow);
 
-    return () => {};
+    // return () => {};
   }, [hourlyConditionToShow, conditionToShow]);
 
   return (
