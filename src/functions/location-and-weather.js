@@ -49,6 +49,7 @@ exports.handler = async (event, context, callback) => {
       const fullResults = response.data.results;
       const formattedAddress = fullResults[0].formatted_address;
       let locationName = '';
+      const isUSA = formattedAddress.toLowerCase().includes('usa');
       const addressTargets = ['postal_town', 'locality', 'neighborhood', 'administrative_area_level_2', 'administrative_area_level_1', 'country'];
       addressTargets.forEach((target) => {
         if (!locationName.length) {
@@ -61,6 +62,14 @@ exports.handler = async (event, context, callback) => {
               });
             }
           });
+        }
+      });
+      fullResults[0].address_components.forEach((component) => {
+        if (isUSA && component.types.indexOf('administrative_area_level_1') > -1) {
+          locationName = `${locationName}, ${component.short_name}`;
+        }
+        if (!isUSA && component.types.indexOf('country') > -1) {
+          locationName = `${locationName}, ${component.short_name}`;
         }
       });
       // console.log(locationName);
