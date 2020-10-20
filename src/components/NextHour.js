@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './NextHour.scss';
 
 export const NextHour = ({ data }) => {
-  const [nextHourRain, setNextHourRain] = useState(false);
+  const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
   useEffect(() => {
     if (!data) { return; }
 
@@ -17,15 +17,15 @@ export const NextHour = ({ data }) => {
         || summary.toLowerCase().includes('start')
         || summary.toLowerCase().includes('stop')
     )) {
-      setNextHourRain(true);
+      setNextHourPrecipitation(true);
     }
 
-    return () => { setNextHourRain(false) };
+    return () => { setNextHourPrecipitation(false) };
   }, [data]);
 
   const [chartData, setChartData] = useState(null);
   useEffect(() => {
-    if (!nextHourRain) { return; }
+    if (!nextHourPrecipitation) { return; }
 
     const dataArray = [
       ['Minute', 'Precipitation'],
@@ -36,9 +36,9 @@ export const NextHour = ({ data }) => {
     setChartData(dataArray);
 
     return () => { setChartData(null); };
-  }, [nextHourRain, data]);
+  }, [nextHourPrecipitation, data]);
 
-  return nextHourRain ? (
+  return nextHourPrecipitation ? (
     <>
       <Chart
         width="100%"
