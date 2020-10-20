@@ -20,7 +20,7 @@ export const NextHour = ({ data }) => {
       setNextHourRain(true);
     }
 
-    // return () => {};
+    return () => { setNextHourRain(false) };
   }, [data]);
 
   const [chartData, setChartData] = useState(null);
@@ -35,8 +35,8 @@ export const NextHour = ({ data }) => {
     });
     setChartData(dataArray);
 
-    // return () => {};
-  }, [data, nextHourRain]);
+    return () => { setChartData(null); };
+  }, [nextHourRain, data]);
 
   return nextHourRain ? (
     <>
