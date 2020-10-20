@@ -49,7 +49,7 @@ exports.handler = async (event, context, callback) => {
       const fullResults = response.data.results;
       const formattedAddress = fullResults[0].formatted_address;
       let locationName = '';
-      const addressTargets = ['neighborhood', 'locality', 'administrative_area_level_2', 'administrative_area_level_1'];
+      const addressTargets = ['postal_town', 'locality', 'neighborhood', 'administrative_area_level_2', 'administrative_area_level_1', 'country'];
       addressTargets.forEach((target) => {
         if (!locationName.length) {
           fullResults.forEach((result) => {
@@ -89,13 +89,13 @@ exports.handler = async (event, context, callback) => {
       };
       return weatherData;
     })
-    .catch((err) => {
-      return {
+    .catch((err) => (
+      {
         headers: callbackHeaders,
         statusCode: 500,
         body: JSON.stringify(err),
-      };
-    });
+      }
+    ));
 
   return {
     headers: callbackHeaders,
