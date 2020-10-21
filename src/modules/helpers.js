@@ -222,10 +222,13 @@ export const getConditionBarClass = (data) => {
 };
 
 export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
+  let summary = '';
   if (index === startIndex) {
-    return currentHourData.summary;
+    summary = currentHourData.summary;
   }
-  return index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+  summary = index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+  summary = summary.replace('Possible ', '');
+  return summary;
 };
 
 export const getUvIndexClasses = (uvIndex) => {
