@@ -202,22 +202,38 @@ export const getConditionBarClass = (data) => {
   const isSnowing = (icon.includes('snow') || icon.includes('sleet'));
   const isOvercast = summary.toLowerCase().includes('overcast');
   const isClear = icon.includes('clear');
+  const isWindy = icon.includes('windy');
+
   if (isRaining) {
     return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('drizzle') ? 'bg-blue-400' : 'bg-blue-500';
   }
   if (isSnowing) {
     return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('flurries') ? 'bg-purple-400' : 'bg-purple-500';
   }
-  if(isOvercast) {
+  if (isOvercast) {
     return 'bg-gray-600';
   }
   if (isCloudy) {
     return icon.includes('mostly') || summary.toLowerCase().includes('mostly') || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
   }
+  if (isWindy) {
+    if (clouds < 20) {
+      return 'bg-white';
+    }
+    if (clouds >= 20 && clouds < 60) {
+      return 'bg-gray-400';
+    }
+    if (clouds >= 60 && clouds < 80) {
+      return 'bg-gray-500';
+    }
+    if (clouds >= 80) {
+      return 'bg-gray-600';
+    }
+  }
   if (isClear) {
     return 'bg-white';
   }
-  console.log(data);
+  console.log(icon);
   return 'unknown-condition-bar-class';
 };
 
@@ -226,7 +242,7 @@ export const formatSummary = (currentHourData, allHourlyData, index, startIndex)
   if (index === startIndex) {
     summary = currentHourData.summary;
   }
-  summary = index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+  summary = index >= 2 && currentHourData.summary.replace('Possible ', '') === allHourlyData[index - 2].summary.replace('Possible ', '') ? '' : currentHourData.summary;
   summary = summary.replace('Possible ', '');
   return summary;
 };

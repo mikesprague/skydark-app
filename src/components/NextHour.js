@@ -4,24 +4,34 @@ import React, { useEffect, useState } from 'react';
 import './NextHour.scss';
 
 export const NextHour = ({ data }) => {
-  const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
+  const [summaryText, setSummaryText] = useState(null);
   useEffect(() => {
     if (!data) { return; }
 
-    const { summary } = data.minutely;
-    if (summary && (
-      summary.toLowerCase().includes('rain')
-        || summary.toLowerCase().includes('drizzle')
-        || summary.toLowerCase().includes('snow')
-        || summary.toLowerCase().includes('sleet')
-        || summary.toLowerCase().includes('start')
-        || summary.toLowerCase().includes('stop')
-    )) {
+    let { summary } = data.minutely;
+    summary = summary.replace('Possible ', '').replace(' for the hour.', '');
+    summary = summary.charAt(0).toUpperCase() + summary.slice(1);
+    setSummaryText(summary);
+
+    return () => { setSummaryText(null) };
+  }, [data]);
+
+  const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
+  useEffect(() => {
+    if (!summaryText) { return; }
+
+    if (summaryText.toLowerCase().includes('rain')
+        || summaryText.toLowerCase().includes('drizzle')
+        || summaryText.toLowerCase().includes('snow')
+        || summaryText.toLowerCase().includes('sleet')
+        || summaryText.toLowerCase().includes('start')
+        || summaryText.toLowerCase().includes('stop')
+    ) {
       setNextHourPrecipitation(true);
     }
 
     return () => { setNextHourPrecipitation(false) };
-  }, [data]);
+  }, [summaryText]);
 
   const [chartData, setChartData] = useState(null);
   useEffect(() => {
@@ -79,16 +89,14 @@ export const NextHour = ({ data }) => {
           legend: 'none',
         }}
       />
-      <p className="px-2 mb-4 -mt-6 text-base text-center">
-        {`Next Hour: ${data.minutely.summary.replace(' for the hour.', '')}`}
+      <p className="px-4 mb-4 -mt-6 text-base text-center">
+        {`Next Hour: ${summaryText}`}
       </p>
     </>
   ) : (
-    <>
-      <p className="px-2 mb-2 text-base text-center">
-        {`Next Hour: ${data.minutely.summary.replace(' for the hour.', '')}`}
-      </p>
-    </>
+    <p className="px-4 mb-4 text-base text-center">
+      {`Next Hour: ${summaryText}`}
+    </p>
   );
 };
 
