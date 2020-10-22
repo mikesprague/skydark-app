@@ -53,7 +53,7 @@
     "leaflet": "^1.7.1",
     "logrocket": "^1.0.14",
     "logrocket-react": "^4.0.1",
-    "nanoid": "^3.1.12",
+    "nanoid": "^3.1.13",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -62,7 +62,7 @@
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.419.0",
+    "snyk": "^1.419.1",
     "tailwindcss": "^1.9.5"
   },
   "devDependencies": {
