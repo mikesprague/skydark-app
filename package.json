@@ -50,6 +50,7 @@
     "dayjs": "^1.9.4",
     "dotenv": "^8.2.0",
     "he": "^1.2.0",
+    "history": "^5.0.0",
     "leaflet": "^1.7.1",
     "logrocket": "^1.0.14",
     "logrocket-react": "^4.0.1",
@@ -60,7 +61,7 @@
     "react-google-charts": "^3.0.15",
     "react-hot-loader": "^4.13.0",
     "react-leaflet": "^2.8.0",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.0.0-beta.0",
     "register-service-worker": "^1.7.1",
     "snyk": "^1.420.0",
     "tailwindcss": "^1.9.5"
