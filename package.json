@@ -42,7 +42,7 @@
     "@fortawesome/pro-duotone-svg-icons": "^5.15.1",
     "@fortawesome/pro-regular-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@hot-loader/react-dom": "^16.13.0",
+    "@hot-loader/react-dom": "^17.0.0",
     "@tailwindcss/typography": "^0.2.0",
     "@tippyjs/react": "^4.2.0",
     "axios": "^0.21.0",
@@ -56,15 +56,15 @@
     "logrocket-react": "^4.0.1",
     "nanoid": "^3.1.15",
     "prop-types": "^15.7.2",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-google-charts": "^3.0.15",
     "react-hot-loader": "^4.13.0",
     "react-leaflet": "^2.8.0",
     "react-router-dom": "^6.0.0-beta.0",
     "register-service-worker": "^1.7.1",
     "snyk": "^1.420.0",
-    "tailwindcss": "^1.9.5"
+    "tailwindcss": "^1.9.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
