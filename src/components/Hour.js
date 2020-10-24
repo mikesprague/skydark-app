@@ -4,11 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './Hour.scss';
 
-export const Hour = (props) => {
+export const Hour = ({ data, showSummary, isFirst, isLast, conditionToShow }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
-  const {
-    data, showSummary, isFirst, isLast, conditionToShow,
-  } = props;
 
   useEffect(() => {
     setHourlyConditionToShow(conditionToShow);
