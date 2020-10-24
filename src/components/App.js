@@ -3,7 +3,7 @@ import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import {
   HashRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from 'react-router-dom';
 import { Footer } from './Footer';
@@ -17,7 +17,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
   return (
     <Router>
-      <Switch>
+      <Routes>
         <Route path="/about">
           <About />
         </Route>
@@ -27,7 +27,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
         <Route path="/">
           <Forecast />
         </Route>
-      </Switch>
+      </Routes>
 
       <Footer />
 
