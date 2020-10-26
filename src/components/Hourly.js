@@ -11,9 +11,9 @@ export const Hourly = ({ data, summary }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
 
   useEffect(() => {
-    if (data) {
-      setHourlyData(data.data);
-    }
+    if (!data) { return; }
+
+    setHourlyData(data.data);
 
     // return () => {};
   }, [data]);
@@ -21,7 +21,7 @@ export const Hourly = ({ data, summary }) => {
   const changeHandler = (event) => {
     const lastSelected = document.querySelector('.hourly-container .condition-select-container .pill-selected');
     setHourlyConditionToShow(event.target.dataset.label);
-    event.target.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+    event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     lastSelected.classList.add('pill');
     lastSelected.classList.remove('pill-selected');
     event.target.classList.add('pill-selected');
@@ -34,12 +34,12 @@ export const Hourly = ({ data, summary }) => {
         {hourlyData.map((hour, index) => {
           const isFirst = index === 0;
           const isLast = index === 22;
-          const showSummary = formatSummary(hour, hourlyData, index, 0);
+          const summaryText = formatSummary(hour, hourlyData, index, 0);
           return (index % 2 === 0) ? (
             <Hour
               key={nanoid(7)}
               data={hour}
-              showSummary={showSummary}
+              summary={summaryText}
               isFirst={isFirst}
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
