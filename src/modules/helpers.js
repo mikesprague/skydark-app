@@ -198,11 +198,10 @@ export const getConditionBarClass = (data) => {
   const { icon, cloudCover, summary } = data;
   const clouds = Math.round(cloudCover * 100);
   const isCloudy = icon.includes('cloudy') || clouds >= 40;
-  const isRaining = (icon.includes('rain') || icon.includes('thunderstorm'));
+  const isRaining = (icon.includes('rain') || icon.includes('thunderstorm') || icon.includes('hail'));
   const isSnowing = (icon.includes('snow') || icon.includes('sleet'));
   const isOvercast = summary.toLowerCase().includes('overcast');
   const isClear = icon.includes('clear');
-  const isWindy = icon.includes('windy');
 
   if (isRaining) {
     return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('drizzle') ? 'bg-blue-400' : 'bg-blue-500';
@@ -216,22 +215,21 @@ export const getConditionBarClass = (data) => {
   if (isCloudy) {
     return icon.includes('mostly') || summary.toLowerCase().includes('mostly') || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
   }
-  if (isWindy) {
-    if (clouds < 20) {
-      return 'bg-white';
-    }
-    if (clouds >= 20 && clouds < 60) {
-      return 'bg-gray-400';
-    }
-    if (clouds >= 60 && clouds < 80) {
-      return 'bg-gray-500';
-    }
-    if (clouds >= 80) {
-      return 'bg-gray-600';
-    }
-  }
+  // handle windy and other non-standard conditins using cloud conditions
   if (isClear) {
     return 'bg-white';
+  }
+  if (clouds < 20) {
+    return 'bg-white';
+  }
+  if (clouds >= 20 && clouds < 60) {
+    return 'bg-gray-400';
+  }
+  if (clouds >= 60 && clouds < 80) {
+    return 'bg-gray-500';
+  }
+  if (clouds >= 80) {
+    return 'bg-gray-600';
   }
   console.log(icon);
   return 'unknown-condition-bar-class';
