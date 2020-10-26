@@ -20,13 +20,13 @@ dayjs.extend(relativeTime);
 
 export const Forecast = () => {
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
-  const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
 
   useEffect(() => {
     async function getPosition(position) {
       setCoordinates({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
+        lastUpdated: dayjs().toString(),
       });
     }
     async function geolocationError(error) {
@@ -42,21 +42,24 @@ export const Forecast = () => {
 
     if (coordinates) {
       try {
-        const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
+        const nextUpdateTime = dayjs(coordinates.lastUpdated).add(10, 'minute');
         if (dayjs().isAfter(nextUpdateTime)) {
           clearData('coordinates');
           doGeolocation();
         }
       } catch (error) {
+        clearData('coordinates');
         doGeolocation();
       }
     } else {
+      clearData('coordinates');
       doGeolocation();
     }
 
     // return () => {};
-  }, []);
+  }, [coordinates, setCoordinates]);
 
+  const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
   useEffect(() => {
     if (!coordinates) { return; }
 
@@ -73,8 +76,13 @@ export const Forecast = () => {
 
     const { lat, lng } = coordinates;
     if (weatherData && weatherData.lastUpdated) {
-      const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
-      if (dayjs().isAfter(nextUpdateTime)) {
+      try {
+        const nextUpdateTime = dayjs(weatherData.lastUpdated).add(10, 'minute');
+        if (dayjs().isAfter(nextUpdateTime)) {
+          clearData('weatherData');
+          getWeatherData(lat, lng);
+        }
+      } catch (error) {
         clearData('weatherData');
         getWeatherData(lat, lng);
       }
@@ -84,9 +92,9 @@ export const Forecast = () => {
     }
 
     // return() => {};
-  }, [coordinates]);
+  }, [coordinates, weatherData, setWeatherData]);
 
-  return weatherData && weatherData.data ? (
+  return coordinates && weatherData ? (
     <>
       <Header data={weatherData.data.location} />
 
