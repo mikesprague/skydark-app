@@ -201,7 +201,7 @@
       "jsx-a11y/no-onchange": "off",
       "consistent-return": "warn",
       "curly": "error",
-      "object-curly-newline": "error",
+      "object-curly-newline": "warn",
       "semi": "error",
       "prefer-arrow-callback": "warn",
       "arrow-spacing": "error",
