@@ -263,3 +263,16 @@ export const getUvIndexClasses = (uvIndex) => {
   }
   return 'unknownUvIndexClass';
 };
+
+export const isCacheExpired = (lastUpdated, cacheDurationInMinutes) => {
+  try {
+    const nextUpdateTime = dayjs(lastUpdated).add(cacheDurationInMinutes, 'minute');
+    if (dayjs().isAfter(nextUpdateTime)) {
+      return true;
+    }
+  } catch (error) {
+    handleError(error);
+    return true;
+  }
+  return false;
+};

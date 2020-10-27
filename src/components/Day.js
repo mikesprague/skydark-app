@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { apiUrl, formatCondition, getWeatherIcon } from '../modules/helpers';
+import { apiUrl, formatCondition, getWeatherIcon, isCacheExpired } from '../modules/helpers';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Hourly } from './Hourly';
 import { Loading } from './Loading';
@@ -40,7 +40,7 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     if (isOpen) {
-      if (!hourlyData || (hourlyData && dayjs().isAfter(dayjs(hourlyData.lastUpdated).add(60, 'minute')))) {
+      if (!hourlyData || (isCacheExpired(hourlyData.lastUpdated, 60))) {
         const weatherData = await getDailyWeatherData(lat, lng, date);
         setHourlyData({
           lastUpdated: dayjs().toString(),
