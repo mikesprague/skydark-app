@@ -5,18 +5,20 @@
 
 ## About :information_source:
 
-Sky Dark is an open source <abbr title="Progressive Web Application">PWA</abbr> built 
+Sky Dark is an open source <abbr title="Progressive Web Application">PWA</abbr> built
 as an homage to the now defunct Dark Sky for Android app.
 
 ### WIP (work in progress) :construction:
 
-Please note that this is a work in progress and is NOT an exact replica in functionality 
-or design. I built it mainly to learn a few things and because the Dark Sky for 
+Please note that this is a work in progress and is NOT an exact replica in functionality
+or design. I built it mainly to learn a few things and because the Dark Sky for
 Android app used to be my daily driver and I missed the experience.
 
 ## Uses (incomplete list) :toolbox:
 
 - [Dark Sky API](https://darksky.net/poweredby/)
+- [OpenWeatherMap API](https://openweathermap.org/api/weathermaps)
+- [Leaflet](https://leafletjs.com/)
 - [Netlify](https://www.netlify.com/)
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
