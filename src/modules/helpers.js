@@ -55,6 +55,7 @@ export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated(registration) {
       console.log(`Updated Sky Dark to the latest version.\n${registration}`);
+      window.location.replace('/');
       resetData();
       window.location.reload(true);
     },
