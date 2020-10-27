@@ -1,11 +1,30 @@
-# skydark-app
+# Sky Dark
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/22061d9b-0f4d-4609-82c4-823d926beefc/deploy-status)](https://app.netlify.com/sites/skydark/deploys)
 [![Known Vulnerabilities](https://snyk.io/test/github/mikesprague/skydark-app/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mikesprague/skydark-app?targetFile=package.json)
 
-WIP (work in progress)
+## About :information_source:
 
-## License
+Sky Dark is an open source <abbr title="Progressive Web Application">PWA</abbr> built 
+as an homage to the now defunct Dark Sky for Android app.
+
+### WIP (work in progress) :construction:
+
+Please note that this is a work in progress and is NOT an exact replica in functionality 
+or design. I built it mainly to learn a few things and because the Dark Sky for 
+Android app used to be my daily driver and I missed the experience.
+
+## Uses (incomplete list) :toolbox:
+
+- [Dark Sky API](https://darksky.net/poweredby/)
+- [Netlify](https://www.netlify.com/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Bugsnag](https://www.bugsnag.com/)
+- [Logrocket](https://logrocket.com/)
+
+## License :page_facing_up:
 
 MIT License
 
