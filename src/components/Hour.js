@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './Hour.scss';
 
-export const Hour = ({ data, summary, isFirst, isLast, conditionToShow }) => {
+export const Hour = ({
+  data, summary, isFirst, isLast, conditionToShow,
+}) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
 
   useEffect(() => {
