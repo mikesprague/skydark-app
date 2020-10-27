@@ -45,7 +45,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         </div>
       </div>
       <div className="h-full min-h-screen contents v-full">
-        <div className="relative min-h-screen map-container">
+        <div className="map-container">
           <Map
             animate={true}
             boxZoom={true}
@@ -56,7 +56,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             scrollWheelZoom={false}
             tap={true}
             touchZoom={true}
-            zoom={7}
+            zoom={10}
             zoomControl={false}
           >
             <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9} />

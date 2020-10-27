@@ -47,7 +47,6 @@
   }
 
   .leaflet-control-container {
-    // @apply hidden;
     @apply relative;
     @apply mt-16;
   }
@@ -67,8 +66,8 @@
 
   .leaflet-control-scale-line {
     background-color: $color-black-sixty-percent;
-    color: $color-lighter-gray;
     border-color: $color-dark-gray;
+    color: $color-lighter-gray;
   }
 
   .leaflet-control-layers-overlays,
@@ -76,16 +75,17 @@
     @apply hidden;
   }
 
-  // .leaflet-control-attribution {
-  //   top: 1rem;
-  // }
+  .leaflet-control-attribution {
+    @apply top-1;
+    @apply right-3;
+  }
 }
 
-.radar-key {
-  bottom: 60px;
-  height: auto;
-  position: absolute;
-  right: 5px;
-  width: 40px;
-  z-index: 500;
-}
+// .radar-key {
+//   bottom: 60px;
+//   height: auto;
+//   position: absolute;
+//   right: 5px;
+//   width: 40px;
+//   z-index: 500;
+// }
