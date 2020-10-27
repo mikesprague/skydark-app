@@ -60,8 +60,8 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             zoomControl={false}
           >
             <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9} />
-            <ZoomControl position="topleft" />
             <ScaleControl position="topleft" />
+            {/* <ZoomControl position="topleft" /> */}
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark" checked>
                 <TileLayer
