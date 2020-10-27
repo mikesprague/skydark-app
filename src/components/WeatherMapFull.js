@@ -68,6 +68,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
                   opacity={1}
                   zIndex={1}
+                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Light">
@@ -75,6 +76,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
                   opacity={1}
                   zIndex={1}
+                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street">
@@ -82,6 +84,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
+                  attribution={'&copy; <a href="http://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street (Gray)">
@@ -89,6 +92,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
+                  attribution={'&copy; <a href="http://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White">
@@ -96,6 +100,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="http://{s}.tile.stamen.com/toner/{z}/{x}/{y}@2x.png"
                   opacity={0.9}
                   zIndex={1}
+                  attribution={'&copy; <a href="http://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White/Gray">
@@ -103,6 +108,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}@2x.png"
                   opacity={0.9}
                   zIndex={1}
+                  attribution={'&copy; <a href="http://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Watercolor">
@@ -110,6 +116,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
                   opacity={0.9}
                   zIndex={1}
+                  attribution={'&copy; <a href="http://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Conditions" checked>
@@ -117,10 +124,12 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   <TileLayer
                     url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
                     opacity={0.8}
+                    attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
                   />
                 ) : (
                   <WMSTileLayer
                     url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
+                    attribution={'&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'}
                   />
                 )}
               </LayersControl.Overlay>

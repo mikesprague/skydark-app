@@ -49,7 +49,7 @@
   .leaflet-control-container {
     // @apply hidden;
     @apply relative;
-    @apply mt-12;
+    @apply mt-16;
   }
 
   .leaflet-control-layers {
@@ -71,11 +71,14 @@
     border-color: $color-dark-gray;
   }
 
-  .leaflet-control-attribution,
   .leaflet-control-layers-overlays,
   .leaflet-control-layers-separator {
     @apply hidden;
   }
+
+  // .leaflet-control-attribution {
+  //   top: 1rem;
+  // }
 }
 
 .radar-key {
