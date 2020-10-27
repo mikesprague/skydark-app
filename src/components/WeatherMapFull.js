@@ -84,7 +84,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
-                  attribution={'&copy; <a href="http://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street (Gray)">
@@ -92,31 +92,31 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
-                  attribution={'&copy; <a href="http://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White">
                 <TileLayer
-                  url="http://{s}.tile.stamen.com/toner/{z}/{x}/{y}@2x.png"
+                  url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png"
                   opacity={0.9}
                   zIndex={1}
-                  attribution={'&copy; <a href="http://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White/Gray">
                 <TileLayer
-                  url="http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}@2x.png"
+                  url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png"
                   opacity={0.9}
                   zIndex={1}
-                  attribution={'&copy; <a href="http://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Watercolor">
                 <TileLayer
-                  url="http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
+                  url="https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"
                   opacity={0.9}
                   zIndex={1}
-                  attribution={'&copy; <a href="http://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Conditions" checked>
