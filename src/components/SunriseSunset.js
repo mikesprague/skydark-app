@@ -14,8 +14,8 @@ export const SunriseSunset = ({ data }) => {
     const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60);
     const totalMinutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute');
 
-    let hoursText = hours > 0 ? hours : '';
-    if (hoursText === '' && totalMinutes >= 60) {
+    let hoursText = hours >= 1 ? hours : '';
+    if (hoursText === '' && totalMinutes > 54) {
       hoursText = 1;
     }
 
