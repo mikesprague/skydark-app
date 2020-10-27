@@ -9,6 +9,7 @@ import {
 import { About } from './About';
 import { Footer } from './Footer';
 import { Forecast } from './Forecast';
+import { Settings } from './Settings';
 import { WeatherMapFull } from './WeatherMapFull';
 import { initIcons } from '../modules/helpers';
 import './App.scss';
@@ -24,6 +25,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
         </Route>
         <Route path="/map">
           <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+        </Route>
+        <Route path="/settings">
+          <Settings />
         </Route>
         <Route path="/" end>
           <Forecast />

@@ -6,7 +6,7 @@ import {
   faChrome, faDev, faEdge, faFirefoxBrowser, faGithub, faHackerNews, faProductHunt, faRedditAlien,
 } from '@fortawesome/free-brands-svg-icons';
 import {
-  faLocationArrow,
+  faLocationArrow as faLocationArrowSolid, faCog as faCogSolid, faInfoCircle as faInfoCircleSolid,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faExclamationCircle,
@@ -19,7 +19,7 @@ import {
   faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faTachometer,
   faAngleUp, faInfoCircle, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faUmbrella,
   faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
-  faTachometerAlt,
+  faTachometerAlt, faCog, faLocationArrow,
 } from '@fortawesome/pro-duotone-svg-icons';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
@@ -77,7 +77,8 @@ export const initIcons = () => {
     faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faClouds,
     faTachometer, faAngleUp, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faSun,
     faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand,
-    faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine, faTachometerAlt,
+    faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine, faTachometerAlt, faCog,
+    faInfoCircleSolid, faCogSolid, faLocationArrowSolid,
   );
 };
 

@@ -1,0 +1,23 @@
+.about-content {
+  @apply px-4;
+  @apply my-16;
+
+  h2 {
+    @apply inline;
+    @apply font-semibold;
+    @apply leading-loose;
+    @apply text-xl;
+    @apply text-center;
+    @apply text-gray-200;
+  }
+
+  p {
+    @apply pb-4;
+    @apply text-base;
+    @apply leading-normal;
+  }
+
+  a {
+    @apply text-blue-300;
+  }
+}

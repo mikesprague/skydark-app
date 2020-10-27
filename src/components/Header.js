@@ -27,7 +27,7 @@ export const Header = ({ data }) => {
     <div className="header">
       <div className="location-name">
         <h1>
-          <FontAwesomeIcon icon="location-arrow" fixedWidth />
+          <FontAwesomeIcon icon={['fas', 'location-arrow']} fixedWidth />
           {` ${locationName}`}
         </h1>
       </div>
