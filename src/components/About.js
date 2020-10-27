@@ -1,4 +1,5 @@
 import React from 'react';
+import Tippy from '@tippyjs/react';
 import './About.scss';
 
 export const About = () => (
@@ -13,18 +14,20 @@ export const About = () => (
         <h2>Background</h2>
         <p>
           {'Sky Dark is an open source '}
-          <abbr title="Progressive Web Application">PWA</abbr>
+          <Tippy content="Progressive Web Application" arrow={true} placement="auto" trigger="click">
+            <abbr title="Progressive Web Application">PWA</abbr>
+          </Tippy>
           {' built as an homage to the now defunct Dark Sky for Android app.'}
         </p>
         <p>
-          Please note that this is a work in progress and is NOT an exact replica in functionality or design.
-          I built it mainly to learn a few new things and because the Dark Sky for Android app used to be my
-          daily driver and I missed the experience.
+          More details here:
+          <br />
+          <a href="https://github.com/mikesprague/skydark-app#readme" rel="noopener noreferrer" target="_blank">https://github.com/mikesprague/skydark-app#readme</a>
         </p>
         <h2>Issues/Bugs</h2>
-        <p>Errors are tracked automatically with Bugsnag.</p>
+        <p>Errors are tracked/reported automatically with Bugsnag.</p>
         <p>
-          Bug reports can be filed manually here:
+          Bug reports can be manually filed here:
           <br />
           <a href="https://github.com/mikesprague/skydark-app/issues" rel="noopener noreferrer" target="_blank">https://github.com/mikesprague/skydark-app/issues</a>
         </p>

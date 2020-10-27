@@ -4,11 +4,11 @@
 
   h2 {
     @apply inline;
-    @apply font-bold;
+    @apply font-semibold;
     @apply leading-loose;
-    @apply text-xl;
+    @apply text-lg;
     @apply text-gray-200;
-    border-bottom: .05rem solid #e5e7eb;
+    border-bottom: .01rem solid #e5e7eb;
   }
 
   p {
