@@ -6,6 +6,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import { About } from './About';
 import { Footer } from './Footer';
 import { Forecast } from './Forecast';
 import { WeatherMapFull } from './WeatherMapFull';
@@ -24,29 +25,14 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
         <Route path="/map">
           <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         </Route>
-        <Route path="/">
+        <Route path="/" end>
           <Forecast />
         </Route>
       </Routes>
-
       <Footer />
-
     </Router>
   );
 };
-
-export const About = () => (
-  <div className="contents">
-    <div className="header">
-      <div className="section-name">
-        <h1>About</h1>
-      </div>
-    </div>
-    <div className="my-16">
-      <p>Work in progress. This page will have content soon ...</p>
-    </div>
-  </div>
-);
 
 App.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
