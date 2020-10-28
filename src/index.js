@@ -38,8 +38,14 @@ const ErrorView = () => {
   );
 };
 
+const handleError = (error) => {
+  if (isDev()) {
+    console.error(error);
+  }
+};
+
 ReactDOM.render(
-  <ErrorBoundary FallbackComponent={ErrorView} onError={console.error}>
+  <ErrorBoundary FallbackComponent={ErrorView} onError={handleError}>
     <React.StrictMode>
       <App OPENWEATHERMAP_API_KEY={process.env.OPENWEATHERMAP_API_KEY} />
     </React.StrictMode>

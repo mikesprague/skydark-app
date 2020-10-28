@@ -45,7 +45,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         </div>
       </div>
       <div className="h-full min-h-screen contents v-full">
-        <div className="map-container">
+        <div className="relative min-h-screen map-container">
           <Map
             animate={true}
             boxZoom={true}
@@ -135,9 +135,9 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               </LayersControl.Overlay>
             </LayersControl>
           </Map>
-          {/* <div className={mapView === 'radar' ? 'radar-key' : 'hidden'}>
-            <img src="/images/map-key.png" alt="Radar Map Key" />
-          </div> */}
+          <div className={(mapView === 'radar' || mapView === 'temp_new') ? 'radar-key' : 'hidden'}>
+            <img src={`/images/${mapView === 'radar' ? 'radar' : 'temp'}-key.png`} alt={`${mapView === 'radar' ? 'Radar' : 'Temperature'} Map Key`} />
+          </div>
         </div>
       </div>
     </div>
