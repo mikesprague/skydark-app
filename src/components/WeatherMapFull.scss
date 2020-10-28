@@ -75,6 +75,11 @@
     @apply hidden;
   }
 
+  .leaflet-control-zoom {
+    @apply hidden;
+    @apply md:block;
+  }
+
   .leaflet-control-attribution {
     @apply top-1;
     @apply right-3;
