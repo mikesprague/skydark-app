@@ -29,7 +29,7 @@ export const Hourly = ({ data, summary }) => {
 
   return hourlyData ? (
     <div className="hourly-container">
-      <p className="mb-2 -mt-4 text-base text-center">{summary}</p>
+      <p className="mb-2 -mt-2 text-base leading-normal text-center">{summary}</p>
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
           const isFirst = index === 0;
