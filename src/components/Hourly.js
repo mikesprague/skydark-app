@@ -37,11 +37,12 @@ export const Hourly = ({ data, summary }) => {
           const isFirst = index === firstHour;
           const isLast = index === lastHour;
           const summaryText = formatSummary(hour, hourlyData, index, firstHour);
+          console.log('summaryText: ', summaryText);
           return (index % 2 === 0 && (index >= firstHour && index <= lastHour)) ? (
             <Hour
               key={nanoid(7)}
               data={hour}
-              summaryText={summaryText}
+              summary={summaryText}
               isFirst={isFirst}
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
