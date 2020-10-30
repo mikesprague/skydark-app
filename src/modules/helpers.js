@@ -161,19 +161,19 @@ export const formatCondition = (value, condition) => {
     case 'cloudCover':
       return formatPercent(value);
     case 'precipIntensity':
-      return formatDecimal(value);
+      return `${formatDecimal(value)}`;
     case 'pressure':
-      return formatNum(value);
+      return `${formatNum(value)}`;
     case 'sunriseTime':
     case 'sunsetTime':
       return `${dayjs.unix(value).format('h:mm A')}`;
     case 'uvIndex':
-      return formatNum(value);
+      return `${formatNum(value)}`;
     case 'visibility':
-      return formatNum(value);
+      return `${formatNum(value)}`;
     case 'windSpeed':
     case 'windGust':
-      return formatNum(value);
+      return `${formatNum(value)}`;
     default:
       return `${value}`;
   }
