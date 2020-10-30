@@ -42,6 +42,7 @@ export const CurrentConditions = ({ data }) => (
             <br />
             <small>
               Wind:
+              {` ${formatCondition(data.currently.windSpeed, 'windSpeed')} mph `}
               <FontAwesomeIcon
                 icon={['fad', 'chevron-circle-up']}
                 size="lg"
@@ -49,10 +50,9 @@ export const CurrentConditions = ({ data }) => (
                 style={{ '--fa-primary-color': 'ghostwhite', '--fa-secondary-color': 'darkslategray', '--fa-secondary-opacity': '1' }}
                 fixedWidth
               />
-              {` ${formatCondition(data.currently.windSpeed, 'windSpeed')}mph`}
               <br />
               Gusts:
-              {` ${formatCondition(data.currently.windGust, 'windGust')}mph`}
+              {` ${formatCondition(data.currently.windGust, 'windGust')} mph`}
             </small>
           </div>
           <div className="conditions-item">
@@ -78,7 +78,24 @@ export const CurrentConditions = ({ data }) => (
             <br />
             <small>
               Visibiity:
-              {` ${formatCondition(data.currently.visibility, 'visibility')}mi`}
+              {` ${formatCondition(data.currently.visibility, 'visibility')} mi`}
+            </small>
+          </div>
+          <div className="conditions-item">
+            <FontAwesomeIcon
+              icon={['fad', 'umbrella']}
+              size="2x"
+              swapOpacity
+              fixedWidth
+              style={{ '--fa-primary-color': 'royalblue', '--fa-secondary-color': 'sienna', '--fa-secondary-opacity': '.75' }}
+            />
+            <br />
+            <small>
+              Precipitaton:
+              {` ${formatCondition(data.currently.precipProbability, 'precipProbability')}`}
+              <br />
+              Intensity:
+              {` ${formatCondition(data.currently.precipIntensity, 'precipIntensity')} in/hr`}
             </small>
           </div>
           <div className="conditions-item">
@@ -93,8 +110,9 @@ export const CurrentConditions = ({ data }) => (
             <small>
               Humidity:
               {` ${formatCondition(data.currently.humidity, 'humidity')}`}
-              {/* <br />
-              Dew Point: {` ${formatCondition(data.currently.dewPoint, 'dewPoint')}`} */}
+              <br />
+              Dew Point:
+              {` ${formatCondition(data.currently.dewPoint, 'dewPoint')}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -107,21 +125,7 @@ export const CurrentConditions = ({ data }) => (
             <br />
             <small>
               Pressure:
-              {` ${formatCondition(data.currently.pressure, 'pressure')}mb`}
-            </small>
-          </div>
-          <div className="conditions-item">
-            <FontAwesomeIcon
-              icon={['fad', 'umbrella']}
-              size="2x"
-              swapOpacity
-              fixedWidth
-              style={{ '--fa-primary-color': 'royalblue', '--fa-secondary-color': 'sienna', '--fa-secondary-opacity': '.75' }}
-            />
-            <br />
-            <small>
-              Precip:
-              {` ${formatCondition(data.currently.precipProbability, 'precipProbability')}`}
+              {` ${formatCondition(data.currently.pressure, 'pressure')} mb`}
             </small>
           </div>
           <div className="conditions-item">
@@ -148,7 +152,7 @@ export const CurrentConditions = ({ data }) => (
             <br />
             <small>
               Sunrise:
-              {` ${formatCondition(data.daily.data[0].sunriseTime, 'sunriseTime')}`}
+              {` ${formatCondition(data.daily.data[0].sunriseTime, 'sunriseTime').toLowerCase()}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -162,7 +166,7 @@ export const CurrentConditions = ({ data }) => (
             <br />
             <small>
               Sunset:
-              {` ${formatCondition(data.daily.data[0].sunsetTime, 'sunsetTime')}`}
+              {` ${formatCondition(data.daily.data[0].sunsetTime, 'sunsetTime').toLowerCase()}`}
             </small>
           </div>
         </div>
