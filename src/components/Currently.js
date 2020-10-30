@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition, getWeatherIcon } from '../modules/helpers';
-import { Conditions } from './Conditions';
+import { CurrentConditions } from './CurrentConditions';
 import './Currently.scss';
 
 export const Currently = ({ data }) => {
@@ -17,7 +17,7 @@ export const Currently = ({ data }) => {
   }, [data]);
 
   const clickHandler = () => {
-    const overlayContainer = document.getElementById('conditions-modal');
+    const overlayContainer = document.getElementById('current-conditions-modal');
     const overlay = overlayContainer.querySelector('.overlay');
     const modal = overlayContainer.querySelector('.modal');
     const elementsToHide = [overlayContainer, overlay, modal];
@@ -40,7 +40,7 @@ export const Currently = ({ data }) => {
         <h2 className="actual-temp">{formatCondition(currentData.currently.temperature, 'temperature').trim()}</h2>
         <h3 className="feels-like-temp">{`Feels ${formatCondition(currentData.currently.apparentTemperature, 'apparentTemperature').trim()}`}</h3>
       </div>
-      <Conditions data={currentData} />
+      <CurrentConditions data={currentData} />
     </div>
   ) : '';
 };
