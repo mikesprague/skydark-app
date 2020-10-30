@@ -104,7 +104,7 @@ export const Forecast = () => {
 
       </div>
     </>
-  ) : <Loading className="min-h-screen" />;
+  ) : <Loading fullHeight={true} />;
 };
 
 export default Forecast;

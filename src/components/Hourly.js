@@ -63,7 +63,7 @@ export const Hourly = ({ data, summary }) => {
         <div className="pill" onClick={changeHandler} data-label="pressure">Pressure (MB)</div>
       </div>
     </div>
-  ) : <Loading />;
+  ) : <Loading fullHeight={false} />;
 };
 
 Hourly.propTypes = {
