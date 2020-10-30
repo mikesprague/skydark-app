@@ -32,12 +32,11 @@ export const Hourly = ({ data, summary }) => {
       <p className="mb-2 -mt-2 text-base leading-normal text-center">{summary}</p>
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
-          const lastHour = hourlyData.length === 25 ? 24 : 22;
-          const firstHour = 0; // hourlyData.length === 25 ? 2 : 0;
+          const lastHour = hourlyData.length === 24 ? 22 : hourlyData.length - 1;
+          const firstHour = 0;
           const isFirst = index === firstHour;
           const isLast = index === lastHour;
           const summaryText = formatSummary(hour, hourlyData, index, firstHour);
-          console.log('summaryText: ', summaryText);
           return (index % 2 === 0 && (index >= firstHour && index <= lastHour)) ? (
             <Hour
               key={nanoid(7)}
