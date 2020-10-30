@@ -10,13 +10,16 @@ export const SunriseSunset = ({ data }) => {
   const [next, setNext] = useState(null);
 
   const formatTimeString = (time) => {
-    const hours = dayjs(dayjs.unix(time)).diff(dayjs(), 'hour');
-    const minutes = (dayjs(dayjs.unix(time)).diff(dayjs(), 'minute') % 60);
     const totalMinutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute');
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
 
-    let hoursText = hours >= 1 ? hours : '';
-    if (hoursText === '' && totalMinutes > 54) {
+    let hoursText = totalMinutes > 54 ? hours : '';
+    if (hoursText === '' && (totalMinutes > 54 && totalMinutes < 67)) {
       hoursText = 1;
+    }
+    if (totalMinutes > 54 && (minutes > 54 || minutes < 7)) {
+      hoursText = hours + 1;
     }
 
     let minutesFraction = '';
