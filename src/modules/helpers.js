@@ -240,7 +240,7 @@ export const getConditionBarClass = (data) => {
 export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
   let summary = '';
   if (index === startIndex) {
-    summary = currentHourData.summary;
+    summary = currentHourData.summary.replace('Possible ', '');
     return summary;
   }
   summary = index >= 2 && currentHourData.summary.replace('Possible ', '') === allHourlyData[index - 2].summary.replace('Possible ', '') ? '' : currentHourData.summary;
