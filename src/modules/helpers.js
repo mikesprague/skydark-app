@@ -145,9 +145,10 @@ export const getWeatherIcon = (icon) => {
   return iconMap[icon];
 };
 
-const formatTemp = (temp) => `${Math.round(temp).toString()}${String.fromCharCode(176)}`;
-const formatPercent = (num) => `${Math.round(num * 100).toString()}%`;
-const formatNum = (num) => `${Math.round(num).toString()}`;
+const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
+const formatPercent = (num) => `${Math.round(num * 100)}%`;
+const formatNum = (num) => Number(Math.round(num));
+const formatDecimal = (num, places = 2) => Number(num.toFixed(places));
 
 export const formatCondition = (value, condition) => {
   switch (condition) {
@@ -160,7 +161,7 @@ export const formatCondition = (value, condition) => {
     case 'cloudCover':
       return formatPercent(value);
     case 'precipIntensity':
-      return formatNum(value);
+      return formatDecimal(value);
     case 'pressure':
       return formatNum(value);
     case 'sunriseTime':
