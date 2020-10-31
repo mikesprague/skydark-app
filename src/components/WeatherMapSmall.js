@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Map, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl } from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
 import './WeatherMapSmall.scss';
 
@@ -22,28 +22,94 @@ export const WeatherMapSmall = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="map">
+    <div className="small-map-container">
       {locationCoordinates && locationCoordinates.lat ? (
         <Link to="/map">
-          <Map
+          <MapContainer
             center={[locationCoordinates.lat, locationCoordinates.lng]}
-            zoom={4}
             doubleClickZoom={false}
             dragging={false}
+            id="weather-map-small"
             keyboard={false}
             scrollWheelZoom={false}
             touchZoom={false}
+            zoom={5}
           >
-            <TileLayer
-              url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
-              opacity={0.95}
-            />
-            <TileLayer
-              url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-              opacity={1}
-            />
             <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} opacity={0.85} />
-          </Map>
+            <LayersControl position="topright">
+              <LayersControl.BaseLayer name="Dark" checked>
+                <TileLayer
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+                  opacity={1}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Color">
+                <TileLayer
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png"
+                  opacity={1}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Light">
+                <TileLayer
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+                  opacity={1}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Street">
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  opacity={0.8}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Street (Gray)">
+                <TileLayer
+                  url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                  opacity={0.8}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Black/White">
+                <TileLayer
+                  url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png"
+                  opacity={0.9}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Black/White/Gray">
+                <TileLayer
+                  url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png"
+                  opacity={0.9}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.BaseLayer name="Watercolor">
+                <TileLayer
+                  url="https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"
+                  opacity={0.9}
+                  zIndex={1}
+                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                />
+              </LayersControl.BaseLayer>
+              <LayersControl.Overlay name="Conditions" checked>
+                <TileLayer
+                  url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
+                  opacity={0.75}
+                  attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
+                />
+              </LayersControl.Overlay>
+            </LayersControl>
+          </MapContainer>
         </Link>
       ) : ''}
     </div>

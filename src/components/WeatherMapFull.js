@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import {
-  Map, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl,
+  MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl,
 } from 'react-leaflet';
 import { getRadarTs } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
@@ -46,23 +46,24 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       </div>
       <div className="h-full min-h-screen contents v-full">
         <div className="relative min-h-screen map-container">
-          <Map
+          <MapContainer
             animate={true}
             boxZoom={true}
             center={[coordinates.lat, coordinates.lng]}
             doubleClickZoom={true}
             dragging={true}
+            id="weather-map-full"
             keyboard={false}
             scrollWheelZoom={false}
             tap={true}
             touchZoom={true}
-            zoom={10}
+            zoom={9}
             zoomControl={false}
           >
             <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9} />
             <ScaleControl position="topleft" />
-            {/* <ZoomControl position="topleft" /> */}
-            <LayersControl position="topright">
+            <ZoomControl position="topleft" />
+            <LayersControl>
               <LayersControl.BaseLayer name="Dark" checked>
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
@@ -84,7 +85,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
-                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street (Gray)">
@@ -92,7 +93,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
-                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White">
@@ -123,7 +124,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                 {mapView === 'radar' ? (
                   <TileLayer
                     url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-                    opacity={0.8}
+                    opacity={0.75}
                     attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
                   />
                 ) : (
@@ -134,7 +135,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                 )}
               </LayersControl.Overlay>
             </LayersControl>
-          </Map>
+          </MapContainer>
           <div className={(mapView === 'radar' || mapView === 'temp_new') ? 'radar-key' : 'hidden'}>
             <img src={`/images/${mapView === 'radar' ? 'radar' : 'temp'}-key.png`} alt={`${mapView === 'radar' ? 'Radar' : 'Temperature'} Map Key`} />
           </div>

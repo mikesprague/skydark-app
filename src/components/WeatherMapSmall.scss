@@ -1,9 +1,8 @@
-.map {
-  @apply px-3;
-  @apply py-2;
+.small-map-container {
+  @apply p-2;
 
-  .leaflet-container {
-    height: 8rem;
+  #weather-map-small {
+    @apply h-32;
     @apply w-full;
     @apply rounded-lg;
     @apply z-0;

@@ -32,23 +32,17 @@
 
 .map-container {
   @apply p-0;
-  @apply h-full;
-  @apply w-full;
 
-  .leaflet-container {
+  #weather-map-full {
     @apply h-full;
     @apply w-full;
     @apply min-h-screen;
     @apply z-0;
   }
 
-  .leaflet-pane {
-    @apply z-0;
-  }
-
   .leaflet-control-container {
     @apply relative;
-    @apply mt-16;
+    @apply top-16;
   }
 
   .leaflet-control-layers {
@@ -64,15 +58,27 @@
     }
   }
 
+  .leaflet-control-scale {
+    margin-left: 10px !important;
+  }
+
   .leaflet-control-scale-line {
     background-color: $color-black-sixty-percent;
     border-color: $color-dark-gray;
     color: $color-lighter-gray;
   }
 
+  .leaflet-control-layers {
+    top: 1.5rem;
+  }
+
   .leaflet-control-layers-overlays,
   .leaflet-control-layers-separator {
     @apply hidden;
+  }
+
+  .leaflet-top {
+    @apply -top-6;
   }
 
   .leaflet-control-zoom {
