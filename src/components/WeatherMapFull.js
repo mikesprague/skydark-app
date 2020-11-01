@@ -104,7 +104,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
-                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors'}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street (Gray)">
@@ -112,7 +112,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={0.8}
                   zIndex={1}
-                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors'}
+                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White">
