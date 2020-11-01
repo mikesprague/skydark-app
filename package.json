@@ -107,7 +107,7 @@
     "mini-css-extract-plugin": "^1.2.1",
     "netlify-cli": "^2.67.0",
     "netlify-lambda": "^2.0.1",
-    "node-sass": "^5.0.0",
+    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^8.1.4",
     "postcss-cli": "^8.2.0",
