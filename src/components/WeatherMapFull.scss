@@ -46,6 +46,7 @@
   }
 
   .leaflet-control-layers {
+    top: 1.5rem;
     background-color: $color-dark-gray;
     color: $color-body-text;
   }
@@ -68,12 +69,12 @@
     color: $color-lighter-gray;
   }
 
-  .leaflet-control-layers {
-    top: 1.5rem;
-  }
+  // .leaflet-control-layers-overlays,
+  // .leaflet-control-layers-separator {
+  //   @apply hidden;
+  // }
 
-  .leaflet-control-layers-overlays,
-  .leaflet-control-layers-separator {
+  .leaflet-control-layers-overlays > label:nth-child(1) {
     @apply hidden;
   }
 
@@ -92,11 +93,20 @@
   }
 }
 
-.radar-key {
-  bottom: 60px;
+.radar-key,
+.temp-key {
   height: auto;
   position: absolute;
-  right: 5px;
   width: 40px;
   z-index: 500;
+}
+
+.radar-key {
+  bottom: 60px;
+  right: 5px;
+}
+
+.temp-key {
+  bottom: 150px;
+  right: 5px;
 }

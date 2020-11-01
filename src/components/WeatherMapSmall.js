@@ -39,7 +39,7 @@ export const WeatherMapSmall = ({ data }) => {
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark" checked>
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
                   zIndex={1}
                   attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
@@ -47,7 +47,7 @@ export const WeatherMapSmall = ({ data }) => {
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Color">
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
                   zIndex={1}
                   attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
@@ -55,7 +55,7 @@ export const WeatherMapSmall = ({ data }) => {
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Light">
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
                   zIndex={1}
                   attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
@@ -101,8 +101,8 @@ export const WeatherMapSmall = ({ data }) => {
                   attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
                 />
               </LayersControl.BaseLayer>
-              <LayersControl.Overlay name="Conditions" checked>
-                <TileLayer
+              <LayersControl.Overlay name="Radar" checked>
+                <WMSTileLayer
                   url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.75}
                   attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
