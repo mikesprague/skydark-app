@@ -17,8 +17,10 @@ Bugsnag.start({
   plugins: [new BugsnagPluginReact()],
 });
 
-LogRocket.init('skxlwh/sky-dark');
-setupLogRocketReact(LogRocket);
+if (!isDev()) {
+  LogRocket.init('skxlwh/sky-dark');
+  setupLogRocketReact(LogRocket);
+}
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
