@@ -23,6 +23,7 @@ export const NextHour = ({ data }) => {
     if (summaryText.toLowerCase().includes('rain')
         || summaryText.toLowerCase().includes('drizzle')
         || summaryText.toLowerCase().includes('snow')
+        || summaryText.toLowerCase().includes('flurries')
         || summaryText.toLowerCase().includes('sleet')
         || summaryText.toLowerCase().includes('start')
         || summaryText.toLowerCase().includes('stop')
