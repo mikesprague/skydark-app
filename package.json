@@ -43,6 +43,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@hot-loader/react-dom": "^17.0.0",
+    "@pusher/push-notifications-web": "^1.1.0",
     "@tailwindcss/typography": "^0.2.0",
     "@tippyjs/react": "^4.2.0",
     "axios": "^0.21.0",
