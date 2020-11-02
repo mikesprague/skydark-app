@@ -127,14 +127,14 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           <LayersControl.Overlay name="Radar" checked>
             <WMSTileLayer
               url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-              opacity={0.8}
+              opacity={1}
               attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay name="Temperature">
             <WMSTileLayer
               url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
-              opacity={0.85}
+              opacity={1}
               attribution={'&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'}
             />
           </LayersControl.Overlay>
