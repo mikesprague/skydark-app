@@ -43,7 +43,6 @@
     "@fortawesome/pro-regular-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@hot-loader/react-dom": "^17.0.0",
-    "@pusher/push-notifications-web": "^1.1.0",
     "@tailwindcss/typography": "^0.2.0",
     "@tippyjs/react": "^4.2.0",
     "axios": "^0.21.0",
@@ -64,7 +63,7 @@
     "react-leaflet": "^3.0.0",
     "react-router-dom": "^6.0.0-beta.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.421.1",
+    "snyk": "^1.423.0",
     "tailwindcss": "^1.9.6"
   },
   "devDependencies": {
