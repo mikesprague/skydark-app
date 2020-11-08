@@ -1685,10 +1685,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.4.tgz#de25b5da9f727985a3757fd59b5d028aba75841a"
   integrity sha512-ZpKr+WTb8zsajqgDkvCEWgp6d5eJT6Q63Ng2neTbzBO76Lbe91vX/iVIW9dikq+Fs3yEo+ls4cxeXABD2LtcbQ==
 
-"@react-leaflet/core@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-1.0.0.tgz#1c56b435db15e1fae0165409f94dd67fe0ea0a38"
-  integrity sha512-pwJJQjlv6TV2yBmhV+yY1N/fQYhZdQSquBM0t6ODQSG4cEHvl5VoHPYNkgXBBz6EqxFMbS9QGxrB1VcxV4mihQ==
+"@react-leaflet/core@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-1.0.2.tgz#39c6a73f61c666d5dcf673741cea2672fa4bbae1"
+  integrity sha512-QbleYZTMcgujAEyWGki8Lx6cXQqWkNtQlqf5c7NImlIp8bKW66bFpez/6EVatW7+p9WKBOEOVci/9W7WW70EZg==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.2.1"
@@ -13038,12 +13038,12 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-leaflet@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.0.0.tgz#bfd27208e5fecd85d176e2041f8dfc0c1823ce5f"
-  integrity sha512-ePv7J+S3XIMY1c357NXhSxMp09L7GUKMUINJEFcpLAfec4FUw6YDqC1SgkNZmMIXkg0IRNJxKHI1qwTnBL7FUQ==
+react-leaflet@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.0.2.tgz#4133a0550efe7e24be272b9e24e72fa98b51b751"
+  integrity sha512-7JxMV9HOo94jFwn1z+gcHVcYWeMxD994YsLxX3yyWebGOsLxpYfiQgNI7RPZWcAtcBK8XYSRB6WUj8NNb9hgbw==
   dependencies:
-    "@react-leaflet/core" "^1.0.0"
+    "@react-leaflet/core" "^1.0.2"
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
