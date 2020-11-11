@@ -6,11 +6,6 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-// import { About } from './About';
-// import { Footer } from './Footer';
-// import { Forecast } from './Forecast';
-// import { Settings } from './Settings';
-// import { WeatherMapFull } from './WeatherMapFull';
 import { Loading } from './Loading';
 import { initIcons } from '../modules/helpers';
 import './App.scss';
