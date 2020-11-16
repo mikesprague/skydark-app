@@ -3,8 +3,9 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
@@ -49,7 +50,7 @@ const webpackPlugins = [
   }),
   new MiniCssExtractPlugin({
     filename: './css/styles.css',
-    chunkFilename: './css/[id].css',
+    chunkFilename: './css/[id].[chunkhash].css',
   }),
   new CopyWebpackPlugin({
     patterns: [
@@ -71,35 +72,19 @@ const webpackPlugins = [
       },
     ],
   }),
-  new CopyWebpackPlugin({
-    patterns: [
-      {
-        from: `./public/index.html`,
-        to: './index.html',
-        force: true,
-        flatten: true,
-      },
-    ],
+  new HtmlWebpackPlugin({
+    template: './public/index.html',
+    filename: './index.html',
+    inject: false,
   }),
   new WorkboxPlugin.GenerateSW({
     cleanupOutdatedCaches: true,
     clientsClaim: true,
     skipWaiting: true,
   }),
+  new CompressionPlugin(),
   new webpack.HotModuleReplacementPlugin(),
 ];
-
-if (mode === 'production') {
-  webpackPlugins.push(
-    new CompressionPlugin({
-      filename: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
-  );
-}
 
 module.exports = {
   entry: [
@@ -113,8 +98,8 @@ module.exports = {
     },
   },
   output: {
-    filename: './js/bundle.js',
-    chunkFilename: './js/[name].bundle.js',
+    filename: './js/[name].js',
+    chunkFilename: './js/[id].[chunkhash].js',
     path: path.resolve(__dirname, 'build'),
   },
   mode,
@@ -130,15 +115,11 @@ module.exports = {
     rules: webpackRules,
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        sourceMap: true,
       }),
-      new OptimizeCSSAssetsPlugin(),
+      new CssMinimizerPlugin(),
     ],
   },
   plugins: webpackPlugins,
