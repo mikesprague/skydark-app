@@ -1,7 +1,5 @@
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
-import LogRocket from 'logrocket';
-import setupLogRocketReact from 'logrocket-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
@@ -17,15 +15,11 @@ Bugsnag.start({
   plugins: [new BugsnagPluginReact()],
 });
 
-if (!isDev()) {
-  LogRocket.init('skxlwh/sky-dark');
-  setupLogRocketReact(LogRocket);
-}
-
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
 const ErrorView = () => {
   const clickHandler = (event) => {
+    // console.log(event);
     resetData();
     window.location.href = '/';
   };
@@ -54,6 +48,6 @@ ReactDOM.render(
   </ErrorBoundary>, document.getElementById('root'),
 );
 
-if (!isDev()) {
+// if (!isDev()) {
   initServiceWorker();
-}
+// }
