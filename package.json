@@ -57,7 +57,7 @@
     "react-leaflet": "^3.0.2",
     "react-router-dom": "^6.0.0-beta.0",
     "register-service-worker": "^1.7.1",
-    "snyk": "^1.427.1",
+    "snyk": "^1.427.2",
     "tailwindcss": "^1.9.6"
   },
   "devDependencies": {
