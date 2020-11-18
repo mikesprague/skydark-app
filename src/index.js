@@ -48,6 +48,6 @@ ReactDOM.render(
   </ErrorBoundary>, document.getElementById('root'),
 );
 
-// if (!isDev()) {
+if (!isDev()) {
   initServiceWorker();
-// }
+}
