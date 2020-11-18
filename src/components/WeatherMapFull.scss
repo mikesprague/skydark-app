@@ -79,8 +79,8 @@
   }
 
   .leaflet-control-attribution {
-    @apply bottom-15;
     @apply left-1;
+    bottom: 3.75rem;
   }
 
   .leaflet-bottom.leaflet-right .leaflet-control-attribution {
@@ -97,8 +97,9 @@
 }
 
 .radar-key {
-  @apply bottom-15;
+  // @apply bottom-15;
   @apply right-1;
+  bottom: 3.75rem;
 }
 
 .temp-key {

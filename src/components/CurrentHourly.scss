@@ -78,23 +78,24 @@
 
     .time {
       @apply inline-block;
-      @apply w-15;
       @apply mr-2;
       @apply text-right;
       @apply align-top;
       @apply order-2;
       @apply flex-grow-0;
+      width: 3.75rem;
     }
 
     .summary {
       @apply inline-block;
       @apply overflow-hidden;
-      @apply align-top;
+      // @apply align-top;
       @apply text-sm;
       @apply flex-grow-0;
       @apply order-3;
       @apply mr-2;
       @apply italic;
+      line-height: unset;
     }
 
     .condition {
@@ -119,8 +120,9 @@
         min-width: 2.25rem;
 
         &.orange {
-          @apply bg-orange-500;
+          // @apply bg-orange-500;
           @apply font-semibold;
+          background-color: #ff5a1f;
         }
 
         &.yellow {

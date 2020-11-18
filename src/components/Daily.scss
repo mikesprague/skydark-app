@@ -15,7 +15,6 @@
     @apply leading-10;
 
     .name {
-      @apply w-13;
       @apply mr-1;
       @apply text-sm;
       @apply leading-5;
@@ -23,6 +22,7 @@
       @apply align-top;
       @apply flex-grow-0;
       @apply order-1;
+      width: 3.25rem;
 
       .precip {
         @apply text-blue-300;
@@ -59,7 +59,7 @@
 
   details {
     @apply focus:outline-none;
-    @apply focus:shadow-outline;
+    @apply focus:shadow;
 
     & > summary {
       list-style: none;
