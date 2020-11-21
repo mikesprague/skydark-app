@@ -1,32 +1,56 @@
 const colors = require('tailwindcss/colors');
+const cssWhitelistClassArray = [
+  'tippy',
+  'leaflet',
+  'leaflet-container',
+  'leaflet-controls-container',
+  'pill',
+  'orange',
+  'red',
+  'yellow',
+  'green',
+  'purple',
+  'bg-blue-400',
+  'bg-blue-500',
+  'bg-purple-400',
+  'bg-purple-500',
+  'opacity-75',
+  'bg-gray-200',
+  'bg-gray-300',
+  'bg-gray-400',
+  'bg-gray-500',
+  'bg-gray-600',
+  'bg-white',
+];
 
 module.exports = {
-  purge: false,
+  purge: {
+    content: [
+      './public/index.html',
+      './src/components/**/*.js',
+      './src/modules/helpers.js',
+    ],
+    preserveHtmlElements: false,
+    options: {
+      safeList: cssWhitelistClassArray,
+      defaultExtractor: (content) => {
+        const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
+        const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || [];
+        return broadMatches.concat(innerMatches);
+      },
+    },
+  },
   theme: {
     colors: {
       white: '#fff',
       black: '#000',
-      bluegray: colors.blueGray,
-      coolgray: colors.coolGray,
       gray: colors.gray,
-      truegray: colors.trueGray,
-      warmgray: colors.warmGray,
       red: colors.red,
       orange: colors.orange,
-      amber: colors.amber,
       yellow: colors.yellow,
-      lime: colors.lime,
       green: colors.green,
-      emerald: colors.emerald,
-      teal: colors.teal,
-      cyan: colors.cyan,
-      lightblue: colors.lightBlue,
       blue: colors.blue,
-      indigo: colors.indigo,
-      violet: colors.violet,
       purple: colors.purple,
-      pink: colors.pink,
-      rose: colors.rose,
       transparent: colors.transparent,
     },
     extend: {
