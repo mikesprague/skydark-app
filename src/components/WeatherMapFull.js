@@ -118,7 +118,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           </LayersControl.BaseLayer>
           <LayersControl.Overlay name="Radar" checked>
             <WMSTileLayer
-              url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
+              url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/256/{z}/{x}/{y}/8/1_1.png`}
               attribution={'&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
             />
           </LayersControl.Overlay>
