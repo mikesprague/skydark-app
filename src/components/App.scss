@@ -1,5 +1,10 @@
 @import '../scss/variables';
 
+.ct-toast-info {
+  background-color: $color-footer-bg !important;
+  color: $color-body-text !important;
+}
+
 .footer {
   @apply fixed;
   @apply bottom-0;

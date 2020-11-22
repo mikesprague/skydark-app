@@ -22,6 +22,7 @@ import {
   faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
   faTachometerAlt, faCog, faLocationArrow, faMap,
 } from '@fortawesome/pro-duotone-svg-icons';
+import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
 
@@ -55,9 +56,16 @@ export const handleError = (error) => {
 export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated(registration) {
-      console.log(`Updated Sky Dark to the latest version.\n${registration}`);
-      resetData();
-      window.location.href = '/';
+      // console.log(registration);
+      cogoToast.info('Latest updates to Sky Dark installed - click this message to reload', {
+        hideAfter: 0,
+        heading: 'Sky Dark Updated',
+        onClick: () => {
+          resetData();
+          window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';
+          // window.location.reload(true);
+        },
+      });
     },
     offline() {
       console.info('No internet connection found. App is currently offline.');

@@ -20,6 +20,7 @@ const cssWhitelistClassArray = [
   /bg-gray-500/,
   /bg-gray-600/,
   /bg-white/,
+  /ct-toast-info/,
 ];
 
 // safelist purgecss plugin
