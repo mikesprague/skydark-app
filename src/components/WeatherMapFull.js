@@ -101,7 +101,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           {tsData ? `${dayjs.unix(ts).format('h:mma')} ` : ''}
           {tsData ? (
             <input
-              className="rangeSlider"
+              className="range-slider"
               type="range"
               min={0}
               max={rangeMax}
