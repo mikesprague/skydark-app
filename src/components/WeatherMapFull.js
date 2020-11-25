@@ -203,12 +203,12 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           </LayersControl.Overlay>
         </LayersControl>
       </MapContainer>
-      <div className="radar-key">
+      {/* <div className="radar-key">
         <img src="/images/radar-key.png" alt="Radar Key" />
       </div>
       <div className={mapView === 'temp_new' ? 'temp-key' : 'hidden'}>
         <img src="/images/temp-key.png" alt="Temperature Key" />
-      </div>
+      </div> */}
     </div>
   );
 };
