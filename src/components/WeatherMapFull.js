@@ -1,5 +1,7 @@
+import axios from 'axios';
+import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
 } from 'react-leaflet';
@@ -17,13 +19,51 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [mapView, setMapView] = useState(null);
   const coordinates = getData('coordinates') || null;
 
+  const [tsData, setTsData] = useState(null);
   useEffect(() => {
     if (!coordinates) {
       window.location.replace('/');
     }
 
+    const getTimestamps = async () => {
+      const timestampsData = await axios
+        .get('https://api.rainviewer.com/public/maps.json')
+        .then((response) => {
+          // console.log(response.data);
+          setTsData(response.data);
+          return response.data;
+        });
+      return timestampsData;
+    };
+
+    getTimestamps();
+
     // return () => {};
-  }, [coordinates]);
+  }, []);
+
+  const [ts, setTs] = useState(null);
+  useEffect(() => {
+    if (!tsData) { return; }
+    setTs(tsData[tsData.length - 1]);
+  }, [tsData]);
+
+  const [rangeMax, setRangeMax] = useState(13);
+  useEffect(() => {
+    if (!tsData) { return; }
+    setRangeMax(tsData.length - 1);
+  }, [tsData]);
+
+  const [rangeValue, setRangeValue] = useState(13);
+  useEffect(() => {
+    if (!tsData) { return; }
+    setRangeValue(tsData.length - 1);
+  }, [tsData]);
+
+  const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`);
+  useEffect(() => {
+    if (!ts) { return; }
+    setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`);
+  }, [ts]);
 
   const createdHandler = () => {
     const checkBoxes = Array.from(document.querySelectorAll('.leaflet-control-layers-selector[type=checkbox]'));
@@ -38,15 +78,47 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     });
   };
 
+  const radarTileLayerRef = useRef();
+  useEffect(() => {
+    // console.log(tileLayerRef.current);
+    if (radarTileLayerRef.current) {
+      radarTileLayerRef.current.setUrl(radarMapUrl);
+    }
+  }, [radarMapUrl]);
+
+  const rangeSliderHandler = (event) => {
+    const { value } = event.target;
+    setTs(tsData[value]);
+    setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`);
+    setRangeValue(value);
+    // console.log(radarMapUrl);
+  };
+
   return (
-    <div className="relative h-full min-h-screen map-container v-full">
+    <div className="map-container">
+      <div className="slider-container">
+        <div className="slider">
+          {tsData ? `${dayjs.unix(ts).format('h:mma')} ` : ''}
+          {tsData ? (
+            <input
+              className="rangeSlider"
+              type="range"
+              min={0}
+              max={rangeMax}
+              step={1}
+              value={rangeValue || rangeMax}
+              onChange={rangeSliderHandler}
+            />
+          ) : ''}
+        </div>
+      </div>
       <MapContainer
         animate={true}
         boxZoom={true}
         center={[coordinates.lat, coordinates.lng]}
         doubleClickZoom={true}
         dragging={true}
-        id="weather-map-full"
+        className="weather-map-full"
         keyboard={false}
         whenCreated={createdHandler}
         scrollWheelZoom={false}
@@ -120,6 +192,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             <WMSTileLayer
               url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/256/{z}/{x}/{y}/8/1_1.png`}
               attribution={'&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
+              ref={radarTileLayerRef}
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay name="Temperature">

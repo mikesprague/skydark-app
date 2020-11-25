@@ -31,12 +31,35 @@
 }
 
 .map-container {
+  height: calc(100vh - 3rem);
   @apply p-0;
+  @apply relative;
+  @apply w-full;
 
-  #weather-map-full {
+  .slider-container {
+    background-color: $color-darkest-gray;
+    color: $color-light-gray;
+    height: 3rem;
+    @apply text-sm;
+    @apply font-semibold;
+    @apply w-full;
+    @apply mx-auto;
+    @apply text-center;
+
+    .slider {
+      @apply p-1;
+      @apply text-center;
+    }
+
+    .rangeSlider {
+      @apply w-full;
+      @apply mb-2;
+    }
+  }
+
+  .weather-map-full {
     @apply h-full;
     @apply w-full;
-    @apply min-h-screen;
     @apply z-0;
   }
 
@@ -80,8 +103,7 @@
 
   .leaflet-control-attribution {
     @apply left-1;
-    @apply bottom-15;
-    // bottom: 3.75rem;
+    // @apply bottom-15;
   }
 
   .leaflet-bottom.leaflet-right .leaflet-control-attribution {
@@ -98,12 +120,11 @@
 }
 
 .radar-key {
-  @apply bottom-15;
+  @apply bottom-2;
   @apply right-1;
-  // bottom: 3.75rem;
 }
 
 .temp-key {
   @apply right-1;
-  bottom: 150px;
+  @apply bottom-40;
 }
