@@ -30,66 +30,69 @@
   }
 }
 
-.range-slider {
-  -webkit-appearance: none !important;
-  border: 1px solid $color-darker-gray;
+.slider-container {
+  background-color: $color-black-forty-percent;
+  color: $color-light-gray;
+  @apply h-12;
+  @apply text-sm;
+  @apply font-semibold;
   @apply w-full;
-  @apply rounded-md;
-  @apply mb-2;
-}
+  @apply mx-auto;
+  @apply text-center;
+  @apply max-w-md;
+  @apply mx-auto;
+  @apply fixed;
+  @apply bottom-16;
 
-.range-slider::-webkit-slider-runnable-track {
-  -webkit-appearance: none;
-  background: $color-darker-gray;
-  @apply w-full;
-  @apply h-2;
-  @apply rounded-sm;
-  @apply border-none;
-}
+  .slider {
+    @apply px-3;
+    @apply text-center;
 
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  background: $color-medium-gray;
-  @apply rounded-sm;
-  @apply border-none;
-  @apply h-6;
-  @apply w-6;
-  @apply -mt-2;
-}
+    .range-slider {
+      -webkit-appearance: none !important;
+      border: 1px solid $color-darker-gray;
+      @apply w-full;
+      @apply rounded-md;
+      @apply mb-2;
 
-.range-slider:focus {
-  background: $color-darker-gray;
-  border: 1px solid $color-darker-gray;
-  outline: none;
-}
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        background: $color-darker-gray;
+        @apply w-full;
+        @apply h-2;
+        @apply rounded-sm;
+        @apply border-none;
+      }
 
-.range-slider:focus::-webkit-slider-runnable-track {
-  background: $color-darker-gray;
-  border: 1px solid $color-darker-gray;
-  outline: none;
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background: $color-medium-gray;
+        @apply rounded-sm;
+        @apply border-none;
+        @apply h-6;
+        @apply w-6;
+        @apply -mt-2;
+      }
+
+      &:focus {
+        background: $color-darker-gray;
+        border: 1px solid $color-darker-gray;
+        outline: none;
+      }
+
+      &:focus::-webkit-slider-runnable-track {
+        background: $color-darker-gray;
+        border: 1px solid $color-darker-gray;
+        outline: none;
+      }
+    }
+  }
 }
 
 .map-container {
-  height: calc(100vh - 3rem);
   @apply p-0;
-  @apply relative;
   @apply w-full;
-
-  .slider-container {
-    background-color: transparent;
-    color: $color-light-gray;
-    height: 3rem;
-    @apply text-sm;
-    @apply font-semibold;
-    @apply w-full;
-    @apply mx-auto;
-    @apply text-center;
-
-    .slider {
-      @apply px-3;
-      @apply text-center;
-    }
-  }
+  @apply h-screen;
 
   .weather-map-full {
     @apply h-full;
@@ -135,9 +138,13 @@
     @apply md:block;
   }
 
+  // .leaflet-bottom {
+  //   @apply bottom-28;
+  // }
+
   .leaflet-control-attribution {
-    @apply left-1;
-    // @apply bottom-15;
+    @apply right-3;
+    @apply top-2;
   }
 
   .leaflet-bottom.leaflet-right .leaflet-control-attribution {
