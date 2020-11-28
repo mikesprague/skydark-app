@@ -60,6 +60,7 @@ export const initServiceWorker = () => {
       cogoToast.info('Latest updates to Sky Dark installed - click this message to reload', {
         hideAfter: 0,
         heading: 'Sky Dark Updated',
+        bar: { color: '#60a5fa' },
         onClick: () => {
           resetData();
           window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';
