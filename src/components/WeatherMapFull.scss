@@ -31,11 +31,8 @@
 }
 
 .slider-container {
-  background-color: $color-black-forty-percent;
-  color: $color-light-gray;
-  @apply h-12;
-  @apply text-sm;
-  @apply font-semibold;
+  background-color: $color-black-sixty-percent;
+  @apply h-10;
   @apply w-full;
   @apply mx-auto;
   @apply text-center;
@@ -43,46 +40,78 @@
   @apply mx-auto;
   @apply fixed;
   @apply bottom-16;
+  @apply pt-2;
 
   .slider {
     @apply px-3;
     @apply text-center;
+    @apply flex-wrap;
+    @apply flex;
+    background-clip: padding-box;
+    border: 2px solid rgba(0, 0, 0, .2);
+
+    .value-label {
+      color: $color-light-gray;
+      text-shadow: .5px .5px 1px $color-darkest-gray;
+      @apply text-sm;
+      @apply font-semibold;
+      @apply mr-2;
+      @apply flex;
+      @apply flex-grow-0;
+    }
+
+    .btn-play-radar-loop {
+      // background-clip: padding-box;
+      background-color: $color-dark-gray;
+      border: 1px solid $color-black-sixty-percent;
+      color: $color-body-text;
+      top: 1.5px;
+      @apply ml-2;
+      @apply w-6;
+      @apply h-6;
+      @apply text-center;
+      @apply relative;
+      @apply font-extrabold;
+      @apply focus:outline-none;
+    }
 
     .range-slider {
       -webkit-appearance: none !important;
-      border: 1px solid $color-darker-gray;
-      @apply w-full;
+      border: 1px solid $color-darkest-gray !important;
+      vertical-align: baseline;
+      @apply leading-none;
       @apply rounded-md;
-      @apply mb-2;
+      @apply flex;
+      @apply flex-grow;
+      @apply my-2;
 
       &::-webkit-slider-runnable-track {
         -webkit-appearance: none;
-        background: $color-darker-gray;
+        background-color: $color-darkest-gray;
         @apply w-full;
         @apply h-2;
         @apply rounded-sm;
-        @apply border-none;
       }
 
       &::-webkit-slider-thumb {
         -webkit-appearance: none;
-        background: $color-medium-gray;
+        background-color: $color-dark-gray;
+        border: 1px solid $color-black-sixty-percent;
         @apply rounded-sm;
-        @apply border-none;
         @apply h-6;
         @apply w-6;
         @apply -mt-2;
       }
 
       &:focus {
-        background: $color-darker-gray;
-        border: 1px solid $color-darker-gray;
+        background-color: $color-darkest-gray;
+        border: 1px solid $color-darkest-gray;
         outline: none;
       }
 
       &:focus::-webkit-slider-runnable-track {
-        background: $color-darker-gray;
-        border: 1px solid $color-darker-gray;
+        background-color: $color-darkest-gray;
+        border: 1px solid $color-darkest-gray;
         outline: none;
       }
     }
@@ -119,7 +148,7 @@
 
   .leaflet-control-attribution,
   .leaflet-control-scale-line {
-    background-color: $color-black-sixty-percent !important;
+    background-color: $color-black-forty-percent !important;
     border-color: $color-dark-gray;
     color: $color-lighter-gray;
 

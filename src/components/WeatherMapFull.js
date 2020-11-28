@@ -17,7 +17,7 @@ import './WeatherMapFull.scss';
 
 export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [mapView, setMapView] = useState(null);
-  const coordinates = getData('coordinates') || null;
+  const coordinates = getData('coordinates');
 
   const [tsData, setTsData] = useState(null);
   useEffect(() => {
@@ -92,6 +92,27 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`);
     setRangeValue(value);
     // console.log(radarMapUrl);
+  };
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const timerHandle = useRef();
+  const btnClickHandler = () => {
+    setIsPlaying(!isPlaying);
+    const playBtn = document.querySelector('.btn-play-radar-loop');
+    if (isPlaying) {
+      playBtn.textContent = String.fromCharCode(9655);
+      clearInterval(timerHandle.current);
+    } else {
+      playBtn.textContent = String.fromCharCode(9634);
+      timerHandle.current = setInterval(() => {
+        const slider = document.querySelector('.range-slider');
+        const nextVal = parseInt(slider.value, 10) + 1 >= rangeMax ? 0 : parseInt(slider.value, 10) + 1;
+        slider.value = nextVal;
+        setRangeValue(nextVal);
+        setTs(tsData[nextVal]);
+        setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[nextVal]}/512/{z}/{x}/{y}/8/1_1.png`);
+      }, 750);
+    }
   };
 
   return (
@@ -182,7 +203,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             </LayersControl.Overlay>
             <LayersControl.Overlay name="Temperature">
               <WMSTileLayer
-                url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
+                url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
                 attribution={'&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'}
               />
             </LayersControl.Overlay>
@@ -196,9 +217,9 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         </div> */}
       </div>
       <div className="slider-container">
-        <div className="slider">
-          {tsData ? `${dayjs.unix(ts).format('h:mma')} ` : ''}
-          {tsData ? (
+        {tsData ? (
+          <div className="slider">
+            <div className="value-label">{dayjs.unix(ts).format('h:mmA')}</div>
             <input
               className="range-slider"
               type="range"
@@ -207,9 +228,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               step={1}
               value={rangeValue || rangeMax}
               onChange={rangeSliderHandler}
+              onInput={rangeSliderHandler}
             />
-          ) : ''}
-        </div>
+            <button type="button" className="btn-play-radar-loop" onClick={btnClickHandler}>&#9655;</button>
+          </div>
+        ) : ''}
       </div>
     </>
   );
