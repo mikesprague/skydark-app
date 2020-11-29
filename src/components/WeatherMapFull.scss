@@ -41,18 +41,18 @@
   @apply fixed;
   @apply bottom-16;
   @apply pt-2;
+  @apply shadow-md;
 
   .slider {
     @apply px-3;
     @apply text-center;
     @apply flex-wrap;
     @apply flex;
-    background-clip: padding-box;
-    border: 2px solid rgba(0, 0, 0, .2);
 
     .value-label {
       color: $color-light-gray;
       text-shadow: .5px .5px 1px $color-darkest-gray;
+      margin-top: 1.5px;
       @apply text-sm;
       @apply font-semibold;
       @apply mr-2;
@@ -61,17 +61,14 @@
     }
 
     .btn-play-radar-loop {
-      // background-clip: padding-box;
       background-color: $color-dark-gray;
       border: 1px solid $color-black-sixty-percent;
       color: $color-body-text;
-      top: 1.5px;
+      margin-top: 1.5px;
       @apply ml-2;
       @apply w-6;
       @apply h-6;
       @apply text-center;
-      @apply relative;
-      @apply font-extrabold;
       @apply focus:outline-none;
     }
 

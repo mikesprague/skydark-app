@@ -1,5 +1,6 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -26,14 +27,13 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const getTimestamps = async () => {
-      const timestampsData = await axios
+      await axios
         .get('https://api.rainviewer.com/public/maps.json')
         .then((response) => {
-          // console.log(response.data);
           setTsData(response.data);
-          return response.data;
+          // console.log(response.data);
+          // return response.data;
         });
-      return timestampsData;
     };
 
     getTimestamps();
@@ -86,31 +86,29 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, [radarMapUrl]);
 
-  const rangeSliderHandler = (event) => {
-    const { value } = event.target;
+  const advanceRangeSlider = (value) => {
     setTs(tsData[value]);
     setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`);
     setRangeValue(value);
-    // console.log(radarMapUrl);
+  };
+
+  const rangeSliderHandler = (event) => {
+    const { value } = event.target;
+    advanceRangeSlider(value);
   };
 
   const [isPlaying, setIsPlaying] = useState(false);
   const timerHandle = useRef();
   const btnClickHandler = () => {
     setIsPlaying(!isPlaying);
-    const playBtn = document.querySelector('.btn-play-radar-loop');
     if (isPlaying) {
-      playBtn.textContent = String.fromCharCode(9655);
       clearInterval(timerHandle.current);
     } else {
-      playBtn.textContent = String.fromCharCode(9634);
       timerHandle.current = setInterval(() => {
         const slider = document.querySelector('.range-slider');
         const nextVal = parseInt(slider.value, 10) + 1 >= rangeMax ? 0 : parseInt(slider.value, 10) + 1;
         slider.value = nextVal;
-        setRangeValue(nextVal);
-        setTs(tsData[nextVal]);
-        setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[nextVal]}/512/{z}/{x}/{y}/8/1_1.png`);
+        advanceRangeSlider(nextVal);
       }, 750);
     }
   };
@@ -230,7 +228,13 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               onChange={rangeSliderHandler}
               onInput={rangeSliderHandler}
             />
-            <button type="button" className="btn-play-radar-loop" onClick={btnClickHandler}>&#9655;</button>
+            <button type="button" className="btn-play-radar-loop" onClick={btnClickHandler}>
+              {isPlaying ? (
+                <FontAwesomeIcon icon={['fad', 'stop']} fixedWidth />
+              ) : (
+                <FontAwesomeIcon icon={['fad', 'play']} fixedWidth />
+              )}
+            </button>
           </div>
         ) : ''}
       </div>
