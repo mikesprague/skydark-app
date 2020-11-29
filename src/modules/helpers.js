@@ -20,7 +20,7 @@ import {
   faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faTachometer,
   faAngleUp, faInfoCircle, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faUmbrella,
   faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
-  faTachometerAlt, faCog, faLocationArrow, faMap,
+  faTachometerAlt, faCog, faLocationArrow, faMap, faPlay, faStop, faPause, faForward, faFastForward,
 } from '@fortawesome/pro-duotone-svg-icons';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
@@ -88,7 +88,8 @@ export const initIcons = () => {
     faTachometer, faAngleUp, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faSun,
     faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand,
     faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine, faTachometerAlt, faCog,
-    faInfoCircleSolid, faCogSolid, faLocationArrowSolid, faMap, faMapSolid, faGlobeStandSolid,
+    faInfoCircleSolid, faCogSolid, faLocationArrowSolid, faMap, faMapSolid, faGlobeStandSolid, faPlay, faStop,
+    faPause, faForward, faFastForward,
   );
 };
 
