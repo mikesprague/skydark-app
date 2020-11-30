@@ -23,7 +23,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [tsData, setTsData] = useState(null);
   useEffect(() => {
     if (!coordinates) {
-      window.location.replace('/');
+      window.location.href = '/';
     }
 
     const getTimestamps = async () => {
@@ -106,10 +106,10 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     } else {
       timerHandle.current = setInterval(() => {
         const slider = document.querySelector('.range-slider');
-        const nextVal = parseInt(slider.value, 10) + 1 >= rangeMax ? 0 : parseInt(slider.value, 10) + 1;
+        const nextVal = parseInt(slider.value, 10) + 1 > rangeMax ? 0 : parseInt(slider.value, 10) + 1;
         slider.value = nextVal;
         advanceRangeSlider(nextVal);
-      }, 750);
+      }, 667);
     }
   };
 
