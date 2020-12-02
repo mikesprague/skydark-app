@@ -17,7 +17,7 @@ import './WeatherMapFull.scss';
 // /> */}
 
 export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [mapView, setMapView] = useState(null);
+  const [mapView, setMapView] = useState('temp_new');
   const coordinates = getData('coordinates');
 
   const [tsData, setTsData] = useState(null);
