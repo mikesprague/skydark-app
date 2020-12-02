@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
 } from 'react-leaflet';
@@ -60,7 +60,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   }, [tsData]);
 
   const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ts) { return; }
     setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`);
   }, [ts]);
