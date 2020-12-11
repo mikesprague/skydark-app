@@ -56,8 +56,7 @@ const webpackPlugins = [
     patterns: [
       {
         from: './public/images/**/*',
-        to: './images',
-        flatten: true,
+        to: './images/[name].[ext]',
         force: true,
       },
     ],
@@ -66,8 +65,7 @@ const webpackPlugins = [
     patterns: [
       {
         from: `./public/manifest.json`,
-        to: './',
-        flatten: true,
+        to: './[name].[ext]',
         force: true,
       },
     ],
