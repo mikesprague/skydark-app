@@ -1325,6 +1325,13 @@
     postcss "7.0.32"
     purgecss "^3.0.0"
 
+"@fullhuman/postcss-purgecss@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-3.1.0.tgz#3b396e21c167196b7bd226230e36fa68c1e2cb31"
+  integrity sha512-3/jDpO5nIc+swrqek8oQE98oDxs9iaSXNs3MWMDE0RQlzJ54OR5QFdw49CicVgTPxpg3xbbNV2HX06tf+/a9dA==
+  dependencies:
+    purgecss "^3.1.0"
+
 "@hapi/address@^2.1.2":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -1389,10 +1396,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@netlify/build@^6.0.0":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-6.0.2.tgz#a5f3fcbf887d0653db58c65c205a68895fccb91a"
-  integrity sha512-0RweXdxyy14QJ37YnBcJU5hQ1xmhzpY4ayXlJWWVj4DAglw49qVLoREbRF7Cln60eNvBrvpYE8V3hhuLjVXkmw==
+"@netlify/build@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-7.0.0.tgz#de58b32f831795a37727d33b52274c3a9901774e"
+  integrity sha512-C3xb4cOCx4ivyuPiSBcH7nXW3ZN02xHulpFKGA/hRlwoqIFDEFK/+n4tu9E1t6gzaCBjW/sukCbT/zjXXwDatw==
   dependencies:
     "@bugsnag/js" "^7.0.0"
     "@netlify/cache-utils" "^1.0.6"
@@ -6584,10 +6591,10 @@ eslint-plugin-markdown@^1.0.2:
     remark-parse "^5.0.0"
     unified "^6.1.2"
 
-eslint-plugin-prettier@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.2.0.tgz#af391b2226fa0e15c96f36c733f6e9035dbd952c"
-  integrity sha512-kOUSJnFjAUFKwVxuzy6sA5yyMx6+o9ino4gCdShzBNx4eyFRudWRYKCFolKjoM40PEiuU6Cn7wBLfq3WsGg7qg==
+eslint-plugin-prettier@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.3.0.tgz#61e295349a65688ffac0b7808ef0a8244bdd8d40"
+  integrity sha512-tMTwO8iUWlSRZIwS9k7/E4vrTsfvsrcM5p1eftyuqWH25nKsz/o6/54I7jwQ/3zobISyC7wMy9ZsFwgTxOcOpQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
@@ -9790,11 +9797,6 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
-jwt-decode@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
-  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
-
 jwt-decode@^3.0.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
@@ -11090,12 +11092,12 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
-netlify-cli@^2.69.6:
-  version "2.69.6"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-2.69.6.tgz#3eeb108cb44c0644f4d99a16d61013b9bcd5ec45"
-  integrity sha512-oGv98SogJYT0EkPW/kt4Ealti5I/dSpPLwVt9Q58bsw3+Twcq5dCINdNbdxVgLb1eFd/gxvqc3jX3RN2nNm20A==
+netlify-cli@^2.69.8:
+  version "2.69.8"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-2.69.8.tgz#7915948efc32263d0fbef277861622c482f741f0"
+  integrity sha512-Lo89ZY7Iyout2fm3D9K6jOUcSBFw5yNvA3UpoZVsM4SC2nFJxdAT86k/wgBe14BUDfLTdhcsPvTzEFuYPfTuhg==
   dependencies:
-    "@netlify/build" "^6.0.0"
+    "@netlify/build" "^7.0.0"
     "@netlify/config" "^2.0.9"
     "@netlify/plugin-edge-handlers" "^1.10.0"
     "@netlify/traffic-mesh-agent" "^0.27.0"
@@ -11181,10 +11183,10 @@ netlify-cli@^2.69.6:
     wrap-ansi "^6.0.0"
     write-file-atomic "^3.0.0"
 
-netlify-lambda@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/netlify-lambda/-/netlify-lambda-2.0.1.tgz#8be3594a871f72dc18414ed8b0a01ed79724356b"
-  integrity sha512-5Yel8NlIEV+2KBAmUISeQqjrLW71n2VwWjoUFRJZuGpbD2Omn/4kgLUm/T4A7swrxygQMhtKDkZs1WXNUZP/ow==
+netlify-lambda@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/netlify-lambda/-/netlify-lambda-2.0.2.tgz#1a64286d9094ca9e5fd9088315dd54cf42ddfa43"
+  integrity sha512-Pf9M+vRsAgSLQ7ZaHajqgIGWYDXYEHGhzM2f8BwYbc3+SL/PjPXR1hdtnl9dgwzrFbPQYEOjHU5LqficUenhYw==
   dependencies:
     "@babel/core" "^7.10.4"
     "@babel/plugin-proposal-class-properties" "^7.10.4"
@@ -11197,7 +11199,7 @@ netlify-lambda@^2.0.1:
     express "^4.17.1"
     express-logging "^1.1.1"
     globby "^11.0.1"
-    jwt-decode "^2.2.0"
+    jwt-decode "^3.0.0"
     toml "^3.0.0"
     webpack "^4.43.0"
     webpack-merge "^4.2.2"
@@ -13249,6 +13251,16 @@ purgecss@^3.0.0:
     postcss "7.0.32"
     postcss-selector-parser "^6.0.2"
 
+purgecss@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/purgecss/-/purgecss-3.1.0.tgz#fcf6b76e1659fd67b647dd076fd3a51fd9464604"
+  integrity sha512-tmrs1I5B7FczyeChZPkR098BIqqMX+qDPG5f0KUHaLXqXXCjgRFyobht5sJSqL6wfHYX0JLhWSUUiPBVEH95Cg==
+  dependencies:
+    commander "^6.0.0"
+    glob "^7.0.0"
+    postcss "^8.2.1"
+    postcss-selector-parser "^6.0.2"
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
@@ -14125,10 +14137,10 @@ rollup@^2.23.1, rollup@^2.25.0:
   optionalDependencies:
     fsevents "~2.1.2"
 
-rollup@^2.34.2:
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.34.2.tgz#fa73e05c64df587e9ed4dc80d7d4e7d4a43f8908"
-  integrity sha512-mvtQLqu3cNeoctS+kZ09iOPxrc1P1/Bt1z15enuQ5feyKOdM3MJAVFjjsygurDpSWn530xB4AlA83TWIzRstXA==
+rollup@^2.35.0:
+  version "2.35.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.35.0.tgz#47b77827b122fbeca6a2c494fb2258db73d04fa9"
+  integrity sha512-AkiRsGBlHbP+bnAcOgiCRp6jm0BEGHXJk7TGZ+GpKyTL3EiSv+v+zEHlaB1gy1Ql2zyblBhzo5X346bCL45OAg==
   optionalDependencies:
     fsevents "~2.1.2"
 
