@@ -210,30 +210,40 @@ export const getRadarTs = () => {
 export const getConditionBarClass = (data) => {
   const { icon, cloudCover, summary } = data;
   const clouds = Math.round(cloudCover * 100);
-  const isCloudy = icon.includes('cloudy') || clouds >= 40;
-  const isRaining = (icon.includes('rain') || icon.includes('thunderstorm') || icon.includes('hail'));
-  const isSnowing = (icon.includes('snow') || icon.includes('sleet'));
-  const isClear = icon.includes('clear');
+  const summaryNormalized = summary.toLowerCase();
+  const isCloudy = () => icon.includes('cloudy') || clouds >= 40;
+  const isRaining = () => (icon.includes('rain') || icon.includes('thunderstorm') || icon.includes('hail'));
+  const isSnowing = () => (icon.includes('snow') || icon.includes('sleet'));
+  const isLight = () => summaryNormalized.includes('light');
+  const isHeavy = () => summaryNormalized.includes('heavy');
+  const isDrizzle = () => summaryNormalized.includes('drizzle');
+  const isFlurries = () => summaryNormalized.includes('flurries');
+  const isOvercast = () => summaryNormalized.includes('overcast');
+  const isClear = () => icon.includes('clear');
+  const hasMostly = () => icon.includes('mostly') || summaryNormalized.includes('mostly');
 
-  if (isRaining) {
-    return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('drizzle') ? 'bg-blue-400' : 'bg-blue-500';
+  if (isRaining()) {
+    if (isHeavy()) {
+      return 'bg-blue-600';
+    }
+    return isLight() || isDrizzle() ? 'bg-blue-400' : 'bg-blue-500';
   }
-  if (isSnowing) {
-    if (summary.toLowerCase().includes('heavy')) {
+  if (isSnowing()) {
+    if (isHeavy()) {
       return 'bg-purple-600';
     }
-    return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('flurries') ? 'bg-purple-400' : 'bg-purple-500';
+    return isLight() || isFlurries() ? 'bg-purple-400' : 'bg-purple-500';
   }
-  if (summary.toLowerCase().includes('overcast')) {
+  if (isOvercast()) {
     return 'bg-gray-600';
   }
-  if (isCloudy) {
-    return icon.includes('mostly') || summary.toLowerCase().includes('mostly') || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
+  if (isCloudy()) {
+    return hasMostly() || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
   }
-  // handle windy and other non-standard conditins using cloud conditions
-  if (isClear) {
+  if (isClear()) {
     return 'bg-white';
   }
+  // handle windy and other non-standard conditins using cloud conditions
   if (clouds < 20) {
     return 'bg-white';
   }
@@ -246,8 +256,7 @@ export const getConditionBarClass = (data) => {
   if (clouds >= 80) {
     return 'bg-gray-600';
   }
-  console.log(icon);
-  return 'unknown-condition-bar-class';
+  // console.log(icon);
 };
 
 export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
