@@ -213,16 +213,18 @@ export const getConditionBarClass = (data) => {
   const isCloudy = icon.includes('cloudy') || clouds >= 40;
   const isRaining = (icon.includes('rain') || icon.includes('thunderstorm') || icon.includes('hail'));
   const isSnowing = (icon.includes('snow') || icon.includes('sleet'));
-  const isOvercast = summary.toLowerCase().includes('overcast');
   const isClear = icon.includes('clear');
 
   if (isRaining) {
     return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('drizzle') ? 'bg-blue-400' : 'bg-blue-500';
   }
   if (isSnowing) {
+    if (summary.toLowerCase().includes('heavy')) {
+      return 'bg-purple-600';
+    }
     return summary.toLowerCase().includes('light') || summary.toLowerCase().includes('flurries') ? 'bg-purple-400' : 'bg-purple-500';
   }
-  if (isOvercast) {
+  if (summary.toLowerCase().includes('overcast')) {
     return 'bg-gray-600';
   }
   if (isCloudy) {
