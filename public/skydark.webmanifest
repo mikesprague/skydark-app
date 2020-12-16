@@ -2,7 +2,6 @@
   "name": "Sky Dark (Powered by Dark Sky)",
   "short_name": "Sky Dark",
   "description": "Sky Dark (Dark Sky for Android Clone) - Powered by Dark Sky",
-  "author": "Michael Sprague",
   "icons": [
     {
       "src": "/images/skydark-app-icon-32.png",
@@ -35,7 +34,6 @@
       "sizes": "128x128"
     }
   ],
-  "homepage_url": "https://skydark.app/",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
