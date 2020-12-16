@@ -50,7 +50,6 @@ const webpackPlugins = [
   }),
   new MiniCssExtractPlugin({
     filename: './css/styles.css',
-    chunkFilename: './css/[id].[chunkhash].css',
   }),
   new CopyWebpackPlugin({
     patterns: [
@@ -64,7 +63,7 @@ const webpackPlugins = [
   new CopyWebpackPlugin({
     patterns: [
       {
-        from: `./public/manifest.json`,
+        from: `./public/skydark.webmanifest`,
         to: './[name].[ext]',
         force: true,
       },
