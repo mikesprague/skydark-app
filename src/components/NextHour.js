@@ -13,7 +13,7 @@ export const NextHour = ({ data }) => {
     summary = summary.charAt(0).toUpperCase() + summary.slice(1);
     setSummaryText(summary);
 
-    return () => { setSummaryText(null); };
+    return () => setSummaryText(null);
   }, [data]);
 
   const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
@@ -31,7 +31,7 @@ export const NextHour = ({ data }) => {
       setNextHourPrecipitation(true);
     }
 
-    return () => { setNextHourPrecipitation(false); };
+    return () => setNextHourPrecipitation(false);
   }, [summaryText]);
 
   const [chartData, setChartData] = useState(null);
@@ -46,7 +46,7 @@ export const NextHour = ({ data }) => {
     });
     setChartData(dataArray);
 
-    return () => { setChartData(null); };
+    return () => setChartData(null);
   }, [nextHourPrecipitation, data]);
 
   return nextHourPrecipitation ? (
