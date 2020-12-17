@@ -1,5 +1,3 @@
-@import '../scss/variables';
-
 .daily {
   @apply p-3;
   @apply flex;
@@ -49,10 +47,12 @@
       .temps-spacer {
         @apply h-6;
         @apply mx-2;
-        @apply bg-white;
+        @apply bg-gray-100;
         @apply rounded-full;
         @apply align-text-bottom;
         @apply flex-grow;
+        @apply border;
+        @apply border-gray-300;
       }
     }
   }

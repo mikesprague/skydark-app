@@ -1,7 +1,6 @@
-@import "../scss/variables";
-
 .header {
-  background-color: $color-body-bg;
+  @apply bg-gray-50;
+  @apply dark:bg-gray-900;
   @apply fixed;
   @apply top-0;
   @apply max-w-md;
@@ -9,6 +8,8 @@
   @apply z-40;
 
   .location-name {
+    @apply bg-gray-50;
+    @apply dark:bg-gray-900;
     @apply pt-2;
     @apply w-full;
     @apply text-center;

@@ -1,7 +1,6 @@
-@import '../scss/variables';
-
 .header {
-  background-color: $color-body-bg;
+  @apply bg-gray-50;
+  @apply dark:bg-gray-900;
   @apply fixed;
   @apply top-0;
   @apply max-w-md;
@@ -13,25 +12,13 @@
     @apply w-full;
     @apply text-center;
     @apply mb-2;
-
-    select {
-      background-color: $color-body-bg;
-      text-align-last: center;
-      @apply text-xl;
-      @apply text-center;
-      @apply focus:outline-none;
-
-      option {
-        background-color: $color-body-bg;
-        @apply text-center;
-        @apply focus:outline-none;
-      }
-    }
   }
 }
 
 .slider-container {
-  background-color: $color-black-sixty-percent;
+  @apply bg-gray-300;
+  @apply dark:bg-black;
+  @apply bg-opacity-60;
   @apply h-10;
   @apply w-full;
   @apply mx-auto;
@@ -50,9 +37,10 @@
     @apply flex;
 
     .value-label {
-      color: $color-light-gray;
-      text-shadow: .5px .5px 1px $color-darkest-gray;
-      margin-top: 1.5px;
+      @apply mt-xxs;
+      @apply text-gray-800;
+      @apply dark:text-gray-100;
+      @apply text-opacity-75;
       @apply text-sm;
       @apply font-semibold;
       @apply mr-2;
@@ -61,10 +49,15 @@
     }
 
     .btn-play-radar-loop {
-      background-color: $color-dark-gray;
-      border: 1px solid $color-black-sixty-percent;
-      color: $color-body-text;
-      margin-top: 1.5px;
+      @apply mt-xxs;
+      @apply bg-gray-400;
+      @apply dark:bg-gray-700;
+      @apply border;
+      @apply border-gray-200;
+      @apply dark:border-black;
+      @apply border-opacity-60;
+      @apply text-gray-800;
+      @apply dark:text-gray-100;
       @apply ml-2;
       @apply w-6;
       @apply h-6;
@@ -74,8 +67,10 @@
 
     .range-slider {
       -webkit-appearance: none !important;
-      border: 1px solid $color-darkest-gray !important;
-      vertical-align: baseline;
+      @apply border;
+      @apply border-gray-300;
+      @apply dark:border-gray-900;
+      @apply align-baseline;
       @apply leading-none;
       @apply rounded-md;
       @apply flex;
@@ -84,7 +79,8 @@
 
       &::-webkit-slider-runnable-track {
         -webkit-appearance: none;
-        background-color: $color-darkest-gray;
+        @apply bg-gray-100;
+        @apply dark:bg-gray-900;
         @apply w-full;
         @apply h-2;
         @apply rounded-sm;
@@ -92,8 +88,12 @@
 
       &::-webkit-slider-thumb {
         -webkit-appearance: none;
-        background-color: $color-dark-gray;
-        border: 1px solid $color-black-sixty-percent;
+        @apply bg-gray-400;
+        @apply dark:bg-gray-700;
+        @apply border;
+        @apply border-gray-200;
+        @apply dark:border-black;
+        @apply border-opacity-60;
         @apply rounded-sm;
         @apply h-6;
         @apply w-6;
@@ -101,15 +101,21 @@
       }
 
       &:focus {
-        background-color: $color-darkest-gray;
-        border: 1px solid $color-darkest-gray;
-        outline: none;
+        @apply bg-gray-400;
+        @apply dark:bg-gray-900;
+        @apply border;
+        @apply border-gray-200;
+        @apply dark:border-gray-900;
+        @apply outline-none;
       }
 
       &:focus::-webkit-slider-runnable-track {
-        background-color: $color-darkest-gray;
-        border: 1px solid $color-darkest-gray;
-        outline: none;
+        @apply bg-gray-100;
+        @apply dark:bg-gray-900;
+        @apply border;
+        @apply border-gray-200;
+        @apply dark:border-gray-900;
+        @apply outline-none;
       }
     }
   }
@@ -128,9 +134,9 @@
 
   .leaflet-control-layers {
     @apply bg-gray-100;
-      @apply dark:bg-gray-700;
-      @apply text-gray-700;
-      @apply dark:text-gray-100;
+    @apply dark:bg-gray-700;
+    @apply text-gray-700;
+    @apply dark:text-gray-100;
   }
 
   .leaflet-bar {
@@ -149,14 +155,20 @@
 
   .leaflet-control-attribution,
   .leaflet-control-scale-line {
-    @apply bg-black;
-    @apply bg-opacity-40;
-    @apply border-gray-700;
-    @apply text-gray-300;
+    @apply border-gray-300;
+    @apply dark:border-gray-700;
+    @apply bg-gray-100;
+    @apply dark:bg-black;
+    @apply bg-opacity-60;
+    @apply text-gray-800;
+    @apply dark:text-gray-100;
+    @apply text-opacity-75;
 
     a,
     a:hover {
-      @apply text-gray-400;
+      @apply text-gray-800;
+      @apply dark:text-gray-100;
+      @apply text-opacity-75;
     }
   }
 
@@ -172,22 +184,4 @@
   .leaflet-bottom.leaflet-right .leaflet-control-attribution {
     @apply hidden;
   }
-}
-
-.radar-key,
-.temp-key {
-  @apply h-auto;
-  @apply absolute;
-  @apply w-10;
-  z-index: 500;
-}
-
-.radar-key {
-  @apply bottom-2;
-  @apply right-1;
-}
-
-.temp-key {
-  @apply right-1;
-  @apply bottom-40;
 }

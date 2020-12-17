@@ -6,9 +6,12 @@ import './index.scss';
 import { App } from './components/App';
 import { ErrorView } from './components/ErrorView';
 import {
+  initDarkMode,
   initServiceWorker,
   isDev,
 } from './modules/helpers';
+
+initDarkMode();
 
 Bugsnag.start({
   apiKey: 'c439d6280bb7eada679ad4c6ef66ab5b',
@@ -17,14 +20,8 @@ Bugsnag.start({
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
-const handleError = (error) => {
-  if (isDev()) {
-    console.error(error);
-  }
-};
-
 ReactDOM.render(
-  <ErrorBoundary FallbackComponent={ErrorView} onError={handleError}>
+  <ErrorBoundary FallbackComponent={ErrorView} onError={isDev() ? console.error : null}>
     <React.StrictMode>
       <App OPENWEATHERMAP_API_KEY={process.env.OPENWEATHERMAP_API_KEY} />
     </React.StrictMode>

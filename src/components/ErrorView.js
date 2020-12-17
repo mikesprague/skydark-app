@@ -12,7 +12,7 @@ export const ErrorView = () => {
       <h3 className="text-2xl text-red-500">Sorry, an error has occured.</h3>
       <br />
       <br />
-      <button onClick={clickHandler} className="p-6 text-lg font-bold leading-loose text-red-500 bg-gray-200" type="button">&nbsp;&nbsp;Click Here to Reset and Reload&nbsp;&nbsp;</button>
+      <button onClick={clickHandler} className="p-6 text-lg font-bold leading-loose text-gray-100 bg-red-500 dark:text-red-500 dark:bg-gray-200" type="button">&nbsp;&nbsp;Click Here to Reset and Reload&nbsp;&nbsp;</button>
     </div>
   );
 };

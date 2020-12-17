@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl } from 'react-leaflet';
-import { getRadarTs } from '../modules/helpers';
+import { getRadarTs, isDarkModeEnabled } from '../modules/helpers';
 import './WeatherMapSmall.scss';
 
 export const WeatherMapSmall = ({ data }) => {
@@ -37,7 +37,7 @@ export const WeatherMapSmall = ({ data }) => {
           >
             <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} opacity={0.85} />
             <LayersControl position="topright">
-              <LayersControl.BaseLayer name="Dark" checked>
+              <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled() ? 'checked' : ''}>
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
@@ -51,7 +51,7 @@ export const WeatherMapSmall = ({ data }) => {
                   attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
                 />
               </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Light">
+              <LayersControl.BaseLayer name="Light" checked={isDarkModeEnabled() ? '' : 'checked'}>
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
                   opacity={1}

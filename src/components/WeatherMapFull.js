@@ -6,7 +6,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
 } from 'react-leaflet';
-import { getRadarTs } from '../modules/helpers';
+import { getRadarTs, isDarkModeEnabled } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
 
@@ -136,7 +136,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           <ZoomControl position="topleft" />
           <AttributionControl position="topright" />
           <LayersControl>
-            <LayersControl.BaseLayer name="Dark" checked>
+            <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled() ? 'checked' : ''}>
               <TileLayer
                 url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
                 opacity={1}
@@ -150,7 +150,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                 attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Light">
+            <LayersControl.BaseLayer name="Light" checked={isDarkModeEnabled() ? '' : 'checked'}>
               <TileLayer
                 url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
                 opacity={1}
@@ -192,7 +192,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                 attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
               />
             </LayersControl.BaseLayer>
-            <LayersControl.Overlay name="Radar" checked>
+            <LayersControl.Overlay name="Radar" checked="checked">
               <WMSTileLayer
                 url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
                 attribution={'&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
@@ -207,12 +207,6 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             </LayersControl.Overlay>
           </LayersControl>
         </MapContainer>
-        {/* <div className="radar-key">
-          <img src="/images/radar-key.png" alt="Radar Key" />
-        </div>
-        <div className={mapView === 'temp_new' ? 'temp-key' : 'hidden'}>
-          <img src="/images/temp-key.png" alt="Temperature Key" />
-        </div> */}
       </div>
       <div className="slider-container">
         {tsData ? (

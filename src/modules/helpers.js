@@ -22,6 +22,7 @@ import {
   faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
   faTachometerAlt, faCog, faLocationArrow, faMap, faPlay, faStop, faPause, faForward, faFastForward,
 } from '@fortawesome/pro-duotone-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
 import { getData, resetData, setData, clearData } from './local-storage';
@@ -53,27 +54,50 @@ export const handleError = (error) => {
   }
 };
 
-export const initDarkMode = () => {
+export const isDarkModeEnabled = () => {
   const hasSystemDarkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const appTheme = getData('theme') || null;
-  const htmlEl = document.querySelector('html');
   if (appTheme === 'dark' || (!appTheme && hasSystemDarkModeEnabled)) {
+    return true;
+  }
+  return false;
+};
+
+const toggleDarkMode = () => {
+  const htmlEl = document.querySelector('html');
+  if (isDarkModeEnabled()) {
     htmlEl.classList.add('dark');
     setData('theme', 'dark');
   } else {
     clearData('theme');
+    setData('theme', 'light');
+    htmlEl.classList.remove('dark');
+  }
+};
+
+export const initDarkMode = () => {
+  const htmlEl = document.querySelector('html');
+  if (isDarkModeEnabled()) {
+    htmlEl.classList.add('dark');
+    setData('theme', 'dark');
+  } else {
+    clearData('theme');
+    setData('theme', 'light');
     htmlEl.classList.remove('dark');
   }
 };
 
 export const initServiceWorker = () => {
   register('/service-worker.js', {
-    updated(registration) {
+    updated() {
       // console.log(registration);
       cogoToast.info('Latest updates to Sky Dark installed - click this message to reload', {
         hideAfter: 0,
         heading: 'Sky Dark Updated',
         bar: { color: '#60a5fa' },
+        // renderIcon: () => (
+        //   // <FontAwesomeIcon />
+        // ),
         onClick: () => {
           resetData();
           window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';

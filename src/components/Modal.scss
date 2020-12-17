@@ -1,7 +1,8 @@
-@import '../scss/variables';
-
 .modal {
-  background-color: $color-body-bg;
+  @apply bg-gray-50;
+  @apply dark:bg-gray-900;
+  @apply text-gray-900;
+  @apply dark:text-gray-100;
 }
 
 #weather-alerts-modal {
