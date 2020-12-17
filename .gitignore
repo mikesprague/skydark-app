@@ -117,9 +117,6 @@ dist
 # VSCode specific stuff
 
 .history
-.vscode
-.vscode-insiders
-*.code-workspace
 
 # Misc
 
