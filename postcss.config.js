@@ -9,34 +9,20 @@ const cssWhitelistClassArray = [
   /yellow/,
   /green/,
   /purple/,
-  /bg-blue-400/,
-  /bg-blue-500/,
-  /bg-blue-600/,
-  /bg-purple-400/,
-  /bg-purple-500/,
-  /bg-purple-600/,
-  /opacity-75/,
-  /bg-gray-50/,
-  /bg-gray-100/,
-  /bg-gray-200/,
-  /bg-gray-300/,
-  /bg-gray-400/,
-  /bg-gray-500/,
-  /bg-gray-600/,
-  /bg-gray-700/,
-  /bg-gray-800/,
-  /bg-gray-900/,
-  /dark:bg-gray-50/,
-  /dark:bg-gray-100/,
-  /dark:bg-gray-200/,
-  /dark:bg-gray-300/,
-  /dark:bg-gray-400/,
-  /dark:bg-gray-500/,
-  /dark:bg-gray-600/,
-  /dark:bg-gray-700/,
-  /dark:bg-gray-800/,
-  /dark:bg-gray-900/,
+  /text-orange-(\d+)/,
+  /text-blue-(\d+)/,
+  /bg-blue-(\d+)/,
+  /bg-purple-(\d+)/,
+  /opacity-(\d+)/,
+  /border-opacity-(\d+)/,
+  /bg-gray-(\d+)/,
+  /text-gray-(\d+)/,
   /bg-white/,
+  /border-blue-(\d+)/,
+  /border-gray-(\d+)/,
+  /border-orange-(\d+)/,
+  /border-black/,
+  /border-b/,
   /ct-toast-info/,
 ];
 
@@ -49,13 +35,13 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
   ],
 
   // This is the function used to extract class names from your templates
-  defaultExtractor: (content) => {
-    // Capture as liberally as possible, including things like `h-(screen-1.5)`
-    const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
-    // Capture classes within other delimiters like .block(class="w-1/2") in Pug
-    const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || [];
-    return broadMatches.concat(innerMatches);
-  },
+  // defaultExtractor: (content) => {
+  //   // Capture as liberally as possible, including things like `h-(screen-1.5)`
+  //   const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
+  //   // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+  //   const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || [];
+  //   return broadMatches.concat(innerMatches);
+  // },
   fontFace: false,
   safelist: cssWhitelistClassArray,
 });
