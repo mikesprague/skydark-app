@@ -10,7 +10,7 @@ export const WeatherMapSmall = ({ data }) => {
 
   useEffect(() => {
     if (!data) { return; }
-
+    console.log(isDarkModeEnabled());
     const coordinates = {
       lat: data.latitude,
       lng: data.longitude,

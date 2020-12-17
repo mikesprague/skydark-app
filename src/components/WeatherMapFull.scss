@@ -1,20 +1,3 @@
-.header {
-  @apply bg-gray-50;
-  @apply dark:bg-gray-900;
-  @apply fixed;
-  @apply top-0;
-  @apply max-w-md;
-  @apply w-full;
-  @apply z-40;
-
-  .section-name {
-    @apply pt-2;
-    @apply w-full;
-    @apply text-center;
-    @apply mb-2;
-  }
-}
-
 .slider-container {
   @apply bg-gray-300;
   @apply dark:bg-black;

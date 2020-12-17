@@ -1,3 +1,7 @@
+h1 {
+  @apply text-center;
+}
+
 .about-content {
   @apply px-4;
   @apply my-16;
@@ -6,9 +10,10 @@
     @apply inline;
     @apply font-semibold;
     @apply leading-loose;
-    @apply text-lg;
-    @apply text-gray-200;
-    border-bottom: .01rem solid #e5e7eb;
+    @apply text-xl;
+    @apply text-center;
+    @apply text-gray-700;
+    @apply dark:text-gray-200;
   }
 
   p {
@@ -18,6 +23,7 @@
   }
 
   a {
-    @apply text-blue-300;
+    @apply text-blue-600;
+    @apply dark:text-blue-300;
   }
 }

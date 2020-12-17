@@ -21,7 +21,7 @@ export const CurrentConditions = ({ data }) => (
               icon={['fad', 'thermometer-half']}
               size="2x"
               fixedWidth
-              style={{ '--fa-primary-color': 'red', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.9' }}
+              style={{ '--fa-primary-color': 'red', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.9' }}
             />
             <br />
             <small>
@@ -37,7 +37,7 @@ export const CurrentConditions = ({ data }) => (
               icon={['fad', 'wind-turbine']}
               size="2x"
               fixedWidth
-              style={{ '--fa-primary-color': 'dodgerblue', '--fa-secondary-color': 'snow', '--fa-secondary-opacity': '.75' }}
+              style={{ '--fa-primary-color': 'dodgerblue', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '.75' }}
             />
             <br />
             <small>
@@ -60,7 +60,7 @@ export const CurrentConditions = ({ data }) => (
               icon={['fad', 'clouds']}
               size="2x"
               fixedWidth
-              style={{ '--fa-primary-color': 'darkgray', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '1' }}
+              style={{ '--fa-primary-color': 'darkgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1' }}
             />
             <br />
             <small>
@@ -73,7 +73,7 @@ export const CurrentConditions = ({ data }) => (
               icon={['fad', 'eye']}
               size="2x"
               fixedWidth
-              style={{ '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'white', '--fa-secondary-opacity': '.75' }}
+              style={{ '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' }}
             />
             <br />
             <small>
@@ -120,7 +120,7 @@ export const CurrentConditions = ({ data }) => (
               icon={['fad', 'tachometer-alt']}
               size="2x"
               fixedWidth
-              style={{ '--fa-primary-color': 'crimson', '--fa-secondary-color': 'snow', '--fa-secondary-opacity': '.75' }}
+              style={{ '--fa-primary-color': 'crimson', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' }}
             />
             <br />
             <small>
