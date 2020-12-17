@@ -24,7 +24,7 @@ import {
 } from '@fortawesome/pro-duotone-svg-icons';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
-import { resetData } from './local-storage';
+import { getData, resetData, setData, clearData } from './local-storage';
 
 dayjs.extend(relativeTime);
 
@@ -50,6 +50,19 @@ export const handleError = (error) => {
     console.error(error);
   } else {
     Bugsnag.notify(error);
+  }
+};
+
+export const initDarkMode = () => {
+  const hasSystemDarkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const appTheme = getData('theme') || null;
+  const htmlEl = document.querySelector('html');
+  if (appTheme === 'dark' || (!appTheme && hasSystemDarkModeEnabled)) {
+    htmlEl.classList.add('dark');
+    setData('theme', 'dark');
+  } else {
+    clearData('theme');
+    htmlEl.classList.remove('dark');
   }
 };
 

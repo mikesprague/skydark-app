@@ -127,15 +127,19 @@
   }
 
   .leaflet-control-layers {
-    background-color: $color-dark-gray;
-    color: $color-body-text;
+    @apply bg-gray-100;
+      @apply dark:bg-gray-700;
+      @apply text-gray-700;
+      @apply dark:text-gray-100;
   }
 
   .leaflet-bar {
     a,
     a:hover {
-      background-color: $color-dark-gray;
-      color: $color-body-text;
+      @apply bg-gray-100;
+      @apply dark:bg-gray-700;
+      @apply text-gray-700;
+      @apply dark:text-gray-100;
     }
   }
 
@@ -145,28 +149,20 @@
 
   .leaflet-control-attribution,
   .leaflet-control-scale-line {
-    background-color: $color-black-forty-percent !important;
-    border-color: $color-dark-gray;
-    color: $color-lighter-gray;
+    @apply bg-black;
+    @apply bg-opacity-40;
+    @apply border-gray-700;
+    @apply text-gray-300;
 
     a,
     a:hover {
-      color: $color-light-gray;
+      @apply text-gray-400;
     }
   }
 
   .leaflet-control-layers-overlays > label:nth-child(1) {
     @apply hidden;
   }
-
-  // .leaflet-control-zoom {
-  //   @apply hidden;
-  //   @apply md:block;
-  // }
-
-  // .leaflet-bottom {
-  //   @apply bottom-28;
-  // }
 
   .leaflet-control-attribution {
     @apply right-3;

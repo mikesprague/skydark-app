@@ -27,6 +27,7 @@ const cssWhitelistClassArray = [
 ];
 
 module.exports = {
+  darkMode: 'class',
   purge: {
     content: [
       './public/index.html',
