@@ -31,7 +31,7 @@ export const Daily = ({ data }) => {
     <div className="daily-container">
       <div className="daily">
         {dailyData.daily.data.map((dayData, dayIndex) => {
-          return dayIndex <= 6 ? (
+          return dayIndex <= 7 ? (
             <Day key={nanoid(7)} data={dayData} dayIndex={dayIndex} coordinates={coordinates} />
           ) : '';
         })}
