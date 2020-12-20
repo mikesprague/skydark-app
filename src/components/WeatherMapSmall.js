@@ -96,6 +96,7 @@ export const WeatherMapSmall = ({ data }) => {
               <LayersControl.Overlay name="Radar" checked>
                 <WMSTileLayer
                   url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
+                  opacity={.9}
                   attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
                 />
               </LayersControl.Overlay>
