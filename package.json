@@ -207,6 +207,7 @@
       "prefer-arrow-callback": "warn",
       "arrow-spacing": "error",
       "no-param-reassign": "warn",
+      "no-unused-vars": "warn",
       "eqeqeq": "error",
       "max-len": [
         "off",
