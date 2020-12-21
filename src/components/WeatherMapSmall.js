@@ -1,9 +1,8 @@
-/* eslint-disable global-require */
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl,
+  MapContainer, Marker, TileLayer, LayersControl,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -12,7 +11,7 @@ import './WeatherMapSmall.scss';
 
 initLeafletImages(L);
 
-export const WeatherMapSmall = ({ data }) => {
+export const WeatherMapSmall = memo(({ data }) => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
 
   useEffect(() => {
@@ -23,8 +22,6 @@ export const WeatherMapSmall = ({ data }) => {
     };
 
     setLocationCoordinates(coordinates);
-
-    // return () => {};
   }, [data]);
 
   return (
@@ -100,7 +97,7 @@ export const WeatherMapSmall = ({ data }) => {
                 />
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Radar" checked>
-                <WMSTileLayer
+                <TileLayer
                   url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}
                   attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
@@ -112,7 +109,8 @@ export const WeatherMapSmall = ({ data }) => {
       ) : ''}
     </div>
   );
-};
+});
+WeatherMapSmall.displayName = 'WeatherMapSmall';
 
 WeatherMapSmall.propTypes = {
   data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,

@@ -2,9 +2,11 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useLayoutEffect, useRef, useState,
+} from 'react';
 import {
-  MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
+  MapContainer, Marker, TileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -41,33 +43,31 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     };
 
     getTimestamps();
-
-    // return () => {};
   }, []);
 
   const [ts, setTs] = useState(null);
-  useEffect(() => {
-    if (!tsData) { return; }
-    setTs(tsData[tsData.length - 1]);
-  }, [tsData]);
-
   const [rangeMax, setRangeMax] = useState(13);
-  useEffect(() => {
-    if (!tsData) { return; }
-    setRangeMax(tsData.length - 1);
-  }, [tsData]);
-
   const [rangeValue, setRangeValue] = useState(13);
   useEffect(() => {
     if (!tsData) { return; }
+
+    setTs(tsData[tsData.length - 1]);
+    setRangeMax(tsData.length - 1);
     setRangeValue(tsData.length - 1);
   }, [tsData]);
 
-  const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`);
+  const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${tsData ? tsData[0] : getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`);
   useLayoutEffect(() => {
     if (!ts) { return; }
     setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`);
   }, [ts]);
+
+  const radarTileLayerRef = useRef();
+  useLayoutEffect(() => {
+    if (radarTileLayerRef.current) {
+      radarTileLayerRef.current.setUrl(radarMapUrl);
+    }
+  }, [radarMapUrl]);
 
   const createdHandler = () => {
     const checkBoxes = Array.from(document.querySelectorAll('.leaflet-control-layers-selector[type=checkbox]'));
@@ -81,14 +81,6 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       });
     });
   };
-
-  const radarTileLayerRef = useRef();
-  useEffect(() => {
-    // console.log(tileLayerRef.current);
-    if (radarTileLayerRef.current) {
-      radarTileLayerRef.current.setUrl(radarMapUrl);
-    }
-  }, [radarMapUrl]);
 
   const advanceRangeSlider = (value) => {
     setTs(tsData[value]);
@@ -197,15 +189,15 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               />
             </LayersControl.BaseLayer>
             <LayersControl.Overlay name="Radar" checked="checked">
-              <WMSTileLayer
-                url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-                opacity={0.85}
+              <TileLayer
+                url={`https://tilecache.rainviewer.com/v2/radar/${tsData ? tsData[0] : getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
+                opacity={0.8}
                 attribution={'&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
                 ref={radarTileLayerRef}
               />
             </LayersControl.Overlay>
             <LayersControl.Overlay name="Temperature">
-              <WMSTileLayer
+              <TileLayer
                 url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
                 attribution={'&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'}
               />
