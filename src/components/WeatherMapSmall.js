@@ -1,9 +1,16 @@
+/* eslint-disable global-require */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl } from 'react-leaflet';
-import { getRadarTs, isDarkModeEnabled } from '../modules/helpers';
+import {
+  MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl,
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { getRadarTs, initLeafletImages, isDarkModeEnabled } from '../modules/helpers';
 import './WeatherMapSmall.scss';
+
+initLeafletImages(L);
 
 export const WeatherMapSmall = ({ data }) => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
@@ -96,7 +103,7 @@ export const WeatherMapSmall = ({ data }) => {
               <LayersControl.Overlay name="Radar" checked>
                 <WMSTileLayer
                   url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-                  opacity={.9}
+                  opacity={0.9}
                   attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
                 />
               </LayersControl.Overlay>

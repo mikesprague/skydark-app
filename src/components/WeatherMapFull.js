@@ -6,9 +6,13 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   MapContainer, Marker, TileLayer, WMSTileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
 } from 'react-leaflet';
-import { getRadarTs, isDarkModeEnabled } from '../modules/helpers';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { getRadarTs, initLeafletImages, isDarkModeEnabled } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
+
+initLeafletImages(L);
 
 // {/* <TileLayer
 // url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
@@ -195,7 +199,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             <LayersControl.Overlay name="Radar" checked="checked">
               <WMSTileLayer
                 url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
-                opacity={.85}
+                opacity={0.85}
                 attribution={'&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
                 ref={radarTileLayerRef}
               />
