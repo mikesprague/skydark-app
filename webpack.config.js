@@ -42,6 +42,19 @@ const webpackRules = [
       loader: 'babel-loader',
     }],
   },
+  {
+    test: /\.(png|jpg|gif|svg)$/i,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          esModule: false,
+          name: './images/[name].[ext]',
+          publicPath: '/',
+        },
+      },
+    ],
+  },
 ];
 
 const webpackPlugins = [
