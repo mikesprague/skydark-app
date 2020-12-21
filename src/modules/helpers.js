@@ -54,6 +54,18 @@ export const handleError = (error) => {
   }
 };
 
+export const initLeafletImages = (leafletRef) => {
+  // eslint-disable-next-line no-underscore-dangle
+  delete leafletRef.Icon.Default.prototype._getIconUrl;
+  /* eslint-disable global-require */
+  leafletRef.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+  });
+  /* eslint-enable global-require */
+};
+
 export const isDarkModeEnabled = () => {
   const hasSystemDarkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
   // const appTheme = getData('theme') || null;
