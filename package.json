@@ -187,7 +187,8 @@
       "security"
     ],
     "parserOptions": {
-      "ecmaVersion": 2018,
+      "ecmaVersion": 11,
+      "allowImportExportEverywhere": true,
       "parser": "babel-parser",
       "ecmaFeatures": {
         "jsx": true
