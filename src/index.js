@@ -1,8 +1,9 @@
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+// eslint-disable-next-line import/named
 import { App } from './components/App';
 import { ErrorView } from './components/ErrorView';
 import {

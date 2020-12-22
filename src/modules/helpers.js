@@ -9,6 +9,9 @@ import {
   faExclamationCircle,
 } from '@fortawesome/pro-regular-svg-icons';
 import {
+  faLocation,
+} from '@fortawesome/pro-light-svg-icons';
+import {
   faLocationArrow as faLocationArrowSolid, faCog as faCogSolid, faInfoCircle as faInfoCircleSolid,
   faMap as faMapSolid, faGlobeStand as faGlobeStandSolid,
 } from '@fortawesome/pro-solid-svg-icons';
@@ -22,10 +25,9 @@ import {
   faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
   faTachometerAlt, faCog, faLocationArrow, faMap, faPlay, faStop, faPause, faForward, faFastForward,
 } from '@fortawesome/pro-duotone-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
-import { getData, resetData, setData, clearData } from './local-storage';
+import { resetData } from './local-storage';
 
 dayjs.extend(relativeTime);
 
@@ -98,6 +100,10 @@ export const initDarkMode = () => {
     // setData('theme', 'light');
     htmlEl.classList.remove('dark');
   }
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+    // console.log("window.matchMedia('(prefers-color-scheme: dark)').matches: ", event.matches);
+    window.location.reload();
+  });
 };
 
 export const initServiceWorker = () => {
@@ -139,7 +145,7 @@ export const initIcons = () => {
     faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand,
     faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine, faTachometerAlt, faCog,
     faInfoCircleSolid, faCogSolid, faLocationArrowSolid, faMap, faMapSolid, faGlobeStandSolid, faPlay, faStop,
-    faPause, faForward, faFastForward,
+    faPause, faForward, faFastForward, faLocation,
   );
 };
 
