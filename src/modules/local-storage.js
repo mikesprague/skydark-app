@@ -30,3 +30,11 @@ export function isCacheValid(key, duration, durationType) {
   }
   return true;
 }
+
+export const isCacheExpired = (lastUpdated, cacheDurationInMinutes) => {
+  const nextUpdateTime = dayjs(lastUpdated).add(cacheDurationInMinutes, 'minute');
+  if (dayjs().isAfter(nextUpdateTime)) {
+    return true;
+  }
+  return false;
+};

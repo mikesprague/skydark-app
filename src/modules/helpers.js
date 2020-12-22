@@ -1,30 +1,7 @@
+/* eslint-disable no-console */
 import Bugsnag from '@bugsnag/js';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faChrome, faDev, faEdge, faFirefoxBrowser, faGithub, faHackerNews, faProductHunt, faRedditAlien,
-} from '@fortawesome/free-brands-svg-icons';
-import {
-  faExclamationCircle,
-} from '@fortawesome/pro-regular-svg-icons';
-import {
-  faLocation,
-} from '@fortawesome/pro-light-svg-icons';
-import {
-  faLocationArrow as faLocationArrowSolid, faCog as faCogSolid, faInfoCircle as faInfoCircleSolid,
-  faMap as faMapSolid, faGlobeStand as faGlobeStandSolid,
-} from '@fortawesome/pro-solid-svg-icons';
-import {
-  faBolt, faCalendar, faHourglassHalf, faImage, faLocationCircle, faShareAlt, faSync, faUser, faTint, faClock, faCode,
-  faWifiSlash, faMoonStars, faCloudRain, faCloudSnow, faCloudSleet, faFog, faClouds, faCloudsSun, faCloudsMoon,
-  faCloudHail, faHurricane, faThunderstorm, faTornado, faTemperatureHigh, faTemperatureLow, faSpinner, faGlobe,
-  faMapMarkerAlt, faExclamationTriangle, faArrowAltCircleDown, faArrowAltCircleUp, faBan, faSignal, faLongArrowAltDown,
-  faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faTachometer,
-  faAngleUp, faInfoCircle, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faUmbrella,
-  faSun, faCloud, faThermometerHalf, faHouseDay, faGlobeStand, faRadar, faRaindrops, faThermometerFull, faWindTurbine,
-  faTachometerAlt, faCog, faLocationArrow, faMap, faPlay, faStop, faPause, faForward, faFastForward,
-} from '@fortawesome/pro-duotone-svg-icons';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
@@ -56,55 +33,20 @@ export const handleError = (error) => {
   }
 };
 
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-param-reassign */
+/* eslint-disable global-require */
 export const initLeafletImages = (leafletRef) => {
-  // eslint-disable-next-line no-underscore-dangle
   delete leafletRef.Icon.Default.prototype._getIconUrl;
-  /* eslint-disable global-require */
   leafletRef.Icon.Default.mergeOptions({
     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
     shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
   });
-  /* eslint-enable global-require */
 };
-
-export const isDarkModeEnabled = () => {
-  const hasSystemDarkModeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  // const appTheme = getData('theme') || null;
-  // if (appTheme === 'dark' || (!appTheme && hasSystemDarkModeEnabled)) {
-  //   return true;
-  // }
-  // return false;
-  return hasSystemDarkModeEnabled;
-};
-
-export const toggleDarkMode = () => {
-  const htmlEl = document.querySelector('html');
-  if (isDarkModeEnabled()) {
-    htmlEl.classList.add('dark');
-    // setData('theme', 'dark');
-  } else {
-    // clearData('theme');
-    // setData('theme', 'light');
-    htmlEl.classList.remove('dark');
-  }
-};
-
-export const initDarkMode = () => {
-  const htmlEl = document.querySelector('html');
-  if (isDarkModeEnabled()) {
-    htmlEl.classList.add('dark');
-    // setData('theme', 'dark');
-  } else {
-    // clearData('theme');
-    // setData('theme', 'light');
-    htmlEl.classList.remove('dark');
-  }
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-    // console.log("window.matchMedia('(prefers-color-scheme: dark)').matches: ", event.matches);
-    window.location.reload();
-  });
-};
+/* eslint-enable no-underscore-dangle */
+/* eslint-enable no-param-reassign */
+/* eslint-enable global-require */
 
 export const initServiceWorker = () => {
   register('/service-worker.js', {
@@ -131,84 +73,6 @@ export const initServiceWorker = () => {
       console.error('Error during service worker registration:', error);
     },
   });
-};
-
-export const initIcons = () => {
-  library.add(
-    faImage, faUser, faGithub, faHackerNews, faProductHunt, faRedditAlien, faThermometerHalf, faInfoCircle, faBolt,
-    faCalendar, faHourglassHalf, faImage, faLocationCircle, faShareAlt, faSync, faUser, faTint, faClock, faCode,
-    faWifiSlash, faMoonStars, faCloudRain, faCloudSnow, faCloudSleet, faCloudsSun, faCloudsMoon, faCloudHail,
-    faHurricane, faThunderstorm, faTornado, faTemperatureHigh, faTemperatureLow, faSpinner, faGlobe, faMapMarkerAlt,
-    faExclamationTriangle, faArrowAltCircleDown, faArrowAltCircleUp, faBan, faSignal, faLongArrowAltDown, faFog,
-    faLongArrowAltUp, faExternalLinkAlt, faCircle, faPlusSquare, faMinusSquare, faGlobeAfrica, faSyncAlt, faClouds,
-    faTachometer, faAngleUp, faChevronCircleUp, faDewpoint, faHumidity, faWind, faSunrise, faSunset, faEye, faSun,
-    faUmbrella, faCloud, faChrome, faDev, faEdge, faFirefoxBrowser, faLocationArrow, faHouseDay, faGlobeStand,
-    faExclamationCircle, faRadar, faRaindrops, faThermometerFull, faWindTurbine, faTachometerAlt, faCog,
-    faInfoCircleSolid, faCogSolid, faLocationArrowSolid, faMap, faMapSolid, faGlobeStandSolid, faPlay, faStop,
-    faPause, faForward, faFastForward, faLocation,
-  );
-};
-
-export const getWeatherIcon = (icon) => {
-  const iconMap = {
-    'clear-day': {
-      icon: 'sun',
-      iconStyles: { '--fa-primary-color': 'gold', '--fa-secondary-color': 'darkorange', '--fa-secondary-opacity': '.75' },
-    },
-    'clear-night': {
-      icon: 'moon-stars',
-      iconStyles: { '--fa-primary-color': 'plum', '--fa-secondary-color': 'palegoldenrod', '--fa-secondary-opacity': '1' },
-    },
-    rain: {
-      icon: 'cloud-rain',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'dodgerblue', '--fa-secondary-opacity': '.75' },
-    },
-    snow: {
-      icon: 'cloud-snow',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro', '--fa-secondary-opacity': '1' },
-    },
-    sleet: {
-      icon: 'cloud-sleet',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro', '--fa-secondary-opacity': '.9' },
-    },
-    wind: {
-      icon: 'wind',
-      iconStyles: { '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' },
-    },
-    fog: {
-      icon: 'fog',
-      iconStyles: { '--fa-primary-color': 'lightgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1' },
-    },
-    cloudy: {
-      icon: 'clouds',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'darkgray', '--fa-secondary-opacity': '.75' },
-    },
-    'partly-cloudy-day': {
-      icon: 'clouds-sun',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75' },
-    },
-    'partly-cloudy-night': {
-      icon: 'clouds-moon',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'plum', '--fa-secondary-opacity': '1' },
-    },
-    hail: {
-      icon: 'cloud-hail',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro', '--fa-secondary-opacity': '.9' },
-    },
-    hurricane: {
-      icon: 'hurricane',
-      iconStyles: { '--fa-primary-color': 'black', '--fa-secondary-color': 'crimson', '--fa-secondary-opacity': '.9' },
-    },
-    thunderstorm: {
-      icon: 'thunderstorm',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'yellow', '--fa-secondary-opacity': '.8' },
-    },
-    tornado: {
-      icon: 'tornado',
-      iconStyles: { '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '.75' },
-    },
-  };
-  return iconMap[icon];
 };
 
 const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
@@ -343,17 +207,4 @@ export const getUvIndexClasses = (uvIndex) => {
     return 'pill purple';
   }
   return 'unknownUvIndexClass';
-};
-
-export const isCacheExpired = (lastUpdated, cacheDurationInMinutes) => {
-  try {
-    const nextUpdateTime = dayjs(lastUpdated).add(cacheDurationInMinutes, 'minute');
-    if (dayjs().isAfter(nextUpdateTime)) {
-      return true;
-    }
-  } catch (error) {
-    handleError(error);
-    return true;
-  }
-  return false;
 };
