@@ -3,10 +3,10 @@ import BugsnagPluginReact from '@bugsnag/plugin-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-// eslint-disable-next-line import/named
 import { App } from './components/App';
 import { ErrorView } from './components/ErrorView';
-import { initDarkMode, initServiceWorker, isDev } from './modules/helpers';
+import { initServiceWorker, isDev } from './modules/helpers';
+import { initDarkMode } from './modules/theme';
 import { initAppSettings } from './modules/settings';
 
 const initSkyDark = () => {
