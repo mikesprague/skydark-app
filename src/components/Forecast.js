@@ -3,7 +3,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { apiUrl, handleError, isCacheExpired } from '../modules/helpers';
+import { apiUrl, handleError } from '../modules/helpers';
+import { isCacheExpired } from '../modules/local-storage';
 import { Currently } from './Currently';
 import { CurrentHourly } from './CurrentHourly';
 import { Daily } from './Daily';
@@ -44,6 +45,7 @@ export const Forecast = () => {
     if (!coordinates || (coordinates && isCacheExpired(coordinates.lastUpdated, 10))) {
       doGeolocation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);

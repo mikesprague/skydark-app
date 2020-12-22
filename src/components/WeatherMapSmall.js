@@ -6,7 +6,8 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { getRadarTs, initLeafletImages, isDarkModeEnabled } from '../modules/helpers';
+import { getRadarTs, initLeafletImages } from '../modules/helpers';
+import { isDarkModeEnabled } from '../modules/theme';
 import './WeatherMapSmall.scss';
 
 initLeafletImages(L);

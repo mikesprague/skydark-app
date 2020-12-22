@@ -10,7 +10,8 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { getRadarTs, initLeafletImages, isDarkModeEnabled } from '../modules/helpers';
+import { getRadarTs, initLeafletImages } from '../modules/helpers';
+import { isDarkModeEnabled } from '../modules/theme';
 import { getData } from '../modules/local-storage';
 import './WeatherMapFull.scss';
 
@@ -33,16 +34,15 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const getTimestamps = async () => {
-      await axios
-        .get('https://api.rainviewer.com/public/maps.json')
-        .then((response) => {
-          setTsData(response.data);
-          // console.log(response.data);
-          // return response.data;
-        });
+      await axios.get('https://api.rainviewer.com/public/maps.json').then((response) => {
+        setTsData(response.data);
+        // console.log(response.data);
+        // return response.data;
+      });
     };
 
     getTimestamps();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [ts, setTs] = useState(null);

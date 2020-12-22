@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatCondition, getWeatherIcon } from '../modules/helpers';
+import { formatCondition } from '../modules/helpers';
+import { getWeatherIcon } from '../modules/icons';
 import { CurrentConditions } from './CurrentConditions';
 import './Currently.scss';
 
@@ -9,11 +10,11 @@ export const Currently = ({ data }) => {
   const [currentData, setCurrentData] = useState(null);
 
   useEffect(() => {
-    if (data) {
-      setCurrentData(data);
+    if (!data) {
+      return;
     }
 
-    // return () => {};
+    setCurrentData(data);
   }, [data]);
 
   const clickHandler = () => {

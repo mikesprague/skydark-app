@@ -7,7 +7,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { Loading } from './Loading';
-import { initIcons } from '../modules/helpers';
+import { initIcons } from '../modules/icons';
 import './App.scss';
 
 const Forecast = lazy(() => import('./Forecast'));
