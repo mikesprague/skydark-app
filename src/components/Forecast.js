@@ -23,9 +23,11 @@ export const Forecast = () => {
 
   useEffect(() => {
     async function getPosition(position) {
+      const { latitude, longitude, accuracy } = position.coords;
       setCoordinates({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+        lat: latitude,
+        lng: longitude,
+        accuracy,
         lastUpdated: dayjs().toString(),
       });
     }
@@ -40,18 +42,10 @@ export const Forecast = () => {
       await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
     }
 
-    if (coordinates) {
-      if (isCacheExpired(coordinates.lastUpdated, 10)) {
-        clearData('coordinates');
-        doGeolocation();
-      }
-    } else {
-      clearData('coordinates');
+    if (!coordinates || (coordinates && isCacheExpired(coordinates.lastUpdated, 10))) {
       doGeolocation();
     }
-
-    // return () => {};
-  }, [coordinates, setCoordinates]);
+  }, [setCoordinates, coordinates]);
 
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
   useEffect(() => {
@@ -71,15 +65,11 @@ export const Forecast = () => {
     const { lat, lng } = coordinates;
     if (weatherData && weatherData.lastUpdated) {
       if (isCacheExpired(weatherData.lastUpdated, 10)) {
-        clearData('weatherData');
         getWeatherData(lat, lng);
       }
     } else {
-      clearData('weatherData');
       getWeatherData(lat, lng);
     }
-
-    // return() => {};
   }, [coordinates, weatherData, setWeatherData]);
 
   return coordinates && weatherData ? (
