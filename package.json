@@ -1,7 +1,7 @@
 {
   "name": "skydark-app",
   "version": "0.1.0",
-  "description": "Clone of Dark Sky for Android App as a PWA",
+  "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
   "engines": {
     "node": ">= 12.x",
