@@ -1,29 +1,36 @@
-// import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { getData, setData } from '../modules/local-storage';
 
-export const useLocalStorage = (key, initialValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = getData(key);
-      return item ? item : initialValue;
-    } catch (err) {
-      console.error(err);
-      return initialValue;
-    }
-  });
+// Similar to `useState` but with some lightweight behind-the-scenes
+// writing to localStorage; also subscribes to changes in localStorage
+// to allow for cross-tab changes to sync automatically.
+export const useLocalStorage = (key, val) => {
+  const [value, setValue] = useState();
 
-  const setValue = (value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      setData(key, valueToStore);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  useEffect(() => {
+    const storedValue = getData(key);
+    setValue(storedValue);
 
-  return [storedValue, setValue];
+    const handleChanges = (e) => {
+      if (e.key === key) {
+        setValue(e.newValue);
+      }
+    };
+
+    window.addEventListener('storage', handleChanges);
+
+    return () => {
+      window.removeEventListener('storage', handleChanges);
+    };
+  }, [key, val]);
+
+  const updater = useCallback((newValue) => {
+    setValue(newValue);
+    setData(key, newValue);
+  },
+  [key]);
+
+  return [value, updater];
 };
 
 export default useLocalStorage;
