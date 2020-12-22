@@ -1,9 +1,47 @@
-// sass-lint:disable no-ids
-.modal {
-  @apply bg-gray-50;
-  @apply dark:bg-gray-900;
-  @apply text-gray-900;
-  @apply dark:text-gray-100;
+// sass-lint:disable no-ids space-around-operator
+.overlay-container {
+  @apply z-50;
+  @apply fixed;
+  @apply inset-0;
+  @apply items-center;
+  @apply justify-center;
+  @apply h-full;
+  @apply px-4;
+  @apply pb-4;
+
+  .overlay {
+    @apply fixed;
+    @apply inset-0;
+    @apply transition-opacity;
+
+    .overlay-bg {
+      @apply absolute;
+      @apply inset-0;
+      @apply bg-black;
+      @apply opacity-75;
+    }
+  }
+
+  .modal {
+    @apply bg-gray-50;
+    @apply dark:bg-gray-900;
+    @apply text-gray-900;
+    @apply dark:text-gray-100;
+    @apply z-50;
+    @apply w-11/12;
+    @apply max-w-sm;
+    @apply mx-auto;
+    @apply overflow-hidden;
+    @apply transition-all;
+    @apply transform shadow-xl;
+
+    .modal-heading {
+      @apply mb-3;
+      @apply text-lg;
+      @apply font-semibold;
+      @apply leading-6;
+    }
+  }
 }
 
 #weather-alerts-modal {

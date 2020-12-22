@@ -6,7 +6,15 @@ import React, {
   useEffect, useLayoutEffect, useRef, useState,
 } from 'react';
 import {
-  MapContainer, Marker, TileLayer, LayersControl, ScaleControl, ZoomControl, AttributionControl,
+  MapContainer,
+  Marker,
+  TileLayer,
+  Popup,
+  Circle,
+  LayersControl,
+  ScaleControl,
+  ZoomControl,
+  AttributionControl,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -25,6 +33,7 @@ initLeafletImages(L);
 
 export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [mapView, setMapView] = useState('temp_new');
+  const [popupAddress, setPopupAddress] = useState(null);
   const coordinates = getData('coordinates');
 
   const [tsData, setTsData] = useState(null);
@@ -41,6 +50,8 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       });
     };
 
+    const weatherData = getData('weatherData');
+    setPopupAddress(weatherData.data.location.formattedAddress);
     getTimestamps();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -95,15 +106,16 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const timerHandle = useRef();
+  const rangeSliderRef = useRef();
   const btnClickHandler = () => {
     setIsPlaying(!isPlaying);
     if (isPlaying) {
       clearInterval(timerHandle.current);
     } else {
       timerHandle.current = setInterval(() => {
-        const slider = document.querySelector('.range-slider');
-        const nextVal = parseInt(slider.value, 10) + 1 > rangeMax ? 0 : parseInt(slider.value, 10) + 1;
-        slider.value = nextVal;
+        const currentVal = parseInt(rangeSliderRef.current.value, 10);
+        const nextVal = currentVal + 1 > rangeMax ? 0 : currentVal + 1;
+        rangeSliderRef.current.value = nextVal;
         advanceRangeSlider(nextVal);
       }, 667);
     }
@@ -124,10 +136,17 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           scrollWheelZoom={false}
           tap={true}
           touchZoom={true}
-          zoom={9}
+          zoom={13}
           zoomControl={false}
         >
-          <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9} />
+          <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9}>
+            <Popup>{popupAddress}</Popup>
+          </Marker>
+          <Circle
+            center={[coordinates.lat, coordinates.lng]}
+            pathOptions={{ weight: 1, opacity: 0.5 }}
+            radius={coordinates.accuracy}
+          />
           <ScaleControl position="topleft" />
           <ZoomControl position="topleft" />
           <AttributionControl position="topright" />
@@ -157,49 +176,65 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                attribution={
+                  '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
+                }
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Street (Gray)">
               <TileLayer
                 url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                attribution={
+                  '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
+                }
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Black/White">
               <TileLayer
                 url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                attribution={
+                  '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
+                }
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Black/White/Gray">
               <TileLayer
                 url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                attribution={
+                  '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
+                }
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Watercolor">
               <TileLayer
                 url="https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"
                 opacity={1}
-                attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                attribution={
+                  '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
+                }
               />
             </LayersControl.BaseLayer>
             <LayersControl.Overlay name="Radar" checked="checked">
               <TileLayer
-                url={`https://tilecache.rainviewer.com/v2/radar/${tsData ? tsData[0] : getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
+                url={`https://tilecache.rainviewer.com/v2/radar/${
+                  tsData ? tsData[0] : getRadarTs()
+                }/512/{z}/{x}/{y}/8/1_1.png`}
                 opacity={0.8}
-                attribution={'&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
+                attribution={
+                  '&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'
+                }
                 ref={radarTileLayerRef}
               />
             </LayersControl.Overlay>
             <LayersControl.Overlay name="Temperature">
               <TileLayer
                 url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
-                attribution={'&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'}
+                attribution={
+                  '&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'
+                }
               />
             </LayersControl.Overlay>
           </LayersControl>
@@ -218,6 +253,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               value={rangeValue || rangeMax}
               onChange={rangeSliderHandler}
               onInput={rangeSliderHandler}
+              ref={rangeSliderRef}
             />
             <button type="button" className="btn-play-radar-loop" onClick={btnClickHandler}>
               {isPlaying ? (
@@ -227,7 +263,9 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               )}
             </button>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
       </div>
     </>
   );

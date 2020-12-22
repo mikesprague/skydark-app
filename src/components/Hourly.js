@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { formatSummary } from '../modules/helpers';
 import { Hour } from './Hour';
 import { Loading } from './Loading';
@@ -9,6 +9,7 @@ import './Hourly.scss';
 export const Hourly = ({ data, summary }) => {
   const [hourlyData, setHourlyData] = useState(null);
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
+  const containerRef = useRef();
 
   useEffect(() => {
     if (!data) { return; }
@@ -19,12 +20,13 @@ export const Hourly = ({ data, summary }) => {
   }, [data]);
 
   const changeHandler = (event) => {
-    const lastSelected = document.querySelector('.hourly-container .condition-select-container .pill-selected');
-    setHourlyConditionToShow(event.target.dataset.label);
-    event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    const lastSelected = containerRef.current.querySelector('.pill-selected');
+    const newSelection = event.target;
+    setHourlyConditionToShow(newSelection.dataset.label);
+    newSelection.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     lastSelected.classList.add('pill');
     lastSelected.classList.remove('pill-selected');
-    event.target.classList.add('pill-selected');
+    newSelection.classList.add('pill-selected');
   };
 
   return hourlyData ? (
@@ -37,7 +39,7 @@ export const Hourly = ({ data, summary }) => {
           const isFirst = index === firstHour;
           const isLast = index === lastHour;
           const summaryText = formatSummary(hour, hourlyData, index, firstHour);
-          return (index % 2 === 0 && (index >= firstHour && index <= lastHour)) ? (
+          return index % 2 === 0 && index >= firstHour && index <= lastHour ? (
             <Hour
               key={nanoid(7)}
               data={hour}
@@ -46,24 +48,50 @@ export const Hourly = ({ data, summary }) => {
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
             />
-          ) : '';
+          ) : (
+            ''
+          );
         })}
       </ul>
-      <div className="flex condition-select-container">
-        <div className="pill-selected" onClick={changeHandler} data-label="temperature">Temp (&deg;F)</div>
-        <div className="pill" onClick={changeHandler} data-label="apparentTemperature">Feels-Like (&deg;F)</div>
-        <div className="pill" onClick={changeHandler} data-label="precipProbability">Precip Prob (%)</div>
-        <div className="pill" onClick={changeHandler} data-label="precipIntensity">Precip Rate (IN/HR)</div>
-        <div className="pill" onClick={changeHandler} data-label="windSpeed">Wind (MPH)</div>
-        <div className="pill" onClick={changeHandler} data-label="windGust">Wind Gust (MPH)</div>
-        <div className="pill" onClick={changeHandler} data-label="humidity">Humidity (%)</div>
-        <div className="pill" onClick={changeHandler} data-label="dewPoint">Dew Point (&deg;F)</div>
-        <div className="pill" onClick={changeHandler} data-label="uvIndex">UV Index</div>
-        <div className="pill" onClick={changeHandler} data-label="cloudCover">Cloud Cover (%)</div>
-        <div className="pill" onClick={changeHandler} data-label="pressure">Pressure (MB)</div>
+      <div className="flex condition-select-container" ref={containerRef}>
+        <div className="pill-selected" onClick={changeHandler} data-label="temperature">
+          Temp (&deg;F)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="apparentTemperature">
+          Feels-Like (&deg;F)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="precipProbability">
+          Precip Prob (%)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="precipIntensity">
+          Precip Rate (IN/HR)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="windSpeed">
+          Wind (MPH)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="windGust">
+          Wind Gust (MPH)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="humidity">
+          Humidity (%)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="dewPoint">
+          Dew Point (&deg;F)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="uvIndex">
+          UV Index
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="cloudCover">
+          Cloud Cover (%)
+        </div>
+        <div className="pill" onClick={changeHandler} data-label="pressure">
+          Pressure (MB)
+        </div>
       </div>
     </div>
-  ) : <Loading fullHeight={false} />;
+  ) : (
+    <Loading fullHeight={false} />
+  );
 };
 
 Hourly.propTypes = {

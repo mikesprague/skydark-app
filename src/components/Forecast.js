@@ -50,13 +50,13 @@ export const Forecast = () => {
 
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
   useEffect(() => {
-    if (!coordinates) { return; }
+    if (!coordinates) {
+      return;
+    }
 
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
-      const weatherApiData = await axios
-        .get(weatherApiurl)
-        .then((response) => response.data);
+      const weatherApiData = await axios.get(weatherApiurl).then((response) => response.data);
       setWeatherData({
         lastUpdated: dayjs().toString(),
         data: weatherApiData,
@@ -71,7 +71,7 @@ export const Forecast = () => {
     } else {
       getWeatherData(lat, lng);
     }
-  }, [coordinates, weatherData, setWeatherData]);
+  }, [coordinates, setWeatherData, weatherData]);
 
   return coordinates && weatherData ? (
     <>

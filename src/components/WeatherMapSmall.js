@@ -45,69 +45,89 @@ export const WeatherMapSmall = memo(({ data }) => {
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                  attribution={
+                    '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Color">
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                  attribution={
+                    '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Light" checked={isDarkModeEnabled() ? '' : 'checked'}>
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                  attribution={
+                    '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street">
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                  attribution={
+                    '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Street (Gray)">
                 <TileLayer
                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'}
+                  attribution={
+                    '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White">
                 <TileLayer
                   url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                  attribution={
+                    '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Black/White/Gray">
                 <TileLayer
                   url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png"
                   opacity={1}
-                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                  attribution={
+                    '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Watercolor">
                 <TileLayer
                   url="https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"
                   opacity={1}
-                  attribution={'&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'}
+                  attribution={
+                    '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
+                  }
                 />
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Radar" checked>
                 <TileLayer
                   url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}
-                  attribution={'&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'}
+                  attribution={
+                    '&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'
+                  }
                 />
               </LayersControl.Overlay>
             </LayersControl>
           </MapContainer>
         </Link>
-      ) : ''}
+      ) : (
+        ''
+      )}
     </div>
   );
 });

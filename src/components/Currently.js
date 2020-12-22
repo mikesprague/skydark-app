@@ -23,7 +23,6 @@ export const Currently = ({ data }) => {
     const modal = overlayContainer.querySelector('.modal');
     const elementsToHide = [overlayContainer, overlay, modal];
 
-    overlayContainer.classList.add('fixed');
     elementsToHide.forEach((elem) => elem.classList.remove('hidden'));
   };
 
