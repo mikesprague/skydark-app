@@ -1,3 +1,5 @@
+import { getData, setData } from './local-storage';
+
 export const defaultAppSettings = {
   // system|light|dark|sunrise-sunset
   theme: 'system',
@@ -7,6 +9,13 @@ export const defaultAppSettings = {
   mapStyle: 'same-as-theme',
   // auto|us|si|uk2|ca
   weatherUnits: 'auto',
+};
+
+export const initAppSettings = () => {
+  const hasAppSettings = getData('appSettings') || null;
+  if (!hasAppSettings) {
+    setData('appSettings', defaultAppSettings);
+  }
 };
 
 export default defaultAppSettings;
