@@ -39,9 +39,9 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/pro-duotone-svg-icons": "^5.15.1",
+    "@fortawesome/pro-light-svg-icons": "^5.15.1",
     "@fortawesome/pro-regular-svg-icons": "^5.15.1",
     "@fortawesome/pro-solid-svg-icons": "^5.15.1",
-    "@fortawesome/pro-light-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "@tailwindcss/typography": "^0.3.1",
     "@tippyjs/react": "^4.2.0",
@@ -92,6 +92,8 @@
     "dotenv": "^8.2.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-config-mourner": "^3.0.0",
     "eslint-plugin-compat": "^3.9.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-html": "^6.1.1",
@@ -114,6 +116,9 @@
     "postcss-loader": "^4.1.0",
     "prettier": "^2.2.1",
     "prettier-eslint": "^12.0.0",
+    "prettier-plugin-package": "^1.3.0",
+    "prettier-plugin-sh": "^0.6.0",
+    "prettier-plugin-tailwind": "^2.2.8",
     "prettier-stylelint": "^0.4.2",
     "rollup": "^2.35.1",
     "sass-lint": "^1.13.1",
@@ -163,9 +168,12 @@
     },
     "extends": [
       "airbnb",
+      "eslint:recommended",
       "plugin:react/recommended",
       "plugin:react-hooks/recommended",
-      "plugin:jsx-a11y/recommended"
+      "plugin:jsx-a11y/recommended",
+      "prettier",
+      "prettier/react"
     ],
     "plugins": [
       "compat",
@@ -179,6 +187,7 @@
       "security"
     ],
     "parserOptions": {
+      "ecmaVersion": 2018,
       "parser": "babel-parser",
       "ecmaFeatures": {
         "jsx": true
@@ -228,9 +237,6 @@
     }
   },
   "prettier": {
-    "plugins": [
-      "all"
-    ],
     "printWidth": 120,
     "semi": true,
     "singleQuote": true,
