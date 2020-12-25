@@ -5,23 +5,12 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import { App } from './components/App';
 import { ErrorView } from './components/ErrorView';
-import { initServiceWorker, isDev } from './modules/helpers';
-import { initDarkMode } from './modules/theme';
-import { initAppSettings } from './modules/settings';
+import { initSkyDark } from './modules/helpers';
 
-const initSkyDark = () => {
-  if (!isDev()) {
-    initServiceWorker();
-  }
-  initAppSettings();
-  initDarkMode();
-  Bugsnag.start({
-    apiKey: 'c439d6280bb7eada679ad4c6ef66ab5b',
-    plugins: [new BugsnagPluginReact()],
-  });
-};
-
-initSkyDark();
+Bugsnag.start({
+  apiKey: 'c439d6280bb7eada679ad4c6ef66ab5b',
+  plugins: [new BugsnagPluginReact()],
+});
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
@@ -32,3 +21,5 @@ ReactDOM.render(
     </React.StrictMode>
   </ErrorBoundary>, document.getElementById('root'),
 );
+
+initSkyDark();

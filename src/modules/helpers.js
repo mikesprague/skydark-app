@@ -5,6 +5,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
 import { resetData } from './local-storage';
+import { initDarkMode } from './theme';
+import { initAppSettings } from './settings';
 
 dayjs.extend(relativeTime);
 
@@ -56,9 +58,6 @@ export const initServiceWorker = () => {
         hideAfter: 0,
         heading: 'Sky Dark Updated',
         bar: { color: '#60a5fa' },
-        // renderIcon: () => (
-        //   // <FontAwesomeIcon />
-        // ),
         onClick: () => {
           resetData();
           window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';
@@ -207,4 +206,12 @@ export const getUvIndexClasses = (uvIndex) => {
     return 'pill purple';
   }
   return 'unknownUvIndexClass';
+};
+
+export const initSkyDark = () => {
+  if (!isDev()) {
+    initServiceWorker();
+  }
+  initAppSettings();
+  initDarkMode();
 };
