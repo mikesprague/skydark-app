@@ -1,9 +1,9 @@
 import { Chart } from 'react-google-charts';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './PrecipChart.scss';
 
-export const PrecipChart = ({ data }) => {
+export const PrecipChart = memo(({ data }) => {
   const [chartData, setChartData] = useState(null);
   useEffect(() => {
     if (!data) { return; }
@@ -60,7 +60,8 @@ export const PrecipChart = ({ data }) => {
       }}
     />
   );
-};
+});
+PrecipChart.displayName = 'PrecipChart';
 
 PrecipChart.propTypes = {
   data: PropTypes.arrayOf(
