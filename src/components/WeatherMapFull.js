@@ -136,7 +136,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           scrollWheelZoom={false}
           tap={true}
           touchZoom={true}
-          zoom={13}
+          zoom={10}
           zoomControl={false}
         >
           <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9}>
