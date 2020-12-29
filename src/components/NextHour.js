@@ -1,9 +1,9 @@
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './NextHour.scss';
 import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
-export const NextHour = memo(() => {
+export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);
   const data = useContext(WeatherDataContext);
 
@@ -49,8 +49,6 @@ export const NextHour = memo(() => {
       </p>
     </>
   );
-});
-
-NextHour.displayName = 'NextHour';
+};
 
 export default NextHour;

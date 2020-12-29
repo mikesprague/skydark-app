@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './LastUpdated.scss';
 
 dayjs.extend(relativeTime);
 
-export const LastUpdated = memo(() => {
+export const LastUpdated = () => {
   const [lastUpdatedString, setLastUpdatedString] = useState(null);
   const data = useContext(WeatherDataContext);
 
@@ -32,7 +32,6 @@ export const LastUpdated = memo(() => {
       </small>
     </div>
   );
-});
-LastUpdated.displayName = 'LastUpdated';
+};
 
 export default LastUpdated;

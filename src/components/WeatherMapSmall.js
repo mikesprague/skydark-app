@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   MapContainer, Marker, TileLayer, LayersControl,
@@ -12,7 +12,7 @@ import './WeatherMapSmall.scss';
 
 initLeafletImages(L);
 
-export const WeatherMapSmall = memo(() => {
+export const WeatherMapSmall = () => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
   const data = useContext(WeatherDataContext);
 
@@ -133,7 +133,6 @@ export const WeatherMapSmall = memo(() => {
       )}
     </div>
   );
-});
-WeatherMapSmall.displayName = 'WeatherMapSmall';
+};
 
 export default WeatherMapSmall;

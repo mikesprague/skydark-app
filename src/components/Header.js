@@ -1,9 +1,9 @@
-import React, { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Header.scss';
 
-export const Header = memo(() => {
+export const Header = () => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
   const data = useContext(WeatherDataContext);
@@ -42,7 +42,6 @@ export const Header = memo(() => {
       </div>
     </div>
   );
-});
-Header.displayName = 'Header';
+};
 
 export default Header;

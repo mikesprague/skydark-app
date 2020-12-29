@@ -1,9 +1,9 @@
 import { Chart } from 'react-google-charts';
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './PrecipChart.scss';
 
-export const PrecipChart = memo(() => {
+export const PrecipChart = () => {
   const [chartData, setChartData] = useState(null);
   const data = useContext(WeatherDataContext);
 
@@ -71,7 +71,6 @@ export const PrecipChart = memo(() => {
       }}
     />
   );
-});
-PrecipChart.displayName = 'PrecipChart';
+};
 
 export default PrecipChart;

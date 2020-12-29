@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   MapContainer,
   Marker,
@@ -78,7 +78,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, [radarMapUrl]);
 
-  const createdHandler = useMemo(() => {
+  const createdHandler = () => {
     const checkBoxes = Array.from(document.querySelectorAll('.leaflet-control-layers-selector[type=checkbox]'));
     checkBoxes.forEach((cb) => {
       cb.addEventListener('click', (event) => {
@@ -92,7 +92,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         }
       });
     });
-  }, []);
+  };
 
   const advanceRangeSlider = (value) => {
     setTs(tsData[value]);

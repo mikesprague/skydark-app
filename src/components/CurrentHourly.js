@@ -1,14 +1,12 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import React, { memo, useContext, useRef, useState } from 'react';
-import {
-  formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses,
-} from '../modules/helpers';
+import React, { useContext, useRef, useState } from 'react';
+import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import { NextHour } from './NextHour';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './CurrentHourly.scss';
 
-export const CurrentHourly = memo(() => {
+export const CurrentHourly = () => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const containerRef = useRef();
   const data = useContext(WeatherDataContext);
@@ -97,7 +95,6 @@ export const CurrentHourly = memo(() => {
       </div>
     </div>
   );
-});
-CurrentHourly.displayName = 'CurrentHourly';
+};
 
 export default CurrentHourly;
