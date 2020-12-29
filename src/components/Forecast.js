@@ -77,6 +77,13 @@ export const Forecast = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
+  // preload other pages
+  useEffect(() => {
+    import('./WeatherMapFull');
+    import('./Settings');
+    import('./About');
+  }, []);
+
   return locationData && weatherData ? (
     <WeatherDataContext.Provider
       value={{
