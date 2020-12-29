@@ -129,7 +129,7 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0",
-    "webpack-dev-server": "3.11.0",
+    "webpack-dev-server": "3.11.1",
     "workbox-webpack-plugin": "^6.0.2"
   },
   "babel": {
@@ -214,7 +214,6 @@
       "jsx-a11y/no-onchange": "off",
       "consistent-return": "off",
       "curly": "error",
-      "object-curly-newline": "warn",
       "semi": "error",
       "prefer-arrow-callback": "warn",
       "arrow-spacing": "error",
