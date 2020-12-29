@@ -48,8 +48,8 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       });
     };
 
-    const weatherData = getData('weatherData');
-    setPopupAddress(weatherData.data.location.formattedAddress);
+    const locationData = getData('locationData');
+    setPopupAddress(locationData.formattedAddress);
     getTimestamps();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

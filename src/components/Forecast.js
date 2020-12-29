@@ -50,6 +50,8 @@ export const Forecast = () => {
   }, []);
 
   const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
+  const [locationData, setLocationData] = useLocalStorage('locationData', null);
+  const [lastUpdated, setLastUpdated] = useLocalStorage('lastUpdated', null);
   useEffect(() => {
     if (!coordinates) {
       return;
@@ -58,24 +60,31 @@ export const Forecast = () => {
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
       const weatherApiData = await axios.get(weatherApiurl).then((response) => response.data);
-      setWeatherData({
-        lastUpdated: dayjs().toString(),
-        data: weatherApiData,
-      });
+      const lastUpdatedString = dayjs().toString();
+      setWeatherData(weatherApiData.weather);
+      setLocationData(weatherApiData.location);
+      setLastUpdated(lastUpdatedString);
     };
 
     const { lat, lng } = coordinates;
-    if (weatherData && weatherData.lastUpdated) {
-      if (isCacheExpired(weatherData.lastUpdated, 10)) {
+    if (weatherData && lastUpdated) {
+      if (isCacheExpired(lastUpdated, 10)) {
         getWeatherData(lat, lng);
       }
     } else {
       getWeatherData(lat, lng);
     }
-  }, [coordinates, setWeatherData, weatherData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coordinates]);
 
-  return coordinates && weatherData ? (
-    <WeatherDataContext.Provider value={weatherData.data}>
+  return locationData && weatherData ? (
+    <WeatherDataContext.Provider
+      value={{
+        weather: weatherData,
+        location: locationData,
+        lastUpdated,
+      }}
+    >
       <Header />
       <div className="my-16">
         <Currently />
@@ -84,7 +93,7 @@ export const Forecast = () => {
         <CurrentHourly />
         <SunriseSunset />
         <Daily />
-        <LastUpdated time={weatherData.lastUpdated} />
+        <LastUpdated />
       </div>
     </WeatherDataContext.Provider>
   ) : (

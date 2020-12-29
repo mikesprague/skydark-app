@@ -1,23 +1,27 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import PropTypes from 'prop-types';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './LastUpdated.scss';
 
 dayjs.extend(relativeTime);
 
-export const LastUpdated = memo(({ time }) => {
+export const LastUpdated = memo(() => {
   const [lastUpdatedString, setLastUpdatedString] = useState(null);
+  const data = useContext(WeatherDataContext);
 
   useEffect(() => {
+    if (!data) {
+      return;
+    }
     const updateString = () => {
-      setLastUpdatedString(dayjs(dayjs(time)).from());
+      setLastUpdatedString(dayjs(dayjs(data.lastUpdated)).from());
     };
     const clockInterval = setInterval(updateString, (1000));
     updateString();
 
     return () => clearInterval(clockInterval);
-  }, [time, lastUpdatedString]);
+  }, [data]);
 
   return (
     <div className="last-updated-container">
@@ -29,10 +33,6 @@ export const LastUpdated = memo(({ time }) => {
     </div>
   );
 });
-
 LastUpdated.displayName = 'LastUpdated';
-LastUpdated.propTypes = {
-  time: PropTypes.string.isRequired,
-};
 
 export default LastUpdated;

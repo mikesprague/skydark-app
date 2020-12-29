@@ -114,7 +114,7 @@ export const getRadarTs = () => {
   let minutes = now.minute();
   const seconds = now.second();
   minutes -= (minutes % 10);
-  minutes = minutes % 10 === 0 && seconds < 10 ? minutes -= 10 : minutes;
+  minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
   const millisecondTs = dayjs()
     .hour(hours)
     .minute(minutes)
