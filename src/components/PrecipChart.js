@@ -1,22 +1,22 @@
 import { Chart } from 'react-google-charts';
-import PropTypes from 'prop-types';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './PrecipChart.scss';
 
-export const PrecipChart = memo(({ data }) => {
+export const PrecipChart = memo(() => {
   const [chartData, setChartData] = useState(null);
-  useEffect(() => {
-    if (!data) { return; }
+  const data = useContext(WeatherDataContext);
 
-    const dataArray = [
-      ['Minute', 'Precipitation'],
-    ];
-    data.forEach((minute, index) => {
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    const dataArray = [['Minute', 'Precipitation']];
+    data.weather.minutely.data.forEach((minute, index) => {
       dataArray.push([index, minute.precipIntensity]);
     });
     setChartData(dataArray);
-
-    return () => setChartData(null);
   }, [data]);
 
   return (
@@ -28,22 +28,33 @@ export const PrecipChart = memo(({ data }) => {
       data={chartData}
       options={{
         backgroundColor: 'transparent',
-        series: [
-          { color: '#76a9fa', areaOpacity: 0.75 },
-        ],
+        series: [{ color: '#76a9fa', areaOpacity: 0.75 }],
         hAxis: {
           baselineColor: 'transparent',
           gridlines: { color: 'transparent', count: 5 },
           textPosition: 'out',
           textStyle: { color: '#999' },
-          ticks: [{ v: 0, f: '' }, { v: 10, f: '10 min' }, { v: 20, f: '20 min' }, { v: 30, f: '30 min' }, { v: 40, f: '40 min' }, { v: 50, f: '50 min' }, { v: 60, f: '' }],
+          ticks: [
+            { v: 0, f: '' },
+            { v: 10, f: '10 min' },
+            { v: 20, f: '20 min' },
+            { v: 30, f: '30 min' },
+            { v: 40, f: '40 min' },
+            { v: 50, f: '50 min' },
+            { v: 60, f: '' },
+          ],
         },
         vAxis: {
           baselineColor: 'transparent',
           gridlines: { color: '#999' },
           textPosition: 'in',
           textStyle: { color: '#ccc' },
-          ticks: [{ v: 0, f: '' }, { v: 0.1, f: 'LIGHT' }, { v: 0.2, f: 'MED' }, { v: 0.3, f: 'HEAVY' }],
+          ticks: [
+            { v: 0, f: '' },
+            { v: 0.1, f: 'LIGHT' },
+            { v: 0.2, f: 'MED' },
+            { v: 0.3, f: 'HEAVY' },
+          ],
           viewWindow: { min: 0, max: 0.34 },
           viewWindowMode: 'maximized',
         },
@@ -62,11 +73,5 @@ export const PrecipChart = memo(({ data }) => {
   );
 });
 PrecipChart.displayName = 'PrecipChart';
-
-PrecipChart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
-  ).isRequired,
-};
 
 export default PrecipChart;

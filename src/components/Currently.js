@@ -1,20 +1,21 @@
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
 import { CurrentConditions } from './CurrentConditions';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Currently.scss';
 
-export const Currently = ({ data }) => {
+export const Currently = () => {
   const [currentData, setCurrentData] = useState(null);
+  const data = useContext(WeatherDataContext);
 
   useEffect(() => {
     if (!data) {
       return;
     }
 
-    setCurrentData(data);
+    setCurrentData(data.weather);
   }, [data]);
 
   const clickHandler = () => {
@@ -38,15 +39,16 @@ export const Currently = ({ data }) => {
       </div>
       <div className="temperature">
         <h2 className="actual-temp">{formatCondition(currentData.currently.temperature, 'temperature').trim()}</h2>
-        <h3 className="feels-like-temp">{`Feels ${formatCondition(currentData.currently.apparentTemperature, 'apparentTemperature').trim()}`}</h3>
+        <h3 className="feels-like-temp">{`Feels ${formatCondition(
+          currentData.currently.apparentTemperature,
+          'apparentTemperature',
+        ).trim()}`}</h3>
       </div>
       <CurrentConditions data={currentData} />
     </div>
-  ) : '';
-};
-
-Currently.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
+  ) : (
+    ''
+  );
 };
 
 export default Currently;

@@ -1,28 +1,38 @@
-import PropTypes from 'prop-types';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useLayoutEffect, useRef, useState
+} from 'react' ;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Header.scss';
 
-export const Header = ({ data }) => {
+export const Header = () => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
+  const data = useContext(WeatherDataContext);
+
+  useEffect(() => {
+    if (!data) {
+       return;
+    }
+
+    setLocationName(data.location.locationName);
+  }, [data]);
 
   useLayoutEffect(() => {
-    const initScrollAndSetLocation = () => {
+    const initScroll = () => {
       window.onscroll = () => {
         if (
           (document.body.scrollTop || document.documentElement.scrollTop) &&
           (document.body.scrollTop > 5 || document.documentElement.scrollTop > 5)
         ) {
           headerRef.current.classList.add('shadow-md');
-        } else {
+        } else if (headerRef.current) {
           headerRef.current.classList.remove('shadow-md');
         }
       };
-      setLocationName(data.locationName);
     };
-    initScrollAndSetLocation();
-  }, [data, headerRef]);
+    initScroll();
+  });
 
   return (
     <div ref={headerRef} className="header">
@@ -34,10 +44,6 @@ export const Header = ({ data }) => {
       </div>
     </div>
   );
-};
-
-Header.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
 };
 
 export default Header;

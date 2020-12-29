@@ -1,13 +1,14 @@
 import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './SunriseSunset.scss';
 
 dayjs.extend(relativeTime);
 
-export const SunriseSunset = ({ data }) => {
+export const SunriseSunset = memo(() => {
   const [next, setNext] = useState(null);
+  const data = useContext(WeatherDataContext);
 
   const formatTimeString = (time) => {
     const totalMinutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute');
@@ -40,7 +41,7 @@ export const SunriseSunset = ({ data }) => {
 
   useEffect(() => {
     const init = () => {
-      const [today, tomorrow] = data.daily.data;
+      const [today, tomorrow] = data.weather.daily.data;
       const now = dayjs();
       let isSunset = false;
       let datetime = today.sunriseTime;
@@ -71,10 +72,8 @@ export const SunriseSunset = ({ data }) => {
       {`${next.event} ${next.timeString} (${next.time})`}
     </div>
   ) : '';
-};
+});
 
-SunriseSunset.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
-};
+SunriseSunset.displayName = 'SunriseSunset';
 
 export default SunriseSunset;

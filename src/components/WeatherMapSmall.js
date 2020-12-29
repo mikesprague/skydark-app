@@ -1,25 +1,28 @@
-import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   MapContainer, Marker, TileLayer, LayersControl,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import { getRadarTs, initLeafletImages } from '../modules/helpers';
 import { isDarkModeEnabled } from '../modules/theme';
 import './WeatherMapSmall.scss';
 
 initLeafletImages(L);
 
-export const WeatherMapSmall = memo(({ data }) => {
+export const WeatherMapSmall = memo(() => {
   const [locationCoordinates, setLocationCoordinates] = useState(null);
+  const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data) { return; }
+    if (!data) {
+      return;
+    }
     const coordinates = {
-      lat: data.latitude,
-      lng: data.longitude,
+      lat: data.weather.latitude,
+      lng: data.weather.longitude,
     };
 
     setLocationCoordinates(coordinates);
@@ -132,9 +135,5 @@ export const WeatherMapSmall = memo(({ data }) => {
   );
 });
 WeatherMapSmall.displayName = 'WeatherMapSmall';
-
-WeatherMapSmall.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
-};
 
 export default WeatherMapSmall;

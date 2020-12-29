@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './LastUpdated.scss';
 
 dayjs.extend(relativeTime);
 
-export const LastUpdated = ({ time }) => {
+export const LastUpdated = memo(({ time }) => {
   const [lastUpdatedString, setLastUpdatedString] = useState(null);
 
   useEffect(() => {
@@ -28,8 +28,9 @@ export const LastUpdated = ({ time }) => {
       </small>
     </div>
   );
-};
+});
 
+LastUpdated.displayName = 'LastUpdated';
 LastUpdated.propTypes = {
   time: PropTypes.string.isRequired,
 };

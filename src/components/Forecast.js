@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { apiUrl, handleError } from '../modules/helpers';
 import { isCacheExpired } from '../modules/local-storage';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import { Currently } from './Currently';
 import { CurrentHourly } from './CurrentHourly';
 import { Daily } from './Daily';
@@ -74,28 +75,21 @@ export const Forecast = () => {
   }, [coordinates, setWeatherData, weatherData]);
 
   return coordinates && weatherData ? (
-    <>
-      <Header data={weatherData.data.location} />
-
+    <WeatherDataContext.Provider value={weatherData.data}>
+      <Header />
       <div className="my-16">
-
-        <Currently data={weatherData.data.weather} />
-
-        <WeatherAlert data={weatherData.data.weather} />
-
-        <WeatherMapSmall data={weatherData.data.weather} />
-
-        <CurrentHourly data={weatherData.data.weather} />
-
-        <SunriseSunset data={weatherData.data.weather} />
-
-        <Daily data={weatherData.data.weather} />
-
+        <Currently />
+        <WeatherAlert />
+        <WeatherMapSmall />
+        <CurrentHourly />
+        <SunriseSunset />
+        <Daily />
         <LastUpdated time={weatherData.lastUpdated} />
-
       </div>
-    </>
-  ) : <Loading fullHeight={true} />;
+    </WeatherDataContext.Provider>
+  ) : (
+    <Loading fullHeight={true} />
+  );
 };
 
 export default Forecast;

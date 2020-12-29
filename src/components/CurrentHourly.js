@@ -1,16 +1,18 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import {
   formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses,
 } from '../modules/helpers';
 import { NextHour } from './NextHour';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './CurrentHourly.scss';
 
-export const CurrentHourly = ({ data }) => {
+export const CurrentHourly = () => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const containerRef = useRef();
+  const data = useContext(WeatherDataContext);
+
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
     const newSelection = event.target;
@@ -23,11 +25,12 @@ export const CurrentHourly = ({ data }) => {
 
   return (
     <div className="current-hourly-container">
-      <NextHour data={data} />
+      <NextHour />
       <ul className="hourly">
-        {data.hourly.data.map((hourData, index) => {
+        {data.weather.hourly.data.map((hourData, index) => {
           const startIndex =
-            dayjs().format('m') <= 30 && dayjs.unix(data.hourly.data[0].time).format('h') === dayjs().format('h')
+            dayjs().format('m') <= 30 &&
+            dayjs.unix(data.weather.hourly.data[0].time).format('h') === dayjs().format('h')
               ? 0
               : 1;
           const endIndex = startIndex + 20;
@@ -40,7 +43,7 @@ export const CurrentHourly = ({ data }) => {
               />
               <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
               <div className="summary">
-                {hourData && data && formatSummary(hourData, data.hourly.data, index, startIndex)}
+                {hourData && data && formatSummary(hourData, data.weather.hourly.data, index, startIndex)}
               </div>
               <div className="condition">
                 <span
@@ -94,12 +97,6 @@ export const CurrentHourly = ({ data }) => {
       </div>
     </div>
   );
-};
-
-CurrentHourly.propTypes = {
-  data: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
-  ).isRequired,
 };
 
 export default CurrentHourly;

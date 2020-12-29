@@ -15,8 +15,6 @@ export const Hourly = ({ data, summary }) => {
     if (!data) { return; }
 
     setHourlyData(data.data);
-
-    // return () => {};
   }, [data]);
 
   const changeHandler = (event) => {

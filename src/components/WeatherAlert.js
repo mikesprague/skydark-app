@@ -1,19 +1,20 @@
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal } from './Modal';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './WeatherAlert.scss';
 
-export const WeatherAlert = ({ data }) => {
+export const WeatherAlert = () => {
   const [alertData, setAlertData] = useState(null);
+  const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data.alerts) { return; }
+    if (!data.weather.alerts) {
+      return;
+    }
+    setAlertData(data.weather.alerts[0]);
 
-    setAlertData(data.alerts[0]);
-
-    return () => { setAlertData(null); };
-  }, [data.alerts]);
+  }, [data]);
 
   const weatherAlertHandler = () => {
     const overlayContainer = document.getElementById('weather-alerts-modal');
@@ -33,11 +34,9 @@ export const WeatherAlert = ({ data }) => {
       </button>
       <Modal id="weather-alerts-modal" weatherAlertData={alertData} weatherAlert={true} />
     </div>
-  ) : '';
-};
-
-WeatherAlert.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
+  ) : (
+    ''
+  );
 };
 
 export default WeatherAlert;

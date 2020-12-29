@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiUrl, formatCondition } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
@@ -9,16 +9,16 @@ import { isCacheExpired } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { Hourly } from './Hourly';
 import { Loading } from './Loading';
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Day.scss';
 
-export const Day = ({ data, dayIndex, coordinates }) => {
+export const Day = ({ data, dayIndex }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
+  const fullData = useContext(WeatherDataContext);
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
-    const weatherApiData = await axios
-      .get(weatherApiurl)
-      .then((response) => response.data);
+    const weatherApiData = await axios.get(weatherApiurl).then((response) => response.data);
     return weatherApiData;
   };
 
@@ -28,7 +28,6 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     const currentDetail = clickedEl.closest('details');
     const currentSummary = clickedEl.closest('summary');
     const scrollMarker = currentDetail.querySelector('.scroll-marker');
-    const { lat, lng } = coordinates;
     const isOpen = currentDetail.getAttribute('open') === null;
     const date = currentSummary.dataset.time;
 
@@ -42,8 +41,8 @@ export const Day = ({ data, dayIndex, coordinates }) => {
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     if (isOpen) {
-      if (!hourlyData || (isCacheExpired(hourlyData.lastUpdated, 60))) {
-        const weatherData = await getDailyWeatherData(lat, lng, date);
+      if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 60)) {
+        const weatherData = await getDailyWeatherData(fullData.weather.latitude, fullData.weather.longitude, date);
         setHourlyData({
           lastUpdated: dayjs().toString(),
           data: weatherData.weather.hourly.data,
@@ -92,9 +91,9 @@ export const Day = ({ data, dayIndex, coordinates }) => {
 };
 
 Day.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
+  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]))
+    .isRequired,
   dayIndex: PropTypes.number.isRequired,
-  coordinates: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 export default Day;
