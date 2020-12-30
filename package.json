@@ -114,7 +114,7 @@
     "netlify-cli": "^2.69.11",
     "netlify-lambda": "^2.0.2",
     "node-sass": "^5.0.0",
-    "postcss": "^8.2.1",
+    "postcss": "^8.2.2",
     "postcss-cli": "^8.3.1",
     "postcss-loader": "^4.1.0",
     "prettier": "^2.2.1",
