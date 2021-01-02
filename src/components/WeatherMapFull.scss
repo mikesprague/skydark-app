@@ -155,9 +155,9 @@
     }
   }
 
-  .leaflet-control-layers-overlays > label:nth-child(1) {
-    @apply hidden;
-  }
+  // .leaflet-control-layers-overlays > label:nth-child(1) {
+  //   @apply hidden;
+  // }
 
   .leaflet-control-attribution {
     @apply right-3;
