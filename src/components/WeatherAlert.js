@@ -14,6 +14,7 @@ export const WeatherAlert = () => {
     }
     setAlertData(data.weather.alerts[0]);
 
+    return () => { setAlertData(null); }
   }, [data]);
 
   const weatherAlertHandler = () => {
