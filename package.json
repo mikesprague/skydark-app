@@ -206,34 +206,12 @@
         }
       ],
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/exhaustive-deps": "error",
       "react/jsx-boolean-value": "off",
       "jsx-a11y/no-noninteractive-element-interactions": "off",
       "jsx-a11y/no-static-element-interactions": "off",
       "jsx-a11y/click-events-have-key-events": "off",
-      "jsx-a11y/no-onchange": "off",
-      "consistent-return": "off",
-      "curly": "error",
-      "semi": "error",
-      "prefer-arrow-callback": "warn",
-      "arrow-spacing": "error",
-      "no-param-reassign": "warn",
-      "no-unused-vars": "warn",
-      "eqeqeq": "error",
-      "max-len": [
-        "off",
-        {
-          "code": 120
-        }
-      ],
-      "quotes": [
-        "error",
-        "single",
-        {
-          "avoidEscape": true,
-          "allowTemplateLiterals": true
-        }
-      ]
+      "jsx-a11y/no-onchange": "off"
     }
   },
   "prettier": {
