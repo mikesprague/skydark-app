@@ -1,0 +1,32 @@
+.condition-select-container {
+  .pill,
+  .pill-selected {
+    @apply flex-grow;
+    @apply flex-shrink-0;
+    @apply px-2;
+    @apply text-sm;
+    @apply leading-7;
+    @apply mr-2;
+    @apply font-semibold;
+    @apply uppercase;
+    @apply rounded-full;
+    @apply text-center;
+    @apply border-2;
+    @apply focus:outline-none;
+  }
+
+  .pill {
+    @apply text-blue-400;
+    @apply bg-transparent;
+    @apply border-blue-400;
+    @apply cursor-pointer;
+  }
+
+  .pill-selected {
+    @apply text-gray-50;
+    @apply dark:text-black;
+    @apply bg-blue-400;
+    @apply border-blue-400;
+    @apply cursor-default;
+  }
+}

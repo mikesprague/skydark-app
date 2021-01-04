@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import React, { useContext, useRef, useState } from 'react';
 import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import { NextHour } from './NextHour';
+import { Pill } from './Pill';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './CurrentHourly.scss';
 
@@ -59,39 +60,17 @@ export const CurrentHourly = () => {
         })}
       </ul>
       <div ref={containerRef} className="flex condition-select-container">
-        <div className="pill-selected" onClick={changeHandler} data-label="temperature">
-          Temp (&deg;F)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="apparentTemperature">
-          Feels-Like (&deg;F)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="precipProbability">
-          Precip Prob (%)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="precipIntensity">
-          Precip Rate (IN/HR)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="windSpeed">
-          Wind (MPH)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="windGust">
-          Wind Gust (MPH)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="humidity">
-          Humidity (%)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="dewPoint">
-          Dew Point (&deg;F)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="uvIndex">
-          UV Index
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="cloudCover">
-          Cloud Cover (%)
-        </div>
-        <div className="pill" onClick={changeHandler} data-label="pressure">
-          Pressure (MB)
-        </div>
+        <Pill dataLabel="temperature" label="Temp (&deg;F)" selected={true} clickHandler={changeHandler} />
+        <Pill dataLabel="apparentTemperature" label="Feels-Like (&deg;F)" clickHandler={changeHandler} />
+        <Pill dataLabel="precipProbability" label="Precip Prob (%)" clickHandler={changeHandler} />
+        <Pill dataLabel="precipIntensity" label="Precip Rate (IN/HR)" clickHandler={changeHandler} />
+        <Pill dataLabel="windSpeed" label="Wind (MPH)" clickHandler={changeHandler} />
+        <Pill dataLabel="windGust" label="Wind Gust (MPH)" clickHandler={changeHandler} />
+        <Pill dataLabel="humidity" label="Humidity (%)" clickHandler={changeHandler} />
+        <Pill dataLabel="dewPoint" label="Dew Point (&deg;F)" clickHandler={changeHandler} />
+        <Pill dataLabel="uvIndex" label="UV Index" clickHandler={changeHandler} />
+        <Pill dataLabel="cloudCover" label="Cloud Cover (%)" clickHandler={changeHandler} />
+        <Pill dataLabel="pressure" label="Pressure (MB)" clickHandler={changeHandler} />
       </div>
     </div>
   );
