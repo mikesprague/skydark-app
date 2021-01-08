@@ -3252,10 +3252,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-autoprefixer@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.2.0.tgz#73c148882ff771b48df9e76eaad88565516eda0c"
-  integrity sha512-5SdPoK2Q3rxVh4xC8GKdy772KbEESdl2SyJADCw5FMUrd5eNtpOTLo7oCFMEKvK86zQdvsIVTYk93E8dAfRy6g==
+autoprefixer@^10.2.1:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.2.1.tgz#ce96870df6ddd9ba4c9bbba56c54b9ef4b00a962"
+  integrity sha512-dwP0UjyYvROUvtU+boBx8ff5pPWami1NGTrJs9YUsS/oZVbRAcdNHOOuXSA1fc46tgKqe072cVaKD69rvCc3QQ==
   dependencies:
     browserslist "^4.16.1"
     caniuse-lite "^1.0.30001173"
@@ -9789,10 +9789,10 @@ loader-runner@^2.4.0:
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
   integrity sha512-Jsmr89RcXGIwivFY21FcRrisYZfvLMTWx5kOLc+JTxtpBOG6xML0vzbc6SEQG2FO9/4Fc3wW4LVcB5DmGflaRw==
 
-loader-runner@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-4.1.0.tgz#f70bc0c29edbabdf2043e7ee73ccc3fe1c96b42d"
-  integrity sha512-oR4lB4WvwFoC70ocraKhn5nkKSs23t57h9udUgw8o0iH8hMXeEoRuUgfcvgUwAJ1ZpRqBvcou4N2SMvM1DwMrA==
+loader-runner@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-4.2.0.tgz#d7022380d66d14c5fb1d496b89864ebcfd478384"
+  integrity sha512-92+huvxMvYlMzMt0iIOukcwYBFpkYJdpl2xsZ7LrlayO7E8SOv+JJUEK17B/dJIHAOLMfh2dZZ/Y18WgmGtYNw==
 
 loader-utils@2.0.0, loader-utils@^2.0.0:
   version "2.0.0"
@@ -16618,10 +16618,10 @@ webpack@^4.43.0:
     watchpack "^1.7.4"
     webpack-sources "^1.4.1"
 
-webpack@^5.11.1:
-  version "5.11.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.11.1.tgz#39b2b9daeb5c6c620e03b7556ec674eaed4016b4"
-  integrity sha512-tNUIdAmYJv+nupRs/U/gqmADm6fgrf5xE+rSlSsf2PgsGO7j2WG7ccU6AWNlOJlHFl+HnmXlBmHIkiLf+XA9mQ==
+webpack@^5.12.0:
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.12.0.tgz#aba0fae329b4f50d470bc8681f6443962b019c7e"
+  integrity sha512-ZpXT2XxASdcD/+NOxfJh27GhepQSZvZd04etjza608meOneUhFWBouqLb6bV03HYMf3Z+y4Q5yg95ZSVxi+z6Q==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
@@ -16638,7 +16638,7 @@ webpack@^5.11.1:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.2.4"
     json-parse-better-errors "^1.0.2"
-    loader-runner "^4.1.0"
+    loader-runner "^4.2.0"
     mime-types "^2.1.27"
     neo-async "^2.6.2"
     pkg-dir "^5.0.0"
