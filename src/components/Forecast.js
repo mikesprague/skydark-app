@@ -10,6 +10,7 @@ import { Currently } from './Currently';
 import { CurrentHourly } from './CurrentHourly';
 import { Daily } from './Daily';
 import { Header } from './Header';
+import { LayoutContainer } from './LayoutContainer';
 import { LastUpdated } from './LastUpdated';
 import { SunriseSunset } from './SunriseSunset';
 import { WeatherAlert } from './WeatherAlert';
@@ -93,7 +94,7 @@ export const Forecast = () => {
       }}
     >
       <Header />
-      <div className="my-16">
+      <LayoutContainer>
         <Currently />
         <WeatherAlert />
         <WeatherMapSmall />
@@ -101,7 +102,7 @@ export const Forecast = () => {
         <SunriseSunset />
         <Daily />
         <LastUpdated />
-      </div>
+      </LayoutContainer>
     </WeatherDataContext.Provider>
   ) : (
     <Loading fullHeight={true} />
