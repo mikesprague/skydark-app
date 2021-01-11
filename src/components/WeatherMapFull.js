@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   MapContainer,
   Marker,
@@ -30,7 +30,6 @@ initLeafletImages(L);
 // /> */}
 
 export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [mapView, setMapView] = useState('temp_new');
   const [popupAddress, setPopupAddress] = useState(null);
   const coordinates = getData('coordinates');
 
@@ -41,11 +40,13 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const getTimestamps = async () => {
-      await axios.get('https://api.rainviewer.com/public/maps.json').then((response) => {
-        setTsData(response.data);
-        // console.log(response.data);
-        // return response.data;
-      });
+      await axios
+        .get('https://api.rainviewer.com/public/maps.json')
+        .then((response) => {
+          setTsData(response.data);
+          // console.log(response.data);
+          // return response.data;
+        });
     };
 
     const locationData = getData('locationData');
@@ -78,27 +79,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, [radarMapUrl]);
 
-  const createdHandler = () => {
-    const checkBoxes = Array.from(document.querySelectorAll('.leaflet-control-layers-selector[type=checkbox]'));
-    checkBoxes.forEach((cb) => {
-      cb.addEventListener('click', (event) => {
-        if (
-          event.srcElement.nextSibling.textContent.trim().toLowerCase() === 'temperature' &&
-          event.srcElement.checked
-        ) {
-          setMapView('temp_new');
-        } else {
-          setMapView(null);
-        }
-      });
-    });
-  };
-
-  const advanceRangeSlider = (value) => {
+  const advanceRangeSlider = useCallback((value) => {
     setTs(tsData[value]);
     setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`);
     setRangeValue(value);
-  };
+  }, [tsData]);
 
   const rangeSliderHandler = (event) => {
     const { value } = event.target;
@@ -108,8 +93,8 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const timerHandle = useRef();
   const rangeSliderRef = useRef();
-  const btnClickHandler = () => {
-    setIsPlaying(!isPlaying);
+  const btnClickHandler = useCallback(() => {
+    setIsPlaying((i) => !i);
     if (isPlaying) {
       clearInterval(timerHandle.current);
     } else {
@@ -120,7 +105,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         advanceRangeSlider(nextVal);
       }, 667);
     }
-  };
+  }, [advanceRangeSlider, isPlaying, rangeMax]);
 
   return (
     <>
@@ -133,7 +118,6 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           dragging={true}
           className="weather-map-full"
           keyboard={false}
-          whenCreated={createdHandler}
           scrollWheelZoom={false}
           tap={true}
           touchZoom={true}
@@ -232,7 +216,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             </LayersControl.Overlay>
             <LayersControl.Overlay name="Temperature">
               <TileLayer
-                url={`https://tile.openweathermap.org/map/${mapView}/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
+                url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
                 attribution={
                   '&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'
                 }
