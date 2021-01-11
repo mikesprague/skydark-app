@@ -34,8 +34,8 @@
   "license": "MIT",
   "dependencies": {
     "@bugsnag/core": "^7.5.4",
-    "@bugsnag/js": "^7.5.4",
-    "@bugsnag/plugin-react": "^7.5.4",
+    "@bugsnag/js": "^7.5.6",
+    "@bugsnag/plugin-react": "^7.5.6",
     "@fortawesome/fontawesome-svg-core": "^1.2.33-alpha2",
     "@fortawesome/free-brands-svg-icons": "^6.0.0-alpha2",
     "@fortawesome/free-regular-svg-icons": "^6.0.0-alpha2",
