@@ -4,6 +4,7 @@ const cssWhitelistClassArray = [
   /leaflet-container/,
   /leaflet-controls-container/,
   /pill/,
+  /bubble/,
   /orange/,
   /red/,
   /yellow/,
