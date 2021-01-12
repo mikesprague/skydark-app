@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { formatSummary } from '../modules/helpers';
 import { Hour } from './Hour';
 import { Loading } from './Loading';
 import { Pill } from './Pill';
 import './Hourly.scss';
 
-export const Hourly = ({ data, summary }) => {
+export const Hourly = memo(({ data, summary }) => {
   const [hourlyData, setHourlyData] = useState(null);
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const containerRef = useRef();
@@ -69,8 +69,9 @@ export const Hourly = ({ data, summary }) => {
   ) : (
     <Loading fullHeight={false} />
   );
-};
+});
 
+Hourly.displayName = 'Hourly';
 Hourly.propTypes = {
   data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
   summary: PropTypes.string.isRequired,

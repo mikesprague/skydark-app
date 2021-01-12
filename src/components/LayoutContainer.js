@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { memo } from 'react';
 
-export const LayoutContainer = ({ children }) => (
+export const LayoutContainer = memo(({ children }) => (
   <div className="my-16">
     {children}
   </div>
-);
+));
 
+LayoutContainer.displayName = 'LayoutContainer';
 LayoutContainer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

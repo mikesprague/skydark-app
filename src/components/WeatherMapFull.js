@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   MapContainer,
   Marker,
@@ -29,7 +29,7 @@ initLeafletImages(L);
 // transparent="true"
 // /> */}
 
-export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
+export const WeatherMapFull = memo(({ OPENWEATHERMAP_API_KEY }) => {
   const [popupAddress, setPopupAddress] = useState(null);
   const coordinates = getData('coordinates');
 
@@ -254,8 +254,9 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       </div>
     </>
   );
-};
+});
 
+WeatherMapFull.displayName = 'WeatherMapFull';
 WeatherMapFull.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };

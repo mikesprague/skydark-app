@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { memo, useLayoutEffect, useRef, useState } from 'react';
 import './Modal.scss';
 
-export const Modal = ({ id, content = '', heading = '', weatherAlert = true, weatherAlertData = null }) => {
+export const Modal = memo(({ id, content = '', heading = '', weatherAlert = true, weatherAlertData = null }) => {
   const [visible, setVisible] = useState(true);
   const overlayContainerRef = useRef();
   const overlayRef = useRef();
@@ -19,7 +19,7 @@ export const Modal = ({ id, content = '', heading = '', weatherAlert = true, wea
       elementsToHide.forEach((elem) => elem.classList.add('hidden'));
     }
 
-    return () => {};
+    // return () => {};
   }, [visible, id]);
 
   const clickHandler = () => {
@@ -75,8 +75,9 @@ export const Modal = ({ id, content = '', heading = '', weatherAlert = true, wea
       </div>
     </div>
   );
-};
+});
 
+Modal.displayName = 'Modal';
 Modal.propTypes = {
   id: PropTypes.string.isRequired,
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -86,7 +87,6 @@ Modal.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
   ),
 };
-
 Modal.defaultProps = {
   content: '',
   heading: '',

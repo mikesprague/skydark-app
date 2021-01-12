@@ -1,9 +1,9 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { apiUrl, formatCondition } from '../modules/helpers';
+import { apiUrl, formatCondition, sleep } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
 import { isCacheExpired } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -12,7 +12,7 @@ import { Loading } from './Loading';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Day.scss';
 
-export const Day = ({ data, dayIndex }) => {
+export const Day = memo(({ data, dayIndex }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
   const fullData = useContext(WeatherDataContext);
 
@@ -37,8 +37,6 @@ export const Day = ({ data, dayIndex }) => {
         detail.querySelector('.scroll-marker').classList.add('hidden');
       }
     });
-
-    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     if (isOpen) {
       if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 60)) {
@@ -88,8 +86,9 @@ export const Day = ({ data, dayIndex }) => {
       {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : <Loading fullHeight={false} />}
     </details>
   );
-};
+});
 
+Day.displayName = 'Day';
 Day.propTypes = {
   data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]))
     .isRequired,
