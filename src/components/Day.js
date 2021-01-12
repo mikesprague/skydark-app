@@ -83,7 +83,7 @@ export const Day = memo(({ data, dayIndex }) => {
           </div>
         </div>
       </summary>
-      {hourlyData ? <Hourly data={hourlyData} summary={data.summary} /> : <Loading fullHeight={false} />}
+      {hourlyData ? <Hourly data={hourlyData} dayData={data} /> : <Loading fullHeight={false} />}
     </details>
   );
 });

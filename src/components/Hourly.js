@@ -7,13 +7,14 @@ import { Loading } from './Loading';
 import { Pill } from './Pill';
 import './Hourly.scss';
 
-export const Hourly = memo(({ data, summary }) => {
+export const Hourly = memo(({ data, dayData }) => {
   const [hourlyData, setHourlyData] = useState(null);
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const containerRef = useRef();
-
   useEffect(() => {
-    if (!data) { return; }
+    if (!data) {
+      return;
+    }
 
     setHourlyData(data.data);
   }, [data]);
@@ -30,7 +31,7 @@ export const Hourly = memo(({ data, summary }) => {
 
   return hourlyData ? (
     <div className="hourly-container">
-      <p className="mb-2 -mt-2 text-base leading-normal text-center">{summary}</p>
+      <p className="mb-2 -mt-2 text-base leading-normal text-center">{dayData.summary}</p>
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
           const lastHour = hourlyData.length === 24 ? 22 : hourlyData.length - 1;
@@ -46,6 +47,7 @@ export const Hourly = memo(({ data, summary }) => {
               isFirst={isFirst}
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
+              dayData={dayData}
             />
           ) : (
             ''
@@ -73,8 +75,11 @@ export const Hourly = memo(({ data, summary }) => {
 
 Hourly.displayName = 'Hourly';
 Hourly.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object])).isRequired,
-  summary: PropTypes.string.isRequired,
+  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]))
+    .isRequired,
+  dayData: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+  ).isRequired,
 };
 
 export default Hourly;
