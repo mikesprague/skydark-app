@@ -124,7 +124,7 @@ export const WeatherMapFull = memo(({ OPENWEATHERMAP_API_KEY }) => {
           zoom={10}
           zoomControl={false}
         >
-          <Marker position={[coordinates.lat, coordinates.lng]} opacity={0.9}>
+          <Marker position={[coordinates.lat, coordinates.lng]}>
             <Popup>{popupAddress}</Popup>
           </Marker>
           <Circle

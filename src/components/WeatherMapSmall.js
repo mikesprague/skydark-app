@@ -42,7 +42,7 @@ export const WeatherMapSmall = () => {
             touchZoom={false}
             zoom={5}
           >
-            <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} opacity={0.85} />
+            <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} />
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled() ? 'checked' : ''}>
                 <TileLayer
