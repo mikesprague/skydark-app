@@ -116,7 +116,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public/'),
     hotOnly: true,
-    open: true,
+    open: false,
     port: 3000,
     publicPath: 'http://localhost:3000/',
     stats: 'minimal',
