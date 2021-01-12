@@ -193,19 +193,19 @@ export const formatSummary = (currentHourData, allHourlyData, index, startIndex)
 
 export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex <= 2) {
-    return 'pill green';
+    return 'bubble green';
   }
   if (uvIndex <= 5) {
-    return 'pill yellow';
+    return 'bubble yellow';
   }
   if (uvIndex <= 7) {
-    return 'pill orange';
+    return 'bubble orange';
   }
   if (uvIndex <= 10) {
-    return 'pill red';
+    return 'bubble red';
   }
   if (uvIndex >= 11) {
-    return 'pill purple';
+    return 'bubble purple';
   }
   return 'unknownUvIndexClass';
 };

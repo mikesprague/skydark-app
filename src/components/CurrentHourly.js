@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useContext, useRef, useState } from 'react';
-import { formatCondition, formatSummary, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
+import { formatSummary } from '../modules/helpers';
+import { Hour } from './Hour';
 import { NextHour } from './NextHour';
 import { Pill } from './Pill';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
@@ -33,27 +34,20 @@ export const CurrentHourly = () => {
               ? 0
               : 1;
           const endIndex = startIndex + 20;
+          const isFirst = index === startIndex;
+          const isLast = index === endIndex;
+          const summaryText = formatSummary(hourData, data.weather.hourly.data, index, startIndex);
+          const dayDataIndex = dayjs.unix(hourData.time).format('D') > dayjs().format('D') ? 1 : 0;
           return index >= startIndex && index <= endIndex && index % 2 === startIndex ? (
-            <li key={nanoid(7)} className="hour">
-              <div
-                className={`condition-bar ${index === endIndex ? 'rounded-b-md' : ''} ${
-                  index === startIndex ? 'rounded-t-md' : ''
-                } ${getConditionBarClass(hourData)}`}
-              />
-              <div className="time">{dayjs.unix(hourData.time).format('h a').toUpperCase()}</div>
-              <div className="summary">
-                {hourData && data && formatSummary(hourData, data.weather.hourly.data, index, startIndex)}
-              </div>
-              <div className="condition">
-                <span
-                  className={
-                    hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(hourData[hourlyConditionToShow]) : 'pill'
-                  }
-                >
-                  {formatCondition(hourData[hourlyConditionToShow], hourlyConditionToShow)}
-                </span>
-              </div>
-            </li>
+            <Hour
+              key={nanoid(7)}
+              data={hourData}
+              summary={summaryText}
+              isFirst={isFirst}
+              isLast={isLast}
+              conditionToShow={hourlyConditionToShow}
+              dayData={data.weather.daily.data[dayDataIndex]}
+            />
           ) : (
             ''
           );
