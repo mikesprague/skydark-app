@@ -13,18 +13,20 @@ export const CurrentConditions = () => {
       id="current-conditions-modal"
       weatherAlert={false}
       heading="Current Conditions"
-      content={(
+      content={
         <>
-          <h4 className="mb-2 text-lg">
-            {data.weather.currently.summary}
-          </h4>
+          <h4 className="mb-2 text-lg">{data.weather.currently.summary}</h4>
           <div className="flex flex-wrap mt-2">
             <div className="conditions-item">
               <FontAwesomeIcon
                 icon={['fad', 'thermometer-half']}
                 size="2x"
                 fixedWidth
-                style={{ '--fa-primary-color': 'red', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.9' }}
+                style={{
+                  '--fa-primary-color': 'red',
+                  '--fa-secondary-color': 'lightgray',
+                  '--fa-secondary-opacity': '.9',
+                }}
               />
               <br />
               <small>
@@ -40,7 +42,11 @@ export const CurrentConditions = () => {
                 icon={['fad', 'wind-turbine']}
                 size="2x"
                 fixedWidth
-                style={{ '--fa-primary-color': 'dodgerblue', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '.75' }}
+                style={{
+                  '--fa-primary-color': 'dodgerblue',
+                  '--fa-secondary-color': 'silver',
+                  '--fa-secondary-opacity': '.75',
+                }}
               />
               <br />
               <small>
@@ -50,7 +56,11 @@ export const CurrentConditions = () => {
                   icon={['fad', 'chevron-circle-up']}
                   size="lg"
                   transform={{ rotate: data.weather.currently.windBearing }}
-                  style={{ '--fa-primary-color': 'ghostwhite', '--fa-secondary-color': 'darkslategray', '--fa-secondary-opacity': '1' }}
+                  style={{
+                    '--fa-primary-color': 'ghostwhite',
+                    '--fa-secondary-color': 'darkslategray',
+                    '--fa-secondary-opacity': '1',
+                  }}
                   fixedWidth
                 />
                 <br />
@@ -64,7 +74,11 @@ export const CurrentConditions = () => {
                 size="2x"
                 swapOpacity
                 fixedWidth
-                style={{ '--fa-primary-color': 'black', '--fa-secondary-color': 'deepskyblue', '--fa-secondary-opacity': '.75' }}
+                style={{
+                  '--fa-primary-color': 'black',
+                  '--fa-secondary-color': 'deepskyblue',
+                  '--fa-secondary-opacity': '.75',
+                }}
               />
               <br />
               <small>
@@ -81,7 +95,11 @@ export const CurrentConditions = () => {
                 size="2x"
                 swapOpacity
                 fixedWidth
-                style={{ '--fa-primary-color': 'royalblue', '--fa-secondary-color': 'sienna', '--fa-secondary-opacity': '.75' }}
+                style={{
+                  '--fa-primary-color': 'royalblue',
+                  '--fa-secondary-color': 'sienna',
+                  '--fa-secondary-opacity': '.75',
+                }}
               />
               <br />
               <small>
@@ -94,23 +112,14 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'tachometer-alt']}
-                size="2x"
-                fixedWidth
-                style={{ '--fa-primary-color': 'crimson', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' }}
-              />
-              <br />
-              <small>
-                Pressure:
-                {` ${formatCondition(data.weather.currently.pressure, 'pressure')} mb`}
-              </small>
-            </div>
-            <div className="conditions-item">
-              <FontAwesomeIcon
                 icon={['fad', 'clouds']}
                 size="2x"
                 fixedWidth
-                style={{ '--fa-primary-color': 'darkgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1' }}
+                style={{
+                  '--fa-primary-color': 'darkgray',
+                  '--fa-secondary-color': 'silver',
+                  '--fa-secondary-opacity': '1',
+                }}
               />
               <br />
               <small>
@@ -120,23 +129,14 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'sun']}
-                size="2x"
-                fixedWidth
-                style={{ '--fa-primary-color': 'gold', '--fa-secondary-color': 'darkorange', '--fa-secondary-opacity': '.75' }}
-              />
-              <br />
-              <small>
-                UV Index:
-                {` ${formatCondition(data.weather.currently.uvIndex, 'uvIndex')}`}
-              </small>
-            </div>
-            <div className="conditions-item">
-              <FontAwesomeIcon
                 icon={['fad', 'eye']}
                 size="2x"
                 fixedWidth
-                style={{ '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' }}
+                style={{
+                  '--fa-primary-color': 'skyblue',
+                  '--fa-secondary-color': 'lightgray',
+                  '--fa-secondary-opacity': '.75',
+                }}
               />
               <br />
               <small>
@@ -146,11 +146,49 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
+                icon={['fad', 'tachometer-alt']}
+                size="2x"
+                fixedWidth
+                style={{
+                  '--fa-primary-color': 'crimson',
+                  '--fa-secondary-color': 'lightgray',
+                  '--fa-secondary-opacity': '.75',
+                }}
+              />
+              <br />
+              <small>
+                Pressure:
+                {` ${formatCondition(data.weather.currently.pressure, 'pressure')} mb`}
+              </small>
+            </div>
+            <div className="conditions-item">
+              <FontAwesomeIcon
+                icon={['fad', 'sun']}
+                size="2x"
+                fixedWidth
+                style={{
+                  '--fa-primary-color': 'gold',
+                  '--fa-secondary-color': 'darkorange',
+                  '--fa-secondary-opacity': '.75',
+                }}
+              />
+              <br />
+              <small>
+                UV Index:
+                {` ${formatCondition(data.weather.currently.uvIndex, 'uvIndex')}`}
+              </small>
+            </div>
+            <div className="conditions-item">
+              <FontAwesomeIcon
                 icon={['fad', 'sunrise']}
                 size="2x"
                 swapOpacity
                 fixedWidth
-                style={{ '--fa-primary-color': 'darkorange', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75' }}
+                style={{
+                  '--fa-primary-color': 'darkorange',
+                  '--fa-secondary-color': 'gold',
+                  '--fa-secondary-opacity': '.75',
+                }}
               />
               <br />
               <small>
@@ -164,7 +202,11 @@ export const CurrentConditions = () => {
                 size="2x"
                 swapOpacity
                 fixedWidth
-                style={{ '--fa-primary-color': 'darkorange', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75' }}
+                style={{
+                  '--fa-primary-color': 'darkorange',
+                  '--fa-secondary-color': 'gold',
+                  '--fa-secondary-opacity': '.75',
+                }}
               />
               <br />
               <small>
@@ -174,7 +216,7 @@ export const CurrentConditions = () => {
             </div>
           </div>
         </>
-      )}
+      }
     />
   );
 };
