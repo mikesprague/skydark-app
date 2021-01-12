@@ -74,6 +74,8 @@ export const initServiceWorker = () => {
   });
 };
 
+export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
 const formatPercent = (num) => `${Math.round(num * 100)}%`;
 const formatNum = (num) => Number(Math.round(num));
