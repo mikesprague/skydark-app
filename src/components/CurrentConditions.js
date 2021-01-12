@@ -60,28 +60,19 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'clouds']}
+                icon={['fad', 'humidity']}
                 size="2x"
+                swapOpacity
                 fixedWidth
-                style={{ '--fa-primary-color': 'darkgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1' }}
+                style={{ '--fa-primary-color': 'black', '--fa-secondary-color': 'deepskyblue', '--fa-secondary-opacity': '.75' }}
               />
               <br />
               <small>
-                Cloud Cover:
-                {` ${formatCondition(data.weather.currently.cloudCover, 'cloudCover')}`}
-              </small>
-            </div>
-            <div className="conditions-item">
-              <FontAwesomeIcon
-                icon={['fad', 'eye']}
-                size="2x"
-                fixedWidth
-                style={{ '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' }}
-              />
-              <br />
-              <small>
-                Visibiity:
-                {` ${formatCondition(data.weather.currently.visibility, 'visibility')} mi`}
+                Humidity:
+                {` ${formatCondition(data.weather.currently.humidity, 'humidity')}`}
+                <br />
+                Dew Point:
+                {` ${formatCondition(data.weather.currently.dewPoint, 'dewPoint')}`}
               </small>
             </div>
             <div className="conditions-item">
@@ -103,23 +94,6 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'humidity']}
-                size="2x"
-                swapOpacity
-                fixedWidth
-                style={{ '--fa-primary-color': 'black', '--fa-secondary-color': 'deepskyblue', '--fa-secondary-opacity': '.75' }}
-              />
-              <br />
-              <small>
-                Humidity:
-                {` ${formatCondition(data.weather.currently.humidity, 'humidity')}`}
-                <br />
-                Dew Point:
-                {` ${formatCondition(data.weather.currently.dewPoint, 'dewPoint')}`}
-              </small>
-            </div>
-            <div className="conditions-item">
-              <FontAwesomeIcon
                 icon={['fad', 'tachometer-alt']}
                 size="2x"
                 fixedWidth
@@ -133,6 +107,19 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
+                icon={['fad', 'clouds']}
+                size="2x"
+                fixedWidth
+                style={{ '--fa-primary-color': 'darkgray', '--fa-secondary-color': 'silver', '--fa-secondary-opacity': '1' }}
+              />
+              <br />
+              <small>
+                Cloud Cover:
+                {` ${formatCondition(data.weather.currently.cloudCover, 'cloudCover')}`}
+              </small>
+            </div>
+            <div className="conditions-item">
+              <FontAwesomeIcon
                 icon={['fad', 'sun']}
                 size="2x"
                 fixedWidth
@@ -142,6 +129,19 @@ export const CurrentConditions = () => {
               <small>
                 UV Index:
                 {` ${formatCondition(data.weather.currently.uvIndex, 'uvIndex')}`}
+              </small>
+            </div>
+            <div className="conditions-item">
+              <FontAwesomeIcon
+                icon={['fad', 'eye']}
+                size="2x"
+                fixedWidth
+                style={{ '--fa-primary-color': 'skyblue', '--fa-secondary-color': 'lightgray', '--fa-secondary-opacity': '.75' }}
+              />
+              <br />
+              <small>
+                Visibiity:
+                {` ${formatCondition(data.weather.currently.visibility, 'visibility')} mi`}
               </small>
             </div>
             <div className="conditions-item">
