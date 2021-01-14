@@ -8,7 +8,7 @@ export const About = () => (
     <div className="header">
       <div className="section-name">
         <h1>
-          <FontAwesomeIcon icon={['fas', 'info-circle']} className="footer-icon" fixedWidth />
+          <FontAwesomeIcon icon={['fas', 'circle-info']} className="footer-icon" fixedWidth />
           {' About'}
         </h1>
       </div>

@@ -64,8 +64,8 @@ export const Day = memo(({ data, dayIndex }) => {
             <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(data.time).format('ddd').toUpperCase()}</strong>
             <br />
             <span className="precip">
-              <FontAwesomeIcon icon={['fad', 'tint']} />
-              {` ${Math.round(data.precipProbability * 100)}%`}
+              <FontAwesomeIcon icon={['fad', 'droplet']} />
+              {` ${formatCondition(data.precipProbability, 'precipProbability')}`}
             </span>
           </div>
           <div className="icon">

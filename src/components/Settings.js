@@ -12,7 +12,7 @@ export const Settings = () => {
       <div className="header">
         <div className="section-name">
           <h1>
-            <FontAwesomeIcon icon={['fas', 'cog']} className="footer-icon" fixedWidth />
+            <FontAwesomeIcon icon={['fas', 'gear']} className="footer-icon" fixedWidth />
             {' Settings'}
           </h1>
         </div>

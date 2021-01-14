@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import Bugsnag from '@bugsnag/js';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
@@ -8,6 +10,8 @@ import { resetData } from './local-storage';
 import { initDarkMode } from './theme';
 import { initAppSettings } from './settings';
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
 export const isDev = () => {
@@ -207,10 +211,11 @@ export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex >= 11) {
     return 'bubble purple';
   }
-  return 'unknownUvIndexClass';
+  return 'bubble unknownUvIndexClass';
 };
 
 export const initSkyDark = () => {
+  dayjs.tz.setDefault("America/New_York");
   if (!isDev()) {
     initServiceWorker();
   }

@@ -19,7 +19,7 @@ export const CurrentConditions = () => {
           <div className="flex flex-wrap mt-2">
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'thermometer-half']}
+                icon={['fad', 'temperature-half']}
                 size="2x"
                 fixedWidth
                 style={{
@@ -53,7 +53,7 @@ export const CurrentConditions = () => {
                 Wind:
                 {` ${formatCondition(data.weather.currently.windSpeed, 'windSpeed')} mph `}
                 <FontAwesomeIcon
-                  icon={['fad', 'chevron-circle-up']}
+                  icon={['fad', 'circle-chevron-up']}
                   size="lg"
                   transform={{ rotate: data.weather.currently.windBearing }}
                   style={{
@@ -70,7 +70,7 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'humidity']}
+                icon={['fad', 'droplet-percent']}
                 size="2x"
                 swapOpacity
                 fixedWidth
@@ -146,7 +146,7 @@ export const CurrentConditions = () => {
             </div>
             <div className="conditions-item">
               <FontAwesomeIcon
-                icon={['fad', 'tachometer-alt']}
+                icon={['fad', 'gauge']}
                 size="2x"
                 fixedWidth
                 style={{

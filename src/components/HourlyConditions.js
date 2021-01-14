@@ -17,7 +17,7 @@ export const HourlyConditions = memo(({ data, dayData }) => (
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
-              icon={['fad', 'thermometer-half']}
+              icon={['fad', 'temperature-half']}
               size="2x"
               fixedWidth
               style={{
@@ -51,7 +51,7 @@ export const HourlyConditions = memo(({ data, dayData }) => (
               Wind:
               {` ${formatCondition(data.windSpeed, 'windSpeed')} mph `}
               <FontAwesomeIcon
-                icon={['fad', 'chevron-circle-up']}
+                icon={['fad', 'circle-chevron-up']}
                 size="lg"
                 transform={{ rotate: data.windBearing }}
                 style={{
@@ -68,7 +68,7 @@ export const HourlyConditions = memo(({ data, dayData }) => (
           </div>
           <div className="conditions-item">
             <FontAwesomeIcon
-              icon={['fad', 'humidity']}
+              icon={['fad', 'droplet-percent']}
               size="2x"
               swapOpacity
               fixedWidth
@@ -144,7 +144,7 @@ export const HourlyConditions = memo(({ data, dayData }) => (
           </div>
           <div className="conditions-item">
             <FontAwesomeIcon
-              icon={['fad', 'tachometer-alt']}
+              icon={['fad', 'gauge']}
               size="2x"
               fixedWidth
               style={{
