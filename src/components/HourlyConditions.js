@@ -6,14 +6,14 @@ import { formatCondition } from '../modules/helpers';
 import { Modal } from './Modal';
 import './CurrentConditions.scss';
 
-export const HourlyConditions = memo(({ data, dayData }) => (
+export const HourlyConditions = memo(({ data, dayData }) => data ? (
   <Modal
     id={`hourly-conditions-modal-${data.time}`}
     weatherAlert={false}
     heading={`${dayjs.unix(data.time).format('ddd, MMMM D')} at ${dayjs.unix(data.time).format('h:mm A')}`}
     content={
       <>
-        <h4 className="mb-2 text-lg">{data.summary}</h4>
+        <h4 className="mb-2 text-lg">{data.summary.replace('Possible ', '')}</h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -216,7 +216,7 @@ export const HourlyConditions = memo(({ data, dayData }) => (
       </>
     }
   />
-));
+) : '');
 
 HourlyConditions.displayName = 'HourlyConditions';
 HourlyConditions.propTypes = {

@@ -8,14 +8,14 @@ import './CurrentConditions.scss';
 export const CurrentConditions = () => {
   const data = useContext(WeatherDataContext);
 
-  return (
+  return data ? (
     <Modal
       id="current-conditions-modal"
       weatherAlert={false}
       heading="Current Conditions"
       content={
         <>
-          <h4 className="mb-2 text-lg">{data.weather.currently.summary}</h4>
+          <h4 className="mb-2 text-lg">{data.weather.currently.summary.replace('Possible ', '')}</h4>
           <div className="flex flex-wrap mt-2">
             <div className="conditions-item">
               <FontAwesomeIcon
@@ -218,7 +218,7 @@ export const CurrentConditions = () => {
         </>
       }
     />
-  );
+  ) : '';
 };
 
 export default CurrentConditions;
