@@ -29,7 +29,7 @@ export const WeatherAlert = () => {
   return alertData ? (
     <div className="weather-alert-container">
       <button type="button" onClick={weatherAlertHandler} className="weather-alert-button">
-        <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
+        <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
         &nbsp;
         {alertData.title}
       </button>
