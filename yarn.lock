@@ -8073,10 +8073,10 @@ html-void-elements@^1.0.0:
   resolved "https://registry.yarnpkg.com/html-void-elements/-/html-void-elements-1.0.5.tgz#ce9159494e86d95e45795b166c2021c2cfca4483"
   integrity sha512-uE/TxKuyNIcx44cIWnjr/rfIATDH7ZaOMmstu0CwhFG1Dunhlp4OC6/NMbhiwoq5BpW0ubi303qnEk/PZj614w==
 
-html-webpack-plugin@^5.0.0-beta.5:
-  version "5.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.0.0-beta.5.tgz#a5f03394996c2cbb5b587f424556ff938f06decb"
-  integrity sha512-5zxdMIutk7qnqYxZYf8B+0IQVqa/AvYX9dEXKq90Uw0/svWergof10vBPsckCkXhUdo9nst9FE/Uf+WIUyVUsw==
+html-webpack-plugin@^5.0.0-beta.6:
+  version "5.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.0.0-beta.6.tgz#aab868a3c1607828699ebbbb44cde9d6f3615cb3"
+  integrity sha512-wjdhOnJlo5c8uN3OahRm2eaLKL8gEQ4ZNOkwQc8BStyudpFLTsg28m6wbf00keXiRPesk2Pad9CYeKpxbffApg==
   dependencies:
     "@types/html-minifier-terser" "^5.0.0"
     html-minifier-terser "^5.0.1"
@@ -10557,10 +10557,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
-netlify-cli@^3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-3.2.4.tgz#f878e6f6b7d66e9b5edfc7adfaa7509b1c372375"
-  integrity sha512-DRWGdzRikIj9RoT3p9Q4J0fTGJ+lZZpeF78zydT6nZzscUYOl171clol6aXZxYNVmf//QrEgN2DYpvuiD+5BSQ==
+netlify-cli@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-3.3.0.tgz#aa44acfb270534432c844aeb2a49f114b5a2c3c0"
+  integrity sha512-oe/R8QRcHhUOfHpdycTORAbbtsqFGDbH19oCUocQBFEBHvYwC8Xy13ZlPwtie1PnPaoyog/waKOc3wlUTxRrSA==
   dependencies:
     "@netlify/build" "^8.0.5"
     "@netlify/config" "^3.0.1"
@@ -10596,6 +10596,7 @@ netlify-cli@^3.2.4:
     del "^5.1.0"
     dot-prop "^5.1.0"
     dotenv "^8.2.0"
+    env-paths "^2.2.0"
     envinfo "^7.3.1"
     execa "^5.0.0"
     express "^4.17.1"
@@ -10620,6 +10621,7 @@ netlify-cli@^3.2.4:
     lodash "^4.17.20"
     log-symbols "^3.0.0"
     make-dir "^3.0.0"
+    memoize-one "^5.1.1"
     minimist "^1.2.5"
     multiparty "^4.2.1"
     netlify "^6.0.0"
