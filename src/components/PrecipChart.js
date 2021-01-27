@@ -19,7 +19,7 @@ export const PrecipChart = () => {
     setChartData(dataArray);
   }, [data]);
 
-  return (
+  return chartData ? (
     <Chart
       width="100%"
       height="140px"
@@ -70,6 +70,8 @@ export const PrecipChart = () => {
         legend: 'none',
       }}
     />
+  ) : (
+    ''
   );
 };
 

@@ -8,7 +8,7 @@ export const NextHour = () => {
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data) {
+    if (!data.weather.minutely) {
       return;
     }
 
@@ -41,13 +41,17 @@ export const NextHour = () => {
     return () => setNextHourPrecipitation(false);
   }, [summaryText]);
 
-  return (
+  return data ? (
     <>
       {nextHourPrecipitation ? <PrecipChart /> : ''}
       <p className={`px-4 mb-4 text-base text-center ${nextHourPrecipitation ? ' -mt-6' : ''}`}>
         {`Next Hour: ${summaryText}`}
       </p>
     </>
+  ) : (
+    (
+    ''
+  )
   );
 };
 
