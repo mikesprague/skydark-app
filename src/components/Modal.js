@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import React, { memo, useLayoutEffect, useRef, useState } from 'react';
 import './Modal.scss';
@@ -42,33 +43,41 @@ export const Modal = memo(({ id, content = '', heading = '', weatherAlert = true
         <div className="px-4 pt-5 pb-4">
           <div className="flex items-start">
             <div className="mt-3 text-center">
-              <h3 className="modal-heading" id="modal-headline">
-                {weatherAlert ? weatherAlertData.title : heading}
-              </h3>
-              {weatherAlert ? (
-                <>
+            {weatherAlert ? (
+              weatherAlertData.map((alertData, alertIdx) => (
+                <div className="weatherAlertItem" key={nanoid(7)}>
+                  <h3 className="modal-heading" id="modal-headline">
+                    {alertData.title}
+                  </h3>
                   <p className="pl-4 mb-4 text-sm text-left">
                     <strong>Effective: </strong>
-                    {dayjs.unix(weatherAlertData.time).format('ddd, D MMM YYYY h:mm:ss A')}
+                    {dayjs.unix(alertData.time).format('ddd, D MMM YYYY h:mm:ss A')}
                     <br />
                     <strong>Expires: </strong>
-                    {dayjs.unix(weatherAlertData.expires).format('ddd, D MMM YYYY h:mm:ss A')}
+                    {dayjs.unix(alertData.expires).format('ddd, D MMM YYYY h:mm:ss A')}
                   </p>
-                  <p className="mb-6 text-center">{weatherAlertData.description}</p>
+                  <p className="mb-6 text-center">{alertData.description}</p>
                   <p className="m-4 text-center">
                     <a
                       className="px-4 py-2 my-6 text-sm bg-blue-500"
-                      href={weatherAlertData.uri}
+                      href={alertData.uri}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
                       More Info
                     </a>
                   </p>
-                </>
-              ) : (
-                content
-              )}
+                  {weatherAlertData.length > 1 && (alertIdx + 1) < weatherAlertData.length ? <hr /> : ''}
+                </div>
+              ))
+            ) : (
+              <>
+                <h3 className="modal-heading" id="modal-headline">
+                  {heading}
+                </h3>
+                {content}
+              </>
+            )}
             </div>
           </div>
         </div>
@@ -83,9 +92,7 @@ Modal.propTypes = {
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   heading: PropTypes.string,
   weatherAlert: PropTypes.bool,
-  weatherAlertData: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
-  ),
+  weatherAlertData: PropTypes.arrayOf(PropTypes.object),
 };
 Modal.defaultProps = {
   content: '',

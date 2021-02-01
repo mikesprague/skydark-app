@@ -12,7 +12,7 @@ export const WeatherAlert = () => {
     if (!data.weather.alerts) {
       return;
     }
-    setAlertData(data.weather.alerts[0]);
+    setAlertData(data.weather.alerts);
 
     return () => { setAlertData(null); }
   }, [data]);
@@ -29,9 +29,12 @@ export const WeatherAlert = () => {
   return alertData ? (
     <div className="weather-alert-container">
       <button type="button" onClick={weatherAlertHandler} className="weather-alert-button">
-        <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
-        &nbsp;
-        {alertData.title}
+        <span className={alertData.length > 1 ? 'leading-tight' : 'leading-loose'}>
+          <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
+          &nbsp;
+          {alertData[0].title}
+          {alertData.length > 1 ? (<small><br />{`+ ${alertData.length - 1} more`}</small>) : ''}
+        </span>
       </button>
       <Modal id="weather-alerts-modal" weatherAlertData={alertData} weatherAlert={true} />
     </div>
