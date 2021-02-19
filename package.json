@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.17",
+    "@babel/eslint-plugin": "^7.12.13",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
@@ -83,7 +84,6 @@
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "autoprefixer": "^10.2.4",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-react-displayname": "^0.0.5",
     "compression-webpack-plugin": "^7.1.2",
