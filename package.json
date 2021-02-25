@@ -98,7 +98,7 @@
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-auto": "^0.6.6",
-    "eslint-config-prettier": "^8.0.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-compat": "^3.9.0",
     "eslint-plugin-flowtype": "^5.3.1",
     "eslint-plugin-html": "^6.1.1",
@@ -129,7 +129,7 @@
     "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.2.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.24.1",
+    "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "3.11.2",
     "workbox-webpack-plugin": "^6.1.1"
