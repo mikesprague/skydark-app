@@ -68,7 +68,7 @@ const webpackPlugins = [
     patterns: [
       {
         from: './public/images/**/*',
-        to: './images/[name].[ext]',
+        to: './images/[name][ext]',
         force: true,
       },
     ],
@@ -77,7 +77,7 @@ const webpackPlugins = [
     patterns: [
       {
         from: `./public/skydark.webmanifest`,
-        to: './[name].[ext]',
+        to: './[name][ext]',
         force: true,
       },
     ],
