@@ -11303,10 +11303,10 @@ nanoid@^3.1.20:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.20.tgz#badc263c6b1dcf14b71efaa85f6ab4c1d6cfc788"
   integrity sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
 
-nanoid@^3.1.21:
-  version "3.1.21"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.21.tgz#25bfee7340ac4185866fbfb2c9006d299da1be7f"
-  integrity sha512-A6oZraK4DJkAOICstsGH98dvycPr/4GGDH7ZWKmMdd3vGcOurZ6JmWFUt0DA5bzrrn2FrUjmv6mFNWvv8jpppA==
+nanoid@^3.1.22:
+  version "3.1.22"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.22.tgz#b35f8fb7d151990a8aebd5aa5015c03cf726f844"
+  integrity sha512-/2ZUaJX2ANuLtTvqTlgqBQNJoQO398KyJgZloL0PZkC0dpysjncRUPsFe3DUPzz/y3h+u7C46np8RMuvF3jsSQ==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -15169,10 +15169,10 @@ snyk@^1.486.0:
     uuid "^3.3.2"
     wrap-ansi "^5.1.0"
 
-snyk@^1.487.0:
-  version "1.487.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.487.0.tgz#a3a57e29772285737cfb6a5fcfe8217b2f34e45c"
-  integrity sha512-1PCG8FdbnEwsnURfmo6MsehpnaOwcuj4A9A0vlSBxZvaYp8O3728Py01HmKbeUOLHkqYlsTxPe6Xpdsc7BA4nQ==
+snyk@^1.488.0:
+  version "1.488.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.488.0.tgz#b22c6d474b85f403c7b28851017b97727c217520"
+  integrity sha512-jA2KYZXgnNs0fIQ4BIZ0Qc/50bef0YKHdGEq8oRLI5pJYTfTgeRQOyJXs+opk2FrxHIFI1cf8grrG+uCh68W/Q==
   dependencies:
     "@open-policy-agent/opa-wasm" "^1.2.0"
     "@snyk/cli-interface" "2.11.0"
