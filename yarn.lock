@@ -1074,10 +1074,28 @@
   dependencies:
     "@bugsnag/core" "^7.7.0"
 
+"@bugsnag/browser@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.9.0.tgz#274aca640c1b9ba86b80af21503aef71b0a33e75"
+  integrity sha512-+W/oxEJJMgNRVrgcCGXYQKAf6Nu28JklU3v+w7zgPEaxnzxxUwsCj7s4534XQvj/jprP60281WsAlTDqFRprAQ==
+  dependencies:
+    "@bugsnag/core" "^7.9.0"
+
 "@bugsnag/core@^7.7.0":
   version "7.7.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-7.7.0.tgz#469003c084578283621793c39b00027f2a05b664"
   integrity sha512-y6xY/ZjHRSD3h1ADdkgH4sUJeJ9TUjNjkui+pjdmQkG4asjA8lBNmjnqirGeAxgL00lg5xvbfLSq9iHdqFW9oQ==
+  dependencies:
+    "@bugsnag/cuid" "^3.0.0"
+    "@bugsnag/safe-json-stringify" "^6.0.0"
+    error-stack-parser "^2.0.3"
+    iserror "0.0.2"
+    stack-generator "^2.0.3"
+
+"@bugsnag/core@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-7.9.0.tgz#a8b6ebe70df2c8b5a8ba0449e14090b8ce0b4688"
+  integrity sha512-LjARVBusQ1ewNrHRPBrwY4ISsXf/aPjQHAixFe6fRMiLzAS0awxFweVlbdfm+Oj/ZE04J6O9n4re9TC6pVBpEA==
   dependencies:
     "@bugsnag/cuid" "^3.0.0"
     "@bugsnag/safe-json-stringify" "^6.0.0"
@@ -1090,13 +1108,21 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.0.0.tgz#2ee7642a30aee6dc86f5e7f824653741e42e5c35"
   integrity sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==
 
-"@bugsnag/js@^7.0.0", "@bugsnag/js@^7.8.0":
+"@bugsnag/js@^7.0.0":
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.8.0.tgz#3404571399f51973124f5fa34d505ac78af70444"
   integrity sha512-knSEXI4Znch4KzKooG3IgrYcZhKHYyTt/hGEmFhKCNmEiNGhGVisl0mbFCyjTBT+wYmWqqbv6kx4YOyGLCH0Yw==
   dependencies:
     "@bugsnag/browser" "^7.7.0"
     "@bugsnag/node" "^7.8.0"
+
+"@bugsnag/js@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.9.0.tgz#dfcfec067124f58b00c836a661cb0ba20cf60b31"
+  integrity sha512-owMjgCdMMD/3zvojNUZRfnWcjbudmAZ0f+5oNqxUwB4oEUgDd70QfNz11/QgrfydIgQd1iAj2qLyNZ2aAdQgzg==
+  dependencies:
+    "@bugsnag/browser" "^7.9.0"
+    "@bugsnag/node" "^7.9.0"
 
 "@bugsnag/node@^7.8.0":
   version "7.8.0"
@@ -1110,10 +1136,22 @@
     pump "^3.0.0"
     stack-generator "^2.0.3"
 
-"@bugsnag/plugin-react@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.7.0.tgz#e6f3cf5d3dbd9f3d2898027fd568c78dab84a308"
-  integrity sha512-hsiKWgLsriU8jcXRZn3R4DwdSCGE7BZJZVGUy3OniSdbMWJm+kMJuMDPtl2gqnkLKk6cHKtgxKV5w+GWjrKolg==
+"@bugsnag/node@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-7.9.0.tgz#47f2eb0c5f5574f854ec6e55adfa02ab64ecbd99"
+  integrity sha512-ctTJLfeNgbWZAnKbqg4w1PMsabSnmkgAY199oZLonDuu/60UWlNOcDEicDEhULD9gt2vYTZy78QsYov4LDAojQ==
+  dependencies:
+    "@bugsnag/core" "^7.9.0"
+    byline "^5.0.0"
+    error-stack-parser "^2.0.2"
+    iserror "^0.0.2"
+    pump "^3.0.0"
+    stack-generator "^2.0.3"
+
+"@bugsnag/plugin-react@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.9.0.tgz#4986277d2f813d5070729487f32ca4770b539470"
+  integrity sha512-f1lQINjhqeDRUGs4zdkC2kOND9HDlaQ222J4i8tB3GXB6CWhtoKivnb4XmsRpV0FojcILySgPblwT4yoBGqXKA==
 
 "@bugsnag/safe-json-stringify@^6.0.0":
   version "6.0.0"
@@ -1154,17 +1192,22 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fortawesome/fontawesome-common-types@^0.2.33-alpha2", "@fortawesome/fontawesome-common-types@^0.2.34":
+"@fortawesome/fontawesome-common-types@^0.2.33-alpha2":
   version "0.2.34"
   resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/0.2.34/fontawesome-common-types-0.2.34.tgz#0a8c348bb23b7b760030f5b1d912e582be4ec915"
   integrity sha512-XcIn3iYbTEzGIxD0/dY5+4f019jIcEIWBiHc3KrmK/ROahwxmZ/s+tdj97p/5K0klz4zZUiMfUlYP0ajhSJjmA==
 
-"@fortawesome/fontawesome-svg-core@^1.2.34":
-  version "1.2.34"
-  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-svg-core/-/1.2.34/fontawesome-svg-core-1.2.34.tgz#1d1a7c92537cbc2b8a83eef6b6d824b4b5b46b26"
-  integrity sha512-0KNN0nc5eIzaJxlv43QcDmTkDY1CqeN6J7OCGSs+fwGPdtv0yOQqRjieopBCmw+yd7uD3N2HeNL3Zm5isDleLg==
+"@fortawesome/fontawesome-common-types@^0.2.35":
+  version "0.2.35"
+  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/0.2.35/fontawesome-common-types-0.2.35.tgz#01dd3d054da07a00b764d78748df20daf2b317e9"
+  integrity sha512-IHUfxSEDS9dDGqYwIW7wTN6tn/O8E0n5PcAHz9cAaBoZw6UpG20IG/YM3NNLaGPwPqgjBAFjIURzqoQs3rrtuw==
+
+"@fortawesome/fontawesome-svg-core@^1.2.35":
+  version "1.2.35"
+  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-svg-core/-/1.2.35/fontawesome-svg-core-1.2.35.tgz#85aea8c25645fcec88d35f2eb1045c38d3e65cff"
+  integrity sha512-uLEXifXIL7hnh2sNZQrIJWNol7cTVIzwI+4qcBIq9QWaZqUblm0IDrtSqbNg+3SQf8SMGHkiSigD++rHmCHjBg==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.34"
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
 
 "@fortawesome/free-brands-svg-icons@^6.0.0-alpha2":
   version "6.0.0-alpha2"
@@ -15321,10 +15364,10 @@ snyk@^1.486.0:
     uuid "^3.3.2"
     wrap-ansi "^5.1.0"
 
-snyk@^1.490.0:
-  version "1.490.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.490.0.tgz#6982b9fd188248fcec3d970bf8b83603c8abf025"
-  integrity sha512-PaFAQSY68pzvLRl9b/ycJk+7Lief4QcbHw76SebLOBzlhDgKlRxA4Oqx8zgdWHkvZ+MBbOKkwO3zc9CB4DIlFw==
+snyk@^1.493.0:
+  version "1.493.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.493.0.tgz#925afb21a22ead313322d745b6b551167e55370c"
+  integrity sha512-IGmmYXKGQscov4aPYI9SaYjgYu3rLBTdpT/5TaDbvXKRJAUsAMZw6RiqIlxf8pm5sixpTNSdBogn8IWBI8ZgtQ==
   dependencies:
     "@open-policy-agent/opa-wasm" "^1.2.0"
     "@snyk/cli-interface" "2.11.0"
