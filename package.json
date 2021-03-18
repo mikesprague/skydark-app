@@ -121,7 +121,7 @@
     "prettier": "^2.2.1",
     "prettier-eslint": "^12.0.0",
     "prettier-stylelint": "^0.4.2",
-    "rollup": "^2.41.4",
+    "rollup": "^2.41.5",
     "sass-lint": "^1.13.1",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
