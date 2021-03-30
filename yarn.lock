@@ -1203,7 +1203,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@netlify/build@^9.19.0":
+"@netlify/build@^9.19.1":
   version "9.19.1"
   resolved "https://registry.yarnpkg.com/@netlify/build/-/build-9.19.1.tgz#6249fd3e971d6b4ac0d998f105076cbbb42c4beb"
   integrity sha512-8IBiUymbp1V2UHQXa+LECGASIoXh9ocLkM7jOHKn1QD+GrxMmIwCBkt5xASKPI0cDZme1sSvjfqyphVIEe9rFQ==
@@ -1368,7 +1368,7 @@
     rollup-plugin-terser "^7.0.2"
     typescript "^4.1.5"
 
-"@netlify/plugins-list@^2.5.0":
+"@netlify/plugins-list@^2.5.0", "@netlify/plugins-list@^2.5.1":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@netlify/plugins-list/-/plugins-list-2.5.1.tgz#30c57eea4487efd330ab704acf5bf0681e67a394"
   integrity sha512-OaYiOuK5YBEHLMvcG63He5bENbqOfUcVWJ7XjnACXC7uEc4VamE3lTkBPmo8YRydcA5MDtE9Sr2gZs9KQ/EarQ==
@@ -11267,16 +11267,16 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
-netlify-cli@^3.13.9:
-  version "3.13.9"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-3.13.9.tgz#50dbcd1e2021540737fea736924a2bfbc178380e"
-  integrity sha512-rWh+laUxlljtDjIlcvCNp0WsFeNSWKaz2z0ah450iSGYbRlmLVn92xScUfu84EKeXR5oPHWMuKQKOl6BatocXw==
+netlify-cli@^3.13.10:
+  version "3.13.10"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-3.13.10.tgz#233216ba151a39938bf1b5c856106908024b1e98"
+  integrity sha512-+I0mNQLtVDxbfpoavF/YGam2ysNKw5qxXa2ievl2JSqbvpwqsur+Qi6Xq+fMOdDXvOjij6KvOOsnCTBGIjzfQw==
   dependencies:
-    "@netlify/build" "^9.19.0"
+    "@netlify/build" "^9.19.1"
     "@netlify/config" "^4.3.0"
     "@netlify/framework-info" "^3.2.1"
     "@netlify/plugin-edge-handlers" "^1.11.6"
-    "@netlify/plugins-list" "^2.5.0"
+    "@netlify/plugins-list" "^2.5.1"
     "@netlify/traffic-mesh-agent" "^0.27.10"
     "@netlify/zip-it-and-ship-it" "^3.0.1"
     "@oclif/command" "^1.6.1"
@@ -13016,6 +13016,15 @@ postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.8:
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.20"
+    source-map "^0.6.1"
+
+postcss@^8.2.9:
+  version "8.2.9"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.9.tgz#fd95ff37b5cee55c409b3fdd237296ab4096fba3"
+  integrity sha512-b+TmuIL4jGtCHtoLi+G/PisuIl9avxs8IZMSmlABRwNz5RLUUACrC+ws81dcomz1nRezm5YPdXiMEzBEKgYn+Q==
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.22"
     source-map "^0.6.1"
 
 precinct@^6.3.1:
