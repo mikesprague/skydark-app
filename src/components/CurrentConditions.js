@@ -23,8 +23,8 @@ export const CurrentConditions = () => {
                 size="2x"
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'red',
-                  '--fa-secondary-color': 'lightgray',
+                  '--fa-secondary-color': 'red',
+                  '--fa-primary-color': 'lightgray',
                   '--fa-secondary-opacity': '.9',
                 }}
               />
@@ -43,8 +43,8 @@ export const CurrentConditions = () => {
                 size="2x"
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'dodgerblue',
-                  '--fa-secondary-color': 'silver',
+                  '--fa-secondary-color': 'dodgerblue',
+                  '--fa-primary-color': 'silver',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -57,8 +57,8 @@ export const CurrentConditions = () => {
                   size="lg"
                   transform={{ rotate: data.weather.currently.windBearing }}
                   style={{
-                    '--fa-primary-color': 'ghostwhite',
-                    '--fa-secondary-color': 'darkslategray',
+                    '--fa-secondary-color': 'ghostwhite',
+                    '--fa-primary-color': 'darkslategray',
                     '--fa-secondary-opacity': '1',
                   }}
                   fixedWidth
@@ -75,8 +75,8 @@ export const CurrentConditions = () => {
                 swapOpacity
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'black',
-                  '--fa-secondary-color': 'deepskyblue',
+                  '--fa-secondary-color': 'black',
+                  '--fa-primary-color': 'deepskyblue',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -96,8 +96,8 @@ export const CurrentConditions = () => {
                 swapOpacity
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'royalblue',
-                  '--fa-secondary-color': 'sienna',
+                  '--fa-secondary-color': 'royalblue',
+                  '--fa-primary-color': 'sienna',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -116,8 +116,8 @@ export const CurrentConditions = () => {
                 size="2x"
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'darkgray',
-                  '--fa-secondary-color': 'silver',
+                  '--fa-secondary-color': 'darkgray',
+                  '--fa-primary-color': 'silver',
                   '--fa-secondary-opacity': '1',
                 }}
               />
@@ -133,8 +133,8 @@ export const CurrentConditions = () => {
                 size="2x"
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'skyblue',
-                  '--fa-secondary-color': 'lightgray',
+                  '--fa-secondary-color': 'skyblue',
+                  '--fa-primary-color': 'lightgray',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -150,8 +150,8 @@ export const CurrentConditions = () => {
                 size="2x"
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'crimson',
-                  '--fa-secondary-color': 'lightgray',
+                  '--fa-secondary-color': 'crimson',
+                  '--fa-primary-color': 'lightgray',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -167,8 +167,8 @@ export const CurrentConditions = () => {
                 size="2x"
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'gold',
-                  '--fa-secondary-color': 'darkorange',
+                  '--fa-secondary-color': 'gold',
+                  '--fa-primary-color': 'darkorange',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -185,8 +185,8 @@ export const CurrentConditions = () => {
                 swapOpacity
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'darkorange',
-                  '--fa-secondary-color': 'gold',
+                  '--fa-secondary-color': 'darkorange',
+                  '--fa-primary-color': 'gold',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -203,8 +203,8 @@ export const CurrentConditions = () => {
                 swapOpacity
                 fixedWidth
                 style={{
-                  '--fa-primary-color': 'darkorange',
-                  '--fa-secondary-color': 'gold',
+                  '--fa-secondary-color': 'darkorange',
+                  '--fa-primary-color': 'gold',
                   '--fa-secondary-opacity': '.75',
                 }}
               />
@@ -218,7 +218,29 @@ export const CurrentConditions = () => {
         </>
       }
     />
-  ) : '';
+  ) : (
+    (
+    (
+    (
+    (
+    (
+    (
+    (
+    (
+    (
+    (
+    ''
+  )
+  )
+  )
+  )
+  )
+  )
+  )
+  )
+  )
+  )
+  );
 };
 
 export default CurrentConditions;
