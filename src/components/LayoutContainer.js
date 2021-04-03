@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React from 'react';
 
-export const LayoutContainer = memo(({ children }) => (
+export const LayoutContainer = ({ children }) => (
   <div className="my-16">
     {children}
   </div>
-));
+);
 
 LayoutContainer.displayName = 'LayoutContainer';
 LayoutContainer.propTypes = {

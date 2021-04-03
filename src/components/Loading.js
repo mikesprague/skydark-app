@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Loading = memo(({ fullHeight }) => {
+export const Loading = ({ fullHeight }) => {
   let classList = 'flex items-center justify-center h-100 w-100 loading-container';
 
   if (fullHeight) {
@@ -14,7 +14,7 @@ export const Loading = memo(({ fullHeight }) => {
       <FontAwesomeIcon icon={['fad', 'spinner']} size="3x" className="m-8" pulse />
     </div>
   );
-});
+};
 
 Loading.displayName = 'Loading';
 Loading.defaultProps = {

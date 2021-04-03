@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import React, { memo, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import './Modal.scss';
 
-export const Modal = memo(({ id, content = '', heading = '', weatherAlert = true, weatherAlertData = null }) => {
+export const Modal = ({ id, content = '', heading = '', weatherAlert = true, weatherAlertData = null }) => {
   const [visible, setVisible] = useState(true);
   const overlayContainerRef = useRef();
   const overlayRef = useRef();
@@ -84,7 +84,7 @@ export const Modal = memo(({ id, content = '', heading = '', weatherAlert = true
       </div>
     </div>
   );
-});
+};
 
 Modal.displayName = 'Modal';
 Modal.propTypes = {

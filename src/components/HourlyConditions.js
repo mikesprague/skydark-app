@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition } from '../modules/helpers';
 import { Modal } from './Modal';
 import './CurrentConditions.scss';
 
-export const HourlyConditions = memo(({ data, dayData }) => data ? (
+export const HourlyConditions = ({ data, dayData }) => data ? (
   <Modal
     id={`hourly-conditions-modal-${data.time}`}
     weatherAlert={false}
@@ -216,7 +216,7 @@ export const HourlyConditions = memo(({ data, dayData }) => data ? (
       </>
     }
   />
-) : '');
+) : '';
 
 HourlyConditions.displayName = 'HourlyConditions';
 HourlyConditions.propTypes = {

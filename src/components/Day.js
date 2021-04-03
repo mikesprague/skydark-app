@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { memo, useContext } from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { apiUrl, formatCondition, sleep } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
@@ -12,7 +12,7 @@ import { Loading } from './Loading';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Day.scss';
 
-export const Day = memo(({ data, dayIndex }) => {
+export const Day = ({ data, dayIndex }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
   const fullData = useContext(WeatherDataContext);
 
@@ -86,7 +86,7 @@ export const Day = memo(({ data, dayIndex }) => {
       {hourlyData ? <Hourly data={hourlyData} dayData={data} /> : <Loading fullHeight={false} />}
     </details>
   );
-});
+};
 
 Day.displayName = 'Day';
 Day.propTypes = {

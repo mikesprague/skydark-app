@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HourlyConditions } from './HourlyConditions';
 import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './Hour.scss';
 
-export const Hour = memo(({ data, dayData, summary, isFirst, isLast, conditionToShow }) => {
+export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const Hour = memo(({ data, dayData, summary, isFirst, isLast, conditionTo
       <HourlyConditions data={data} dayData={dayData} />
     </li>
   );
-});
+};
 
 Hour.displayName = 'Hour';
 Hour.propTypes = {

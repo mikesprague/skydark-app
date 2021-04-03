@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React from 'react';
 import './Pill.scss';
 
-export const Pill = memo(({ clickHandler, dataLabel, label, selected }) => (
+export const Pill = ({ clickHandler, dataLabel, label, selected }) => (
   <div className={selected ? 'pill-selected' : 'pill'} onClick={clickHandler} data-label={dataLabel}>
     {label}
   </div>
-));
+);
 
 Pill.displayName = 'Pill';
 Pill.defaultProps = {

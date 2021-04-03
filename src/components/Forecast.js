@@ -69,7 +69,7 @@ export const Forecast = () => {
 
     const { lat, lng } = coordinates;
     if (weatherData && lastUpdated) {
-      if (isCacheExpired(lastUpdated, 10)) {
+      if (isCacheExpired(lastUpdated, 5)) {
         getWeatherData(lat, lng);
       }
     } else {
