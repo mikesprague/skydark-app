@@ -1893,6 +1893,15 @@
   dependencies:
     "@types/graphlib" "^2"
 
+"@snyk/cloud-config-parser@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@snyk/cloud-config-parser/-/cloud-config-parser-1.9.2.tgz#e6c8e575db8527b33cf1ba766f86e1b3414cf6e1"
+  integrity sha512-m8Y2+3l4fxj96QMrTfiCEaXgCpDkCkJIX/5wv0V0RHuxpUiyh+KxC2yJ8Su4wybBj6v6hB9hB7h5/L+Gy4V4PA==
+  dependencies:
+    esprima "^4.0.1"
+    tslib "^1.10.0"
+    yaml-js "^0.3.0"
+
 "@snyk/cocoapods-lockfile-parser@3.6.2":
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/@snyk/cocoapods-lockfile-parser/-/cocoapods-lockfile-parser-3.6.2.tgz#803ae9466f408c48ba7c5a8ec51b9dbac6f633b3"
@@ -1982,10 +1991,10 @@
     micromatch "^4.0.2"
     picomatch "^2.2.1"
 
-"@snyk/fix@1.526.0":
-  version "1.526.0"
-  resolved "https://registry.yarnpkg.com/@snyk/fix/-/fix-1.526.0.tgz#589bc5e6745b1f81f36cfa46199d98871113e7b7"
-  integrity sha512-+aMUNRhOdoN4YPGxXlN9+NwvKOr/DNBCGgC8DnNSujcJ9Nj1M8oHrnVoTy56/tgbJ8qyw/zwmCKAm383CfURKg==
+"@snyk/fix@1.540.0":
+  version "1.540.0"
+  resolved "https://registry.yarnpkg.com/@snyk/fix/-/fix-1.540.0.tgz#2b00a38271147f6cbef001b43a829f9efaf8691e"
+  integrity sha512-uC2QCjBbGz59RXdrjI6QUJrkCAzEAB73KD+zqHqvGeWgYEa9dbF78RJSFXzmT/0q8V43sTpSHq5nFUzcCrtvUg==
   dependencies:
     "@snyk/dep-graph" "^1.21.0"
     chalk "4.1.0"
@@ -14696,10 +14705,10 @@ snyk-policy@1.19.0:
     snyk-resolve "^1.1.0"
     snyk-try-require "^2.0.0"
 
-snyk-python-plugin@1.19.7:
-  version "1.19.7"
-  resolved "https://registry.yarnpkg.com/snyk-python-plugin/-/snyk-python-plugin-1.19.7.tgz#d7e536694a481fd48e7d0cc8e7753c3f15a9c8be"
-  integrity sha512-twAGoIgJVSLVzMkuT/n5l9ZDvhMbWH7De6flWiHQB/grthfl3vJDzLCxiTa+6H/IEEYNSv6F/nSrfNh9UbW5/A==
+snyk-python-plugin@1.19.8:
+  version "1.19.8"
+  resolved "https://registry.yarnpkg.com/snyk-python-plugin/-/snyk-python-plugin-1.19.8.tgz#9e4dfa8ed7e16ef2752f934b786d2e033de62ce0"
+  integrity sha512-LMKVnv0J4X/qHMoKB17hMND0abWtm9wdgI4xVzrOcf2Vtzs3J87trRhwLxQA2lMoBW3gcjtTeBUvNKaxikSVeQ==
   dependencies:
     "@snyk/cli-interface" "^2.0.3"
     snyk-poetry-lockfile-parser "^1.1.6"
@@ -14771,16 +14780,17 @@ snyk-try-require@^2.0.0:
     lodash.clonedeep "^4.3.0"
     lru-cache "^5.1.1"
 
-snyk@^1.534.0:
-  version "1.534.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.534.0.tgz#d5010b6aac87bb5d8535b2bfa1163ab404598e6e"
-  integrity sha512-sljEuFhgVy63yRrSiIAtKR8cmx2szIL2NiOwpswHEyw9insYTqqcgfFTxUMB1NLEq2Lh7LmkOMStk11qekVRcA==
+snyk@^1.540.0:
+  version "1.540.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.540.0.tgz#cd82998fe0821d760e1e77eee706e785023f6e73"
+  integrity sha512-CqW3p5pIbAV2NjjTvk9XCUBrCa1wiUeTiLyzbT++1qH0tFtzXaBuvnuwYy8tiPS5eEzM98UINHkdXbsnAXZy1w==
   dependencies:
     "@open-policy-agent/opa-wasm" "^1.2.0"
     "@snyk/cli-interface" "2.11.0"
+    "@snyk/cloud-config-parser" "^1.9.2"
     "@snyk/code-client" "3.4.0"
     "@snyk/dep-graph" "^1.27.1"
-    "@snyk/fix" "1.526.0"
+    "@snyk/fix" "1.540.0"
     "@snyk/gemfile" "1.2.0"
     "@snyk/graphlib" "^2.1.9-patch.3"
     "@snyk/inquirer" "^7.3.3-patch"
@@ -14832,7 +14842,7 @@ snyk@^1.534.0:
     snyk-nuget-plugin "1.21.0"
     snyk-php-plugin "1.9.2"
     snyk-policy "1.19.0"
-    snyk-python-plugin "1.19.7"
+    snyk-python-plugin "1.19.8"
     snyk-resolve "1.1.0"
     snyk-resolve-deps "4.7.2"
     snyk-sbt-plugin "2.11.0"
@@ -17333,6 +17343,11 @@ yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+
+yaml-js@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/yaml-js/-/yaml-js-0.3.0.tgz#ad0893d9de881a93fd6bf936e8d89cdde309e848"
+  integrity sha512-JbTUdsPiCkOyz+JOSqAVc19omTnUBnBQglhuclYov5HpWbEOz8y+ftqWjiMa9Pe/eF/dmCUeNgVs/VWg53GlgQ==
 
 yaml@^1.10.0, yaml@^1.9.2:
   version "1.10.2"
