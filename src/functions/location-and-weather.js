@@ -8,13 +8,14 @@ exports.handler = async (event, context, callback) => {
   const callbackHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json',
   };
 
   if (healthcheck) {
     return {
       headers: callbackHeaders,
       statusCode: 200,
-      body: 'API is up and running',
+      body:  JSON.stringify('API is up and running'),
     };
   }
 
@@ -22,14 +23,14 @@ exports.handler = async (event, context, callback) => {
     return {
       headers: callbackHeaders,
       statusCode: 400,
-      body: 'Missing "lat" parameter',
+      body:  JSON.stringify('Missing "lat" parameter'),
     };
   }
   if (!lng) {
     return {
       headers: callbackHeaders,
       statusCode: 400,
-      body: 'Missing "lng" parameter',
+      body:  JSON.stringify('Missing "lng" parameter'),
     };
   }
 
