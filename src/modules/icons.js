@@ -159,96 +159,96 @@ export const getWeatherIcon = (icon) => {
     'clear-day': {
       icon: 'sun',
       iconStyles: {
-        '--fa-secondary-color': 'gold',
-        '--fa-primary-color': 'darkorange',
+        '--fa-primary-color': 'gold',
+        '--fa-secondary-color': 'darkorange',
         '--fa-secondary-opacity': '.75',
       },
     },
     'clear-night': {
       icon: 'moon-stars',
       iconStyles: {
-        '--fa-secondary-color': 'plum',
-        '--fa-primary-color': 'palegoldenrod',
+        '--fa-primary-color': 'plum',
+        '--fa-secondary-color': 'palegoldenrod',
         '--fa-secondary-opacity': '1',
       },
     },
     rain: {
       icon: 'cloud-rain',
       iconStyles: {
-        '--fa-secondary-color': 'silver',
-        '--fa-primary-color': 'dodgerblue',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'dodgerblue',
         '--fa-secondary-opacity': '.75',
       },
     },
     snow: {
       icon: 'cloud-snow',
       iconStyles: {
-        '--fa-secondary-color': 'silver',
-        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-opacity': '1',
       },
     },
     sleet: {
       icon: 'cloud-sleet',
       iconStyles: {
-        '--fa-secondary-color': 'silver',
-        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-opacity': '.9',
       },
     },
     wind: {
       icon: 'wind',
       iconStyles: {
-        '--fa-secondary-color': 'skyblue',
-        '--fa-primary-color': 'lightgray',
+        '--fa-primary-color': 'skyblue',
+        '--fa-secondary-color': 'lightgray',
         '--fa-secondary-opacity': '.75',
       },
     },
     fog: {
       icon: 'cloud-fog',
       iconStyles: {
-        '--fa-secondary-color': 'lightgray',
-        '--fa-primary-color': 'silver',
+        '--fa-primary-color': 'lightgray',
+        '--fa-secondary-color': 'silver',
         '--fa-secondary-opacity': '1',
       },
     },
     cloudy: {
       icon: 'clouds',
       iconStyles: {
-        '--fa-secondary-color': 'silver',
-        '--fa-primary-color': 'darkgray',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'darkgray',
         '--fa-secondary-opacity': '.75',
       },
     },
     'partly-cloudy-day': {
       icon: 'clouds-sun',
-      iconStyles: { '--fa-secondary-color': 'silver', '--fa-primary-color': 'gold', '--fa-secondary-opacity': '.75' },
+      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75' },
     },
     'partly-cloudy-night': {
       icon: 'clouds-moon',
-      iconStyles: { '--fa-secondary-color': 'silver', '--fa-primary-color': 'plum', '--fa-secondary-opacity': '1' },
+      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'plum', '--fa-secondary-opacity': '1' },
     },
     hail: {
       icon: 'cloud-hail',
       iconStyles: {
-        '--fa-secondary-color': 'silver',
-        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-opacity': '.9',
       },
     },
     hurricane: {
       icon: 'hurricane',
-      iconStyles: { '--fa-secondary-color': 'black', '--fa-primary-color': 'crimson', '--fa-secondary-opacity': '.9' },
+      iconStyles: { '--fa-primary-color': 'black', '--fa-secondary-color': 'crimson', '--fa-secondary-opacity': '.9' },
     },
     thunderstorm: {
       icon: 'cloud-bolt',
-      iconStyles: { '--fa-secondary-color': 'silver', '--fa-primary-color': 'yellow', '--fa-secondary-opacity': '.8' },
+      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'yellow', '--fa-secondary-opacity': '.8' },
     },
     tornado: {
       icon: 'tornado',
       iconStyles: {
-        '--fa-secondary-color': 'skyblue',
-        '--fa-primary-color': 'silver',
+        '--fa-primary-color': 'skyblue',
+        '--fa-secondary-color': 'silver',
         '--fa-secondary-opacity': '.75',
       },
     },
