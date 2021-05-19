@@ -111,7 +111,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "mini-css-extract-plugin": "^1.6.0",
-    "netlify-cli": "^3.29.17",
+    "netlify-cli": "^3.30.0",
     "netlify-lambda": "^2.0.7",
     "node-sass": "^6.0.0",
     "postcss": "^8.2.15",
@@ -127,7 +127,7 @@
     "terser-webpack-plugin": "^5.1.2",
     "typescript": "^4.2.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.37.0",
+    "webpack": "^5.37.1",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "3.11.2",
     "workbox-webpack-plugin": "^6.1.5"
