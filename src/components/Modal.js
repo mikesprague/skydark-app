@@ -41,7 +41,7 @@ export const Modal = ({ id, content = '', heading = '', weatherAlert = true, wea
         aria-labelledby="modal-headline"
       >
         <div className="px-4 pt-5 pb-4">
-          <div className="flex items-start">
+          <div className="">
             <div className="mt-3 text-center">
             {weatherAlert ? (
               weatherAlertData.map((alertData, alertIdx) => (

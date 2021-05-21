@@ -1,6 +1,7 @@
 .weather-alert-container {
   @apply mb-1;
   @apply text-center;
+  @apply break-words;
 
   .weather-alert-button {
     @apply text-sm;
