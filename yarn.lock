@@ -999,6 +999,13 @@
   dependencies:
     "@bugsnag/core" "^7.10.0"
 
+"@bugsnag/browser@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.10.1.tgz#ac1c61b9cadc03020894d85870d3fd8596db5464"
+  integrity sha512-Yxm/DheT/NHX2PhadBDuafuHBhP547Iav6Y9jf+skBBSi1n0ZYkGhtVxh8ZWLgqz5W8MsJ0HFiLBqcg/mulSvQ==
+  dependencies:
+    "@bugsnag/core" "^7.10.0"
+
 "@bugsnag/core@^7.10.0":
   version "7.10.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-7.10.0.tgz#4b4856141a95a1feadb1afc74265dc6ad8d40cc0"
@@ -1015,7 +1022,7 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.0.0.tgz#2ee7642a30aee6dc86f5e7f824653741e42e5c35"
   integrity sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==
 
-"@bugsnag/js@^7.0.0", "@bugsnag/js@^7.10.0":
+"@bugsnag/js@^7.0.0":
   version "7.10.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.10.0.tgz#cefc3af87a0c8022528d95a5f587795bf4c92ddf"
   integrity sha512-DrtvRK8oJeURp4lnkt2bcBlpkCgk+020KrH6NVJZfnP3SIwW3GVzKHhJ9BQfaI3yl0zZB1GY/4WnyZpX9iM/hQ==
@@ -1023,10 +1030,30 @@
     "@bugsnag/browser" "^7.10.0"
     "@bugsnag/node" "^7.10.0"
 
+"@bugsnag/js@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.10.1.tgz#60d08a8cfeac86f1e5741bfc7b2346e5df34fccb"
+  integrity sha512-1/MK/Bw2ViFx1hMG2TOX8MOq/LzT2VRd0VswknF4LYsZSgzohkRzz/hi6P2TSlLeapRs+bkDC6u2RCq4zYvyiA==
+  dependencies:
+    "@bugsnag/browser" "^7.10.1"
+    "@bugsnag/node" "^7.10.1"
+
 "@bugsnag/node@^7.10.0":
   version "7.10.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-7.10.0.tgz#6ef3577bc3987e9712e214524a7896610bd4eab4"
   integrity sha512-90TjvF4cgMQC1B0e/qnJlmqXklwCd4J7pq59CjxyY6Qab4BZIcKba1flR6TsJaUqzKF5HoxgtPh0amTHdo0sJg==
+  dependencies:
+    "@bugsnag/core" "^7.10.0"
+    byline "^5.0.0"
+    error-stack-parser "^2.0.2"
+    iserror "^0.0.2"
+    pump "^3.0.0"
+    stack-generator "^2.0.3"
+
+"@bugsnag/node@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-7.10.1.tgz#c392e2c31130a67d2aa25d81cb8b82f14255c33e"
+  integrity sha512-kpasrz/im5ljptt2JOqrjbOu4b0i5sAZOYU4L0psWXlD31/wXytk7im11QlNALdI8gZZBxIFsVo8ks6dR6mHzg==
   dependencies:
     "@bugsnag/core" "^7.10.0"
     byline "^5.0.0"
@@ -2232,10 +2259,10 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tailwindcss/typography@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/typography/-/typography-0.4.0.tgz#b80974ad6af93df7b06e1981cb4d79698b6ad5c7"
-  integrity sha512-3BfOYT5MYNEq81Ism3L2qu/HRP2Q5vWqZtZRQqQrthHuaTK9qpuPfbMT5WATjAM5J1OePKBaI5pLoX4S1JGNMQ==
+"@tailwindcss/typography@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/typography/-/typography-0.4.1.tgz#51ddbceea6a0ee9902c649dbe58871c81a831212"
+  integrity sha512-ovPPLUhs7zAIJfr0y1dbGlyCuPhpuv/jpBoFgqAc658DWGGrOBWBMpAWLw2KlzbNeVk4YBJMzue1ekvIbdw6XA==
   dependencies:
     lodash.castarray "^4.4.0"
     lodash.isplainobject "^4.0.6"
@@ -14893,10 +14920,10 @@ snyk-try-require@^2.0.0:
     lodash.clonedeep "^4.3.0"
     lru-cache "^5.1.1"
 
-snyk@^1.606.0:
-  version "1.606.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.606.0.tgz#3115f491a2be772cb4273c26c0213cdc1be57f8b"
-  integrity sha512-xvJCdL5tGPnc1U1E1C7FjIQ80ZGm8MWQXY9Vvox/J+a69CgSgmFEP2UVTZZ9ndr3jGBAgr0/IKw+O+s1Jn4aYA==
+snyk@^1.607.0:
+  version "1.607.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.607.0.tgz#b9533c2e51aee1147783619729d273eb0f538eff"
+  integrity sha512-qrHD51kTxAP+tLJ2GrwL6eBxzMPqZOOchxYiB1Op1mAmsxaJadq+FpTzCtx1B/cja0pmcQ+8wHa1PGA4pxKzVg==
   dependencies:
     "@open-policy-agent/opa-wasm" "^1.2.0"
     "@snyk/cli-interface" "2.11.0"
@@ -14968,6 +14995,7 @@ snyk@^1.606.0:
     update-notifier "^5.1.0"
     uuid "^3.3.2"
     wrap-ansi "^5.1.0"
+    yaml "^1.10.2"
 
 sockjs-client@^1.5.0:
   version "1.5.1"
@@ -17492,7 +17520,7 @@ yaml-js@^0.3.0:
   resolved "https://registry.yarnpkg.com/yaml-js/-/yaml-js-0.3.0.tgz#ad0893d9de881a93fd6bf936e8d89cdde309e848"
   integrity sha512-JbTUdsPiCkOyz+JOSqAVc19omTnUBnBQglhuclYov5HpWbEOz8y+ftqWjiMa9Pe/eF/dmCUeNgVs/VWg53GlgQ==
 
-yaml@^1.10.0, yaml@^1.9.2:
+yaml@^1.10.0, yaml@^1.10.2, yaml@^1.9.2:
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.2.tgz#2301c5ffbf12b467de8da2333a459e29e7920e4b"
   integrity sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==
