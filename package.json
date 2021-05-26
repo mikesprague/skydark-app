@@ -50,7 +50,7 @@
     "@tippyjs/react": "^4.2.5",
     "axios": "^0.21.1",
     "cogo-toast": "^4.2.3",
-    "dayjs": "^1.10.4",
+    "dayjs": "^1.10.5",
     "history": "^5.0.0",
     "leaflet": "^1.7.1",
     "nanoid": "^3.1.23",
@@ -62,7 +62,7 @@
     "react-leaflet": "^3.2.0",
     "react-router-dom": "^6.0.0-beta.0",
     "register-service-worker": "^1.7.2",
-    "snyk": "^1.607.0",
+    "snyk": "^1.609.0",
     "tailwindcss": "^2.1.2"
   },
   "devDependencies": {
