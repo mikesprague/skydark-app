@@ -78,7 +78,7 @@ export const Day = ({ data, dayIndex }) => {
           </div>
           <div className="temps">
             {formatCondition(data.temperatureMin, 'temperature').trim()}
-            <span className="temps-spacer" />
+            <span className="temps-spacer" style={{ width: '72%' }} />
             {formatCondition(data.temperatureMax, 'temperature').trim()}
           </div>
         </div>

@@ -44,14 +44,14 @@
       @apply flex-grow;
       @apply order-3;
       @apply flex;
+      @apply justify-center;
 
       .temps-spacer {
-        @apply h-6;
+        @apply h-5;
         @apply mx-2;
         @apply bg-gray-100;
         @apply rounded-full;
         @apply align-text-bottom;
-        @apply flex-grow;
         @apply border;
         @apply border-gray-300;
       }
