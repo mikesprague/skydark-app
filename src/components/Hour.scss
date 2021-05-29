@@ -9,7 +9,7 @@
   .hour-wrap {
     @apply flex;
     @apply flex-wrap;
-    min-width: 55%;
+    @apply w-full;
 
     &::after {
       @apply flex-grow;

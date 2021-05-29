@@ -25,14 +25,7 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
 
   return (
     <li className="hour">
-      <div
-        className="hour-wrap"
-        style={
-          ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
-            ? { width: `${Math.round(data[conditionToShow] * valScale)}%` }
-            : { width: '100%' }
-        }
-      >
+      <div className="hour-wrap">
         <div
           className={`condition-bar ${isLast ? 'rounded-b-md' : ''} ${
             isFirst ? 'rounded-t-md' : ''
@@ -42,7 +35,15 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
         <div className="summary">{summary}</div>
         <div className="spacer">&nbsp;</div>
       </div>
-      <div className="condition" onClick={clickHandler}>
+      <div
+        className="condition"
+        onClick={clickHandler}
+        style={
+          ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
+            ? { marginRight: `${Math.round(100 - (Math.floor(data[conditionToShow]) * valScale))}%` }
+            : {}
+        }
+      >
         <span
           className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(data[hourlyConditionToShow]) : 'bubble'}
         >
