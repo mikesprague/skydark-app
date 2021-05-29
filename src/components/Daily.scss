@@ -66,6 +66,7 @@
       list-style: none;
       @apply focus:outline-none;
 
+      &::marker,
       &::-webkit-details-marker {
         display: none;
       }
