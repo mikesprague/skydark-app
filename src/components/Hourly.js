@@ -19,6 +19,16 @@ export const Hourly = ({ data, dayData }) => {
     setHourlyData(data.data);
   }, [data]);
 
+  const [valScale, setValScale] = useState(1);
+  useEffect(() => {
+    if (hourlyData) {
+      const allVals = hourlyData.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
+      const max = Math.max(...allVals);
+      const scale = 100 / max;
+      setValScale(scale);
+    }
+  }, [hourlyConditionToShow, hourlyData]);
+
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
     const newSelection = event.target;
@@ -48,6 +58,7 @@ export const Hourly = ({ data, dayData }) => {
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
               dayData={dayData}
+              valScale={valScale}
             />
           ) : (
             ''

@@ -5,7 +5,7 @@ import { HourlyConditions } from './HourlyConditions';
 import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import './Hour.scss';
 
-export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow }) => {
+export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow, valScale = 1 }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
 
   useEffect(() => {
@@ -26,13 +26,22 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow 
   return (
     <li className="hour">
       <div
-        className={`condition-bar ${isLast ? 'rounded-b-md' : ''} ${
-          isFirst ? 'rounded-t-md' : ''
-        } ${getConditionBarClass(data)}`}
-      />
-      <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
-      <div className="summary">{summary}</div>
-      <div className="spacer">&nbsp;</div>
+        className="hour-wrap"
+        style={
+          ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
+            ? { width: `${Math.round(data[conditionToShow] * valScale)}%` }
+            : { width: '100%' }
+        }
+      >
+        <div
+          className={`condition-bar ${isLast ? 'rounded-b-md' : ''} ${
+            isFirst ? 'rounded-t-md' : ''
+          } ${getConditionBarClass(data)}`}
+        />
+        <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
+        <div className="summary">{summary}</div>
+        <div className="spacer">&nbsp;</div>
+      </div>
       <div className="condition" onClick={clickHandler}>
         <span
           className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(data[hourlyConditionToShow]) : 'bubble'}
@@ -56,6 +65,7 @@ Hour.propTypes = {
   isFirst: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
   conditionToShow: PropTypes.string.isRequired,
+  valScale: PropTypes.number.isRequired,
 };
 
 export default Hour;

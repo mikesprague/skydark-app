@@ -6,18 +6,24 @@
   @apply leading-10;
   @apply cursor-default;
 
-  &::after {
-    content: '';
-    top: -1.65rem;
-    @apply flex-grow;
-    @apply mr-2;
-    @apply order-4;
-    @apply relative;
-    @apply border-0;
-    @apply border-gray-400;
-    @apply dark:border-gray-600;
-    @apply border-solid;
-    @apply border-b;
+  .hour-wrap {
+    @apply flex;
+    @apply flex-wrap;
+    min-width: 55%;
+
+    &::after {
+      @apply flex-grow;
+      @apply mr-2;
+      @apply order-4;
+      @apply relative;
+      @apply border-0;
+      @apply border-gray-400;
+      @apply dark:border-gray-600;
+      @apply border-solid;
+      @apply border-b;
+      content: '';
+      top: -1.65rem;
+      }
   }
 
   .condition-bar {
@@ -54,7 +60,7 @@
     @apply inline-block;
     @apply align-top;
     @apply order-5;
-    @apply flex-grow-0;
+    @apply flex-grow;
 
     .bubble {
       @apply py-1;

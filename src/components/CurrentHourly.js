@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { formatSummary } from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
@@ -12,6 +12,16 @@ export const CurrentHourly = () => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const containerRef = useRef();
   const data = useContext(WeatherDataContext);
+
+  const [valScale, setValScale] = useState(1);
+  useEffect(() => {
+    if (data) {
+        const allVals = data.weather.hourly.data.slice(0, 17).map((hour) => hour[hourlyConditionToShow]);
+        const max = Math.max(...allVals);
+        const scale = 100 / max;
+        setValScale(scale);
+    }
+  }, [hourlyConditionToShow, data]);
 
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
@@ -47,6 +57,7 @@ export const CurrentHourly = () => {
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
               dayData={data.weather.daily.data[dayDataIndex]}
+              valScale={valScale}
             />
           ) : (
             ''
