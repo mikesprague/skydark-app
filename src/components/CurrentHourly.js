@@ -16,7 +16,7 @@ export const CurrentHourly = () => {
   const [valScale, setValScale] = useState(1);
   useEffect(() => {
     if (data) {
-        const allVals = data.weather.hourly.data.slice(0, 17).map((hour) => hour[hourlyConditionToShow]);
+        const allVals = data.weather.hourly.data.slice(0, 21).map((hour) => hour[hourlyConditionToShow]);
         const max = Math.max(...allVals);
         const scale = 100 / max;
         setValScale(scale);
