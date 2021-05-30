@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { formatSummary } from '../modules/helpers';
+import { formatSummary, formatCondition } from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
 import { Pill } from './Pill';
@@ -37,6 +37,15 @@ export const CurrentHourly = () => {
     <div className="current-hourly-container">
       <NextHour />
       <ul className="hourly">
+        <p className="mt-3 mb-5 ml-2 text-base">
+          <strong className="text-lg font-medium">Next 24 Hours</strong>
+          <br />
+          <em className="text-sm">
+            High: {` ${formatCondition(Math.max(...data.weather.hourly.data.slice(0, 21).map(hour => Math.round(hour.temperature))), 'temperature')} `}
+            Low: {` ${formatCondition(Math.min(...data.weather.hourly.data.slice(0, 21).map(hour => Math.round(hour.temperature))), 'temperature')} `}
+            {` ${data.weather.hourly.summary}`}
+          </em>
+        </p>
         {data.weather.hourly.data.map((hourData, index) => {
           const startIndex =
             dayjs().format('m') <= 30 &&
