@@ -43,7 +43,7 @@ export const CurrentHourly = () => {
           <em className="text-sm">
             High: {` ${formatCondition(Math.max(...data.weather.hourly.data.slice(0, 22).map(hour => Math.round(hour.temperature))), 'temperature')} `}
             Low: {` ${formatCondition(Math.min(...data.weather.hourly.data.slice(0, 22).map(hour => Math.round(hour.temperature))), 'temperature')} `}
-            {` ${data.weather.hourly.summary}`}
+            {`\u00a0${data.weather.hourly.summary}`}
           </em>
         </p>
         {data.weather.hourly.data.map((hourData, index) => {
