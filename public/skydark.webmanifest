@@ -39,10 +39,20 @@
       "sizes": "144x144"
     }
   ],
+  "lang": "en-US",
+  "dir": "auto",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#181c1d",
-  "theme_color": "#181c1d"
+  "theme_color": "#181c1d",
+  "shortcuts": [
+    {
+      "name": "View Weather Map",
+      "short_name": "Weather Map",
+      "description": "Opens Sky Dark to the weather map screen",
+      "url": "/#/map"
+    }
+  ]
 }
