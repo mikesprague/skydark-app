@@ -12,7 +12,7 @@ import { Loading } from './Loading';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Day.scss';
 
-export const Day = ({ data, dayIndex }) => {
+export const Day = ({ data, dayIndex, valScale, lowScale, minLow }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
   const fullData = useContext(WeatherDataContext);
 
@@ -76,9 +76,18 @@ export const Day = ({ data, dayIndex }) => {
               fixedWidth
             />
           </div>
-          <div className="temps">
+          <div
+            className="temps"
+            style={{
+              position: 'relative',
+              left: `${Math.round(Math.round(data.temperatureMin) - minLow) * lowScale}%`,
+            }}
+          >
             {formatCondition(data.temperatureMin, 'temperature').trim()}
-            <span className="temps-spacer" style={{ width: '72%' }} />
+            <span
+              className="temps-spacer"
+              style={{ width: `${Math.round(Math.round(data.temperatureMax - data.temperatureMin) * valScale)}%` }}
+            />
             {formatCondition(data.temperatureMax, 'temperature').trim()}
           </div>
         </div>
@@ -93,6 +102,9 @@ Day.propTypes = {
   data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]))
     .isRequired,
   dayIndex: PropTypes.number.isRequired,
+  valScale: PropTypes.number.isRequired,
+  lowScale: PropTypes.number.isRequired,
+  minLow: PropTypes.number.isRequired,
 };
 
 export default Day;

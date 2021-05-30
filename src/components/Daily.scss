@@ -44,10 +44,9 @@
       @apply flex-grow;
       @apply order-3;
       @apply flex;
-      @apply justify-center;
 
       .temps-spacer {
-        @apply h-5;
+        @apply h-6;
         @apply mx-2;
         @apply bg-gray-100;
         @apply rounded-full;
