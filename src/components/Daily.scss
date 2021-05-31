@@ -1,3 +1,7 @@
+.daily-container {
+  overflow-x: clip;
+}
+
 .daily {
   @apply p-3;
   @apply flex;
