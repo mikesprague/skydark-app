@@ -59,6 +59,7 @@ const webpackRules = [
 
 const webpackPlugins = [
   new webpack.DefinePlugin({
+    'process.env.BUGSNAG_CLIENT_API_KEY': JSON.stringify(process.env.BUGSNAG_CLIENT_API_KEY),
     'process.env.OPENWEATHERMAP_API_KEY': JSON.stringify(process.env.OPENWEATHERMAP_API_KEY),
   }),
   new MiniCssExtractPlugin({

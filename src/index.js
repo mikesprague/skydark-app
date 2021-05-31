@@ -8,7 +8,7 @@ import { ErrorView } from './components/ErrorView';
 import { initSkyDark } from './modules/helpers';
 
 Bugsnag.start({
-  apiKey: 'c439d6280bb7eada679ad4c6ef66ab5b',
+  apiKey: `${process.env.BUGSNAG_CLIENT_API_KEY}`,
   plugins: [new BugsnagPluginReact()],
 });
 
