@@ -41,7 +41,7 @@ export const Hourly = ({ data, dayData }) => {
 
   return hourlyData ? (
     <div className="hourly-container">
-      <p className="mb-2 -mt-2 text-base leading-normal text-center">{dayData.summary}</p>
+      <p className="mb-2 -mt-2 text-sm leading-normal text-center">{dayData.summary}</p>
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
           const lastHour = hourlyData.length === 24 ? 22 : hourlyData.length - 1;

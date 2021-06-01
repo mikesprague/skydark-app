@@ -9,7 +9,7 @@
   .hour-wrap {
     @apply flex;
     @apply flex-wrap;
-    @apply w-full;
+    width: 94%;
 
     &::after {
       @apply flex-grow;
@@ -22,7 +22,7 @@
       @apply border-solid;
       @apply border-b;
       content: '';
-      top: -1.65rem;
+      top: -1.66rem;
       }
   }
 

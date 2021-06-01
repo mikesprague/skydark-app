@@ -80,13 +80,15 @@ export const Day = ({ data, dayIndex, valScale, lowScale, minLow }) => {
             className="temps"
             style={{
               position: 'relative',
-              left: `${Math.round(Math.round(data.temperatureMin) - minLow) * lowScale}%`,
+              left: `${Math.round((Math.round(data.temperatureMin) - Math.round(minLow)) * lowScale)}%`,
             }}
           >
             {formatCondition(data.temperatureMin, 'temperature').trim()}
             <span
               className="temps-spacer"
-              style={{ width: `${Math.round(Math.round(data.temperatureMax - data.temperatureMin) * valScale)}%` }}
+              style={{
+                width: `${Math.round((Math.round(data.temperatureMax) - Math.round(data.temperatureMin)) * valScale)}%`,
+              }}
             />
             {formatCondition(data.temperatureMax, 'temperature').trim()}
           </div>
