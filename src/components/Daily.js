@@ -20,7 +20,7 @@ export const Daily = () => {
   const [minLow, setMinLow] = useState(0);
   useEffect(() => {
     if (dailyData) {
-      const allVals = dailyData.daily.data.slice(0, 7);
+      const allVals = dailyData.daily.data.slice(0, 8);
       const allDiffs = allVals.map((val) => val.temperatureMax - val.temperatureMin);
       const allLows = allVals.map((val) => val.temperatureMin);
       const largeDiff = Math.round(Math.max(...allDiffs));
