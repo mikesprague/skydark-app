@@ -16,7 +16,7 @@ export const CurrentHourly = () => {
   const [valScale, setValScale] = useState(1);
   useEffect(() => {
     if (data) {
-        const allVals = data.weather.hourly.data.slice(0, 22).map((hour) => hour[hourlyConditionToShow]);
+        const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
         const max = Math.max(...allVals);
         const scale = 100 / max;
         setValScale(scale);
@@ -41,8 +41,8 @@ export const CurrentHourly = () => {
           <strong className="text-lg font-medium">Next 24 Hours</strong>
           <br />
           <em className="text-sm">
-            High: {` ${formatCondition(Math.max(...data.weather.hourly.data.slice(0, 22).map(hour => Math.round(hour.temperature))), 'temperature')} `}
-            Low: {` ${formatCondition(Math.min(...data.weather.hourly.data.slice(0, 22).map(hour => Math.round(hour.temperature))), 'temperature')} `}
+            High: {` ${formatCondition(Math.max(...data.weather.hourly.data.slice(0, 23).map(hour => Math.round(hour.temperature))), 'temperature')} `}
+            Low: {` ${formatCondition(Math.min(...data.weather.hourly.data.slice(0, 23).map(hour => Math.round(hour.temperature))), 'temperature')} `}
             {`\u00a0${data.weather.hourly.summary}`}
           </em>
         </p>
@@ -52,7 +52,7 @@ export const CurrentHourly = () => {
             dayjs.unix(data.weather.hourly.data[0].time).format('h') === dayjs().format('h')
               ? 0
               : 1;
-          const endIndex = startIndex + 20;
+          const endIndex = startIndex + 22;
           const isFirst = index === startIndex;
           const isLast = index === endIndex;
           const summaryText = formatSummary(hourData, data.weather.hourly.data, index, startIndex);
