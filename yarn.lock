@@ -1322,9 +1322,9 @@
     readdirp "^3.4.0"
 
 "@netlify/config@^7.0.0", "@netlify/config@^7.0.1":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-7.0.2.tgz#78099517cb07d6a772918640914c02dd533e19e4"
-  integrity sha512-Ig0I78dr7L+sB+aAGhOkZTFKTLwAkGNDapfGFxbnpkr8Mr9sydFBX7940QiMgLEk2hU/FLZohAjIFk07HEmS6Q==
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-7.0.3.tgz#2787605ae956e00f953b7b6632cdc07ba6083f7b"
+  integrity sha512-PCg94RrYcNbZso9TUVKWZT9jApudHnLcNrYvigUn5mEueW5kdNsqv1wLvWhch++p6584pgfaI+b41dapkeZNGA==
   dependencies:
     "@ungap/from-entries" "^0.2.1"
     array-flat-polyfill "^1.0.1"
@@ -14852,7 +14852,7 @@ snyk-try-require@^2.0.0:
     lodash.clonedeep "^4.3.0"
     lru-cache "^5.1.1"
 
-snyk@^1.625.0:
+snyk@^1.628.0:
   version "1.628.0"
   resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.628.0.tgz#b49889380232760832e87364d9cdc56f0309d8b5"
   integrity sha512-vPg4Q1z/gqCgJZGv6V6Q/Jb9wBlqHt55/KBNtrjv9vOhMquM/tBtFpw2G0l8O4enR7VRxuQhiQ5MCkILIr6Oyw==
