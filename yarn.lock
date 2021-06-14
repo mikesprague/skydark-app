@@ -1717,10 +1717,10 @@
     before-after-hook "^2.2.0"
     universal-user-agent "^6.0.0"
 
-"@octokit/core@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-3.5.0.tgz#1bb341db7d1c666364d2fd8580576694c9ab5e54"
-  integrity sha512-IKcyllVQe6KPwPPFIaKdbhNNQhmmHIj69PXOseBF6/NglXoKHVe79syEfZj0bz7sP87MOl5jLZadV3slgdZ1vQ==
+"@octokit/core@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-3.5.1.tgz#8601ceeb1ec0e1b1b8217b960a413ed8e947809b"
+  integrity sha512-omncwpLVxMP+GLpLPgeGJBF6IWJFjXDS5flY5VbppePYX9XehevbDykRH9PdCdvqt9TS5AOTiDide7h0qrkHjw==
   dependencies:
     "@octokit/auth-token" "^2.4.4"
     "@octokit/graphql" "^4.5.8"
@@ -11392,10 +11392,10 @@ netlify-cli@^3.37.17:
     wrap-ansi "^7.0.0"
     write-file-atomic "^3.0.0"
 
-netlify-lambda@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/netlify-lambda/-/netlify-lambda-2.0.8.tgz#d8e3abcc052c436ea768d317a3c2a8dac6320e53"
-  integrity sha512-y7bR8DXUYWsCPvxoq7fFAuRrRIKJ80NJKHJhck8B7Y37fTaePl5PyvgE07EliBwKyO0udfbRqOadh/aMBVEGrw==
+netlify-lambda@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/netlify-lambda/-/netlify-lambda-2.0.9.tgz#0eb0c6ebb5769e440fd737b5cc948297717cd943"
+  integrity sha512-cLLehqkGuNhFMwNVt32l7qXsv/bY2JUoDs7TxDjJIAnGn6mfFa1XAMYpW5dCes5vIuwSnu1kHIzZ8wWgW+LG+w==
   dependencies:
     "@babel/core" "^7.10.4"
     "@babel/plugin-proposal-class-properties" "^7.10.4"
@@ -12964,10 +12964,10 @@ postcss@^8.1.6, postcss@^8.1.7, postcss@^8.2.1, postcss@^8.2.15, postcss@^8.2.9:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
-postcss@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.2.tgz#ed3ec489f5428af5740cd6effcc216b4d455ee64"
-  integrity sha512-y1FK/AWdZlBF5lusS5j5l4/vF67+vQZt1SXPVJ32y1kRGDQyrs1zk32hG1cInRTu14P0V+orPz+ifwW/7rR4bg==
+postcss@^8.3.3:
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.3.tgz#ef412a7a67e85c5b2c9f0ab3c4d9e8a3814d55cc"
+  integrity sha512-gnXd9C4bGKevvlNFd80I8WfxHX+g6MR+W2h19PlDNHUuT9248rHTvCIDeZI3Hvs5mB3gzXiNDwVK3S153WJbZA==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
