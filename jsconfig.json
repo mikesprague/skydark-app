@@ -11,11 +11,11 @@
     ".git",
     "build",
     "public",
-    "src/functions/**/*"
   ],
   "include": [
     "src/components/**/*",
     "src/hooks/**/*",
-    "src/modules/**/*"
+    "src/modules/**/*",
+    "api/**/*"
   ]
 }

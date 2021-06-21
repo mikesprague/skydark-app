@@ -1,7 +1,7 @@
 {
   "name": "Sky Dark (Powered by Dark Sky)",
   "short_name": "Sky Dark",
-  "description": "Sky Dark (Dark Sky for Android Clone) - Powered by Dark Sky",
+  "description": "Sky Dark (Powered by Dark Sky)",
   "icons": [
     {
       "src": "/images/skydark-app-icon-16.png",
@@ -37,6 +37,22 @@
       "src": "/images/skydark-app-icon-144.png",
       "type": "image/png",
       "sizes": "144x144"
+    },
+    {
+      "src": "/images/skydark-app-icon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/images/skydark-app-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/skydark-app-icon-maskable-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
     }
   ],
   "lang": "en-US",
@@ -46,13 +62,5 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#181c1d",
-  "theme_color": "#181c1d",
-  "shortcuts": [
-    {
-      "name": "View Weather Map",
-      "short_name": "Weather Map",
-      "description": "Opens Sky Dark to the weather map screen",
-      "url": "/#/map"
-    }
-  ]
+  "theme_color": "#181c1d"
 }

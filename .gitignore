@@ -128,3 +128,5 @@ sample-data.json
 
 .netlify
 lambda
+
+.vercel

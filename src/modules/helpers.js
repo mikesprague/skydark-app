@@ -22,13 +22,10 @@ export const isDev = () => {
 };
 
 export const apiUrl = (useLocalhost = false) => {
-  if (useLocalhost) {
-    return 'http://localhost:9000';
+  if (useLocalhost || isDev()) {
+    return 'http://localhost:3000/api';
   }
-  if (!isDev()) {
-    return `https://${window.location.hostname}/.netlify/functions`;
-  }
-  return 'https://skydark.app/.netlify/functions';
+  return `https://${window.location.hostname}/api`;
 };
 
 export const handleError = (error) => {

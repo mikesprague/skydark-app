@@ -3,55 +3,50 @@ const Bugsnag = require('@bugsnag/js');
 
 Bugsnag.start({ apiKey: process.env.BUGSNAG_API_KEY });
 
-exports.handler = async (event, context, callback) => {
-  const { lat, lng, time, healthcheck } = event.queryStringParameters || null;
-  const callbackHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json',
-  };
+module.exports = async (req, res) => {
+  const { lat, lng, time, healthcheck } = req.query || null;
 
   if (healthcheck) {
-    return {
-      headers: callbackHeaders,
-      statusCode: 200,
-      body:  JSON.stringify('API is up and running'),
-    };
+    res.status(200).json('API is up and running');
+    return;
   }
 
   if (!lat) {
-    return {
-      headers: callbackHeaders,
-      statusCode: 400,
-      body:  JSON.stringify('Missing "lat" parameter'),
-    };
+    res.status(400).json('Missing "lat" parameter');
+    return;
   }
   if (!lng) {
-    return {
-      headers: callbackHeaders,
-      statusCode: 400,
-      body:  JSON.stringify('Missing "lng" parameter'),
-    };
+    res.status(400).json('Missing "lng" parameter');
+    return;
   }
 
   const {
     GOOGLE_MAPS_API_KEY,
     DARK_SKY_API_KEY,
-    // OPEN_WEATHERMAP_API_KEI,
+    // OPEN_WEATHERMAP_API_KEY,
   } = process.env;
 
-  const units = event.queryStringParameters.units || 'auto';
+  const units = req.query.units || 'auto';
+  const timeString = time ? `,${time}` : '';
   const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
-  const weatherApiUrl = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}${time ? ',' + time : ''}/?units=${units}`;
-  // const openWeatherMapApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&&units=${units}&appid=${OPEN_WEATHERMAP_API_KEI}`;
+  const weatherApiUrl = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}${timeString}/?units=${units}`;
+  // const openWeatherMapApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&&units=${units}&appid=${OPEN_WEATHERMAP_API_KEY}`;
 
-  const geocodePromise = await axios.get(geocodeApiUrl)
+  const geocodePromise = await axios
+    .get(geocodeApiUrl)
     .then((response) => {
       const fullResults = response.data.results;
       const formattedAddress = fullResults[0].formatted_address;
       let locationName = '';
       const isUSA = formattedAddress.toLowerCase().includes('usa');
-      const addressTargets = ['postal_town', 'locality', 'neighborhood', 'administrative_area_level_2', 'administrative_area_level_1', 'country'];
+      const addressTargets = [
+        'postal_town',
+        'locality',
+        'neighborhood',
+        'administrative_area_level_2',
+        'administrative_area_level_1',
+        'country',
+      ];
       addressTargets.forEach((target) => {
         if (!locationName.length) {
           fullResults.forEach((result) => {
@@ -83,36 +78,27 @@ exports.handler = async (event, context, callback) => {
       };
       return locationData;
     })
-    .catch((err) => {
-      console.log(err);
-      return {
-        headers: callbackHeaders,
-        statusCode: 500,
-        body: JSON.stringify(err),
-      };
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json(error);
     });
 
-  const weatherPromise = await axios.get(weatherApiUrl)
+  const weatherPromise = await axios
+    .get(weatherApiUrl)
     .then((response) => {
       const weatherData = {
         weather: response.data,
       };
       return weatherData;
     })
-    .catch((err) => (
-      {
-        headers: callbackHeaders,
-        statusCode: 500,
-        body: JSON.stringify(err),
-      }
-    ));
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json(error);
+    });
 
-  return {
-    headers: callbackHeaders,
-    statusCode: 200,
-    body: JSON.stringify({
-      location: geocodePromise.location,
-      weather: weatherPromise.weather,
-    }),
-  };
+  res.setHeader('Cache-Control', 'max-age=0, s-maxage=300');
+  res.status(200).json({
+    location: geocodePromise.location,
+    weather: weatherPromise.weather,
+  });
 };

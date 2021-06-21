@@ -98,9 +98,7 @@ const webpackPlugins = [
 ];
 
 module.exports = {
-  entry: [
-    './src/index.js',
-  ],
+  entry: ['./src/index.js'],
   devtool: 'source-map',
   resolve: {
     extensions: ['*', '.js', '.jsx'],
@@ -118,8 +116,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'public/'),
     hotOnly: true,
     open: false,
-    port: 3000,
-    publicPath: 'http://localhost:3000/',
+    port: 8888,
+    publicPath: 'http://localhost:8888/',
     stats: 'minimal',
   },
   module: {

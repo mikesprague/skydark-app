@@ -1,6 +1,6 @@
 # Sky Dark
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/22061d9b-0f4d-4609-82c4-823d926beefc/deploy-status)](https://app.netlify.com/sites/skydark/deploys)
+[![Vercel Deployment Status](https://img.shields.io/github/deployments/mikesprague/skydark-app/production?label=Vercel%20%28build%20%26%20deploy%29&logo=Vercel&logoColor=white)](https://vercel.com/m5ls5e/skydark-app/deployments)
 [![Known Vulnerabilities](https://snyk.io/test/github/mikesprague/skydark-app/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mikesprague/skydark-app?targetFile=package.json)
 
 ## About :information_source:
@@ -19,12 +19,11 @@ Android app used to be my daily driver and I missed the experience.
 - [Dark Sky API](https://darksky.net/poweredby/)
 - [OpenWeatherMap API](https://openweathermap.org/api/weathermaps)
 - [Leaflet](https://leafletjs.com/)
-- [Netlify](https://www.netlify.com/)
-- [React](https://reactjs.org/)
+- [Vercel](https://vercel.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [React](https://reactjs.org/)
 - [Font Awesome](https://fontawesome.com/)
 - [Bugsnag](https://www.bugsnag.com/)
-- [Logrocket](https://logrocket.com/)
 
 ## License :page_facing_up:
 
