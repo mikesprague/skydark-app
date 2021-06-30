@@ -29,13 +29,20 @@ export const WeatherAlert = () => {
   return alertData ? (
     <div className="weather-alert-container">
       <button type="button" onClick={weatherAlertHandler} className="weather-alert-button">
-        <span className={alertData.length > 1 ? 'leading-tight' : 'leading-loose'}>
+        <span className="leading-loose">
           <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
           &nbsp;
           {alertData[0].title}
-          {alertData.length > 1 ? (<small><br />{`+ ${alertData.length - 1} more`}</small>) : ''}
         </span>
       </button>
+      {alertData.length > 1 ? (
+        <small className="relative text-orange-400 cursor-pointer -top-1" onClick={weatherAlertHandler}>
+          <br />
+          {`+ ${alertData.length - 1} more`}
+        </small>
+      ) : (
+        ''
+      )}
       <Modal id="weather-alerts-modal" weatherAlertData={alertData} weatherAlert={true} />
     </div>
   ) : (
