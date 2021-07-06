@@ -45,15 +45,19 @@
     // width: 3.75rem;
   }
 
+  .one-line {
+    line-height: unset !important;
+    margin-right: .5rem !important;
+  }
   .summary {
     @apply inline-block;
     @apply overflow-hidden;
     @apply text-sm;
     @apply flex-grow-0;
     @apply order-3;
-    @apply mr-2;
+    @apply -mr-4;
     @apply italic;
-    line-height: unset;
+    max-width: 6rem !important;
   }
 
   .condition {

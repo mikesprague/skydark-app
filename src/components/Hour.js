@@ -32,7 +32,7 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
           } ${getConditionBarClass(data)}`}
         />
         <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
-        <div className="summary">{summary}</div>
+        <div className={`summary${summary.split(' ').length > 2 ? '' : ' one-line'}`}>{summary}</div>
         <div className="spacer">&nbsp;</div>
       </div>
       <div
@@ -40,7 +40,7 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
         onClick={clickHandler}
         style={
           ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
-            ? { marginRight: `${Math.round(100 - (Math.round(data[conditionToShow]) * valScale))}%` }
+            ? { marginRight: `${Math.round(100 - Math.round(data[conditionToShow]) * valScale)}%` }
             : {}
         }
       >
