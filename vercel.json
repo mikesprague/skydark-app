@@ -30,6 +30,10 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "https://skydark.app"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:8888"
         }
       ]
     }
