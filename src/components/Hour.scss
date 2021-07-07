@@ -48,9 +48,9 @@
   .one-line {
     line-height: unset !important;
     margin-right: .5rem !important;
+    overflow-wrap: break-word;
     white-space: pre-wrap;
     word-wrap: break-word;
-    overflow-wrap: break-word;
   }
   .summary {
     @apply inline-block;
