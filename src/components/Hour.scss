@@ -48,6 +48,9 @@
   .one-line {
     line-height: unset !important;
     margin-right: .5rem !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   .summary {
     @apply inline-block;
@@ -57,7 +60,7 @@
     @apply order-3;
     @apply -mr-3;
     @apply italic;
-    max-width: 7rem !important;
+    max-width: 6rem !important;
   }
 
   .condition {
