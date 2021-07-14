@@ -13,11 +13,9 @@
     "clean": "rm -rf ./build",
     "prepublish": "yarn snyk",
     "snyk": "snyk protect",
-    "start": "concurrently 'yarn webpack:serve' 'vercel dev' --names '📦,💻' --prefix '[{name}] ' --kill-others",
+    "start": "cross-env NODE_ENV=development vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "cross-env NODE_ENV=production webpack --color",
-    "webpack:dev": "cross-env NODE_ENV=development webpack --color",
-    "webpack:serve": "cross-env NODE_ENV=development webpack serve"
+    "webpack": "webpack --color"
   },
   "keywords": [],
   "repository": {
@@ -55,7 +53,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-charts": "^3.0.15",
-    "react-hot-loader": "^4.13.0",
     "react-leaflet": "^3.2.0",
     "react-router-dom": "^6.0.0-beta.0",
     "register-service-worker": "^1.7.2",
@@ -76,7 +73,6 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/runtime": "^7.14.6",
     "@fullhuman/postcss-purgecss": "^4.0.3",
-    "@hot-loader/react-dom": "^17.0.1",
     "@octokit/core": "^3.5.1",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
@@ -85,7 +81,6 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-add-react-displayname": "^0.0.5",
     "compression-webpack-plugin": "^8.0.1",
-    "concurrently": "^6.2.0",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.7",
@@ -136,8 +131,7 @@
       "@babel/plugin-syntax-dynamic-import",
       "@babel/plugin-transform-object-assign",
       "@babel/plugin-transform-runtime",
-      "add-react-displayname",
-      "react-hot-loader/babel"
+      "add-react-displayname"
     ],
     "presets": [
       "@babel/preset-env",

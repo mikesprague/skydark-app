@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
-const mode = process.env.NODE_ENV;
+const mode = process.env.NODE_ENV || 'production';
 
 const webpackRules = [
   {
@@ -94,7 +94,6 @@ const webpackPlugins = [
     skipWaiting: true,
   }),
   new CompressionPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
 ];
 
 module.exports = {
@@ -102,9 +101,6 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
   },
   output: {
     filename: './js/[name].js',
@@ -112,14 +108,6 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
   },
   mode,
-  devServer: {
-    contentBase: path.join(__dirname, 'public/'),
-    hotOnly: true,
-    open: false,
-    port: 8888,
-    publicPath: 'http://localhost:8888/',
-    stats: 'minimal',
-  },
   module: {
     rules: webpackRules,
   },

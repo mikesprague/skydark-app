@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Suspense, lazy } from 'react';
-import { hot } from 'react-hot-loader/root';
 import {
   HashRouter as Router,
   Routes,
@@ -46,4 +45,4 @@ App.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
-export default hot(App);
+export default App;
