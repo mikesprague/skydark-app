@@ -80,7 +80,7 @@ export const Day = ({ data, dayIndex, valScale, lowScale, minLow }) => {
             className="temps"
             style={{
               position: 'relative',
-              left: `${Math.round((Math.round(data.temperatureMin) - Math.round(minLow)) * lowScale)}%`,
+              left: `${Math.round(((Math.round(data.temperatureMin) - Math.round(minLow)) * lowScale) / 2)}%`,
             }}
           >
             {formatCondition(data.temperatureMin, 'temperature').trim()}
