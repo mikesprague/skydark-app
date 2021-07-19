@@ -8,12 +8,18 @@ export const NextHour = () => {
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data.weather.minutely) {
+    if (!data.weather) {
       return;
     }
+    let summary;
+    if (data.weather.minutely) {
+      summary = data.weather.minutely.summary;
+    } else {
+      summary = data.weather.hourly.data[new Date().getMinutes() > 30 ? 1 : 0].summary;
+    }
 
-    let { summary } = data.weather.minutely;
     summary = summary.replace('Possible ', '').replace(' for the hour.', '');
+    summary = summary.replace('Humid and ', '').replace(' and humid', '');
     summary = summary.charAt(0).toUpperCase() + summary.slice(1);
     setSummaryText(summary);
 
