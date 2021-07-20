@@ -41,9 +41,10 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
 
     const getTimestamps = async () => {
       await axios
-        .get('https://api.rainviewer.com/public/maps.json')
+        .get('https://api.rainviewer.com/public/weather-maps.json')
         .then((response) => {
-          setTsData(response.data);
+          const nowTs = response.data.radar.past.map(item => item.time);
+          setTsData(nowTs);
           // console.log(response.data);
           // return response.data;
         });
