@@ -33,7 +33,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [popupAddress, setPopupAddress] = useState(null);
   const coordinates = getData('coordinates');
 
-  const [tsData, setTsData] = useState(null);
+  const [tsData, setTsData] = useState([getRadarTs()]);
   useEffect(() => {
     if (!coordinates) {
       window.location.href = '/';
@@ -67,7 +67,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     setRangeValue(tsData.length - 1);
   }, [tsData]);
 
-  const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${tsData ? tsData[0] : getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`);
+  const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${tsData[tsData.length - 1]}/512/{z}/{x}/{y}/8/1_1.png`);
   useLayoutEffect(() => {
     if (!ts) { return; }
     setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`);
@@ -104,7 +104,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         const nextVal = currentVal + 1 > rangeMax ? 0 : currentVal + 1;
         rangeSliderRef.current.value = nextVal;
         advanceRangeSlider(nextVal);
-      }, 667);
+      }, 500);
     }
   }, [advanceRangeSlider, isPlaying, rangeMax]);
 
@@ -227,7 +227,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         </MapContainer>
       </div>
       <div className="slider-container">
-        {tsData ? (
+        {tsData && ts ? (
           <div className="slider">
             <div className="value-label">{dayjs.unix(ts).format('h:mmA')}</div>
             <input
