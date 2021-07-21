@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -13,9 +14,22 @@ import './WeatherMapSmall.scss';
 initLeafletImages(L);
 
 export const WeatherMapSmall = () => {
+  const [tsData, setTsData] = useState([getRadarTs()]);
+  useEffect(() => {
+    const getTimestamps = async () => {
+      await axios
+        .get('https://api.rainviewer.com/public/weather-maps.json')
+        .then((response) => {
+          const nowTs = response.data.radar.past.map(item => item.time);
+          setTsData(nowTs);
+        });
+    };
+
+    getTimestamps();
+  }, []);
+
   const [locationCoordinates, setLocationCoordinates] = useState(null);
   const data = useContext(WeatherDataContext);
-
   useEffect(() => {
     if (!data) {
       return;
@@ -118,7 +132,7 @@ export const WeatherMapSmall = () => {
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Radar" checked>
                 <TileLayer
-                  url={`https://tilecache.rainviewer.com/v2/radar/${getRadarTs()}/512/{z}/{x}/{y}/8/1_1.png`}
+                  url={`https://tilecache.rainviewer.com/v2/radar/${tsData[tsData.length - 1]}/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}
                   attribution={
                     '&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'
