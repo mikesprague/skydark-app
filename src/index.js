@@ -1,5 +1,7 @@
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
+import LogRocket from 'logrocket';
+import setupLogRocketReact from 'logrocket-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
@@ -11,6 +13,9 @@ Bugsnag.start({
   apiKey: `${process.env.BUGSNAG_CLIENT_API_KEY}`,
   plugins: [new BugsnagPluginReact()],
 });
+
+LogRocket.init('skxlwh/sky-dark');
+setupLogRocketReact(LogRocket);
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
