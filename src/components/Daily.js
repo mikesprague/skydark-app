@@ -15,24 +15,16 @@ export const Daily = () => {
     setDailyData(data.weather);
   }, [data]);
 
-  const [valScale, setValScale] = useState(2);
-  const [lowScale, setLowScale] = useState(1);
   const [minLow, setMinLow] = useState(0);
   useEffect(() => {
-    if (dailyData) {
-      const allVals = dailyData.daily.data.slice(0, 8);
-      const allDiffs = allVals.map((val) => val.temperatureMax - val.temperatureMin);
-      const allLows = allVals.map((val) => val.temperatureMin);
-      const largeDiff = Math.round(Math.max(...allDiffs));
-      const lowMin = Math.round(Math.min(...allLows));
-      const maxLow = Math.round(Math.max(...allLows));
-      const lowDiff = maxLow - lowMin;
-      const scaleLow = 20 / lowDiff;
-      const scale = 50 / largeDiff;
-      setValScale(scale);
-      setLowScale(scaleLow);
-      setMinLow(lowMin);
+    if (!dailyData) {
+      return;
     }
+
+    const allLows = dailyData.daily.data
+      .slice(0, 8)
+      .map((val) => val.temperatureMin);
+    setMinLow(Math.round(Math.min(...allLows)));
   }, [dailyData]);
 
   return dailyData && dailyData.daily ? (
@@ -44,8 +36,6 @@ export const Daily = () => {
               key={nanoid(7)}
               data={dayData}
               dayIndex={dayIndex}
-              valScale={valScale}
-              lowScale={lowScale}
               minLow={minLow}
             />
           ) : (
@@ -54,7 +44,9 @@ export const Daily = () => {
         })}
       </div>
     </div>
-  ) : '';
+  ) : (
+    ''
+  );
 };
 
 export default Daily;
