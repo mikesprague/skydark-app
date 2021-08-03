@@ -40,7 +40,7 @@
     "@fortawesome/pro-regular-svg-icons": "^6.0.0-beta1",
     "@fortawesome/pro-solid-svg-icons": "^6.0.0-beta1",
     "@fortawesome/pro-thin-svg-icons": "^6.0.0-beta1",
-    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@fortawesome/react-fontawesome": "^0.1.15",
     "@tailwindcss/typography": "^0.4.1",
     "@tippyjs/react": "^4.2.5",
     "axios": "^0.21.1",

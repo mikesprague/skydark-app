@@ -1145,10 +1145,10 @@
   resolved "https://npm.fontawesome.com/@fortawesome/pro-thin-svg-icons/-/6.0.0-beta1/pro-thin-svg-icons-6.0.0-beta1.tgz#09e4faa5d00136357849c20c3884c3a0b1a9f696"
   integrity sha512-ma0/RfohvQQ7GKyK4IEJ0iswrVjfU19DTgdpIYE3OHm4Q6izftdnStrGSPz7ikdhgP0cIdXH7K0RUEmRPPNwtQ==
 
-"@fortawesome/react-fontawesome@^0.1.14":
-  version "0.1.14"
-  resolved "https://npm.fontawesome.com/@fortawesome/react-fontawesome/-/0.1.14/react-fontawesome-0.1.14.tgz#bf28875c3935b69ce2dc620e1060b217a47f64ca"
-  integrity sha512-4wqNb0gRLVaBm/h+lGe8UfPPivcbuJ6ecI4hIgW0LjI7kzpYB9FkN0L9apbVzg+lsBdcTf0AlBtODjcSX5mmKA==
+"@fortawesome/react-fontawesome@^0.1.15":
+  version "0.1.15"
+  resolved "https://npm.fontawesome.com/@fortawesome/react-fontawesome/-/0.1.15/react-fontawesome-0.1.15.tgz#1450b838f905981d721bf07e14e3b52c0e9a91ed"
+  integrity sha512-/HFHdcoLESxxMkqZAcZ6RXDJ69pVApwdwRos/B2kiMWxDSAX2dFK8Er2/+rG+RsrzWB/dsAyjefLmemgmfE18g==
   dependencies:
     prop-types "^15.7.2"
 
