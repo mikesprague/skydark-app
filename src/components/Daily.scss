@@ -39,18 +39,18 @@
     }
 
     .temps {
-      @apply pl-3;
+      @apply pl-4;
       @apply text-base;
       @apply align-top;
       @apply text-right;
-      @apply leading-5;
       @apply mt-1;
       @apply flex-grow;
       @apply order-3;
       @apply flex;
+      line-height: 1rem !important;
 
       .temps-spacer {
-        @apply h-6;
+        @apply h-5;
         @apply mx-2;
         @apply bg-gray-100;
         @apply rounded-full;
