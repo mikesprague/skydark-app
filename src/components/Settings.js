@@ -18,8 +18,8 @@ export const Settings = () => {
         </div>
       </div>
       <div className="about-content">
-        <h2>Coming Soon!</h2>
-        <p>This page and it&apos;s features are in progress, check back for updates.</p>
+        <h2>Work in Progress</h2>
+        <p>I may work on this page and it&apos;s features sometime soon</p>
       </div>
     </div>
   );
