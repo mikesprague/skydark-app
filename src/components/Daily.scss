@@ -40,17 +40,17 @@
 
     .temps {
       @apply pl-4;
-      @apply text-base;
+      @apply text-lg;
       @apply align-top;
       @apply text-right;
-      @apply mt-1;
+      @apply mt-2;
       @apply flex-grow;
       @apply order-3;
       @apply flex;
-      line-height: 1rem !important;
+      line-height: 1.125 !important;
 
       .temps-spacer {
-        @apply h-5;
+        // @apply h-6;
         @apply mx-2;
         @apply bg-gray-100;
         @apply rounded-full;
@@ -58,6 +58,7 @@
         @apply border;
         @apply border-gray-300;
         @apply flex-grow-0;
+        height: 1.4rem;
       }
     }
   }
