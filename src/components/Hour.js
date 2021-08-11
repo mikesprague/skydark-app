@@ -32,7 +32,15 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
           } ${getConditionBarClass(data)}`}
         />
         <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
-        <div className={`summary${summary.split(' ').length > 2 ? '' : ' one-line'}`}>{summary}</div>
+        <div
+          className={`summary${
+            summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '').split(' ').length > 2
+              ? ''
+              : ' one-line'
+          }`}
+        >
+          {summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '')}
+        </div>
         <div className="spacer">&nbsp;</div>
       </div>
       <div
