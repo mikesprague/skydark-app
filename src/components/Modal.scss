@@ -34,7 +34,7 @@
     @apply overflow-hidden;
     @apply transition-all;
     @apply transform shadow-xl;
-    @apply overflow-y-scroll;
+    @apply overflow-y-auto;
     max-height: 80% !important;
 
     .modal-heading {
