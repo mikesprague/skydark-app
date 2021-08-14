@@ -46,7 +46,7 @@
     "axios": "^0.21.1",
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.10.6",
-    "history": "^5.0.0",
+    "history": "^5.0.1",
     "leaflet": "^1.7.1",
     "logrocket": "^2.0.0",
     "logrocket-react": "^4.0.1",
