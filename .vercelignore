@@ -6,5 +6,5 @@ skydark-app.code-workspace
 .env
 TODO.md
 sample-data.json
-.devcontainer
+.devcontainer/
 
