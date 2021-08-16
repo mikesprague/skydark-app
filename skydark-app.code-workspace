@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		// "sasslint.enable": false,
-    "scss.validate": false
+    "scss.validate": false,
     "stylelint.validate": [
       "css",
       "html",
