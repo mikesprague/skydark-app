@@ -14,7 +14,7 @@ RUN rm -rf /root/.oh-my-zsh \
   && chsh -s /bin/zsh \
   && git clone --quiet https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
   && git clone --quiet https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions \
-  && sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="refined"/g' ~/.zshrc \
+  && sed -i 's/ZSH_THEME="robbyrussell"/# ZSH_THEME="robbyrussell"/g' ~/.zshrc \
   && sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc \
   && sed -i 's/plugins=(git)/plugins=(git zsh-completions zsh-autosuggestions)/g' ~/.zshrc \
   && sed -i '/plugins=(git zsh-completions zsh-autosuggestions)/a autoload -U compinit && compinit' ~/.zshrc
@@ -22,3 +22,4 @@ RUN rm -rf /root/.oh-my-zsh \
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes \
   && echo '\neval "$(starship init zsh)"\n' >> ~/.zshrc
 
+COPY starship.toml  /root/.config/starship.toml
