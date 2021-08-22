@@ -22,10 +22,7 @@ export const Daily = () => {
     }
     const slicedData = dailyData.daily.data.slice(0, 8);
     const allLows = slicedData.map((val) => val.temperatureMin);
-    // const allHighs = slicedData.map((val) => val.temperatureMax);
-    // const maxH = Math.round(Math.max(...allHighs));
-    const minL = Math.round(Math.min(...allLows));
-    setMinLow(minL);
+    setMinLow(Math.round(Math.min(...allLows)));
   }, [dailyData]);
 
   return dailyData && dailyData.daily ? (

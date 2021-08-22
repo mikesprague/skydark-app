@@ -184,31 +184,11 @@ export const getConditionBarClass = (data) => {
 export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
   let summary = '';
   if (index === startIndex) {
-    // summary = currentHourData.summary.replace('Possible ', '');
-    // summary = summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '');
     summary = currentHourData.summary;
     return summary;
   }
-  summary =
-    index >= 2 &&
-    currentHourData.summary ===
-      // .replace('Possible ', '')
-      // .replace('Humid and ', '')
-      // .replace(' and Humid', '')
-      // .replace(' and humid', '') ===
-      allHourlyData[index - 2].summary
-      ? // .replace('Possible ', '')
-        // .replace('Humid and ', '')
-        // .replace(' and Humid', '')
-        // .replace(' and humid', '')
-        ''
-      : currentHourData.summary;
-  // summary = summary.trim();
-  // .replace('Possible ', '')
-  // .replace('Humid and ', '')
-  // .replace(' and Humid', '')
-  // .replace(' and humid', '');
-  return summary;
+  summary = index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+  return summary.trim();
 };;
 
 export const getUvIndexClasses = (uvIndex) => {
