@@ -19,7 +19,6 @@ export const NextHour = () => {
     }
 
     summary = summary.replace(' for the hour.', '');
-    // summary = summary.replace('Humid and ', '').replace(' and humid', '');
     summary = summary.charAt(0).toUpperCase() + summary.slice(1);
     setSummaryText(summary);
 

@@ -58,8 +58,9 @@
     @apply text-sm;
     @apply flex-grow-0;
     @apply order-3;
-    @apply -mr-3;
+    // @apply -mr-3;
     @apply italic;
+    @apply whitespace-pre-line;
     // max-width: 6rem !important;
   }
 

@@ -185,30 +185,31 @@ export const formatSummary = (currentHourData, allHourlyData, index, startIndex)
   let summary = '';
   if (index === startIndex) {
     // summary = currentHourData.summary.replace('Possible ', '');
-    summary = summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '');
+    // summary = summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '');
+    summary = currentHourData.summary;
     return summary;
   }
   summary =
     index >= 2 &&
-    currentHourData.summary
+    currentHourData.summary ===
       // .replace('Possible ', '')
-      .replace('Humid and ', '')
-      .replace(' and Humid', '')
-      .replace(' and humid', '') ===
+      // .replace('Humid and ', '')
+      // .replace(' and Humid', '')
+      // .replace(' and humid', '') ===
       allHourlyData[index - 2].summary
-        // .replace('Possible ', '')
-        .replace('Humid and ', '')
-        .replace(' and Humid', '')
-        .replace(' and humid', '')
-      ? ''
+      ? // .replace('Possible ', '')
+        // .replace('Humid and ', '')
+        // .replace(' and Humid', '')
+        // .replace(' and humid', '')
+        ''
       : currentHourData.summary;
-  summary = summary
-    // .replace('Possible ', '')
-    .replace('Humid and ', '')
-    .replace(' and Humid', '')
-    .replace(' and humid', '');
+  // summary = summary.trim();
+  // .replace('Possible ', '')
+  // .replace('Humid and ', '')
+  // .replace(' and Humid', '')
+  // .replace(' and humid', '');
   return summary;
-};
+};;
 
 export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex <= 2) {

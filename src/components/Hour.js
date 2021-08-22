@@ -7,12 +7,27 @@ import './Hour.scss';
 
 export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow, valScale = 1 }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
-
   useEffect(() => {
     setHourlyConditionToShow(conditionToShow);
 
     // return () => {};
   }, [hourlyConditionToShow, conditionToShow]);
+
+  const [summaryText, setSummaryText] = useState('');
+  const [summaryTextClass, setSummaryTextClass] = useState('summary one-line');
+  useEffect(() => {
+    // const cleanSummaryText = summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '');
+    const summaryTextArray = summary.split(' ');
+    if (summaryTextArray.length > 2) {
+      if (summaryTextArray.length >= 4 || summaryTextArray[0].toLowerCase() === 'humid') {
+        summaryTextArray.splice(2, 0, '\u000a');
+      } else {
+        summaryTextArray.splice(1, 0, '\u000a');
+      }
+      setSummaryTextClass('summary');
+    }
+    setSummaryText(summaryTextArray.join(' ').trim());
+  }, [summary]);
 
   const clickHandler = () => {
     const overlayContainer = document.getElementById(`hourly-conditions-modal-${data.time}`);
@@ -32,16 +47,7 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
           } ${getConditionBarClass(data)}`}
         />
         <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
-        <div
-          className="summary one-line"
-          // className={`summary${
-          //   summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '').split(' ').length > 2
-          //     ? ''
-          //     : ' one-line'
-          // }`}
-        >
-          {summary.replace('Humid and ', '').replace(' and Humid', '').replace(' and humid', '')}
-        </div>
+        <div className={summaryTextClass}>{summaryText.trim()}</div>
         <div className="spacer">&nbsp;</div>
       </div>
       <div
