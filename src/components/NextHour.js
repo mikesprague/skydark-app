@@ -18,7 +18,7 @@ export const NextHour = () => {
       summary = data.weather.hourly.data[new Date().getMinutes() > 30 ? 1 : 0].summary;
     }
 
-    summary = summary.replace('Possible ', '').replace(' for the hour.', '');
+    summary = summary.replace(' for the hour.', '');
     // summary = summary.replace('Humid and ', '').replace(' and humid', '');
     summary = summary.charAt(0).toUpperCase() + summary.slice(1);
     setSummaryText(summary);

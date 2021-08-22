@@ -15,7 +15,7 @@ export const CurrentConditions = () => {
       heading="Current Conditions"
       content={
         <>
-          <h4 className="mb-2 text-lg">{data.weather.currently.summary.replace('Possible ', '')}</h4>
+          <h4 className="mb-2 text-lg">{data.weather.currently.summary}</h4>
           <div className="flex flex-wrap mt-2">
             <div className="conditions-item">
               <FontAwesomeIcon
@@ -218,7 +218,9 @@ export const CurrentConditions = () => {
         </>
       }
     />
-  ) : '';
+  ) : (
+    ''
+  );
 };
 
 export default CurrentConditions;

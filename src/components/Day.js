@@ -81,7 +81,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
             <span
               className="temps-spacer"
               style={{
-                width: `${(data.temperatureMax - data.temperatureMin) * 1.75}%`,
+                width: `${(data.temperatureMax - data.temperatureMin) * 1.67}%`,
               }}
             />
             {formatCondition(data.temperatureMax, 'temperature').trim()}
