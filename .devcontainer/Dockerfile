@@ -12,6 +12,9 @@ RUN rm -rf /usr/bin/yarn
 # install some global npm dependencies
 RUN npm install -g npm n gitmoji-cli npm-check-updates yarn
 
+# use n (node version manager) to make sure we're on latest v16 of nodejs
+RUN n 16 && npm i -g npm
+
 # install and customize oh-my-zsh
 RUN rm -rf /root/.oh-my-zsh \
   && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
