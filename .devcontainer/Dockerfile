@@ -6,6 +6,13 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends curl wget zip unzip git jq nano vim zsh
 
+# install github cli
+RUN export DEBIAN_FRONTEND=noninteractive \
+  && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+  && sudo apt-get update \
+  && sudo apt-get -y install gh
+
 # remove existing yarn executable (workaround or latest version won't install)
 RUN rm -rf /usr/bin/yarn
 
@@ -23,11 +30,11 @@ RUN rm -rf /root/.oh-my-zsh \
   && git clone --quiet https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions \
   && sed -i 's/ZSH_THEME="robbyrussell"/# ZSH_THEME="robbyrussell"/g' ~/.zshrc \
   && sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc \
-  && sed -i 's/plugins=(git)/plugins=(git zsh-completions zsh-autosuggestions)/g' ~/.zshrc \
-  && sed -i '/plugins=(git zsh-completions zsh-autosuggestions)/a autoload -U compinit && compinit' ~/.zshrc
+  && sed -i 's/plugins=(git)/plugins=(git zsh-completions zsh-autosuggestions npm yarn)/g' ~/.zshrc \
+  && sed -i '/plugins=(git zsh-completions zsh-autosuggestions npm yarn`)/a autoload -U compinit && compinit' ~/.zshrc
 
 # set some shell aliases
-RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --depth=0"\n' >> ~/.zshrc
+RUN echo '\nalias aptupdate="apt-get update && apt-get upgrade"\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --depth=0"\nalias ncud="ncu --dep dev -u && yarn"\nalias ncup="ncu --dep prod -u && yarn"\n' >> ~/.zshrc
 
 # set some git aliases and options
 RUN git config  --global --add alias.st status \
