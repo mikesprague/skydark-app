@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
     .get(geocodeApiUrl)
     .then((response) => {
       const fullResults = response.data.results;
-      const formattedAddress = fullResults[0].formatted_address;
+      const formattedAddress = fullResults[0].formatted_address.replace('Seneca Falls', 'Seneca Moistens');
       let locationName = '';
       const isUSA = formattedAddress.toLowerCase().includes('usa');
       const addressTargets = [
@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
             if (!locationName.length) {
               result.address_components.forEach((component) => {
                 if (!locationName.length && component.types.indexOf(target) > -1) {
-                  locationName = component.long_name;
+                  locationName = component.long_name.replace('Seneca Falls', 'Seneca Moistens');
                 }
               });
             }

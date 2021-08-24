@@ -37,7 +37,7 @@ export const Header = () => {
       <div className="location-name">
         <h1>
           <FontAwesomeIcon icon={['fas', 'location-arrow']} fixedWidth />
-          {` ${locationName.trim().replace('Seneca Falls', 'Seneca Moist')}`}
+          {` ${locationName}`}
         </h1>
       </div>
     </div>
