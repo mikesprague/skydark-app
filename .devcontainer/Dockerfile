@@ -34,22 +34,22 @@ RUN rm -rf /root/.oh-my-zsh \
   && sed -i 's/plugins=(git)/plugins=(git zsh-completions zsh-autosuggestions npm yarn)/g' ~/.zshrc \
   && sed -i '/plugins=(git zsh-completions zsh-autosuggestions npm yarn`)/a autoload -U compinit && compinit' ~/.zshrc
 
-# set some shell aliases/options and set some git aliases/options
-RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --depth=0"\n' >> ~/.zshrc \
-  && echo '\nalias aptupdate="sudo apt update && sudo apt upgrade"\n' >> ~/.zshrc \
-  && echo '\nalias alias ncud="ncu --dep dev -u && yarn"\nalias ncup="ncu --dep prod -u && yarn"\n' >> ~/.zshrc \
-  && echo '\n\nexport LS_COLORS="su=00:sg=00:ca=00:ow=01;36;40"\n' >> ~/.zshrc \
-  && echo '\nzstyle ":completion:*" list-colors "${(@s.:.)LS_COLORS}"\n' >> ~/.zshrc \
-  && echo '\neval "$(gh completion --shell zsh)"\n' >> ~/.zshrc \
-  && git config  --global --add alias.st status \
-  && git config --global --add alias.lsd 'log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate' \
-  && git config --global --add commit.gpgsign true \
-  && git config --global --add tag.gpgsign true \
-  && git config --global --add tag.tag.forcesignannotated true
-
 # install starship shell promopt
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes \
   && echo '\neval "$(starship init zsh)"\n' >> ~/.zshrc
 
 # add config file for starship prompt
 COPY starship.toml  /root/.config/starship.toml
+
+# set some shell aliases/options and set some git aliases/options
+RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --depth=0"' >> ~/.zshrc \
+  && echo '\nalias aptupdate="apt update && apt upgrade"' >> ~/.zshrc \
+  && echo '\nalias alias ncud="ncu --dep dev -u && yarn"\nalias ncup="ncu --dep prod -u && yarn"' >> ~/.zshrc \
+  && echo '\n\nexport LS_COLORS="su=00:sg=00:ca=00:ow=01;36;40"' >> ~/.zshrc \
+  && echo '\nzstyle ":completion:*" list-colors "${(@s.:.)LS_COLORS}"' >> ~/.zshrc \
+  && echo '\n\neval "$(gh completion --shell zsh)"\n' >> ~/.zshrc \
+  && git config  --global --add alias.st status \
+  && git config --global --add alias.lsd 'log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate' \
+  && git config --global --add commit.gpgsign true \
+  && git config --global --add tag.gpgsign true \
+  && git config --global --add tag.tag.forcesignannotated true
