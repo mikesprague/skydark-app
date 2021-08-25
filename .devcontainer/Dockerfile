@@ -13,13 +13,15 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && sudo apt-get update \
   && sudo apt-get -y install gh
 
+# install n (node version manager) and update npm
+RUN npm install -g npm n
+
+# use n to make sure we're on latest v16 of nodejs
 # remove existing yarn executable (workaround or latest version won't install)
 # and install some global dependencies
-RUN rm -rf /usr/bin/yarn \
-  && npm install -g npm n gitmoji-cli npm-check-updates yarn
-
-# use n (node version manager) to make sure we're on latest v16 of nodejs
-RUN n 16 && npm i -g npm
+RUN n 16 \
+  && rm -rf /usr/bin/yarn \
+  && npm i -g npm gitmoji-cli npm-check-updates yarn
 
 # install and customize oh-my-zsh
 RUN rm -rf /root/.oh-my-zsh \
