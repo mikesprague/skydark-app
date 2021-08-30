@@ -18,9 +18,17 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
   useEffect(() => {
     const summaryTextArray = summary.split(' ');
     if (summaryTextArray.length > 2) {
-      if (summaryTextArray.length === 3 && summaryTextArray.join(' ').trim().toLowerCase() === 'rain and humid') {
+      if (
+        summaryTextArray.length === 3 &&
+        (summaryTextArray.join(' ').trim().toLowerCase() === 'rain and humid' ||
+          summaryTextArray.join(' ').trim().toLowerCase() === 'rain and moist')
+      ) {
         summaryTextArray.splice(2, 0, '\u000a');
-      } else if (summaryTextArray.length >= 4 || summaryTextArray[0].trim().toLowerCase() === 'humid') {
+      } else if (
+        summaryTextArray.length >= 4 ||
+        summaryTextArray[0].trim().toLowerCase() === 'humid' ||
+        summaryTextArray[0].trim().toLowerCase() === 'moist'
+      ) {
         summaryTextArray.splice(2, 0, '\u000a');
       } else {
         summaryTextArray.splice(1, 0, '\u000a');

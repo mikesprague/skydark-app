@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
             if (!locationName.length) {
               result.address_components.forEach((component) => {
                 if (!locationName.length && component.types.indexOf(target) > -1) {
-                  locationName = component.long_name.replace('Seneca Falls', 'Seneca Moistens');
+                  locationName = component.long_name;
                 }
               });
             }
@@ -99,6 +99,8 @@ module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'max-age=300, s-maxage=300');
   res.status(200).json({
     location: geocodePromise.location,
-    weather: weatherPromise.weather,
+    weather: geocodePromise.location.locationName.includes('Seneca Falls')
+      ? JSON.parse(JSON.stringify(weatherPromise.weather).replace(/Humid/g, 'Moist').replace(/humid/g, 'moist'))
+      : weatherPromise.weather,
   });
 };
