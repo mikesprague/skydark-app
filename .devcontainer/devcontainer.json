@@ -13,7 +13,7 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.fontSize": 16,
     "terminal.integrated.lineHeight": 1.2,
-    "terminal.integrated.fontWeight": "300",
+    "terminal.integrated.fontWeight": "400",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.fontFamily": "Operator Mono Lig, Dank Mono, Cascadia Code, Victor Mono, Fira Code",
@@ -206,7 +206,7 @@
   "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "yarn",
 
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   // "remoteUser": "node"
