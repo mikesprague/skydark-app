@@ -17,7 +17,8 @@
 
   .pill {
     @apply text-blue-400;
-    @apply bg-transparent;
+    // @apply bg-transparent;
+    @apply bg-opacity-0;
     @apply border-blue-400;
     @apply cursor-pointer;
   }
