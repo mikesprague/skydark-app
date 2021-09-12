@@ -95,7 +95,7 @@ const webpackPlugins = [
     skipWaiting: true,
   }),
   new CompressionPlugin({
-    exclude: [/.map$/, /.txt$/],
+    include: [/.js$/, /.css$/, /.html$/],
   }),
 ];
 
