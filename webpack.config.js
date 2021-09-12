@@ -94,7 +94,9 @@ const webpackPlugins = [
     clientsClaim: true,
     skipWaiting: true,
   }),
-  new CompressionPlugin(),
+  new CompressionPlugin({
+    exclude: [/.map$/, /.txt$/],
+  }),
 ];
 
 module.exports = {
