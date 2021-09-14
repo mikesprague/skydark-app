@@ -8133,10 +8133,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@^1.709.0:
-  version "1.709.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.709.0.tgz#fc9d81ee62b0077a6b58b119d1e55d537d714c6d"
-  integrity sha512-TWLumxcj8Y1rn+oxKJKjNNPaewLZkvC1p9dpdxDUf6vTq5IvlD0iWR3oCh/Ze60gt97QMhC93KDJanpggSDPuQ==
+snyk@^1.711.0:
+  version "1.711.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.711.0.tgz#a92dcc649e4e14461171326270ad60a529ca1752"
+  integrity sha512-cA+IVhds0GnFhkn3CzJbP7J3CZ5ydRPY5paBuBJo9g2F6Snktxwt/Xx7jt2PLEm5KsqaaxDeCj4rZJeUCarR/w==
 
 source-list-map@^2.0.0:
   version "2.0.1"
