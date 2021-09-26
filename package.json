@@ -79,7 +79,7 @@
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
-    "autoprefixer": "^10.3.5",
+    "autoprefixer": "^10.3.6",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-react-displayname": "^0.0.5",
     "compression-webpack-plugin": "^9.0.0",
