@@ -58,7 +58,7 @@
     "react-leaflet": "^3.2.1",
     "react-router-dom": "6.0.0-beta.3",
     "register-service-worker": "^1.7.2",
-    "snyk": "^1.726.0",
+    "snyk": "^1.727.0",
     "tailwindcss": "^2.2.16"
   },
   "devDependencies": {
@@ -120,7 +120,7 @@
     "typescript": "^4.4.3",
     "url-loader": "^4.1.1",
     "vercel": "^23.1.2",
-    "webpack": "^5.55.0",
+    "webpack": "^5.55.1",
     "webpack-cli": "^4.8.0",
     "workbox-webpack-plugin": "^6.3.0"
   },
