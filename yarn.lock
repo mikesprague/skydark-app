@@ -1067,73 +1067,68 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fortawesome/fontawesome-common-types@^0.2.36":
-  version "0.2.36"
-  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/0.2.36/fontawesome-common-types-0.2.36.tgz#b44e52db3b6b20523e0c57ef8c42d315532cb903"
-  integrity sha512-a/7BiSgobHAgBWeN7N0w+lAhInrGxksn13uK7231n2m8EDPE3BMCl9NZLTGrj9ZXfCmC6LM0QLqXidIizVQ6yg==
-
 "@fortawesome/fontawesome-common-types@^0.3.0-beta2":
   version "0.3.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/0.3.0-beta2/fontawesome-common-types-0.3.0-beta2.tgz#d50068077cca88c81695d3b6ae44161ddf85ab55"
   integrity sha512-YrWMMGRhJ/iEwlP86AuW/uYGIZSwbVrpLQzB2JiWIGMTPCBhWLvurdSgckPJl5ry1fUNzWH4QNtgTf5rpdhCgg==
 
-"@fortawesome/fontawesome-svg-core@^1.2.36":
-  version "1.2.36"
-  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-svg-core/-/1.2.36/fontawesome-svg-core-1.2.36.tgz#4f2ea6f778298e0c47c6524ce2e7fd58eb6930e3"
-  integrity sha512-YUcsLQKYb6DmaJjIHdDWpBIGCcyE/W+p/LMGvjQem55Mm2XWVAP5kWTMKWLv9lwpCVjpLxPyOMOyUocP1GxrtA==
+"@fortawesome/fontawesome-svg-core@^1.3.0-beta2":
+  version "1.3.0-beta2"
+  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-svg-core/-/1.3.0-beta2/fontawesome-svg-core-1.3.0-beta2.tgz#4f007f78dfb551d86c67cb36432044e9a55f952d"
+  integrity sha512-ppK3EYDiY4HYFCGxM2Zi7zIKzagElK2cttzmPCf5w0fGd54RJrxjO24mxFu5HnK7oyD3aP41uXyNyG39i8u1fA==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.36"
+    "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/free-brands-svg-icons@^6.0.0-beta1":
+"@fortawesome/free-brands-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/free-brands-svg-icons/-/6.0.0-beta2/free-brands-svg-icons-6.0.0-beta2.tgz#48fa48e1bde4707fffc6c8a076f89c11441039fd"
   integrity sha512-KyGxpYYBmylX72VSLXPBbTL04TLXqEsb2RKLWuQjUxo1hVnG9kMTwGTVQzYY9a0xvpwzUKb39kRKNKgmbjXquA==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/free-regular-svg-icons@^6.0.0-beta1":
+"@fortawesome/free-regular-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/free-regular-svg-icons/-/6.0.0-beta2/free-regular-svg-icons-6.0.0-beta2.tgz#74525883a0f26acc053bceb2ba00b5ecd50aa315"
   integrity sha512-MV2T0WRunzT0aqXJOs/OLeWoY/20W/vp9w2Em4UWaYpIucOIjzxWODVkc7uz2sP7tL3jNV2n5d0kwbftLyizjg==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/free-solid-svg-icons@^6.0.0-beta1":
+"@fortawesome/free-solid-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/free-solid-svg-icons/-/6.0.0-beta2/free-solid-svg-icons-6.0.0-beta2.tgz#096fe9c6ad1875fa37eb2bb99f12490480157cf6"
   integrity sha512-xOWg5eRLuaiLKctI9rt94llZhMRn8C23jTkSxywfy2Tyy3ggtVL/ocW7KUk0IbCgWfZSy+EMsGF2ZxxWs2Mhpw==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/pro-duotone-svg-icons@^6.0.0-beta1":
+"@fortawesome/pro-duotone-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/pro-duotone-svg-icons/-/6.0.0-beta2/pro-duotone-svg-icons-6.0.0-beta2.tgz#adbd56498fea829122e3afc981bca119a2606d5b"
   integrity sha512-8Z3ro/svpur1A7MNIOUwPiwVdxwNfcnMJtOGGsc11KLpV/t4DrLQ4WJKL2tCfhQygGwl6/9JKTLntQynRSBUBQ==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/pro-light-svg-icons@^6.0.0-beta1":
+"@fortawesome/pro-light-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/pro-light-svg-icons/-/6.0.0-beta2/pro-light-svg-icons-6.0.0-beta2.tgz#aeb6eb251a0189ceb99d7b392467a1ec389ebd39"
   integrity sha512-tXOb+puqWDQ06p6FPxiWlc1TnELI+e/mkH7YNAnCIYhOjwbc7YFOZiM7hsLDoAIfdHxc5+qbEpgGFZVwvJwkyw==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/pro-regular-svg-icons@^6.0.0-beta1":
+"@fortawesome/pro-regular-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/6.0.0-beta2/pro-regular-svg-icons-6.0.0-beta2.tgz#626b74e57ce8e2b317ef4a63189722ebe5e1e9ea"
   integrity sha512-tH75FUmSi95mBMr9JzlL5cFWm483BGTuUTi81VaF1Cs9RzpLI8uQfb3jLsQYSsrE580epf9khBnwKrU7w/FpiQ==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/pro-solid-svg-icons@^6.0.0-beta1":
+"@fortawesome/pro-solid-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/pro-solid-svg-icons/-/6.0.0-beta2/pro-solid-svg-icons-6.0.0-beta2.tgz#c19a03fc388183c4a74eb695d2f129defe180c06"
   integrity sha512-5slpbjZlrAGYx6r4ooEtLW4XXQe5+Mwb1V/tyEXxaATzrlKGbw1Z/a/oAxhKm/98icBJpiOYpOqVtkWpzyUmcg==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.3.0-beta2"
 
-"@fortawesome/pro-thin-svg-icons@^6.0.0-beta1":
+"@fortawesome/pro-thin-svg-icons@^6.0.0-beta2":
   version "6.0.0-beta2"
   resolved "https://npm.fontawesome.com/@fortawesome/pro-thin-svg-icons/-/6.0.0-beta2/pro-thin-svg-icons-6.0.0-beta2.tgz#55f4fb94092e1112fcd15e6b20fcf2ff3966ceec"
   integrity sha512-8BLUZsGeRUZ1MmXQTEY9XJOv5mc4HWLP5//HSrB+ITwwc1dBFcym0s8E/uVgFczqfseChX53lE3G9MHrewNMWA==
@@ -1264,9 +1259,9 @@
     "@octokit/openapi-types" "^10.6.1"
 
 "@popperjs/core@^2.8.3":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
-  integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.2.tgz#0798c03351f0dea1a5a4cabddf26a55a7cbee590"
+  integrity sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==
 
 "@react-leaflet/core@^1.1.0":
   version "1.1.0"
@@ -1423,9 +1418,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "16.10.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.1.tgz#f3647623199ca920960006b3dccf633ea905f243"
-  integrity sha512-4/Z9DMPKFexZj/Gn3LylFgamNKHm4K3QDi0gz9B26Uk0c8izYf97B5fxfpspMNkWlFupblKM/nV8+NA9Ffvr+w==
+  version "16.10.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.2.tgz#5764ca9aa94470adb4e1185fe2e9f19458992b2e"
+  integrity sha512-zCclL4/rx+W5SQTzFs9wyvvyCwoK9QtBpratqz2IYJ3O8Umrn0m3nsTv0wQBk9sRGpvUe9CwPDrQFB10f1FIjQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -3304,9 +3299,9 @@ ejs@^2.6.1:
   integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
 
 electron-to-chromium@^1.3.30, electron-to-chromium@^1.3.846:
-  version "1.3.852"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.852.tgz#04091fd848b38e7248e4eb70c05e1f9befd2671b"
-  integrity sha512-vNbdzbbx3d7TStoC0oIVYz6X/tIezHXnreI+4a8I7EqAQ9hpHulz3ar8xChUNcG77A+TtPSKz9B9Xwpt9e1B5w==
+  version "1.3.854"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.854.tgz#003f0b9c80eccc35be0ef04a0e0b1c31a10b90d5"
+  integrity sha512-00/IIC1mFPkq32MhUJyLdcTp7+wsKK2G3Sb65GSas9FKJQGYkDcZ4GwJkkxf5YyM3ETvl6n+toV8OmtXl4IA/g==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -4368,11 +4363,11 @@ glob-parent@^5.1.2, glob-parent@~5.1.2:
     is-glob "^4.0.1"
 
 glob-parent@^6.0.0, glob-parent@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-6.0.1.tgz#42054f685eb6a44e7a7d189a96efa40a54971aa7"
-  integrity sha512-kEVjS71mQazDBHKcsq4E9u/vUzaLcw1A8EtUeydawvIWQCJM0qQ08G1H7/XTjFUulla6XQiDOG6MXSaG0HDKog==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-6.0.2.tgz#6d237d99083950c79290f24c7642a3de9a28f9e3"
+  integrity sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==
   dependencies:
-    is-glob "^4.0.1"
+    is-glob "^4.0.3"
 
 glob-to-regexp@^0.4.1:
   version "0.4.1"
@@ -5073,10 +5068,10 @@ is-glob@^2.0.0, is-glob@^2.0.1:
   dependencies:
     is-extglob "^1.0.0"
 
-is-glob@^4.0.0, is-glob@^4.0.1, is-glob@~4.0.1:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.2.tgz#859fc2e731e58c902f99fcabccb75a7dd07d29d8"
-  integrity sha512-ZZTOjRcDjuAAAv2cTBQP/lL59ZTArx77+7UzHdWW/XB1mrfp7DEaVpKmZ0XIzx+M7AxfhKcqV+nMetUQmFifwg==
+is-glob@^4.0.0, is-glob@^4.0.1, is-glob@^4.0.3, is-glob@~4.0.1:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.3.tgz#64f61e42cbbb2eec2071a9dac0b28ba1e65d5084"
+  integrity sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==
   dependencies:
     is-extglob "^2.1.1"
 
@@ -5339,9 +5334,9 @@ jest-worker@^26.2.1:
     supports-color "^7.0.0"
 
 jest-worker@^27.0.2, jest-worker@^27.0.6:
-  version "27.2.3"
-  resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.2.3.tgz#396e83d04ca575230a9bcb255c2b66aec07cb931"
-  integrity sha512-ZwOvv4GCIPviL+Ie4pVguz4N5w/6IGbTaHBYOl3ZcsZZktaL7d8JOU0rmovoED7AJZKA8fvmLbBg8yg80u/tGA==
+  version "27.2.4"
+  resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.2.4.tgz#881455df75e22e7726a53f43703ab74d6b36f82d"
+  integrity sha512-Zq9A2Pw59KkVjBBKD1i3iE2e22oSjXhUKKuAK1HGX8flGwkm6NMozyEYzKd41hXc64dbd/0eWFeEEuxqXyhM+g==
   dependencies:
     "@types/node" "*"
     merge-stream "^2.0.0"
@@ -8162,9 +8157,9 @@ side-channel@^1.0.4:
     object-inspect "^1.9.0"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.4.tgz#366a4684d175b9cab2081e3681fda3747b6c51d7"
-  integrity sha512-rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.5.tgz#9e3e8cc0c75a99472b44321033a7702e7738252f"
+  integrity sha512-KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
