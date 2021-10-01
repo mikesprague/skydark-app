@@ -43,7 +43,7 @@
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@tailwindcss/typography": "^0.4.1",
     "@tippyjs/react": "^4.2.5",
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.10.7",
     "history": "^5.0.1",
