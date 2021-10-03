@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
 const colors = require('tailwindcss/colors');
 
 module.exports = {
@@ -6,9 +8,9 @@ module.exports = {
   content: ['./public/index.html', './src/components/**/*.js', './src/modules/helpers.js'],
   theme: {
     colors: {
-      white: '#fff',
-      black: '#000',
-      gray: colors.gray,
+      white: colors.white,
+      black: colors.black,
+      gray: colors.zinc,
       red: colors.red,
       orange: colors.orange,
       yellow: colors.yellow,
