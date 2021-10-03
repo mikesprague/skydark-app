@@ -3,13 +3,7 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
-  purge: {
-    content: [
-      './public/index.html',
-      './src/components/**/*.js',
-      './src/modules/helpers.js',
-    ],
-  },
+  content: ['./public/index.html', './src/components/**/*.js', './src/modules/helpers.js'],
   theme: {
     colors: {
       white: '#fff',
@@ -36,7 +30,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 };
