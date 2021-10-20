@@ -57,7 +57,7 @@
     "react-leaflet": "^3.2.2",
     "react-router-dom": "6.0.0-beta.3",
     "register-service-worker": "^1.7.2",
-    "snyk": "^1.741.0"
+    "snyk": "^1.742.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
