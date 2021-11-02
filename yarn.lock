@@ -4611,10 +4611,10 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-history@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/history/-/history-5.0.2.tgz#086109b3bddaf0830f83a6bd5d8ba29973ade46c"
-  integrity sha512-mBsCaXLUOD9x4YMQlyKHkHqFQlgG0ISle3edo6npJ1N2kb8lcGkmPUHpS4WjmrB64s5H70UniAxKmGDHJkstUQ==
+history@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.0.3.tgz#23d0b3046f695623c95a870506545e2b67e82edb"
+  integrity sha512-LoyCVOpCBkNAgrsdpTDZP77fys7lFDg8JdxTr7s6GHueZbTplKf8NAJu3y6/QuJIjk6TFsEGrhtILVP814X8+A==
   dependencies:
     "@babel/runtime" "^7.7.6"
 
@@ -8128,10 +8128,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@^1.749.0:
-  version "1.749.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.749.0.tgz#67022d96697507affc06a8257c4076b2df8cddf2"
-  integrity sha512-9u0uj3zfgnc7+vsIJNAhy7372R4Ij/DA1pMLzUyj27Q75lphiVOO7hzNL0smiSO2p9GyvcLMxRfv0kMZYVhvHw==
+snyk@^1.750.0:
+  version "1.750.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.750.0.tgz#6421af8bf8b72b8bab0d2b3a8cf3caf851afdd41"
+  integrity sha512-1tYnqj0VgHbss+GvMA5747iwQCdGq61fMDfxxfD+Y3Ii7wO1G1tYWnVhmmR48NYPup4L9qq6FuWgCYSEwUxFug==
 
 source-list-map@^2.0.0:
   version "2.0.1"
