@@ -24,7 +24,7 @@ export const Hourly = ({ data, dayData }) => {
     if (hourlyData) {
       const allVals = hourlyData.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
       const max = Math.max(...allVals);
-      const scale = 100 / max;
+      const scale = 80 / max;
       setValScale(scale);
     }
   }, [hourlyConditionToShow, hourlyData]);
