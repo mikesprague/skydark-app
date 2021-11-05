@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Suspense, lazy } from 'react';
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Loading } from './Loading';
 import { initIcons } from '../modules/icons';
 import './App.scss';
@@ -22,18 +18,14 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     <Router>
       <Suspense fallback={<Loading fullHeight={true} />}>
         <Routes>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/map">
-            <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          <Route path="/" end>
-            <Forecast />
-          </Route>
+          <Route path="/about" className={({ isActive }) => (isActive ? 'active' : '')} element={<About />} />
+          <Route
+            path="/map"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            element={<WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />}
+          />
+          <Route path="/settings" className={({ isActive }) => (isActive ? 'active' : '')} element={<Settings />} />
+          <Route path="/" className={({ isActive }) => (isActive ? 'active' : '')} element={<Forecast />} end />
         </Routes>
         <Footer />
       </Suspense>

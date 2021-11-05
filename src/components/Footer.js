@@ -7,28 +7,28 @@ export const Footer = () => (
   <div className="footer">
     <div className="flex text-sm">
       <div className="footer-column">
-        <NavLink activeClassName="active" to="/" end>
+        <NavLink to="/" end>
           <FontAwesomeIcon icon={['fad', 'house-day']} className="footer-icon" fixedWidth />
           <br />
           <small>Forecast</small>
         </NavLink>
       </div>
       <div className="footer-column">
-        <NavLink activeClassName="active" to="/map">
+        <NavLink to="/map">
           <FontAwesomeIcon icon={['fad', 'globe-stand']} className="footer-icon" fixedWidth />
           <br />
           <small>Map</small>
         </NavLink>
       </div>
       <div className="footer-column">
-        <NavLink activeClassName="active" to="/settings">
+        <NavLink to="/settings">
           <FontAwesomeIcon icon={['fad', 'gear']} className="footer-icon" fixedWidth />
           <br />
           <small>Settings</small>
         </NavLink>
       </div>
       <div className="footer-column">
-        <NavLink activeClassName="active" to="/about">
+        <NavLink to="/about">
           <FontAwesomeIcon icon={['fad', 'circle-info']} className="footer-icon" fixedWidth />
           <br />
           <small>About</small>
