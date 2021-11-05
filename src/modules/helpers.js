@@ -61,8 +61,8 @@ export const initServiceWorker = () => {
         bar: { color: '#60a5fa' },
         onClick: () => {
           resetData();
-          window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';
-          // window.location.reload(true);
+          // window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';
+          window.location.reload(true);
         },
       });
     },
