@@ -18,7 +18,7 @@ export const CurrentHourly = () => {
     if (data) {
         const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
         const max = Math.max(...allVals);
-        const scale = 100 / max;
+        const scale = 80 / max;
         setValScale(scale);
     }
   }, [hourlyConditionToShow, data]);
