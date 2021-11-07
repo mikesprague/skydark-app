@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { HourlyConditions } from './HourlyConditions';
-import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
+import { formatCondition, getConditionBarClass, getUvIndexClasses, scaleDivisor } from '../modules/helpers';
 import './Hour.scss';
 
 export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow, valScale = 1 }) => {
@@ -64,7 +64,7 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
         onClick={clickHandler}
         style={
           ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
-            ? { marginRight: `${Math.round(80 - Math.round(data[conditionToShow]) * valScale)}%` }
+            ? { marginRight: `${Math.round(scaleDivisor - Math.round(data[conditionToShow]) * valScale)}%` }
             : {}
         }
       >

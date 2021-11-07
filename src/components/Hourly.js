@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { formatSummary } from '../modules/helpers';
+import { formatSummary, scaleDivisor } from '../modules/helpers';
 import { Hour } from './Hour';
 import { Loading } from './Loading';
 import { Pill } from './Pill';
@@ -24,7 +24,7 @@ export const Hourly = ({ data, dayData }) => {
     if (hourlyData) {
       const allVals = hourlyData.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
       const max = Math.max(...allVals);
-      const scale = 80 / max;
+      const scale = scaleDivisor / max;
       setValScale(scale);
     }
   }, [hourlyConditionToShow, hourlyData]);

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { formatSummary, formatCondition } from '../modules/helpers';
+import { formatSummary, formatCondition, scaleDivisor } from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
 import { Pill } from './Pill';
@@ -16,10 +16,10 @@ export const CurrentHourly = () => {
   const [valScale, setValScale] = useState(1);
   useEffect(() => {
     if (data) {
-        const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
-        const max = Math.max(...allVals);
-        const scale = 80 / max;
-        setValScale(scale);
+      const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
+      const max = Math.max(...allVals);
+      const scale = scaleDivisor / max;
+      setValScale(scale);
     }
   }, [hourlyConditionToShow, data]);
 
@@ -41,8 +41,16 @@ export const CurrentHourly = () => {
           <strong className="text-lg font-medium">Next 24 Hours</strong>
           <br />
           <em className="text-sm">
-            High: {` ${formatCondition(Math.max(...data.weather.hourly.data.slice(0, 23).map(hour => Math.round(hour.temperature))), 'temperature')} `}
-            Low: {` ${formatCondition(Math.min(...data.weather.hourly.data.slice(0, 23).map(hour => Math.round(hour.temperature))), 'temperature')} `}
+            High:{' '}
+            {` ${formatCondition(
+              Math.max(...data.weather.hourly.data.slice(0, 23).map((hour) => Math.round(hour.temperature))),
+              'temperature',
+            )} `}
+            Low:{' '}
+            {` ${formatCondition(
+              Math.min(...data.weather.hourly.data.slice(0, 23).map((hour) => Math.round(hour.temperature))),
+              'temperature',
+            )} `}
             {`\u00a0${data.weather.hourly.summary}`}
           </em>
         </p>
