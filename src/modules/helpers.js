@@ -21,6 +21,8 @@ export const isDev = () => {
   return false;
 };
 
+export const scaleDivisor = 75;
+
 export const apiUrl = (useLocalhost = false) => {
   if (useLocalhost || isDev()) {
     return 'http://localhost:3000/api';
