@@ -92,7 +92,7 @@
     "cssnano": "^5.0.11",
     "dotenv": "^10.0.0",
     "eslint": "^8.3.0",
-    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-airbnb": "^19.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-compat": "^4.0.0",
     "eslint-plugin-flowtype": "^8.0.3",
