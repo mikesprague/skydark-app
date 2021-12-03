@@ -58,7 +58,7 @@
     "react-leaflet": "^3.2.2",
     "react-router-dom": "6.0.2",
     "register-service-worker": "^1.7.2",
-    "snyk": "^1.780.0",
+    "snyk": "^1.782.0",
     "tailwindcss": "^3.0.0-alpha.2"
   },
   "devDependencies": {
@@ -92,7 +92,7 @@
     "cssnano": "^5.0.12",
     "dotenv": "^10.0.0",
     "eslint": "^8.3.0",
-    "eslint-config-airbnb": "^19.0.1",
+    "eslint-config-airbnb": "^19.0.2",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-compat": "^4.0.0",
     "eslint-plugin-flowtype": "^8.0.3",
@@ -124,7 +124,7 @@
     "vercel": "^23.1.2",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
-    "workbox-webpack-plugin": "^6.4.1"
+    "workbox-webpack-plugin": "^6.4.2"
   },
   "babel": {
     "plugins": [
