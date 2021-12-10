@@ -7546,18 +7546,18 @@ react-load-script@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-load-script/-/react-load-script-0.0.6.tgz#db6851236aaa25bb622677a2eb51dad4f8d2c258"
   integrity sha512-aRGxDGP9VoLxcsaYvKWIW+LRrMOzz2eEcubTS4NvQPPugjk2VvMhow0wWTkSl7RxookomD1MwcP4l5UStg5ShQ==
 
-react-router-dom@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.0.2.tgz#860cefa697b9d4965eced3f91e82cdbc5995f3ad"
-  integrity sha512-cOpJ4B6raFutr0EG8O/M2fEoyQmwvZWomf1c6W2YXBZuFBx8oTk/zqjXghwScyhfrtnt0lANXV2182NQblRxFA==
+react-router-dom@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.1.0.tgz#94e650ee43b0cdeb80049dea72223402a27c7f61"
+  integrity sha512-ONVhgCiEHTPZvsz05AUiqKj9mrlkDyxt96FB51JrZH7Jlau2B8GJ+NfWw7rbu+oj9gfpZOsK14xJppLAWg2ifQ==
   dependencies:
     history "^5.1.0"
-    react-router "6.0.2"
+    react-router "6.1.0"
 
-react-router@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.2.tgz#bd2b0fa84fd1d152671e9f654d9c0b1f5a7c86da"
-  integrity sha512-8/Wm3Ed8t7TuedXjAvV39+c8j0vwrI5qVsYqjFr5WkJjsJpEvNSoLRUbtqSEYzqaTUj1IV+sbPJxvO+accvU0Q==
+react-router@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.1.0.tgz#a34a2dbba7f6167d64a4c209009f28b635ea8477"
+  integrity sha512-96x4YGONBBz41ikne/I9Zw4jZm+KeFyUZraiNkSA384g/B8ps8nRNAfN8339EpZRt+t16RM+TA9z+NqlYATGzw==
   dependencies:
     history "^5.1.0"
 
@@ -8324,10 +8324,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@^1.787.0:
-  version "1.787.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.787.0.tgz#d39044ee5987bbb4d7b8e3393c5ebb9952b83a91"
-  integrity sha512-bBOmHyNL+VJt7VCH7K9hfidbkU/AIpbaZpsXPVa+RltJ9QZqdlD6hBTDotyeuHhzygeNmetpxvjwiG9RkN7SAg==
+snyk@^1.788.0:
+  version "1.788.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.788.0.tgz#00394e25ae01d553b02d581d5668b9c97fefea03"
+  integrity sha512-6gAQcim9LMu6Tmp7B7qKvhvZZa2R4r1bXmBxJbwqcrg9gm28nJfuH6Xon6hnEgjgVJm8R5pTmJB2An16ayUMpw==
 
 source-list-map@^2.0.0:
   version "2.0.1"
