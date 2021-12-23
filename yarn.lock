@@ -7415,6 +7415,15 @@ prop-types@^15.7.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
+prop-types@^15.8.0:
+  version "15.8.0"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.0.tgz#d237e624c45a9846e469f5f31117f970017ff588"
+  integrity sha512-fDGekdaHh65eI3lMi5OnErU6a8Ighg2KjcjQxO7m8VHyWjcPyj5kiOgV1LQDOOOgVy3+5FgjXvdSSX7B8/5/4g==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.13.1"
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -7522,7 +7531,7 @@ react-google-charts@^3.0.15:
   dependencies:
     react-load-script "^0.0.6"
 
-react-is@^16.8.1:
+react-is@^16.13.1, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -8310,10 +8319,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@^1.806.0:
-  version "1.806.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.806.0.tgz#775053dc1848f5ffa30a9e5a8c000798884cfa1d"
-  integrity sha512-X0Aso0+zA9YXrrIgW1G3GXRqsvW4j7gXS9QyxFUwPp9qp5dAX1sjNUuLrK/z0CpuIpT7MVOBrYHF/RkMJ2C+FA==
+snyk@^1.809.0:
+  version "1.809.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.809.0.tgz#3e495deb15ae509ebc28612c56450a864c535ca3"
+  integrity sha512-iydRCBZev1P0Kf9dSW5AhA6EuVEGYMjm39VRA/NMm0/drxqvFWDkLm2pUuC6wtOSg1r4RuFXJTa3umoOnZ/V3A==
 
 source-list-map@^2.0.0:
   version "2.0.1"
