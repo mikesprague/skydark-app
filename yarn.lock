@@ -7315,10 +7315,10 @@ nanoid@^3.1.30:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.30.tgz#63f93cc548d2a113dc5dfbc63bfa09e2b9b64362"
   integrity sha512-zJpuPDwOv8D2zq2WRoMe1HsfZthVewpel9CAvTfc/2mBD1uUT/agc5f7GHGWXlYkFvi1mVxe4IjvP2HNrop7nQ==
 
-nanoid@^3.1.32:
-  version "3.1.32"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.32.tgz#8f96069e6239cc0a9ae8c0d3b41a3b4933a88c0a"
-  integrity sha512-F8mf7R3iT9bvThBoW4tGXhXFHCctyCiUUPrWF8WaTqa3h96d9QybkSeba43XVOOE3oiLfkVDe4bT8MeGmkrTxw==
+nanoid@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
+  integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -8740,10 +8740,10 @@ react-is@^16.13.1, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-leaflet@^3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.2.4.tgz#5c87ca457d126e2f525d68cf169b9331402bcce0"
-  integrity sha512-GY7jUYFMVLqEOcI/NRtuTQ1lYiBqRxK5CWabLNupdqaz+Iy3HZbka/p9athICoAp9Nm87C4yC1YGU7lMr3X7Dg==
+react-leaflet@^3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.2.5.tgz#bec0bfab9dd8c2b030ea630f7a0687a60322ca7d"
+  integrity sha512-Z3KZ+4SijsRbbrt2I1a3ZDY6+V6Pm91eYTdxTN18G6IOkFRsJo1BuSPLFnyFrlF3WDjQFPEcTPkEgD1VEeAoBg==
   dependencies:
     "@react-leaflet/core" "^1.1.1"
 
@@ -9544,10 +9544,10 @@ smart-buffer@^4.1.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-snyk@^1.826.0:
-  version "1.826.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.826.0.tgz#d0ff94488796c24f9b2964819aa22178b26566e7"
-  integrity sha512-ZqkDPgO37D7sgxY+Y8J+4UK9mq89By9lcp/KUP9PfqETxWclVZXlcaLIkaY4BkDCktPDNtS6WHgYR3ApL+9mMQ==
+snyk@^1.828.0:
+  version "1.828.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.828.0.tgz#bd55ff1ad06dfd8c5248206313c03eb4809f8dd3"
+  integrity sha512-gyfW9geXlvxF8cFyI7FpQBIFWpiosvf8UMLuKBR5PfcWGaqCCj8RXrzXa4CLRpbZbUj/s8Uxx09Tb94+X8kJcw==
 
 socks-proxy-agent@^6.0.0:
   version "6.1.1"
@@ -10040,10 +10040,10 @@ table@^6.0.9:
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
 
-tailwindcss@^3.0.13:
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.13.tgz#0d571643bfc8c76602bbba95a780a9552ae44c64"
-  integrity sha512-raRPGFwQSGXn/3h0ttHND9jyPYfqk/ur2NXtlQuK25+ZnrCjlH1s1j4/oPswHGMoZzGNykUVycZ/LcROanUE0A==
+tailwindcss@^3.0.15:
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.15.tgz#e4db219771eb7678a3bfd97b3f6c8fe20be0a410"
+  integrity sha512-bT2iy7FtjwgsXik4ZoJnHXR+SRCiGR1W95fVqpLZebr64m4ahwUwRbIAc5w5+2fzr1YF4Ct2eI7dojMRRl8sVQ==
   dependencies:
     arg "^5.0.1"
     chalk "^4.1.2"
