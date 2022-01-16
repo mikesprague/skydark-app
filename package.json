@@ -106,7 +106,7 @@
     "eslint-plugin-security": "^1.4.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.5.0",
+    "mini-css-extract-plugin": "2.4.5",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
