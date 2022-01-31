@@ -2711,10 +2711,10 @@ convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-copy-webpack-plugin@^10.2.1:
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-10.2.1.tgz#115a41f913070ac236a1b576066204cbf35341a1"
-  integrity sha512-nr81NhCAIpAWXGCK5thrKmfCQ6GDY0L5RN0U+BnIn/7Us55+UCex5ANNsNKmIVtDRnk0Ecf+/kzp9SUVrrBMLg==
+copy-webpack-plugin@^10.2.4:
+  version "10.2.4"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-10.2.4.tgz#6c854be3fdaae22025da34b9112ccf81c63308fe"
+  integrity sha512-xFVltahqlsRcyyJqQbDY6EYTtyQZF9rf+JPjwHObLdPFMEISqkFkr7mFoVOC6BfYS/dNThyoQKvziugm+OnwBg==
   dependencies:
     fast-glob "^3.2.7"
     glob-parent "^6.0.1"
@@ -3699,10 +3699,10 @@ eslint@^7.9.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-eslint@^8.7.0:
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.7.0.tgz#22e036842ee5b7cf87b03fe237731675b4d3633c"
-  integrity sha512-ifHYzkBGrzS2iDU7KjhCAVMGCvF6M3Xfs8X8b37cgrUlDt6bWRTpRh6T/gtSXv1HJ/BUGgmjvNvOEGu85Iif7w==
+eslint@^8.8.0:
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.8.0.tgz#9762b49abad0cb4952539ffdb0a046392e571a2d"
+  integrity sha512-H3KXAzQGBH1plhYS3okDix2ZthuYJlQQEGE5k0IKuEqUSiyu4AmxxlJ2MtTYeJ3xB4jDhcYCwGOg2TXYdnDXlQ==
   dependencies:
     "@eslint/eslintrc" "^1.0.5"
     "@humanwhocodes/config-array" "^0.9.2"
@@ -7681,10 +7681,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@^1.838.0:
-  version "1.838.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.838.0.tgz#d3890d18eda8eee3febc421dab091d6f04b7265c"
-  integrity sha512-ulCiJ3YbATu0dRtVknYric9EDiPkrZ5qRzwVDHFkcfCzyleV64QfNmO72y6cWI4WRmPha25V/qdYa+4Kl3MzuQ==
+snyk@^1.841.0:
+  version "1.841.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.841.0.tgz#b8647098b6efa21a6ba9c5d496a86fc7591ac682"
+  integrity sha512-lCrl/lL74hUoR+6G8hqwOtfOuGvZ3pFA2roRPLQn6Q2E4F5BUo4+DvNW5RVmauJERz1PPagFBgG9p18DAabQ6g==
 
 source-list-map@^2.0.0:
   version "2.0.1"
