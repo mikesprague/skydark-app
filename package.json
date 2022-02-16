@@ -51,7 +51,7 @@
     "leaflet": "^1.7.1",
     "logrocket": "^2.2.0",
     "logrocket-react": "^5.0.1",
-    "nanoid": "^3.3.0",
+    "nanoid": "^3.3.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -59,7 +59,7 @@
     "react-leaflet": "^3.2.5",
     "react-router-dom": "6.2.1",
     "register-service-worker": "^1.7.2",
-    "tailwindcss": "^3.0.22"
+    "tailwindcss": "^3.0.23"
   },
   "devDependencies": {
     "@babel/core": "^7.17.4",
