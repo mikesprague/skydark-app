@@ -64,7 +64,7 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
         onClick={clickHandler}
         style={
           ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
-            ? { marginRight: `${Math.round(scaleDivisor - Math.round(data[conditionToShow]) * valScale)}%` }
+            ? { marginRight: `${Math.round(100 - Math.round(data[conditionToShow]) * valScale)}%` }
             : {}
         }
       >

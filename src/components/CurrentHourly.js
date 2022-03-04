@@ -16,10 +16,10 @@ export const CurrentHourly = () => {
   const [valScale, setValScale] = useState(1);
   useEffect(() => {
     if (data) {
-      const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
-      const max = Math.max(...allVals);
-      const scale = scaleDivisor / max;
-      setValScale(scale);
+        const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
+        const max = Math.max(...allVals);
+        const scale = 100 / max;
+        setValScale(scale);
     }
   }, [hourlyConditionToShow, data]);
 
