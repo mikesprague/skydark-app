@@ -4078,10 +4078,10 @@ eslint-plugin-prettier@4.0.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.3.0.tgz#318dbf312e06fab1c835a4abef00121751ac1172"
-  integrity sha512-XslZy0LnMn+84NEG9jSGR6eGqaZB3133L8xewQo3fQagbQuGt7a63gf+P1NGKZavEYEC3UXaWEAA/AqDkuN6xA==
+eslint-plugin-react-hooks@4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.4.0.tgz#71c39e528764c848d8253e1aa2c7024ed505f6c4"
+  integrity sha512-U3RVIfdzJaeKDQKEJbz5p3NW8/L80PCATJAfuojwbaEL+gBjfGdhUcGde+WGUW46Q5sr/NgxevsIiDtNXrvZaQ==
 
 eslint-plugin-react@7.29.4:
   version "7.29.4"
@@ -7905,10 +7905,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@1.886.0:
-  version "1.886.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.886.0.tgz#08a4cc40df14a6c0b5a822b453e722329a0e5845"
-  integrity sha512-4pQWsxck0hJTyybuWkT4pBzzBBMOCTjrM6BsO7erg0yfnHtUtuhsqVsNODZ/Lhlny66wOT0YMXoD+5DkOVWBdQ==
+snyk@1.890.0:
+  version "1.890.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.890.0.tgz#ea69d243d1b71fe53b0e1c9c4799586b637bd4f1"
+  integrity sha512-rFywMVIow7PKDKmDOGhfFf4/a5cJQ4d6Bw16rSK+YHKV0HXU9t8ushWU1boZIWrk2bRRwAv36qu/FhN13cO+WQ==
 
 source-list-map@^2.0.0:
   version "2.0.1"
