@@ -1,8 +1,10 @@
 /* eslint-disable arrow-body-style */
-import { nanoid } from 'nanoid';
 import React, { useContext, useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
+
 import { Day } from './Day';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './Daily.scss';
 
 export const Daily = () => {
@@ -10,18 +12,23 @@ export const Daily = () => {
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data) { return; }
+    if (!data) {
+      return;
+    }
 
     setDailyData(data.weather);
   }, [data]);
 
   const [minLow, setMinLow] = useState(0);
+
   useEffect(() => {
     if (!dailyData) {
       return;
     }
+
     const slicedData = dailyData.daily.data.slice(0, 8);
     const allLows = slicedData.map((val) => val.temperatureMin);
+
     setMinLow(Math.round(Math.min(...allLows)));
   }, [dailyData]);
 
