@@ -43,7 +43,7 @@
     "@tailwindcss/forms": "0.5.0",
     "@tailwindcss/typography": "0.5.2",
     "@tippyjs/react": "4.2.6",
-    "axios": "0.26.1",
+    "axios": "0.27.1",
     "cogo-toast": "4.2.3",
     "dayjs": "1.11.1",
     "dotenv": "16.0.0",
