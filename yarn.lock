@@ -1050,7 +1050,7 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bugsnag/browser@^7.16.2":
+"@bugsnag/browser@^7.16.5":
   version "7.16.5"
   resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.16.5.tgz#ff0df469c52a2091e96a8fbce4b52e8a435c371e"
   integrity sha512-EftyLRfUgQL/7leHhlfL756KlcBsG8C7wwMRRoyzGnAIH0Uu/l1RfBi5Tf1Fhk+LOwkDedTxDtQOa70EC8oS8A==
@@ -1073,12 +1073,12 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.0.0.tgz#2ee7642a30aee6dc86f5e7f824653741e42e5c35"
   integrity sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==
 
-"@bugsnag/js@7.16.2":
-  version "7.16.2"
-  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.16.2.tgz#fb15ec9cc5980f0b210aecc7b740274e50400a91"
-  integrity sha512-AzV0PtG3SZt+HnA2JmRJeI60aDNZsIJbEEAZIWZeATvWBt5RdVdsWKllM1SkTvURfxfdAVd4Xry3BgVrh8nEbg==
+"@bugsnag/js@7.16.5":
+  version "7.16.5"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.16.5.tgz#35f2b7816e44b6a73b3f39d20610a9ec32ea0da9"
+  integrity sha512-IzFkRRhisAdfAG5ihKbd9c2YtBmYWuA3Yw+KnzwVwQ/dDZKpWMPzQOv9uVznA1u8Dqv9347e/uUbRzudlGUJog==
   dependencies:
-    "@bugsnag/browser" "^7.16.2"
+    "@bugsnag/browser" "^7.16.5"
     "@bugsnag/node" "^7.16.2"
 
 "@bugsnag/node@^7.16.2":
@@ -1093,10 +1093,10 @@
     pump "^3.0.0"
     stack-generator "^2.0.3"
 
-"@bugsnag/plugin-react@7.16.4":
-  version "7.16.4"
-  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.16.4.tgz#b9df78fcdb719c26f99985afdc0525ceaa8bf9ff"
-  integrity sha512-7YCSAMVGW0P/9NDu0sPINoYuDwfy+cGbQvxGna6KviH2+i0FCqULNCm0+9OB8T8uLcszhj1DMkHEy3e6qyNkGQ==
+"@bugsnag/plugin-react@7.16.5":
+  version "7.16.5"
+  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.16.5.tgz#ed0298e5ce5621d436339c977bdf89cbaacde4a2"
+  integrity sha512-GTBT+yV9kOZ3mv8ECcw21udEH/DjTs4LAz6sEfs9RXvE/tFfffjjBzarvvQsWQ9jqlW7q6KggVKmQQhNGgqGCg==
 
 "@bugsnag/safe-json-stringify@^6.0.0":
   version "6.0.0"
@@ -1669,10 +1669,10 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@tailwindcss/forms@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.1.tgz#7fe86b9b67e6d91cb902e2d3f4ebe561cc057a13"
-  integrity sha512-QSwsFORnC2BAP0lRzQkz1pw+EzIiiPdk4e27vGQjyXkwJPeC7iLIRVndJzf9CJVbcrrIcirb/TfxF3gRTyFEVA==
+"@tailwindcss/forms@0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.2.tgz#4ef45f9916dcb37838cbe7fecdcc4ba7a7c2ab59"
+  integrity sha512-pSrFeJB6Bg1Mrg9CdQW3+hqZXAKsBrSG9MAfFLKy1pVA4Mb4W7C0k7mEhlmS2Dfo/otxrQOET7NJiJ9RrS563w==
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
