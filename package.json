@@ -4,12 +4,11 @@
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
   "engines": {
-    "node": ">= 12.x",
-    "npm": ">= 6.x",
-    "yarn": ">= 1.22.x"
+    "node": ">= 16.x",
+    "npm": ">= 8.x"
   },
   "scripts": {
-    "build": "yarn clean && yarn webpack",
+    "build": "npm run clean && npm run webpack",
     "clean": "rm -rf ./build",
     "start": "cross-env NODE_ENV=development vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1",
