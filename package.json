@@ -25,9 +25,9 @@
   "homepage": "https://skydark.app",
   "license": "MIT",
   "dependencies": {
-    "@bugsnag/core": "7.16.1",
-    "@bugsnag/js": "7.16.5",
-    "@bugsnag/plugin-react": "7.16.5",
+    "@bugsnag/core": "7.16.7",
+    "@bugsnag/js": "7.16.7",
+    "@bugsnag/plugin-react": "7.16.7",
     "@fortawesome/fontawesome-svg-core": "6.1.1",
     "@fortawesome/free-brands-svg-icons": "6.1.1",
     "@fortawesome/free-regular-svg-icons": "6.1.1",
