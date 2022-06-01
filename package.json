@@ -26,7 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "@bugsnag/core": "7.16.1",
-    "@bugsnag/js": "7.16.5",
+    "@bugsnag/js": "7.16.7",
     "@bugsnag/plugin-react": "7.16.5",
     "@fortawesome/fontawesome-svg-core": "6.1.1",
     "@fortawesome/free-brands-svg-icons": "6.1.1",
