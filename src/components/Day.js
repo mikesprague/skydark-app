@@ -19,6 +19,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
   const getDailyWeatherData = async (lat, lng, date) => {
     const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
     const weatherApiData = await axios.get(weatherApiurl).then((response) => response.data);
+
     return weatherApiData;
   };
 
@@ -41,11 +42,13 @@ export const Day = ({ data, dayIndex, minLow }) => {
     if (isOpen) {
       if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 60)) {
         const weatherData = await getDailyWeatherData(fullData.weather.latitude, fullData.weather.longitude, date);
+
         setHourlyData({
           lastUpdated: dayjs().toString(),
           data: weatherData.weather.hourly.data,
         });
       }
+
       scrollMarker.classList.remove('hidden');
       sleep(250).then(() => {
         scrollMarker.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
@@ -76,7 +79,10 @@ export const Day = ({ data, dayIndex, minLow }) => {
               fixedWidth
             />
           </div>
-          <div className="temps" style={{ position: 'relative', left: `${Math.round(data.temperatureMin) - minLow}%` }}>
+          <div
+            className="temps"
+            style={{ position: 'relative', left: `${(Math.round(data.temperatureMin) - minLow) * 1.67}%` }}
+          >
             {formatCondition(data.temperatureMin, 'temperature').trim()}
             <span
               className="temps-spacer"

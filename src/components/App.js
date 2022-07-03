@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import { Loading } from './Loading';
 import { initIcons } from '../modules/icons';
+
 import './App.scss';
 
 const Forecast = lazy(() => import('./Forecast'));
