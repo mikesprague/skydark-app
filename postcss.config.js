@@ -26,7 +26,7 @@ const cssWhitelistClassArray = [
   /border-orange-(\d+)/,
   /border-black/,
   /border-b/,
-  /ct-toast-info/,
+  /swal2/,
 ];
 
 // safelist purgecss plugin

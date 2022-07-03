@@ -1,21 +1,28 @@
 /* eslint-disable no-console */
 import Bugsnag from '@bugsnag/js';
+import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import cogoToast from 'cogo-toast';
 import { register } from 'register-service-worker';
-import { resetData } from './local-storage';
-import { initDarkMode } from './theme';
+
+import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+import { initDarkMode, isDarkModeEnabled } from './theme';
 import { initAppSettings } from './settings';
+import { resetData } from './local-storage';
+
+import 'sweetalert2/src/sweetalert2.scss';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
 export const isDev = () => {
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  if (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+  ) {
     return true;
   }
   return false;
@@ -57,13 +64,18 @@ export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated() {
       // console.log(registration);
-      cogoToast.info('Latest updates to Sky Dark installed - click this message to reload', {
-        hideAfter: 0,
-        heading: 'Sky Dark Updated',
-        bar: { color: '#60a5fa' },
-        onClick: () => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sky Dark Updated',
+        text: 'Click this message to reload',
+        showConfirmButton: false,
+        toast: true,
+        position: 'top',
+        allowEscapeKey: false,
+        background: isDarkModeEnabled() ? 'rgb(39 39 42)' : 'rgb(228 228 231)',
+        color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+        didClose: () => {
           resetData();
-          // window.location.href = isDev() ? 'http://localhost:3000/' : 'https://skydark.app/';
           window.location.reload(true);
         },
       });
@@ -118,7 +130,7 @@ export const getRadarTs = () => {
   const hours = now.hour();
   let minutes = now.minute();
   const seconds = now.second();
-  minutes -= (minutes % 10);
+  minutes -= minutes % 10;
   minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
   const millisecondTs = dayjs()
     .hour(hours)
@@ -136,15 +148,19 @@ export const getConditionBarClass = (data) => {
   const clouds = Math.round(cloudCover * 100);
   const summaryNormalized = summary.toLowerCase();
   const isCloudy = () => icon.includes('cloudy') || clouds >= 40;
-  const isRaining = () => (icon.includes('rain') || icon.includes('thunderstorm') || icon.includes('hail'));
-  const isSnowing = () => (icon.includes('snow') || icon.includes('sleet'));
+  const isRaining = () =>
+    icon.includes('rain') ||
+    icon.includes('thunderstorm') ||
+    icon.includes('hail');
+  const isSnowing = () => icon.includes('snow') || icon.includes('sleet');
   const isLight = () => summaryNormalized.includes('light');
   const isHeavy = () => summaryNormalized.includes('heavy');
   const isDrizzle = () => summaryNormalized.includes('drizzle');
   const isFlurries = () => summaryNormalized.includes('flurries');
   const isOvercast = () => summaryNormalized.includes('overcast');
   const isClear = () => icon.includes('clear');
-  const hasMostly = () => icon.includes('mostly') || summaryNormalized.includes('mostly');
+  const hasMostly = () =>
+    icon.includes('mostly') || summaryNormalized.includes('mostly');
 
   if (isRaining()) {
     if (isHeavy()) {
@@ -183,15 +199,23 @@ export const getConditionBarClass = (data) => {
   // console.log(icon);
 };
 
-export const formatSummary = (currentHourData, allHourlyData, index, startIndex) => {
+export const formatSummary = (
+  currentHourData,
+  allHourlyData,
+  index,
+  startIndex,
+) => {
   let summary = '';
   if (index === startIndex) {
     summary = currentHourData.summary;
     return summary;
   }
-  summary = index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary ? '' : currentHourData.summary;
+  summary =
+    index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary
+      ? ''
+      : currentHourData.summary;
   return summary.trim();
-};;
+};
 
 export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex <= 2) {
@@ -213,7 +237,7 @@ export const getUvIndexClasses = (uvIndex) => {
 };
 
 export const initSkyDark = () => {
-  dayjs.tz.setDefault("America/New_York");
+  dayjs.tz.setDefault('America/New_York');
   if (!isDev()) {
     initServiceWorker();
   }
