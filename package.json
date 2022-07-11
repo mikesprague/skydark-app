@@ -8,11 +8,14 @@
     "npm": ">= 8.x"
   },
   "scripts": {
-    "build": "npm run webpack",
+    "build": "cross-env NODE_ENV=production npm run webpack",
     "clean": "rm -rf ./build",
+    "dev": "concurrently 'npm run watch' 'npm run serve' --names '📦,🖥️' --prefix '[{name}] ' --kill-others",
     "prebuild": "npm run clean",
-    "start": "cross-env NODE_ENV=development vercel dev",
+    "serve": "serve -S ./build -p 3000",
+    "start": "cross-env NODE_ENV=development npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "cross-env NODE_ENV=development npm run webpack -- watch --mode development",
     "webpack": "webpack --color"
   },
   "keywords": [],
@@ -79,6 +82,7 @@
     "babel-loader": "8.2.5",
     "babel-plugin-add-react-displayname": "0.0.5",
     "compression-webpack-plugin": "10.0.0",
+    "concurrently": "7.2.2",
     "copy-webpack-plugin": "11.0.0",
     "cross-env": "7.0.3",
     "css-loader": "6.7.1",
@@ -106,6 +110,7 @@
     "prettier-eslint": "15.0.1",
     "sass": "1.53.0",
     "sass-loader": "13.0.2",
+    "serve": "13.0.4",
     "style-loader": "3.3.1",
     "stylelint": "14.9.1",
     "stylelint-config-prettier": "9.0.3",
@@ -115,7 +120,7 @@
     "stylelint-prettier": "2.0.0",
     "terser-webpack-plugin": "5.3.3",
     "url-loader": "4.1.1",
-    "vercel": "^27.0.2",
+    "vercel": "27.0.2",
     "webpack": "5.73.0",
     "webpack-cli": "4.10.0",
     "workbox-webpack-plugin": "6.5.3"
