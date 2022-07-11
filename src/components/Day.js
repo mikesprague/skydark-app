@@ -81,13 +81,13 @@ export const Day = ({ data, dayIndex, minLow }) => {
           </div>
           <div
             className="temps"
-            style={{ position: 'relative', left: `${(Math.round(data.temperatureMin) - minLow) * 1.67}%` }}
+            style={{ justifyContent: 'flex-start', position: 'relative', marginLeft: `${((Math.round(data.temperatureMin) - minLow))}%` }}
           >
             {formatCondition(data.temperatureMin, 'temperature').trim()}
             <span
               className="temps-spacer"
               style={{
-                width: `${(data.temperatureMax - data.temperatureMin) * 1.67}%`,
+                width: `${(data.temperatureMax - data.temperatureMin) * 1.5}%`,
               }}
             />
             {formatCondition(data.temperatureMax, 'temperature').trim()}
