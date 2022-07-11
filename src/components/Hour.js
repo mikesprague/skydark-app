@@ -1,12 +1,15 @@
-import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { HourlyConditions } from './HourlyConditions';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+
 import { formatCondition, getConditionBarClass, getUvIndexClasses, scaleDivisor } from '../modules/helpers';
+import { HourlyConditions } from './HourlyConditions';
+
 import './Hour.scss';
 
 export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow, valScale = 1 }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
+
   useEffect(() => {
     setHourlyConditionToShow(conditionToShow);
 
@@ -15,8 +18,10 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
 
   const [summaryText, setSummaryText] = useState('');
   const [summaryTextClass, setSummaryTextClass] = useState('summary one-line');
+
   useEffect(() => {
     const summaryTextArray = summary.split(' ');
+
     if (summaryTextArray.length > 2) {
       if (
         summaryTextArray.length === 3 &&
@@ -33,8 +38,10 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
       } else {
         summaryTextArray.splice(1, 0, '\u000a');
       }
+
       setSummaryTextClass('summary');
     }
+
     setSummaryText(summaryTextArray.join(' ').trim());
   }, [summary]);
 
