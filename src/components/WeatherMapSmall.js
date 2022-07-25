@@ -54,13 +54,13 @@ export const WeatherMapSmall = () => {
             keyboard={false}
             scrollWheelZoom={false}
             touchZoom={false}
-            zoom={5}
+            zoom={7}
           >
             <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} />
             <LayersControl position="topright">
               <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled() ? 'checked' : ''}>
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
                   opacity={1}
                   attribution={
                     '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -69,7 +69,7 @@ export const WeatherMapSmall = () => {
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Color">
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_all/{z}/{x}/{y}.png"
                   opacity={1}
                   attribution={
                     '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -78,7 +78,7 @@ export const WeatherMapSmall = () => {
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer name="Light" checked={isDarkModeEnabled() ? '' : 'checked'}>
                 <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
+                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
                   opacity={1}
                   attribution={
                     '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
