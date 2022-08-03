@@ -1,7 +1,9 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import React from 'react';
+
 import { defaultAppSettings } from '../modules/settings';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+
 import './Settings.scss';
 
 export const Settings = () => {

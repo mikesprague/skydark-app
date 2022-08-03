@@ -1,16 +1,20 @@
-import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { formatSummary, scaleDivisor } from '../modules/helpers';
+import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
+
+import { formatSummary } from '../modules/helpers';
+
 import { Hour } from './Hour';
 import { Loading } from './Loading';
 import { Pill } from './Pill';
+
 import './Hourly.scss';
 
 export const Hourly = ({ data, dayData }) => {
   const [hourlyData, setHourlyData] = useState(null);
   const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
   const containerRef = useRef();
+
   useEffect(() => {
     if (!data) {
       return;
@@ -20,11 +24,13 @@ export const Hourly = ({ data, dayData }) => {
   }, [data]);
 
   const [valScale, setValScale] = useState(1);
+
   useEffect(() => {
     if (hourlyData) {
       const allVals = hourlyData.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
       const max = Math.max(...allVals);
       const scale = 80 / max;
+
       setValScale(scale);
     }
   }, [hourlyConditionToShow, hourlyData]);
@@ -32,6 +38,7 @@ export const Hourly = ({ data, dayData }) => {
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
     const newSelection = event.target;
+
     setHourlyConditionToShow(newSelection.dataset.label);
     newSelection.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     lastSelected.classList.add('pill');
@@ -49,6 +56,7 @@ export const Hourly = ({ data, dayData }) => {
           const isFirst = index === firstHour;
           const isLast = index === lastHour;
           const summaryText = formatSummary(hour, hourlyData, index, firstHour);
+
           return index % 2 === 0 && index >= firstHour && index <= lastHour ? (
             <Hour
               key={nanoid(7)}

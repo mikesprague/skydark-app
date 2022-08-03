@@ -1,7 +1,8 @@
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+
 import './Modal.scss';
 
 export const Modal = ({ id, content = '', heading = '', weatherAlert = true, weatherAlertData = null }) => {
@@ -92,6 +93,7 @@ Modal.propTypes = {
   content: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   heading: PropTypes.string,
   weatherAlert: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
   weatherAlertData: PropTypes.arrayOf(PropTypes.object),
 };
 Modal.defaultProps = {

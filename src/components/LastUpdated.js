@@ -1,7 +1,9 @@
+import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { useContext, useEffect, useState } from 'react';
+
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './LastUpdated.scss';
 
 dayjs.extend(relativeTime);
@@ -14,10 +16,12 @@ export const LastUpdated = () => {
     if (!data) {
       return;
     }
+
     const updateString = () => {
       setLastUpdatedString(dayjs(dayjs(data.lastUpdated)).from());
     };
     const clockInterval = setInterval(updateString, (1000));
+
     updateString();
 
     return () => clearInterval(clockInterval);

@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './NextHour.scss';
+
 import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
+import './NextHour.scss';
 
 export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);
@@ -11,7 +13,9 @@ export const NextHour = () => {
     if (!data.weather) {
       return;
     }
+
     let summary;
+
     if (data.weather.minutely) {
       summary = data.weather.minutely.summary;
     } else {
@@ -26,6 +30,7 @@ export const NextHour = () => {
   }, [data]);
 
   const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
+
   useEffect(() => {
     if (!summaryText) {
       return;

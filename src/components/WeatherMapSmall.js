@@ -1,26 +1,32 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   MapContainer, Marker, TileLayer, LayersControl,
 } from 'react-leaflet';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import { getRadarTs, initLeafletImages } from '../modules/helpers';
 import { isDarkModeEnabled } from '../modules/theme';
+
+import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './WeatherMapSmall.scss';
 
 initLeafletImages(L);
 
 export const WeatherMapSmall = () => {
   const [tsData, setTsData] = useState([getRadarTs()]);
+
   useEffect(() => {
     const getTimestamps = async () => {
       await axios
         .get('https://api.rainviewer.com/public/weather-maps.json')
         .then((response) => {
           const nowTs = response.data.radar.past.map(item => item.time);
+
           setTsData(nowTs);
         });
     };
@@ -30,10 +36,12 @@ export const WeatherMapSmall = () => {
 
   const [locationCoordinates, setLocationCoordinates] = useState(null);
   const data = useContext(WeatherDataContext);
+
   useEffect(() => {
     if (!data) {
       return;
     }
+
     const coordinates = {
       lat: data.weather.latitude,
       lng: data.weather.longitude,

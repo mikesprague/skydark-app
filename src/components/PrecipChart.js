@@ -1,6 +1,8 @@
-import { Chart } from 'react-google-charts';
 import React, { useContext, useEffect, useState } from 'react';
+import { Chart } from 'react-google-charts';
+
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './PrecipChart.scss';
 
 export const PrecipChart = () => {
@@ -13,6 +15,7 @@ export const PrecipChart = () => {
     }
 
     const dataArray = [['Minute', 'Precipitation']];
+
     data.weather.minutely.data.forEach((minute, index) => {
       dataArray.push([index, minute.precipIntensity]);
     });

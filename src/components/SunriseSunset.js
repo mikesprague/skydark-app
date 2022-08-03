@@ -1,7 +1,9 @@
+import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { useContext, useEffect, useState } from 'react';
+
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './SunriseSunset.scss';
 
 dayjs.extend(relativeTime);
@@ -16,20 +18,25 @@ export const SunriseSunset = () => {
     const minutes = totalMinutes % 60;
 
     let hoursText = totalMinutes > 54 ? hours : '';
+
     if (hoursText === '' && (totalMinutes > 54 && totalMinutes < 67)) {
       hoursText = 1;
     }
+
     if (totalMinutes > 54 && (minutes > 54 || minutes < 7)) {
       hoursText = hours + 1;
     }
 
     let minutesFraction = '';
+
     if (minutes > 7 && minutes <= 22) {
       minutesFraction = String.fromCharCode(188);
     }
+
     if (minutes > 22 && minutes <= 37) {
       minutesFraction = String.fromCharCode(189);
     }
+
     if (minutes > 37 && minutes <= 54) {
       minutesFraction = String.fromCharCode(190);
     }
@@ -45,22 +52,27 @@ export const SunriseSunset = () => {
       const now = dayjs();
       let isSunset = false;
       let datetime = today.sunriseTime;
+
       if (dayjs(now).isAfter(dayjs.unix(today.sunriseTime)) && dayjs(now).isBefore(dayjs.unix(today.sunsetTime))) {
         datetime = today.sunsetTime;
         isSunset = true;
       }
+
       if (dayjs(now).isAfter(dayjs.unix(today.sunsetTime)) && dayjs(now).isBefore(dayjs.unix(tomorrow.sunriseTime))) {
         datetime = tomorrow.sunriseTime;
       }
+
       const event = isSunset ? 'Sunset' : 'Sunrise';
       const time = dayjs.unix(datetime).format('h:mm A');
       const timeString = formatTimeString(datetime);
+
       setNext({
         event,
         time,
         timeString,
       });
     };
+
     init();
     const clockInterval = setInterval(init, (1000));
 

@@ -1,9 +1,12 @@
-import dayjs from 'dayjs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
+
 import { formatCondition } from '../modules/helpers';
+
 import { Modal } from './Modal';
+
 import './CurrentConditions.scss';
 
 export const HourlyConditions = ({ data, dayData }) =>

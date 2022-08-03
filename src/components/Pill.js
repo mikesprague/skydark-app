@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import './Pill.scss';
 
 export const Pill = ({ clickHandler, dataLabel, label, selected }) => (

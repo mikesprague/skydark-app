@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './Header.scss';
 
 export const Header = () => {
@@ -29,6 +30,7 @@ export const Header = () => {
         }
       };
     };
+
     initScroll();
   });
 
