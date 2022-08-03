@@ -97,13 +97,15 @@ export const Forecast = () => {
     import('./About');
   }, []);
 
+  const returnData = useMemo(() => ({
+    weather: weatherData,
+    location: locationData,
+    lastUpdated,
+  }), [lastUpdated, locationData, weatherData]);
+
   return locationData && weatherData ? (
     <WeatherDataContext.Provider
-      value={{
-        weather: weatherData,
-        location: locationData,
-        lastUpdated,
-      }}
+      value={returnData}
     >
       <Header />
       <LayoutContainer>
