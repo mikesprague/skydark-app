@@ -100,7 +100,7 @@ module.exports = async (req, res) => {
   res.status(200).json({
     location: geocodePromise.location,
     weather: geocodePromise.location.locationName.includes('Seneca Falls')
-      ? JSON.parse(JSON.stringify(weatherPromise.weather).replace(/Humid/g, 'Moist').replace(/humid/g, 'moist'))
+      ? JSON.parse(JSON.stringify(weatherPromise.weather).replace(/Humid /g, 'Moist ').replace(/humid /g, 'moist ').replace(/humidity /g, 'moistivity'))
       : weatherPromise.weather,
   });
 };
