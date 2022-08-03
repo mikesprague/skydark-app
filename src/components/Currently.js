@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
+
 import { CurrentConditions } from './CurrentConditions';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './Currently.scss';
 
 export const Currently = () => {

@@ -1,15 +1,18 @@
-import axios from 'axios';
-import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import dayjs from 'dayjs';
+
 import { apiUrl, formatCondition, sleep } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
 import { isCacheExpired } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+
 import { Hourly } from './Hourly';
 import { Loading } from './Loading';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './Day.scss';
 
 export const Day = ({ data, dayIndex, minLow }) => {

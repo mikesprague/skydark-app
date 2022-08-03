@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Modal } from './Modal';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './WeatherAlert.scss';
 
 export const WeatherAlert = () => {
@@ -12,6 +13,7 @@ export const WeatherAlert = () => {
     if (!data.weather.alerts) {
       return;
     }
+
     setAlertData(data.weather.alerts);
 
     return () => { setAlertData(null); }

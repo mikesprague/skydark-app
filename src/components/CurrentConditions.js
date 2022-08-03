@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatCondition } from '../modules/helpers';
+
 import { Modal } from './Modal';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './CurrentConditions.scss';
 
 export const CurrentConditions = () => {

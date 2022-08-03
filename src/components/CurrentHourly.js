@@ -1,11 +1,13 @@
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { formatSummary, formatCondition, scaleDivisor } from '../modules/helpers';
+
+import { formatCondition, formatSummary } from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
 import { Pill } from './Pill';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
 import './CurrentHourly.scss';
 
 export const CurrentHourly = () => {
@@ -14,11 +16,13 @@ export const CurrentHourly = () => {
   const data = useContext(WeatherDataContext);
 
   const [valScale, setValScale] = useState(1);
+
   useEffect(() => {
     if (data) {
         const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
         const max = Math.max(...allVals);
         const scale = 80 / max;
+
         setValScale(scale);
     }
   }, [hourlyConditionToShow, data]);
@@ -26,6 +30,7 @@ export const CurrentHourly = () => {
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
     const newSelection = event.target;
+
     setHourlyConditionToShow(newSelection.dataset.label);
     newSelection.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     lastSelected.classList.add('pill');
@@ -65,6 +70,7 @@ export const CurrentHourly = () => {
           const isLast = index === endIndex;
           const summaryText = formatSummary(hourData, data.weather.hourly.data, index, startIndex);
           const dayDataIndex = dayjs.unix(hourData.time).format('D') > dayjs().format('D') ? 1 : 0;
+
           return index >= startIndex && index <= endIndex && index % 2 === startIndex ? (
             <Hour
               key={nanoid(7)}

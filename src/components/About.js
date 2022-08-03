@@ -1,6 +1,7 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import Tippy from '@tippyjs/react';
+
 import './About.scss';
 
 export const About = () => (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-import { formatCondition, getConditionBarClass, getUvIndexClasses, scaleDivisor } from '../modules/helpers';
+import { formatCondition, getConditionBarClass, getUvIndexClasses } from '../modules/helpers';
 import { HourlyConditions } from './HourlyConditions';
 
 import './Hour.scss';
