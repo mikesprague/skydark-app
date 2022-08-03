@@ -32,17 +32,9 @@ export const WeatherAlert = () => {
         <span className="leading-loose">
           <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
           &nbsp;
-          {alertData[0].title}
+          {alertData.length > 1 ? `${alertData[0].title} | +${alertData.length - 1}` : alertData[0].title}
         </span>
       </button>
-      {alertData.length > 1 ? (
-        <small className="relative text-orange-400 cursor-pointer -top-1" onClick={weatherAlertHandler}>
-          <br />
-          {`+ ${alertData.length - 1} more`}
-        </small>
-      ) : (
-        ''
-      )}
       <Modal id="weather-alerts-modal" weatherAlertData={alertData} weatherAlert={true} />
     </div>
   ) : (
