@@ -1,13 +1,13 @@
 import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Popup,
+  AttributionControl,
   Circle,
   LayersControl,
+  MapContainer,
+  Marker,
+  Popup,
   ScaleControl,
+  TileLayer,
   ZoomControl,
-  AttributionControl,
 } from 'react-leaflet';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

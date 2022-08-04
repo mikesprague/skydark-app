@@ -1,5 +1,5 @@
 import {
-  MapContainer, Marker, TileLayer, LayersControl,
+  LayersControl, MapContainer, Marker, TileLayer,
 } from 'react-leaflet';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';

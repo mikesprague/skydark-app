@@ -8,15 +8,19 @@ module.exports = async (req, res) => {
 
   if (healthcheck) {
     res.status(200).json('API is up and running');
+
     return;
   }
 
   if (!lat) {
     res.status(400).json('Missing "lat" parameter');
+
     return;
   }
+
   if (!lng) {
     res.status(400).json('Missing "lng" parameter');
+
     return;
   }
 
@@ -47,6 +51,7 @@ module.exports = async (req, res) => {
         'administrative_area_level_1',
         'country',
       ];
+
       addressTargets.forEach((target) => {
         if (!locationName.length) {
           fullResults.forEach((result) => {
@@ -60,10 +65,12 @@ module.exports = async (req, res) => {
           });
         }
       });
+
       fullResults[0].address_components.forEach((component) => {
         if (isUSA && component.types.indexOf('administrative_area_level_1') > -1) {
           locationName = `${locationName}, ${component.short_name}`;
         }
+
         if (!isUSA && component.types.indexOf('country') > -1) {
           locationName = `${locationName}, ${component.short_name}`;
         }
@@ -76,6 +83,7 @@ module.exports = async (req, res) => {
           fullResults,
         },
       };
+
       return locationData;
     })
     .catch((error) => {
@@ -89,6 +97,7 @@ module.exports = async (req, res) => {
       const weatherData = {
         weather: response.data,
       };
+
       return weatherData;
     })
     .catch((error) => {
