@@ -12,12 +12,11 @@
     @apply dark:bg-gray-900;
     @apply pt-2;
     @apply w-full;
-    @apply text-center;
     @apply mb-2;
 
     h1 {
-      @apply text-xl;
-      @apply text-center;
+      @apply text-lg;
+      @apply text-left;
     }
   }
 }
