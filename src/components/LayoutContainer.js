@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export const LayoutContainer = ({ children }) => (
-  <div className="my-16">
+  <div className="mt-16 mb-4">
     {children}
   </div>
 );
