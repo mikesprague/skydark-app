@@ -25,6 +25,7 @@ export const isDev = () => {
   ) {
     return true;
   }
+
   return false;
 };
 
@@ -34,6 +35,7 @@ export const apiUrl = (useLocalhost = false) => {
   if (useLocalhost || isDev()) {
     return 'http://localhost:3000/api';
   }
+
   return `https://${window.location.hostname}/api`;
 };
 
@@ -130,8 +132,10 @@ export const getRadarTs = () => {
   const hours = now.hour();
   let minutes = now.minute();
   const seconds = now.second();
+
   minutes -= minutes % 10;
   minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
+
   const millisecondTs = dayjs()
     .hour(hours)
     .minute(minutes)
@@ -140,6 +144,7 @@ export const getRadarTs = () => {
     .valueOf();
   const ts = millisecondTs / 1000;
   // console.log(ts);
+
   return ts;
 };
 
@@ -166,33 +171,43 @@ export const getConditionBarClass = (data) => {
     if (isHeavy()) {
       return 'bg-blue-600';
     }
+
     return isLight() || isDrizzle() ? 'bg-blue-400' : 'bg-blue-500';
   }
+
   if (isSnowing()) {
     if (isHeavy()) {
       return 'bg-purple-600';
     }
+
     return isLight() || isFlurries() ? 'bg-purple-400' : 'bg-purple-500';
   }
+
   if (isOvercast()) {
     return 'bg-gray-600';
   }
+
   if (isCloudy()) {
     return hasMostly() || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
   }
+
   if (isClear()) {
     return 'bg-white';
   }
+
   // handle windy and other non-standard conditins using cloud conditions
   if (clouds < 20) {
     return 'bg-white';
   }
+
   if (clouds >= 20 && clouds < 60) {
     return 'bg-gray-400';
   }
+
   if (clouds >= 60 && clouds < 80) {
     return 'bg-gray-500';
   }
+
   if (clouds >= 80) {
     return 'bg-gray-600';
   }
@@ -206,14 +221,18 @@ export const formatSummary = (
   startIndex,
 ) => {
   let summary = '';
+
   if (index === startIndex) {
     summary = currentHourData.summary;
+
     return summary;
   }
+
   summary =
     index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary
       ? ''
       : currentHourData.summary;
+
   return summary.trim();
 };
 
@@ -221,26 +240,37 @@ export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex <= 2) {
     return 'bubble green';
   }
+
   if (uvIndex <= 5) {
     return 'bubble yellow';
   }
+
   if (uvIndex <= 7) {
     return 'bubble orange';
   }
+
   if (uvIndex <= 10) {
     return 'bubble red';
   }
+
   if (uvIndex >= 11) {
     return 'bubble purple';
   }
+
   return 'bubble unknownUvIndexClass';
 };
 
 export const initSkyDark = () => {
   dayjs.tz.setDefault('America/New_York');
-  if (!isDev()) {
+
+  if (isDev()) {
+    const { title } = window.document;
+
+    window.document.title = `DEV ${title}`
+  } else {
     initServiceWorker();
   }
+
   initAppSettings();
   initDarkMode();
 };
