@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Loading } from './Loading';
