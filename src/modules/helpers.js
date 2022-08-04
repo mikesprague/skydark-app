@@ -21,7 +21,8 @@ dayjs.extend(relativeTime);
 export const isDev = () => {
   if (
     window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1'
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname === 'dev.skydark.app'
   ) {
     return true;
   }
