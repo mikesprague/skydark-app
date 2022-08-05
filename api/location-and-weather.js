@@ -1,11 +1,11 @@
-const axios = require('axios');
-const Bugsnag = require('@bugsnag/js');
+import Bugsnag from '@bugsnag/js';
+import axios from 'axios';
 
 if (process.env.NODE_ENV === 'production') {
   Bugsnag.start({ apiKey: process.env.BUGSNAG_API_KEY });
 }
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   const { lat, lng, time, healthcheck } = req.query || null;
 
   if (healthcheck) {
@@ -42,7 +42,10 @@ module.exports = async (req, res) => {
     .get(geocodeApiUrl)
     .then((response) => {
       const fullResults = response.data.results;
-      const formattedAddress = fullResults[0].formatted_address.replace('Seneca Falls', 'Seneca Moistens');
+      const formattedAddress = fullResults[0].formatted_address.replace(
+        'Seneca Falls',
+        'Seneca Moistens',
+      );
       let locationName = '';
       const isUSA = formattedAddress.toLowerCase().includes('usa');
       const addressTargets = [
@@ -59,7 +62,10 @@ module.exports = async (req, res) => {
           fullResults.forEach((result) => {
             if (!locationName.length) {
               result.address_components.forEach((component) => {
-                if (!locationName.length && component.types.indexOf(target) > -1) {
+                if (
+                  !locationName.length &&
+                  component.types.indexOf(target) > -1
+                ) {
                   locationName = component.long_name;
                 }
               });
@@ -69,7 +75,10 @@ module.exports = async (req, res) => {
       });
 
       fullResults[0].address_components.forEach((component) => {
-        if (isUSA && component.types.indexOf('administrative_area_level_1') > -1) {
+        if (
+          isUSA &&
+          component.types.indexOf('administrative_area_level_1') > -1
+        ) {
           locationName = `${locationName}, ${component.short_name}`;
         }
 
@@ -111,7 +120,12 @@ module.exports = async (req, res) => {
   res.status(200).json({
     location: geocodePromise.location,
     weather: geocodePromise.location.locationName.includes('Seneca Falls')
-      ? JSON.parse(JSON.stringify(weatherPromise.weather).replace(/Humid /g, 'Moist ').replace(/humid /g, 'moist ').replace(/humidity /g, 'moistivity'))
+      ? JSON.parse(
+          JSON.stringify(weatherPromise.weather)
+            .replace(/Humid /g, 'Moist ')
+            .replace(/humid /g, 'moist ')
+            .replace(/humidity /g, 'moistivity'),
+        )
       : weatherPromise.weather,
   });
 };
