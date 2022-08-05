@@ -106,7 +106,7 @@
     "postcss-loader": "7.0.1",
     "prettier": "2.7.1",
     "prettier-eslint": "15.0.1",
-    "sass": "1.54.2",
+    "sass": "1.54.3",
     "sass-loader": "13.0.2",
     "serve": "14.0.1",
     "style-loader": "3.3.1",
@@ -118,7 +118,7 @@
     "stylelint-prettier": "2.0.0",
     "terser-webpack-plugin": "5.3.3",
     "url-loader": "4.1.1",
-    "vercel": "27.3.5",
+    "vercel": "27.3.7",
     "webpack": "5.74.0",
     "webpack-cli": "4.10.0",
     "workbox-webpack-plugin": "6.5.4"
