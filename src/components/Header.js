@@ -6,13 +6,14 @@ import React, {
   useState,
 } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
+import { About } from './About';
+import { Settings } from './Settings';
 import { WeatherMapFull } from './WeatherMapFull';
 
 import './Header.scss';
@@ -24,15 +25,51 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const headerRef = useRef();
   const data = useContext(WeatherDataContext);
 
-  const clickHandler = () => {
+  const mapIconClickHandler = () => {
     MySwal.fire({
       showCloseButton: true,
       showConfirmButton: false,
       allowOutsideClick: true,
       backdrop: true,
-      heightAuto: false,
-      position: 'center',
+      position: 'top',
+      padding: '0',
+      width: '28rem',
       html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+      didOpen: () => {
+        const closeButton = document.querySelector('.swal2-close');
+
+        closeButton.style.position = 'relative !important';
+        closeButton.style.top = '5rem !important';
+        closeButton.style.marginRight = '1rem !important';
+      },
+    });
+  };
+
+  const settingsIconClickHandler = () => {
+    MySwal.fire({
+      showCloseButton: true,
+      showConfirmButton: false,
+      allowOutsideClick: true,
+      backdrop: true,
+      position: 'top',
+      padding: '0',
+      heightAuto: false,
+      width: '28rem',
+      html: <Settings />,
+    });
+  };
+
+  const aboutIconClickHandler = () => {
+    MySwal.fire({
+      showCloseButton: true,
+      showConfirmButton: false,
+      allowOutsideClick: true,
+      backdrop: true,
+      position: 'top',
+      heightAuto: false,
+      padding: '0',
+      width: '28rem',
+      html: <About />,
     });
   };
 
@@ -72,32 +109,15 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
       </div>
       <div className="flex-spacer">&nbsp;</div>
       <div className="icons">
-        <button
-          type="button"
-          className="mapLink"
-          href="#"
-          onClick={clickHandler}
-        >
-          <FontAwesomeIcon
-            icon={['fad', 'globe-stand']}
-            className="footer-icon"
-            fixedWidth
-          />
+        <button type="button" href="#" onClick={mapIconClickHandler}>
+          <FontAwesomeIcon icon={['fad', 'globe-stand']} fixedWidth />
         </button>
-        <NavLink to="/settings">
-          <FontAwesomeIcon
-            icon={['fad', 'gear']}
-            className="footer-icon"
-            fixedWidth
-          />
-        </NavLink>
-        <NavLink to="/about">
-          <FontAwesomeIcon
-            icon={['fad', 'circle-info']}
-            className="footer-icon"
-            fixedWidth
-          />
-        </NavLink>
+        <button type="button" href="#" onClick={settingsIconClickHandler}>
+          <FontAwesomeIcon icon={['fad', 'gear']} fixedWidth />
+        </button>
+        <button type="button" href="#" onClick={aboutIconClickHandler}>
+          <FontAwesomeIcon icon={['fad', 'circle-info']} fixedWidth />
+        </button>
       </div>
     </div>
   );
