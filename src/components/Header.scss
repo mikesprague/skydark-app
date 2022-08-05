@@ -1,3 +1,5 @@
+@import '~@sweetalert2/theme-dark/dark';
+
 .header {
   @apply bg-gray-50;
   @apply dark:bg-gray-900;
@@ -6,18 +8,40 @@
   @apply max-w-md;
   @apply w-full;
   @apply z-40;
+  @apply flex;
+  @apply flex-row;
 
   .location-name {
     @apply bg-gray-50;
     @apply dark:bg-gray-900;
     @apply pt-2;
     @apply pl-3;
-    @apply w-full;
+    @apply flex;
+    @apply flex-grow-0;
     @apply mb-2;
 
     h1 {
       @apply text-xl;
       @apply text-left;
+    }
+  }
+
+  .flex-spacer {
+    @apply flex;
+    @apply flex-grow;
+  }
+
+  .icons {
+    @apply flex;
+    @apply flex-grow-0;
+    @apply items-center;
+    @apply pr-3;
+    @apply text-xl;
+    @apply text-right;
+
+    a,
+    button {
+      @apply ml-2;
     }
   }
 }
