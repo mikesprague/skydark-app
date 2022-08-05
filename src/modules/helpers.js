@@ -37,7 +37,20 @@ export const apiUrl = (useLocalhost = false) => {
     return 'http://localhost:3000/api';
   }
 
-  return `https://${window.location.hostname}/api`;
+  let protocol = 'https';
+  let port = '';
+
+  if (
+    window.location.hostname.includes('localhost') ||
+    window.location.hostname.includes('127.0.0.1')
+  ) {
+    protocol = 'http';
+    port = ':3000';
+  }
+
+  console.log(`${protocol}://${window.location.hostname}${port}/api`);
+
+  return `${protocol}://${window.location.hostname}${port}/api`;
 };
 
 export const handleError = (error) => {
