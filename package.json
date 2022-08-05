@@ -14,7 +14,7 @@
     "serve": "serve -S ./build -p 3000",
     "start": "cross-env NODE_ENV=development vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "cross-env NODE_ENV=development webpack --color --watch --mode development",
+    "watch": "webpack --color --watch --mode development",
     "webpack": "webpack --color"
   },
   "keywords": [],
