@@ -1,7 +1,9 @@
 const axios = require('axios');
 const Bugsnag = require('@bugsnag/js');
 
-Bugsnag.start({ apiKey: process.env.BUGSNAG_API_KEY });
+if (process.env.NODE_ENV === 'production') {
+  Bugsnag.start({ apiKey: process.env.BUGSNAG_API_KEY });
+}
 
 module.exports = async (req, res) => {
   const { lat, lng, time, healthcheck } = req.query || null;
