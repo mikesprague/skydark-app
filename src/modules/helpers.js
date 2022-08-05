@@ -18,12 +18,19 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
-export const isDev = () => {
+export const isLocal = () => {
   if (
     window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.hostname === 'dev.skydark.app'
+    window.location.hostname === '127.0.0.1'
   ) {
+    return true;
+  }
+
+  return false;
+};
+
+export const isDev = () => {
+  if (isLocal() || window.location.hostname !== 'skydark.app') {
     return true;
   }
 
@@ -280,11 +287,13 @@ export const initSkyDark = () => {
   if (isDev()) {
     const { title } = window.document;
 
-    window.document.title = `DEV ${title}`
-  } else {
-    initServiceWorker();
+    window.document.title = `DEV ${title}`;
   }
 
   initAppSettings();
   initDarkMode();
+
+  if (!isLocal()) {
+    initServiceWorker();
+  }
 };
