@@ -8,14 +8,13 @@
     "npm": ">= 8.x"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm run webpack",
+    "build": "npm run webpack",
     "clean": "rm -rf ./build",
-    "dev": "concurrently 'npm run watch' 'npm run serve' --names '📦,🖥️' --prefix '[{name}] ' --kill-others",
     "prebuild": "npm run clean",
     "serve": "serve -S ./build -p 3000",
-    "start": "cross-env NODE_ENV=development npm run dev",
+    "start": "cross-env NODE_ENV=development vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "cross-env NODE_ENV=development npm run webpack -- watch --mode development",
+    "watch": "cross-env NODE_ENV=development webpack --color --watch --mode development",
     "webpack": "webpack --color"
   },
   "keywords": [],
