@@ -2,12 +2,7 @@
 @tailwind components;
 
 @import '~tippy.js/dist/tippy';
-
-* {
-  -moz-osx-font-smoothing: grayscale !important;
-  -webkit-font-smoothing: subpixel-antialiased !important;
-  text-rendering: optimizeLegibility !important;
-}
+@import '~@sweetalert2/theme-dark/dark';
 
 body {
   @apply bg-gray-50;
@@ -15,6 +10,14 @@ body {
   @apply text-gray-900;
   @apply dark:text-gray-100;
   @apply font-sans;
+}
+
+div#swal2-html-container {
+  margin: 0.25rem !important;
+}
+
+.swal2-close {
+  margin-right: 1rem !important;
 }
 
 @tailwind utilities;
