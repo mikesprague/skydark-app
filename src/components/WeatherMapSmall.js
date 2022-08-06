@@ -36,13 +36,6 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
       padding: '0',
       width: '28rem',
       html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
-      didOpen: () => {
-        const mapLayersControl = document.querySelector(
-          'div.leaflet-top.leaflet-right > div.leaflet-control-layers.leaflet-control',
-        );
-
-        mapLayersControl.style.top = '44px !important';
-      },
     });
   };
 
