@@ -62,7 +62,9 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
             isFirst ? 'rounded-t-md' : ''
           } ${getConditionBarClass(data)}`}
         />
-        <div className="time">{dayjs.unix(data.time).format('h a').toUpperCase()}</div>
+        <div className="time">
+          {dayjs.unix(data.time).format('h a').toUpperCase()}
+        </div>
         <div className={summaryTextClass}>{summaryText.trim()}</div>
         <div className="spacer">&nbsp;</div>
       </div>
@@ -70,15 +72,30 @@ export const Hour = ({ data, dayData, summary, isFirst, isLast, conditionToShow,
         className="condition"
         onClick={clickHandler}
         style={
-          ['temperature', 'apparentTemperature', 'dewPoint'].includes(conditionToShow)
-            ? { marginRight: `${Math.round(80 - Math.round(data[conditionToShow]) * valScale)}%` }
+          ['temperature', 'apparentTemperature', 'dewPoint'].includes(
+            conditionToShow,
+          )
+            ? {
+                marginRight: `${
+                  Math.round(
+                    80 - Math.round(data[conditionToShow]) * valScale,
+                  ) * 0.2
+                }rem`,
+              }
             : {}
         }
       >
         <span
-          className={hourlyConditionToShow === 'uvIndex' ? getUvIndexClasses(data[hourlyConditionToShow]) : 'bubble'}
+          className={
+            hourlyConditionToShow === 'uvIndex'
+              ? getUvIndexClasses(data[hourlyConditionToShow])
+              : 'bubble'
+          }
         >
-          {formatCondition(data[hourlyConditionToShow], hourlyConditionToShow).trim()}
+          {formatCondition(
+            data[hourlyConditionToShow],
+            hourlyConditionToShow,
+          ).trim()}
         </span>
       </div>
       <HourlyConditions data={data} dayData={dayData} />
