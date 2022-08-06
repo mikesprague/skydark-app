@@ -103,7 +103,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
       <div className="flex-spacer">&nbsp;</div>
       <div className="icons">
         <button type="button" href="#" onClick={mapIconClickHandler}>
-          <FontAwesomeIcon icon={['fad', 'globe-stand']} fixedWidth />
+          <FontAwesomeIcon icon={['fad', 'map-location-dot']} fixedWidth />
         </button>
         <button type="button" href="#" onClick={settingsIconClickHandler}>
           <FontAwesomeIcon icon={['fad', 'gear']} fixedWidth />

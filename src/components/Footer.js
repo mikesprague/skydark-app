@@ -21,7 +21,7 @@ export const Footer = () => (
       <div className="footer-column">
         <NavLink to="/map">
           <FontAwesomeIcon
-            icon={['fad', 'globe-stand']}
+            icon={['fad', 'map-location-dot']}
             className="footer-icon"
             fixedWidth
           />
