@@ -34,6 +34,9 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
       backdrop: true,
       position: 'top',
       padding: '0',
+      showClass: {
+        popup: '',
+      },
       width: '28rem',
       html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
     });
