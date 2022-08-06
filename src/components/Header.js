@@ -45,8 +45,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
       allowOutsideClick: true,
       backdrop: true,
       position: 'top',
-      padding: '0',
-      heightAuto: false,
+      heightAuto: true,
       width: '28rem',
       html: <Settings />,
     });
@@ -59,8 +58,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
       allowOutsideClick: true,
       backdrop: true,
       position: 'top',
-      heightAuto: false,
-      padding: '0',
+      heightAuto: true,
       width: '28rem',
       html: <About />,
     });
