@@ -36,11 +36,11 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
       width: '28rem',
       html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
       didOpen: () => {
-        const closeButton = document.querySelector('.swal2-close');
+        const mapLayersControl = document.querySelector(
+          'div.leaflet-top.leaflet-right > div.leaflet-control-layers.leaflet-control',
+        );
 
-        closeButton.style.position = 'relative !important';
-        closeButton.style.top = '5rem !important';
-        closeButton.style.marginRight = '1rem !important';
+        mapLayersControl.style.top = '44px !important';
       },
     });
   };

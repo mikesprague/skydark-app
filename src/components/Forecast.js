@@ -100,13 +100,6 @@ export const Forecast = ({ OPENWEATHERMAP_API_KEY }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
-  // preload other pages
-  useEffect(() => {
-    import('./WeatherMapFull');
-    import('./Settings');
-    import('./About');
-  }, []);
-
   const returnData = useMemo(
     () => ({
       weather: weatherData,
@@ -122,7 +115,7 @@ export const Forecast = ({ OPENWEATHERMAP_API_KEY }) => {
       <LayoutContainer>
         <Currently />
         <WeatherAlert />
-        <WeatherMapSmall />
+        <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         <CurrentHourly />
         <SunriseSunset />
         <Daily />

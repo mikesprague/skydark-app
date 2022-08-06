@@ -2,8 +2,10 @@ import {
   LayersControl, MapContainer, Marker, TileLayer,
 } from 'react-leaflet';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 import axios from 'axios';
+import withReactContent from 'sweetalert2-react-content';
 
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -13,19 +15,43 @@ import { isDarkModeEnabled } from '../modules/theme';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
+import { WeatherMapFull } from './WeatherMapFull';
+
 import './WeatherMapSmall.scss';
 
 initLeafletImages(L);
 
-export const WeatherMapSmall = () => {
+const MySwal = withReactContent(Swal);
+
+export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
   const [tsData, setTsData] = useState([getRadarTs()]);
+
+  const mapClickHandler = () => {
+    MySwal.fire({
+      showCloseButton: true,
+      showConfirmButton: false,
+      allowOutsideClick: true,
+      backdrop: true,
+      position: 'top',
+      padding: '0',
+      width: '28rem',
+      html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+      didOpen: () => {
+        const mapLayersControl = document.querySelector(
+          'div.leaflet-top.leaflet-right > div.leaflet-control-layers.leaflet-control',
+        );
+
+        mapLayersControl.style.top = '44px !important';
+      },
+    });
+  };
 
   useEffect(() => {
     const getTimestamps = async () => {
       await axios
         .get('https://api.rainviewer.com/public/weather-maps.json')
         .then((response) => {
-          const nowTs = response.data.radar.past.map(item => item.time);
+          const nowTs = response.data.radar.past.map((item) => item.time);
 
           setTsData(nowTs);
         });
@@ -53,7 +79,8 @@ export const WeatherMapSmall = () => {
   return (
     <div className="small-map-container">
       {locationCoordinates && locationCoordinates.lat ? (
-        <Link to="/map">
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <a href="#" onClick={mapClickHandler}>
           <MapContainer
             center={[locationCoordinates.lat, locationCoordinates.lng]}
             doubleClickZoom={false}
@@ -64,9 +91,14 @@ export const WeatherMapSmall = () => {
             touchZoom={false}
             zoom={7}
           >
-            <Marker position={[locationCoordinates.lat, locationCoordinates.lng]} />
+            <Marker
+              position={[locationCoordinates.lat, locationCoordinates.lng]}
+            />
             <LayersControl position="topright">
-              <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled() ? 'checked' : ''}>
+              <LayersControl.BaseLayer
+                name="Dark"
+                checked={isDarkModeEnabled() ? 'checked' : ''}
+              >
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
                   opacity={1}
@@ -84,7 +116,10 @@ export const WeatherMapSmall = () => {
                   }
                 />
               </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Light" checked={isDarkModeEnabled() ? '' : 'checked'}>
+              <LayersControl.BaseLayer
+                name="Light"
+                checked={isDarkModeEnabled() ? '' : 'checked'}
+              >
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
                   opacity={1}
@@ -140,7 +175,9 @@ export const WeatherMapSmall = () => {
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Radar" checked>
                 <TileLayer
-                  url={`https://tilecache.rainviewer.com/v2/radar/${tsData[tsData.length - 1]}/512/{z}/{x}/{y}/8/1_1.png`}
+                  url={`https://tilecache.rainviewer.com/v2/radar/${
+                    tsData[tsData.length - 1]
+                  }/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}
                   attribution={
                     '&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'
@@ -149,12 +186,16 @@ export const WeatherMapSmall = () => {
               </LayersControl.Overlay>
             </LayersControl>
           </MapContainer>
-        </Link>
+        </a>
       ) : (
         ''
       )}
     </div>
   );
+};
+
+WeatherMapSmall.propTypes = {
+  OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
 export default WeatherMapSmall;
