@@ -26,6 +26,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
 
   const mapClickHandler = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     openModalWithComponent(
       <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
       {

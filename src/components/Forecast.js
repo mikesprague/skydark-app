@@ -1,5 +1,5 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-import React, { useEffect, useMemo } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -11,18 +11,18 @@ import { isCacheExpired } from '../modules/local-storage';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { CurrentHourly } from './CurrentHourly';
-import { Currently } from './Currently';
-import { Daily } from './Daily';
-import { Header } from './Header';
-import { LastUpdated } from './LastUpdated';
-import { LayoutContainer } from './LayoutContainer';
-import { Loading } from './Loading';
-import { SunriseSunset } from './SunriseSunset';
-import { WeatherAlert } from './WeatherAlert';
-import { WeatherMapSmall } from './WeatherMapSmall';
-
 import './Forecast.scss';
+
+const CurrentHourly = lazy(() => import('./CurrentHourly'));
+const Currently = lazy(() => import('./Currently'));
+const Daily = lazy(() => import('./Daily'));
+const Header = lazy(() => import('./Header'));
+const LastUpdated = lazy(() => import('./LastUpdated'));
+const LayoutContainer = lazy(() => import('./LayoutContainer'));
+const Loading = lazy(() => import('./Loading'));
+const SunriseSunset = lazy(() => import('./SunriseSunset'));
+const WeatherAlert = lazy(() => import('./WeatherAlert'));
+const WeatherMapSmall = lazy(() => import('./WeatherMapSmall'));
 
 dayjs.extend(relativeTime);
 
@@ -109,19 +109,21 @@ export const Forecast = ({ OPENWEATHERMAP_API_KEY }) => {
     [lastUpdated, locationData, weatherData],
   );
 
-  return locationData && weatherData ? (
-    <WeatherDataContext.Provider value={returnData}>
-      <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-      <LayoutContainer>
-        <Currently />
-        <WeatherAlert />
-        <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-        <CurrentHourly />
-        <SunriseSunset />
-        <Daily />
-        <LastUpdated />
-      </LayoutContainer>
-    </WeatherDataContext.Provider>
+  return weatherData && locationData ? (
+    <Suspense fallback={<Loading fullHeight={true} />}>
+      <WeatherDataContext.Provider value={returnData}>
+        <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+        <LayoutContainer>
+          <Currently />
+          <WeatherAlert />
+          <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+          <CurrentHourly />
+          <SunriseSunset />
+          <Daily />
+          <LastUpdated />
+        </LayoutContainer>
+      </WeatherDataContext.Provider>
+    </Suspense>
   ) : (
     <Loading fullHeight={true} />
   );
