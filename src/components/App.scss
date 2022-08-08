@@ -19,3 +19,10 @@ div#swal2-html-container {
 .leaflet-control-layers-list {
   text-align: left !important;
 }
+
+.conditions-item {
+  @apply mb-4;
+  @apply leading-4;
+  @apply text-center;
+  @apply w-1/2;
+}

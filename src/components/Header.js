@@ -23,6 +23,15 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const headerRef = useRef();
   const data = useContext(WeatherDataContext);
 
+  const dontAnimateModalConfig = {
+    showClass: {
+      popup: '',
+    },
+    hideClass: {
+      popup: '',
+    },
+  };
+
   const mapIconClickHandler = () => {
     openModalWithComponent(
       <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
@@ -36,15 +45,16 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
           // closeButton.blur();
         },
       },
+      dontAnimateModalConfig,
     );
   };
 
   const settingsIconClickHandler = () => {
-    openModalWithComponent(<Settings />);
+    openModalWithComponent(<Settings />, dontAnimateModalConfig);
   };
 
   const aboutIconClickHandler = () => {
-    openModalWithComponent(<About />);
+    openModalWithComponent(<About />, dontAnimateModalConfig);
   };
 
   useEffect(() => {
