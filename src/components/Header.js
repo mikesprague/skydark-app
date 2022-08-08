@@ -26,6 +26,16 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const mapIconClickHandler = () => {
     openModalWithComponent(
       <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+      {
+        didOpen: () => {
+          const closeButton = document.querySelector('.swal2-close');
+
+          closeButton.style.position = 'relative';
+          closeButton.style.top = '2rem';
+          closeButton.style.marginRight = '1rem';
+          // closeButton.blur();
+        },
+      },
     );
   };
 

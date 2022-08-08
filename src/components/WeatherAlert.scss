@@ -1,3 +1,14 @@
+.modal-heading {
+  @apply mb-3;
+  @apply text-lg;
+  @apply font-semibold;
+  @apply leading-6;
+}
+
+#modal-headline {
+  @apply text-orange-400;
+}
+
 .weather-alert-container {
   @apply mb-1;
   @apply text-center;

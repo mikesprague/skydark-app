@@ -13,8 +13,6 @@ import { initDarkMode, isDarkModeEnabled } from './theme';
 import { initAppSettings } from './settings';
 import { resetData } from './local-storage';
 
-import 'sweetalert2/src/sweetalert2.scss';
-
 const MySwal = withReactContent(Swal);
 
 dayjs.extend(utc);
@@ -68,16 +66,26 @@ const defaultToastConfig = {
 export const openModalWithComponent = (componentToShow, config = null) => {
   let modalConfig = defaultModalConfig;
 
-  console.log('original: ', modalConfig);
-
   if (config) {
     modalConfig = { ...defaultModalConfig, ...config };
-    console.log('updated: ', modalConfig);
   }
 
   MySwal.fire({
     ...modalConfig,
     html: componentToShow,
+  });
+};
+
+export const openModalWithMarkup = (markupToShow, config = null) => {
+  let modalConfig = defaultModalConfig;
+
+  if (config) {
+    modalConfig = { ...defaultModalConfig, ...config };
+  }
+
+  Swal.fire({
+    ...modalConfig,
+    html: markupToShow,
   });
 };
 

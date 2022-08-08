@@ -1,5 +1,3 @@
-@import '~@sweetalert2/theme-dark/dark';
-
 .header {
   @apply bg-gray-50;
   @apply dark:bg-gray-900;
@@ -36,12 +34,12 @@
     @apply flex-grow-0;
     @apply items-center;
     @apply pr-3;
-    @apply text-xl;
+    @apply text-2xl;
     @apply text-right;
 
     a,
     button {
-      @apply ml-2;
+      @apply ml-3;
     }
   }
 }
@@ -49,23 +47,4 @@
 .header.not-fixed {
   position: relative !important;
   top: unset !important;
-}
-
-div#swal2-html-container {
-  margin: 0.25rem !important;
-}
-
-.swal2-close {
-  position: relative !important;
-  top: 2rem !important;
-  margin-right: 1rem !important;
-}
-
-.leaflet-top.leaflet-right .leaflet-control-layers.leaflet-control {
-  position: relative;
-  top: 3rem !important;
-}
-
-.leaflet-control-layers-list {
-  text-align: left !important;
 }
