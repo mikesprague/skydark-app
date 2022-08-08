@@ -1,16 +1,16 @@
-import {
-  LayersControl, MapContainer, Marker, TileLayer,
-} from 'react-leaflet';
+import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Swal from 'sweetalert2';
 import axios from 'axios';
-import withReactContent from 'sweetalert2-react-content';
 
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-import { getRadarTs, initLeafletImages } from '../modules/helpers';
+import {
+  getRadarTs,
+  initLeafletImages,
+  openModalWithComponent,
+} from '../modules/helpers';
 import { isDarkModeEnabled } from '../modules/theme';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
@@ -21,25 +21,29 @@ import './WeatherMapSmall.scss';
 
 initLeafletImages(L);
 
-const MySwal = withReactContent(Swal);
-
 export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
   const [tsData, setTsData] = useState([getRadarTs()]);
 
   const mapClickHandler = () => {
-    MySwal.fire({
-      showCloseButton: true,
-      showConfirmButton: false,
-      allowOutsideClick: true,
-      backdrop: true,
-      position: 'top',
-      padding: '0',
-      showClass: {
-        popup: '',
+    openModalWithComponent(
+      <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+      {
+        didOpen: () => {
+          const closeButton = document.querySelector('.swal2-close');
+
+          closeButton.style.position = 'relative';
+          closeButton.style.top = '2rem';
+          closeButton.style.marginRight = '1rem';
+          // closeButton.blur();
+        },
+        showClass: {
+          popup: '',
+        },
+        hideClass: {
+          popup: '',
+        },
       },
-      width: '28rem',
-      html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
-    });
+    );
   };
 
   useEffect(() => {
