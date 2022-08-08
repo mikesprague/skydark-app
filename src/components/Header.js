@@ -44,8 +44,8 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
           closeButton.style.marginRight = '1rem';
           // closeButton.blur();
         },
+        ...dontAnimateModalConfig,
       },
-      dontAnimateModalConfig,
     );
   };
 
