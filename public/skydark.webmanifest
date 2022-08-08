@@ -2,6 +2,7 @@
   "name": "Sky Dark (Powered by Dark Sky)",
   "short_name": "Sky Dark",
   "description": "Sky Dark (Powered by Dark Sky)",
+  "version": "2.0.0",
   "icons": [
     {
       "src": "/images/skydark-app-icon-16.png",
