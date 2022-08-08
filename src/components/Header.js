@@ -32,7 +32,8 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
     },
   };
 
-  const mapIconClickHandler = () => {
+  const mapIconClickHandler = (e) => {
+    e.preventDefault();
     openModalWithComponent(
       <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
       {

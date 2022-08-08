@@ -24,7 +24,8 @@ initLeafletImages(L);
 export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
   const [tsData, setTsData] = useState([getRadarTs()]);
 
-  const mapClickHandler = () => {
+  const mapClickHandler = (e) => {
+    e.preventDefault();
     openModalWithComponent(
       <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
       {
