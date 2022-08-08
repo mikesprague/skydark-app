@@ -11,7 +11,6 @@ const Forecast = lazy(() => import('./Forecast'));
 const Settings = lazy(() => import('./Settings'));
 const About = lazy(() => import('./About'));
 const WeatherMapFull = lazy(() => import('./WeatherMapFull'));
-const Footer = lazy(() => import('./Footer'));
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   initIcons();
@@ -20,16 +19,32 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     <Router>
       <Suspense fallback={<Loading fullHeight={true} />}>
         <Routes>
-          <Route path="/about" className={({ isActive }) => (isActive ? 'active' : '')} element={<About />} />
+          <Route
+            path="/about"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            element={<About />}
+          />
           <Route
             path="/map"
             className={({ isActive }) => (isActive ? 'active' : '')}
-            element={<WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />}
+            element={
+              <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+            }
           />
-          <Route path="/settings" className={({ isActive }) => (isActive ? 'active' : '')} element={<Settings />} />
-          <Route path="/" className={({ isActive }) => (isActive ? 'active' : '')} element={<Forecast />} end />
+          <Route
+            path="/settings"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            element={<Settings />}
+          />
+          <Route
+            path="/"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            element={
+              <Forecast OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+            }
+            end
+          />
         </Routes>
-        <Footer />
       </Suspense>
     </Router>
   );

@@ -11,10 +11,14 @@ export const Settings = () => {
 
   return (
     <div className="contents">
-      <div className="header">
+      <div className="header not-fixed">
         <div className="section-name">
           <h1>
-            <FontAwesomeIcon icon={['fas', 'gear']} className="footer-icon" fixedWidth />
+            <FontAwesomeIcon
+              icon={['fas', 'gear']}
+              className="footer-icon"
+              fixedWidth
+            />
             {' Settings'}
           </h1>
         </div>

@@ -1,6 +1,6 @@
 {
   "name": "skydark-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
   "engines": {
@@ -8,14 +8,12 @@
     "npm": ">= 8.x"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production npm run webpack",
+    "build": "npm run webpack",
     "clean": "rm -rf ./build",
-    "dev": "concurrently 'npm run watch' 'npm run serve' --names '📦,🖥️' --prefix '[{name}] ' --kill-others",
     "prebuild": "npm run clean",
-    "serve": "serve -S ./build -p 3000",
-    "start": "cross-env NODE_ENV=development npm run dev",
+    "start": "cross-env NODE_ENV=development vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "cross-env NODE_ENV=development npm run webpack -- watch --mode development",
+    "watch": "webpack --color --watch --mode development",
     "webpack": "webpack --color"
   },
   "keywords": [],
@@ -42,6 +40,7 @@
     "@fortawesome/pro-solid-svg-icons": "6.1.2",
     "@fortawesome/pro-thin-svg-icons": "6.1.2",
     "@fortawesome/react-fontawesome": "0.2.0",
+    "@sweetalert2/theme-dark": "5.0.11",
     "@tailwindcss/forms": "0.5.2",
     "@tailwindcss/typography": "0.5.4",
     "@tippyjs/react": "4.2.6",
@@ -59,6 +58,7 @@
     "react-router-dom": "6.3.0",
     "register-service-worker": "1.7.2",
     "sweetalert2": "11.4.26",
+    "sweetalert2-react-content": "5.0.2",
     "tailwindcss": "3.1.8"
   },
   "devDependencies": {
@@ -80,7 +80,6 @@
     "babel-loader": "8.2.5",
     "babel-plugin-add-react-displayname": "0.0.5",
     "compression-webpack-plugin": "10.0.0",
-    "concurrently": "7.3.0",
     "copy-webpack-plugin": "11.0.0",
     "cross-env": "7.0.3",
     "css-loader": "6.7.1",
@@ -108,7 +107,6 @@
     "prettier-eslint": "15.0.1",
     "sass": "1.54.3",
     "sass-loader": "13.0.2",
-    "serve": "14.0.1",
     "style-loader": "3.3.1",
     "stylelint": "14.9.1",
     "stylelint-config-prettier": "9.0.3",

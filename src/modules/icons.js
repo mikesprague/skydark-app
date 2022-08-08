@@ -1,23 +1,3 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faChrome,
-  faDev,
-  faEdge,
-  faFirefoxBrowser,
-  faGithub,
-  faHackerNews,
-  faProductHunt,
-  faRedditAlien,
-} from '@fortawesome/free-brands-svg-icons';
-import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
-import { faLocation } from '@fortawesome/pro-light-svg-icons';
-import {
-  faCircleInfo as faCircleInfoSolid,
-  faGear as faGearSolid,
-  faGlobeStand as faGlobeStandSolid,
-  faLocationArrow as faLocationArrowSolid,
-  faMap as faMapSolid,
-} from '@fortawesome/pro-solid-svg-icons';
 import {
   faAngleUp,
   faBan,
@@ -34,10 +14,10 @@ import {
   faCloudFog,
   faCloudHail,
   faCloudRain,
-  faClouds,
   faCloudSleet,
-  faCloudsMoon,
   faCloudSnow,
+  faClouds,
+  faCloudsMoon,
   faCloudsSun,
   faCode,
   faDroplet,
@@ -52,7 +32,10 @@ import {
   faHurricane,
   faImage,
   faLocationArrow,
+  faLocationCrosshairs,
+  faLocationDot,
   faMap,
+  faMapLocationDot,
   faMoonStars,
   faPause,
   faPlay,
@@ -75,6 +58,27 @@ import {
   faWind,
   faWindTurbine,
 } from '@fortawesome/pro-duotone-svg-icons';
+import {
+  faChrome,
+  faDev,
+  faEdge,
+  faFirefoxBrowser,
+  faGithub,
+  faHackerNews,
+  faProductHunt,
+  faRedditAlien,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+  faCircleInfo as faCircleInfoSolid,
+  faGear as faGearSolid,
+  faGlobeStand as faGlobeStandSolid,
+  faLocationArrow as faLocationArrowSolid,
+  faMap as faMapSolid,
+} from '@fortawesome/pro-solid-svg-icons';
+import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
+import { faLocation } from '@fortawesome/pro-light-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 import { isDarkModeEnabled } from './theme';
 
 export const initIcons = () => {
@@ -124,8 +128,11 @@ export const initIcons = () => {
     faImage,
     faLocation,
     faLocationArrow,
+    faLocationCrosshairs,
+    faLocationDot,
     faLocationArrowSolid,
     faMap,
+    faMapLocationDot,
     faMapSolid,
     faMoonStars,
     faPause,
@@ -222,11 +229,19 @@ export const getWeatherIcon = (icon) => {
     },
     'partly-cloudy-day': {
       icon: 'clouds-sun',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'gold', '--fa-secondary-opacity': '.75' },
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'gold',
+        '--fa-secondary-opacity': '.75',
+      },
     },
     'partly-cloudy-night': {
       icon: 'clouds-moon',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'plum', '--fa-secondary-opacity': '1' },
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'plum',
+        '--fa-secondary-opacity': '1',
+      },
     },
     hail: {
       icon: 'cloud-hail',
@@ -238,11 +253,19 @@ export const getWeatherIcon = (icon) => {
     },
     hurricane: {
       icon: 'hurricane',
-      iconStyles: { '--fa-primary-color': 'black', '--fa-secondary-color': 'crimson', '--fa-secondary-opacity': '.9' },
+      iconStyles: {
+        '--fa-primary-color': 'black',
+        '--fa-secondary-color': 'crimson',
+        '--fa-secondary-opacity': '.9',
+      },
     },
     thunderstorm: {
       icon: 'cloud-bolt',
-      iconStyles: { '--fa-primary-color': 'silver', '--fa-secondary-color': 'yellow', '--fa-secondary-opacity': '.8' },
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'yellow',
+        '--fa-secondary-opacity': '.8',
+      },
     },
     tornado: {
       icon: 'tornado',
@@ -253,5 +276,6 @@ export const getWeatherIcon = (icon) => {
       },
     },
   };
+
   return iconMap[icon];
 };

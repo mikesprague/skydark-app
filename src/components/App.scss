@@ -1,6 +1,28 @@
+@import '~sweetalert2/src/sweetalert2';
+
 .swal2-toast {
   @apply bg-gray-200;
   @apply dark:bg-gray-800;
   @apply text-gray-900;
   @apply dark:text-gray-100;
+}
+
+div#swal2-html-container {
+  margin: 0.25rem !important;
+}
+
+.leaflet-top.leaflet-right .leaflet-control-layers.leaflet-control {
+  position: relative;
+  top: 3rem !important;
+}
+
+.leaflet-control-layers-list {
+  text-align: left !important;
+}
+
+.conditions-item {
+  @apply mb-4;
+  @apply leading-4;
+  @apply text-center;
+  @apply w-1/2;
 }

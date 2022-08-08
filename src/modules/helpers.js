@@ -3,6 +3,7 @@ import Bugsnag from '@bugsnag/js';
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
 import { register } from 'register-service-worker';
+import withReactContent from 'sweetalert2-react-content';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
@@ -12,29 +13,117 @@ import { initDarkMode, isDarkModeEnabled } from './theme';
 import { initAppSettings } from './settings';
 import { resetData } from './local-storage';
 
-import 'sweetalert2/src/sweetalert2.scss';
+const MySwal = withReactContent(Swal);
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
-export const isDev = () => {
+export const isLocal = () => {
   if (
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
   ) {
     return true;
   }
+
   return false;
+};
+
+export const isDev = () => {
+  if (isLocal() || window.location.hostname !== 'skydark.app') {
+    return true;
+  }
+
+  return false;
+};
+
+const defaultModalConfig = {
+  showCloseButton: true,
+  showConfirmButton: false,
+  allowOutsideClick: true,
+  background: isDarkModeEnabled() ? 'rgb(24, 24, 27)' : 'rgb(228 228 231)',
+  color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+  backdrop: true,
+  position: 'top',
+  heightAuto: true,
+  width: '28rem',
+  showClass: {
+    popup: 'swal2-show',
+    backdrop: 'swal2-backdrop-show',
+    icon: 'swal2-icon-show',
+  },
+  hideClass: {
+    popup: 'swal2-hide',
+    backdrop: 'swal2-backdrop-hide',
+    icon: 'swal2-icon-hide',
+  },
+};
+
+const defaultToastConfig = {
+  icon: 'info',
+  showConfirmButton: false,
+  toast: true,
+  position: 'top',
+  allowEscapeKey: false,
+  background: isDarkModeEnabled() ? 'rgb(39 39 42)' : 'rgb(228 228 231)',
+  color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+};
+
+export const openModalWithComponent = (componentToShow, config = null) => {
+  let modalConfig = defaultModalConfig;
+
+  if (config) {
+    modalConfig = { ...defaultModalConfig, ...config };
+  }
+
+  MySwal.fire({
+    ...modalConfig,
+    html: componentToShow,
+  });
+};
+
+export const openModalWithMarkup = (markupToShow, config = null) => {
+  let modalConfig = defaultModalConfig;
+
+  if (config) {
+    modalConfig = { ...defaultModalConfig, ...config };
+  }
+
+  Swal.fire({
+    ...modalConfig,
+    html: markupToShow,
+  });
+};
+
+export const openToastWithContent = (config) => {
+  Swal.fire({
+    ...config,
+    ...defaultToastConfig,
+  });
 };
 
 export const scaleDivisor = 75;
 
 export const apiUrl = (useLocalhost = false) => {
-  if (useLocalhost || isDev()) {
+  if (useLocalhost) {
     return 'http://localhost:3000/api';
   }
-  return `https://${window.location.hostname}/api`;
+
+  let protocol = 'https';
+  let port = '';
+
+  if (
+    window.location.hostname.includes('localhost') ||
+    window.location.hostname.includes('127.0.0.1')
+  ) {
+    protocol = 'http';
+    port = ':3000';
+  }
+
+  console.log(`${protocol}://${window.location.hostname}${port}/api`);
+
+  return `${protocol}://${window.location.hostname}${port}/api`;
 };
 
 export const handleError = (error) => {
@@ -48,6 +137,7 @@ export const handleError = (error) => {
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
+/* eslint-disable no-undef */
 export const initLeafletImages = (leafletRef) => {
   delete leafletRef.Icon.Default.prototype._getIconUrl;
   leafletRef.Icon.Default.mergeOptions({
@@ -59,21 +149,16 @@ export const initLeafletImages = (leafletRef) => {
 /* eslint-enable no-underscore-dangle */
 /* eslint-enable no-param-reassign */
 /* eslint-enable global-require */
+/* eslint-enable no-undef */
 
 export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated() {
       // console.log(registration);
-      Swal.fire({
+      openToastWithContent({
         icon: 'info',
         title: 'Sky Dark Updated',
         text: 'Click this message to reload',
-        showConfirmButton: false,
-        toast: true,
-        position: 'top',
-        allowEscapeKey: false,
-        background: isDarkModeEnabled() ? 'rgb(39 39 42)' : 'rgb(228 228 231)',
-        color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
         didClose: () => {
           resetData();
           window.location.reload(true);
@@ -89,6 +174,7 @@ export const initServiceWorker = () => {
   });
 };
 
+// eslint-disable-next-line no-promise-executor-return
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
@@ -130,8 +216,10 @@ export const getRadarTs = () => {
   const hours = now.hour();
   let minutes = now.minute();
   const seconds = now.second();
+
   minutes -= minutes % 10;
   minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
+
   const millisecondTs = dayjs()
     .hour(hours)
     .minute(minutes)
@@ -140,6 +228,7 @@ export const getRadarTs = () => {
     .valueOf();
   const ts = millisecondTs / 1000;
   // console.log(ts);
+
   return ts;
 };
 
@@ -166,33 +255,43 @@ export const getConditionBarClass = (data) => {
     if (isHeavy()) {
       return 'bg-blue-600';
     }
+
     return isLight() || isDrizzle() ? 'bg-blue-400' : 'bg-blue-500';
   }
+
   if (isSnowing()) {
     if (isHeavy()) {
       return 'bg-purple-600';
     }
+
     return isLight() || isFlurries() ? 'bg-purple-400' : 'bg-purple-500';
   }
+
   if (isOvercast()) {
     return 'bg-gray-600';
   }
+
   if (isCloudy()) {
     return hasMostly() || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
   }
+
   if (isClear()) {
     return 'bg-white';
   }
+
   // handle windy and other non-standard conditins using cloud conditions
   if (clouds < 20) {
     return 'bg-white';
   }
+
   if (clouds >= 20 && clouds < 60) {
     return 'bg-gray-400';
   }
+
   if (clouds >= 60 && clouds < 80) {
     return 'bg-gray-500';
   }
+
   if (clouds >= 80) {
     return 'bg-gray-600';
   }
@@ -206,14 +305,18 @@ export const formatSummary = (
   startIndex,
 ) => {
   let summary = '';
+
   if (index === startIndex) {
     summary = currentHourData.summary;
+
     return summary;
   }
+
   summary =
     index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary
       ? ''
       : currentHourData.summary;
+
   return summary.trim();
 };
 
@@ -221,26 +324,39 @@ export const getUvIndexClasses = (uvIndex) => {
   if (uvIndex <= 2) {
     return 'bubble green';
   }
+
   if (uvIndex <= 5) {
     return 'bubble yellow';
   }
+
   if (uvIndex <= 7) {
     return 'bubble orange';
   }
+
   if (uvIndex <= 10) {
     return 'bubble red';
   }
+
   if (uvIndex >= 11) {
     return 'bubble purple';
   }
+
   return 'bubble unknownUvIndexClass';
 };
 
 export const initSkyDark = () => {
   dayjs.tz.setDefault('America/New_York');
-  if (!isDev()) {
-    initServiceWorker();
+
+  if (isDev()) {
+    const { title } = window.document;
+
+    window.document.title = `DEV ${title}`;
   }
+
   initAppSettings();
   initDarkMode();
+
+  if (!isLocal()) {
+    initServiceWorker();
+  }
 };

@@ -1,15 +1,21 @@
 import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Popup,
+  AttributionControl,
   Circle,
   LayersControl,
+  MapContainer,
+  Marker,
+  Popup,
   ScaleControl,
+  TileLayer,
   ZoomControl,
-  AttributionControl,
 } from 'react-leaflet';
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -47,7 +53,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       await axios
         .get('https://api.rainviewer.com/public/weather-maps.json')
         .then((response) => {
-          const nowTs = response.data.radar.past.map(item => item.time);
+          const nowTs = response.data.radar.past.map((item) => item.time);
 
           setTsData(nowTs);
           // console.log(response.data);
@@ -67,19 +73,29 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [rangeValue, setRangeValue] = useState(13);
 
   useEffect(() => {
-    if (!tsData) { return; }
+    if (!tsData) {
+      return;
+    }
 
     setTs(tsData[tsData.length - 1]);
     setRangeMax(tsData.length - 1);
     setRangeValue(tsData.length - 1);
   }, [tsData]);
 
-  const [radarMapUrl, setRadarMapUrl] = useState(`https://tilecache.rainviewer.com/v2/radar/${tsData[tsData.length - 1]}/512/{z}/{x}/{y}/8/1_1.png`);
+  const [radarMapUrl, setRadarMapUrl] = useState(
+    `https://tilecache.rainviewer.com/v2/radar/${
+      tsData[tsData.length - 1]
+    }/512/{z}/{x}/{y}/8/1_1.png`,
+  );
 
   useLayoutEffect(() => {
-    if (!ts) { return; }
+    if (!ts) {
+      return;
+    }
 
-    setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`);
+    setRadarMapUrl(
+      `https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`,
+    );
   }, [ts]);
 
   const radarTileLayerRef = useRef();
@@ -90,11 +106,16 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, [radarMapUrl]);
 
-  const advanceRangeSlider = useCallback((value) => {
-    setTs(tsData[value]);
-    setRadarMapUrl(`https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`);
-    setRangeValue(value);
-  }, [tsData]);
+  const advanceRangeSlider = useCallback(
+    (value) => {
+      setTs(tsData[value]);
+      setRadarMapUrl(
+        `https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`,
+      );
+      setRangeValue(value);
+    },
+    [tsData],
+  );
 
   const rangeSliderHandler = (event) => {
     const { value } = event.target;
@@ -150,25 +171,37 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           <ZoomControl position="topleft" />
           <AttributionControl position="topright" />
           <LayersControl>
-            <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled() ? 'checked' : ''}>
+            <LayersControl.BaseLayer
+              name="Dark"
+              checked={isDarkModeEnabled() ? 'checked' : ''}
+            >
               <TileLayer
                 url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                attribution={
+                  '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+                }
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Color">
+            <LayersControl.BaseLayer
+              name="Color"
+              checked={isDarkModeEnabled() ? '' : 'checked'}
+            >
               <TileLayer
                 url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                attribution={
+                  '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+                }
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Light" checked={isDarkModeEnabled() ? '' : 'checked'}>
+            <LayersControl.BaseLayer name="Light">
               <TileLayer
                 url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
                 opacity={1}
-                attribution={'&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'}
+                attribution={
+                  '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+                }
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Street">
@@ -254,7 +287,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               onInput={rangeSliderHandler}
               ref={rangeSliderRef}
             />
-            <button type="button" className="btn-play-radar-loop" onClick={btnClickHandler}>
+            <button
+              type="button"
+              className="btn-play-radar-loop"
+              onClick={btnClickHandler}
+            >
               {isPlaying ? (
                 <FontAwesomeIcon icon={['fad', 'stop']} fixedWidth />
               ) : (

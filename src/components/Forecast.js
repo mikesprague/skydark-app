@@ -1,5 +1,6 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 import React, { useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -25,7 +26,7 @@ import './Forecast.scss';
 
 dayjs.extend(relativeTime);
 
-export const Forecast = () => {
+export const Forecast = ({ OPENWEATHERMAP_API_KEY }) => {
   const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
 
   useEffect(() => {
@@ -50,10 +51,17 @@ export const Forecast = () => {
         maximumAge: 3600000, // 1 hour (60 seconds * 60 minutes) * 1000 milliseconds
       };
 
-      await navigator.geolocation.getCurrentPosition(getPosition, geolocationError, geolocationOptions);
+      await navigator.geolocation.getCurrentPosition(
+        getPosition,
+        geolocationError,
+        geolocationOptions,
+      );
     }
 
-    if (!coordinates || (coordinates && isCacheExpired(coordinates.lastUpdated, 10))) {
+    if (
+      !coordinates ||
+      (coordinates && isCacheExpired(coordinates.lastUpdated, 10))
+    ) {
       doGeolocation();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +78,9 @@ export const Forecast = () => {
 
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
-      const weatherApiData = await axios.get(weatherApiurl).then((response) => response.data);
+      const weatherApiData = await axios
+        .get(weatherApiurl)
+        .then((response) => response.data);
       const lastUpdatedString = dayjs().toString();
 
       setWeatherData(weatherApiData.weather);
@@ -90,28 +100,22 @@ export const Forecast = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
-  // preload other pages
-  useEffect(() => {
-    import('./WeatherMapFull');
-    import('./Settings');
-    import('./About');
-  }, []);
-
-  const returnData = useMemo(() => ({
-    weather: weatherData,
-    location: locationData,
-    lastUpdated,
-  }), [lastUpdated, locationData, weatherData]);
+  const returnData = useMemo(
+    () => ({
+      weather: weatherData,
+      location: locationData,
+      lastUpdated,
+    }),
+    [lastUpdated, locationData, weatherData],
+  );
 
   return locationData && weatherData ? (
-    <WeatherDataContext.Provider
-      value={returnData}
-    >
-      <Header />
+    <WeatherDataContext.Provider value={returnData}>
+      <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
       <LayoutContainer>
         <Currently />
         <WeatherAlert />
-        <WeatherMapSmall />
+        <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         <CurrentHourly />
         <SunriseSunset />
         <Daily />
@@ -121,6 +125,10 @@ export const Forecast = () => {
   ) : (
     <Loading fullHeight={true} />
   );
+};
+
+Forecast.propTypes = {
+  OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
 export default Forecast;
