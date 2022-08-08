@@ -54,7 +54,11 @@ export const NextHour = () => {
   return data ? (
     <>
       {nextHourPrecipitation ? <PrecipChart /> : ''}
-      <p className={`px-4 mb-4 text-base text-center ${nextHourPrecipitation ? ' -mt-8' : ''}`}>
+      <p
+        className={`px-2 mb-4 text-base text-left ${
+          nextHourPrecipitation ? ' -mt-8' : ''
+        }`}
+      >
         {`Next Hour: ${summaryText}`}
       </p>
     </>
