@@ -3,6 +3,7 @@ import Bugsnag from '@bugsnag/js';
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
 import { register } from 'register-service-worker';
+import withReactContent from 'sweetalert2-react-content';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
@@ -13,6 +14,8 @@ import { initAppSettings } from './settings';
 import { resetData } from './local-storage';
 
 import 'sweetalert2/src/sweetalert2.scss';
+
+const MySwal = withReactContent(Swal);
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -35,6 +38,54 @@ export const isDev = () => {
   }
 
   return false;
+};
+
+const defaultModalConfig = {
+  showCloseButton: true,
+  showConfirmButton: false,
+  allowOutsideClick: true,
+  background: isDarkModeEnabled() ? 'rgb(24, 24, 27)' : 'rgb(228 228 231)',
+  color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+  backdrop: true,
+  position: 'top',
+  heightAuto: true,
+  width: '28rem',
+  showClass: {
+    popup: '',
+  },
+};
+
+const defaultToastConfig = {
+  icon: 'info',
+  showConfirmButton: false,
+  toast: true,
+  position: 'top',
+  allowEscapeKey: false,
+  background: isDarkModeEnabled() ? 'rgb(39 39 42)' : 'rgb(228 228 231)',
+  color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+};
+
+export const openModalWithComponent = (componentToShow, config = null) => {
+  let modalConfig = defaultModalConfig;
+
+  console.log('original: ', modalConfig);
+
+  if (config) {
+    modalConfig = { ...defaultModalConfig, ...config };
+    console.log('updated: ', modalConfig);
+  }
+
+  MySwal.fire({
+    ...modalConfig,
+    html: componentToShow,
+  });
+};
+
+export const openToastWithContent = (config) => {
+  Swal.fire({
+    ...config,
+    ...defaultToastConfig,
+  });
 };
 
 export const scaleDivisor = 75;
@@ -71,6 +122,7 @@ export const handleError = (error) => {
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
+/* eslint-disable no-undef */
 export const initLeafletImages = (leafletRef) => {
   delete leafletRef.Icon.Default.prototype._getIconUrl;
   leafletRef.Icon.Default.mergeOptions({
@@ -82,21 +134,16 @@ export const initLeafletImages = (leafletRef) => {
 /* eslint-enable no-underscore-dangle */
 /* eslint-enable no-param-reassign */
 /* eslint-enable global-require */
+/* eslint-enable no-undef */
 
 export const initServiceWorker = () => {
   register('/service-worker.js', {
     updated() {
       // console.log(registration);
-      Swal.fire({
+      openToastWithContent({
         icon: 'info',
         title: 'Sky Dark Updated',
         text: 'Click this message to reload',
-        showConfirmButton: false,
-        toast: true,
-        position: 'top',
-        allowEscapeKey: false,
-        background: isDarkModeEnabled() ? 'rgb(39 39 42)' : 'rgb(228 228 231)',
-        color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
         didClose: () => {
           resetData();
           window.location.reload(true);
@@ -112,6 +159,7 @@ export const initServiceWorker = () => {
   });
 };
 
+// eslint-disable-next-line no-promise-executor-return
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;

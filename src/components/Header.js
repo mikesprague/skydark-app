@@ -7,10 +7,10 @@ import React, {
 } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
+
+import { openModalWithComponent } from '../modules/helpers';
 
 import { About } from './About';
 import { Settings } from './Settings';
@@ -18,53 +18,23 @@ import { WeatherMapFull } from './WeatherMapFull';
 
 import './Header.scss';
 
-const MySwal = withReactContent(Swal);
-
 export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
   const data = useContext(WeatherDataContext);
 
   const mapIconClickHandler = () => {
-    MySwal.fire({
-      showCloseButton: true,
-      showConfirmButton: false,
-      allowOutsideClick: true,
-      backdrop: true,
-      position: 'top',
-      padding: '0',
-      showClass: {
-        popup: '',
-      },
-      width: '28rem',
-      html: <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
-    });
+    openModalWithComponent(
+      <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+    );
   };
 
   const settingsIconClickHandler = () => {
-    MySwal.fire({
-      showCloseButton: true,
-      showConfirmButton: false,
-      allowOutsideClick: true,
-      backdrop: true,
-      position: 'top',
-      heightAuto: true,
-      width: '28rem',
-      html: <Settings />,
-    });
+    openModalWithComponent(<Settings />);
   };
 
   const aboutIconClickHandler = () => {
-    MySwal.fire({
-      showCloseButton: true,
-      showConfirmButton: false,
-      allowOutsideClick: true,
-      backdrop: true,
-      position: 'top',
-      heightAuto: true,
-      width: '28rem',
-      html: <About />,
-    });
+    openModalWithComponent(<About />);
   };
 
   useEffect(() => {
@@ -97,7 +67,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
     <div ref={headerRef} className="header">
       <div className="location-name">
         <h1>
-          <FontAwesomeIcon icon={['fas', 'location-arrow']} fixedWidth />
+          <FontAwesomeIcon icon={['fad', 'location-dot']} fixedWidth />
           {` ${locationName}`}
         </h1>
       </div>
