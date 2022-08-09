@@ -19,7 +19,8 @@ export const NextHour = () => {
     if (data.weather.minutely) {
       summary = data.weather.minutely.summary;
     } else {
-      summary = data.weather.hourly.data[new Date().getMinutes() > 30 ? 1 : 0].summary;
+      summary =
+        data.weather.hourly.data[new Date().getMinutes() > 30 ? 1 : 0].summary;
     }
 
     summary = summary.replace(' for the hour.', '');
@@ -55,7 +56,7 @@ export const NextHour = () => {
     <>
       {nextHourPrecipitation ? <PrecipChart /> : ''}
       <p
-        className={`px-2 mb-4 text-base text-left ${
+        className={`px-2 mb-4 text-base text-center ${
           nextHourPrecipitation ? ' -mt-8' : ''
         }`}
       >

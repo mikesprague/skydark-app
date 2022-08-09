@@ -24,7 +24,7 @@
       @apply border-b;
       content: '';
       top: -1.66rem;
-      }
+    }
   }
 
   .condition-bar {
@@ -48,11 +48,12 @@
 
   .one-line {
     line-height: unset !important;
-    margin-right: .5rem !important;
+    margin-right: 0.5rem !important;
     overflow-wrap: break-word;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
+
   .summary {
     @apply inline-block;
     @apply overflow-hidden;
