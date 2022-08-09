@@ -35,7 +35,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
 
           closeButton.style.position = 'relative';
           closeButton.style.top = '2rem';
-          closeButton.style.marginRight = '1rem';
+          closeButton.style.marginRight = '0.65rem';
           // closeButton.blur();
         },
         showClass: {
