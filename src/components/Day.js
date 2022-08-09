@@ -16,12 +16,17 @@ import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Day.scss';
 
 export const Day = ({ data, dayIndex, minLow }) => {
-  const [hourlyData, setHourlyData] = useLocalStorage(`hourlyData_${data.time}`, null);
+  const [hourlyData, setHourlyData] = useLocalStorage(
+    `hourlyData_${data.time}`,
+    null,
+  );
   const fullData = useContext(WeatherDataContext);
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
-    const weatherApiData = await axios.get(weatherApiurl).then((response) => response.data);
+    const weatherApiData = await axios
+      .get(weatherApiurl)
+      .then((response) => response.data);
 
     return weatherApiData;
   };
@@ -44,7 +49,11 @@ export const Day = ({ data, dayIndex, minLow }) => {
 
     if (isOpen) {
       if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 60)) {
-        const weatherData = await getDailyWeatherData(fullData.weather.latitude, fullData.weather.longitude, date);
+        const weatherData = await getDailyWeatherData(
+          fullData.weather.latitude,
+          fullData.weather.longitude,
+          date,
+        );
 
         setHourlyData({
           lastUpdated: dayjs().toString(),
@@ -54,7 +63,11 @@ export const Day = ({ data, dayIndex, minLow }) => {
 
       scrollMarker.classList.remove('hidden');
       sleep(250).then(() => {
-        scrollMarker.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+        scrollMarker.scrollIntoView({
+          block: 'start',
+          inline: 'nearest',
+          behavior: 'smooth',
+        });
       });
     } else {
       scrollMarker.classList.add('hidden');
@@ -64,14 +77,23 @@ export const Day = ({ data, dayIndex, minLow }) => {
   return (
     <details className="day">
       <summary data-time={data.time} onClick={clickHandler}>
-        <div className="relative hidden w-0 h-0 text-transparent scroll-marker -top-12">&nbsp;</div>
+        <div className="relative hidden w-0 h-0 text-transparent scroll-marker -top-12">
+          &nbsp;
+        </div>
         <div className="flex flex-grow">
           <div className="name">
-            <strong>{dayIndex === 0 ? 'TODAY' : dayjs.unix(data.time).format('ddd').toUpperCase()}</strong>
+            <strong>
+              {dayIndex === 0
+                ? 'TODAY'
+                : dayjs.unix(data.time).format('ddd').toUpperCase()}
+            </strong>
             <br />
             <span className="precip">
               <FontAwesomeIcon icon={['fad', 'droplet']} />
-              {` ${formatCondition(data.precipProbability, 'precipProbability')}`}
+              {` ${formatCondition(
+                data.precipProbability,
+                'precipProbability',
+              )}`}
             </span>
           </div>
           <div className="icon">
@@ -100,15 +122,25 @@ export const Day = ({ data, dayIndex, minLow }) => {
           </div>
         </div>
       </summary>
-      {hourlyData ? <Hourly data={hourlyData} dayData={data} /> : <Loading fullHeight={false} />}
+      {hourlyData ? (
+        <Hourly data={hourlyData} dayData={data} />
+      ) : (
+        <Loading fullHeight={false} />
+      )}
     </details>
   );
 };
 
 Day.displayName = 'Day';
 Day.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]))
-    .isRequired,
+  data: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ]),
+  ).isRequired,
   dayIndex: PropTypes.number.isRequired,
   minLow: PropTypes.number.isRequired,
 };
