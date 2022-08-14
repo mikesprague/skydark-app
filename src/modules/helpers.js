@@ -2,7 +2,6 @@
 import Bugsnag from '@bugsnag/js';
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
-import { register } from 'register-service-worker';
 import withReactContent from 'sweetalert2-react-content';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -11,7 +10,6 @@ import utc from 'dayjs/plugin/utc';
 
 import { initDarkMode, isDarkModeEnabled } from './theme';
 import { initAppSettings } from './settings';
-import { resetData } from './local-storage';
 
 const MySwal = withReactContent(Swal);
 
@@ -141,38 +139,15 @@ export const handleError = (error) => {
 export const initLeafletImages = (leafletRef) => {
   delete leafletRef.Icon.Default.prototype._getIconUrl;
   leafletRef.Icon.Default.mergeOptions({
-    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+    iconRetinaUrl: 'images/leaflet/marker-icon-2x.png',
+    iconUrl: 'images/leaflet/marker-icon.png',
+    shadowUrl: 'images/leaflet/marker-shadow.png',
   });
 };
 /* eslint-enable no-underscore-dangle */
 /* eslint-enable no-param-reassign */
 /* eslint-enable global-require */
 /* eslint-enable no-undef */
-
-export const initServiceWorker = () => {
-  register('/service-worker.js', {
-    updated() {
-      // console.log(registration);
-      openToastWithContent({
-        icon: 'info',
-        title: 'Sky Dark Updated',
-        text: 'Click this message to reload',
-        didClose: () => {
-          resetData();
-          window.location.reload(true);
-        },
-      });
-    },
-    offline() {
-      console.info('No internet connection found. App is currently offline.');
-    },
-    error(error) {
-      console.error('Error during service worker registration:', error);
-    },
-  });
-};
 
 // eslint-disable-next-line no-promise-executor-return
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -355,8 +330,4 @@ export const initSkyDark = () => {
 
   initAppSettings();
   initDarkMode();
-
-  if (!isLocal()) {
-    initServiceWorker();
-  }
 };

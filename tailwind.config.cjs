@@ -5,7 +5,12 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
-  content: ['./public/index.html', './src/components/**/*.js', './src/modules/helpers.js'],
+  content: [
+    './src/index.html',
+    './src/index.jsx',
+    './src/components/**/*.jsx',
+    './src/modules/helpers.js',
+  ],
   theme: {
     colors: {
       white: colors.white,
