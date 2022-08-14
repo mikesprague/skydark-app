@@ -12,6 +12,7 @@ import { isCacheExpired } from '../modules/local-storage';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
+import 'sweetalert2/src/sweetalert2';
 import './App.scss';
 
 const CurrentHourly = lazy(() => import('./CurrentHourly'));

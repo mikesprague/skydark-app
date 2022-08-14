@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Tippy from '@tippyjs/react';
 
+import 'tippy.js/dist/tippy.css';
 import './About.scss';
 
 export const About = () => (
