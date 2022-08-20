@@ -35,6 +35,7 @@ export default defineConfig({
         name: 'Sky Dark (Powered by Dark Sky)',
         short_name: 'Sky Dark',
         description: 'Sky Dark (Powered by Dark Sky)',
+	version: '2.0.1',
         lang: 'en-US',
         dir: 'auto',
         orientation: 'portrait',
