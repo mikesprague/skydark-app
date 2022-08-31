@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
+/* eslint-disable import/prefer-default-export */
 export const onRequestGet = async (context) => {
   const { cf, url } = context.request;
 
@@ -10,52 +10,12 @@ export const onRequestGet = async (context) => {
   const units = urlParams.get('units') || 'auto';
   const time = urlParams.get('time');
 
-  // const {
-  //   request, // same as existing Worker API
-  //   env, // same as existing Worker API
-  //   params, // if filename includes [id] or [[path]]
-  //   waitUntil, // same as ctx.waitUntil in existing Worker API
-  //   next, // used for middleware or to fetch assets
-  //   data, // arbitrary space for passing data between middlewares
-  // } = context;
-
-  /**
-  {
-    clientTcpRtt: 26,
-    longitude: '-76.49260',
-    latitude: '42.44440',
-    tlsCipher: 'AEAD-AES256-GCM-SHA384',
-    continent: 'NA',
-    asn: 11351,
-    clientAcceptEncoding: 'gzip, deflate, br',
-    country: 'US',
-    tlsClientAuth: {...},
-    tlsExportedAuthenticator: {...},
-    tlsVersion: 'TLSv1.3',
-    colo: 'EWR',
-    timezone: 'America/New_York',
-    city: 'Ithaca',
-    httpProtocol: 'HTTP/1.1',
-    edgeRequestKeepAliveStatus: 1,
-    requestPriority: '',
-    botManagement: {...},
-    clientTrustScore: 18,
-    region: 'New York',
-    regionCode: 'NY',
-    asOrganization: 'Spectrum',
-    metroCode: '555',
-    postalCode: '14850'
-  }
-  */
-
   if (healthcheck) {
     return new Response(JSON.stringify('API is up and running'), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }
-
-  // return new Response('short circuited');
 
   const {
     GOOGLE_MAPS_API_KEY,
@@ -154,7 +114,6 @@ export const onRequestGet = async (context) => {
         headers: { 'Content-Type': 'application/json' },
       });
     });
-
   // console.log(geocodePromise.location);
 
   return new Response(
