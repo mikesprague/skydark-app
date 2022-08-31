@@ -26,7 +26,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       devOptions: {
-        enabled: true,
+        enabled: false,
       },
       includeAssets: [
         './images/skydark-app-icon-64.png',

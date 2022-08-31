@@ -130,3 +130,5 @@ sample-data.json
 lambda
 
 .vercel
+.dev.vars
+
