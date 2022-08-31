@@ -1,7 +1,5 @@
 # Sky Dark
 
-[![Vercel Deployment Status](https://img.shields.io/github/deployments/mikesprague/skydark-app/production?label=Vercel%20%28build%20%26%20deploy%29&logo=Vercel&logoColor=white)](https://vercel.com/m5ls5e/skydark-app/deployments)
-
 ## About :information_source:
 
 Sky Dark is an open source <abbr title="Progressive Web Application">PWA</abbr> built
@@ -18,7 +16,7 @@ Android app used to be my daily driver and I missed the experience.
 - [Dark Sky API](https://darksky.net/poweredby/)
 - [OpenWeatherMap API](https://openweathermap.org/api/weathermaps)
 - [Leaflet](https://leafletjs.com/)
-- [Vercel](https://vercel.com/)
+- [CloudFlare Pages](https://developers.cloudflare.com/pages/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React](https://reactjs.org/)
 - [Font Awesome](https://fontawesome.com/)
@@ -28,7 +26,7 @@ Android app used to be my daily driver and I missed the experience.
 
 MIT License
 
-Copyright (c) 2020 Michael Sprague
+Copyright (c) 2022 Michael Sprague
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
