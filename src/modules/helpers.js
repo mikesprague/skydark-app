@@ -118,8 +118,7 @@ export const apiUrl = (useLocalhost = false) => {
     protocol = 'http';
     port = ':3000';
   }
-
-  console.log(`${protocol}://${window.location.hostname}${port}/api`);
+  // console.log(`${protocol}://${window.location.hostname}${port}/api`);
 
   return `${protocol}://${window.location.hostname}${port}/api`;
 };
