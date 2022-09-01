@@ -103,24 +103,19 @@ export const openToastWithContent = (config) => {
 
 export const scaleDivisor = 75;
 
-export const apiUrl = (useLocalhost = false) => {
-  if (useLocalhost) {
-    return 'http://localhost:3000/api';
-  }
-
-  let protocol = 'https';
-  let port = '';
+export const apiUrl = () => {
+  let urlToReturn = `${window.location.protocol}://${window.location.hostname}/api`;
 
   if (
     window.location.hostname.includes('localhost') ||
     window.location.hostname.includes('127.0.0.1')
   ) {
-    protocol = 'http';
-    port = ':3000';
+    urlToReturn = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api`;
   }
-  // console.log(`${protocol}://${window.location.hostname}${port}/api`);
 
-  return `${protocol}://${window.location.hostname}${port}/api`;
+  console.log(urlToReturn);
+
+  return urlToReturn;
 };
 
 export const handleError = (error) => {
