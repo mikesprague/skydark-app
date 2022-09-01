@@ -5,10 +5,13 @@ export const onRequestGet = async (context) => {
   const urlParams = new URL(url).searchParams;
 
   const healthcheck = urlParams.get('healthcheck');
-  const lat = urlParams.get('lat') || cf.latitude;
-  const lng = urlParams.get('lng') || cf.longitude;
+  let lat = urlParams.get('lat') || cf.latitude;
+  let lng = urlParams.get('lng') || cf.longitude;
   const units = urlParams.get('units') || 'auto';
   const time = urlParams.get('time');
+
+  lat = parseFloat(lat).toFixed(5).toString();
+  lng = parseFloat(lng).toFixed(5).toString();
 
   if (healthcheck) {
     return new Response(JSON.stringify('API is up and running'), {
@@ -21,6 +24,8 @@ export const onRequestGet = async (context) => {
     GOOGLE_MAPS_API_KEY,
     DARK_SKY_API_KEY,
     // OPEN_WEATHERMAP_API_KEY,
+    CACHE_KV_DEV,
+    CACHE_KV,
   } = context.env;
 
   const timeString = time ? `,${time}` : '';
@@ -116,24 +121,23 @@ export const onRequestGet = async (context) => {
     });
   // console.log(geocodePromise.location);
 
-  return new Response(
-    JSON.stringify({
-      location: geocodePromise.location,
-      weather: geocodePromise.location.locationName.includes('Seneca Falls')
-        ? JSON.parse(
-            JSON.stringify(weatherPromise.weather)
-              .replace(/Humid /g, 'Moist ')
-              .replace(/humid /g, 'moist ')
-              .replace(/humidity /g, 'moistivity'),
-          )
-        : weatherPromise.weather,
-    }),
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=300, s-maxage=300',
-      },
+  const returnData = JSON.stringify({
+    location: geocodePromise.location,
+    weather: geocodePromise.location.locationName.includes('Seneca Falls')
+      ? JSON.parse(
+          JSON.stringify(weatherPromise.weather)
+            .replace(/Humid /g, 'Moist ')
+            .replace(/humid /g, 'moist ')
+            .replace(/humidity /g, 'moistivity'),
+        )
+      : weatherPromise.weather,
+  });
+
+  return new Response(returnData, {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'max-age=300, s-maxage=300',
     },
-  );
+  });
 };
