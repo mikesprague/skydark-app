@@ -14,7 +14,7 @@
     "dev": "vite serve",
     "prebuild": "npm run clean",
     "preview": "vite preview",
-    "start": "cross-env NODE_ENV=development wrangler pages dev -- npm run dev",
+    "start": "cross-env NODE_ENV=development wrangler pages dev --kv CACHE_KV_DEV -- vite serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
