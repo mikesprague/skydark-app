@@ -48,7 +48,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
     });
 
     if (isOpen) {
-      if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 60)) {
+      if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
         const weatherData = await getDailyWeatherData(
           fullData.weather.latitude,
           fullData.weather.longitude,
