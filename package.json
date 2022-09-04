@@ -80,7 +80,7 @@
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-markdown": "3.0.0",
     "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-react": "7.31.5",
+    "eslint-plugin-react": "7.31.6",
     "eslint-plugin-react-hooks": "4.6.0",
     "postcss": "8.4.16",
     "postcss-cli": "10.0.0",
