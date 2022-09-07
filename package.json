@@ -1,6 +1,6 @@
 {
   "name": "skydark-app",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "dev": "vite serve",
     "prebuild": "npm run clean",
     "preview": "vite preview",
-    "start": "cross-env NODE_ENV=development wrangler pages dev --kv CACHE_KV_DEV -- vite serve",
+    "start": "cross-env NODE_ENV=development wrangler pages dev -- vite serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
