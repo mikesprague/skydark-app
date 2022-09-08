@@ -1,5 +1,22 @@
 /* eslint-disable import/prefer-default-export */
 export const onRequestGet = async (context) => {
+  const CACHE_NAME = 'github-trending-repos';
+  const { request } = context;
+
+  const cache = await caches.open(CACHE_NAME);
+
+  const cachedData = await cache.match(request);
+
+  if (cachedData) {
+    console.log('🚀 using cached data!');
+
+    const returnData = await cachedData.json();
+
+    return new Response(JSON.stringify(returnData), cachedData);
+  }
+
+  console.log('😢 no cache, fetching new data');
+
   const { cf, url } = context.request;
 
   const urlParams = new URL(url).searchParams;
@@ -20,18 +37,11 @@ export const onRequestGet = async (context) => {
     });
   }
 
-  const {
-    GOOGLE_MAPS_API_KEY,
-    DARK_SKY_API_KEY,
-    // OPEN_WEATHERMAP_API_KEY,
-    CACHE_KV_DEV,
-    CACHE_KV,
-  } = context.env;
+  const { GOOGLE_MAPS_API_KEY, DARK_SKY_API_KEY } = context.env;
 
   const timeString = time ? `,${time}` : '';
   const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
   const weatherApiUrl = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}${timeString}/?units=${units}`;
-  // const openWeatherMapApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&&units=${units}&appid=${OPEN_WEATHERMAP_API_KEY}`;
 
   const geocodePromise = await fetch(geocodeApiUrl)
     .then(async (response) => {
@@ -133,11 +143,16 @@ export const onRequestGet = async (context) => {
       : weatherPromise.weather,
   });
 
-  return new Response(returnData, {
+  const response = new Response(returnData, {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Cache-Control': 'max-age=300, s-maxage=300',
+      'Cache-Control': 'max-age=3600, s-maxage=3600',
     },
   });
+
+  // cache data;
+  context.waitUntil(cache.put(request, response.clone()));
+
+  return response;
 };
