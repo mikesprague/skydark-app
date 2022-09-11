@@ -1,5 +1,5 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/javascript-node/.devcontainer/base.Dockerfile
-ARG VARIANT="18-buster"
+ARG VARIANT="18"
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 # install some common utils
@@ -8,20 +8,18 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # install github cli
 RUN export DEBIAN_FRONTEND=noninteractive \
-  && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
+  && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+  && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-  && sudo apt-get update \
-  && sudo apt-get -y install gh
+  && sudo apt update \
+  && sudo apt install gh -y
 
 # install n (node version manager) and update npm
 RUN npm install -g npm n
 
-# use n to make sure we're on latest v16 of nodejs
-# remove existing yarn executable (workaround or latest version won't install)
+# use n to make sure we're on latest v18 of nodejs
 # and install some global dependencies
-RUN n 18 \
-  && rm -rf /usr/bin/yarn \
-  && npm i -g npm gitmoji-cli npm-check-updates yarn
+RUN n 18 && npm i -g eslint gitmoji-cli npm-check-updates wrangler
 
 # install and customize oh-my-zsh
 RUN rm -rf /root/.oh-my-zsh \
