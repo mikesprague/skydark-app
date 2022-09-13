@@ -18,6 +18,7 @@ export default defineConfig({
       injectRegister: 'auto',
       registerType: 'prompt',
       workbox: {
+        navigateFallbackDenylist: [/^\/api/],
         clientsClaim: true,
         skipWaiting: true,
         cleanupOutdatedCaches: true,
