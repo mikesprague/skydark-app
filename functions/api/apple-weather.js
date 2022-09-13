@@ -96,7 +96,7 @@ export const onRequestGet = async (context) => {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Cache-Control': 'max-age=600, s-maxage=600',
+      'Cache-Control': 'max-age=300, s-maxage=300',
     },
   });
 
