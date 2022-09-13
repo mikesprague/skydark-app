@@ -65,11 +65,11 @@
     "@babel/eslint-parser": "7.18.9",
     "@babel/eslint-plugin": "7.18.10",
     "@babel/preset-env": "7.19.0",
-    "@fullhuman/postcss-purgecss": "4.1.3",
+    "@fullhuman/postcss-purgecss": "5.0.0",
     "@tailwindcss/forms": "0.5.3",
     "@tailwindcss/typography": "0.5.7",
     "@vitejs/plugin-react": "2.1.0",
-    "autoprefixer": "10.4.9",
+    "autoprefixer": "10.4.10",
     "babel-plugin-add-react-displayname": "0.0.5",
     "cssnano": "5.1.13",
     "eslint": "8.23.1",
@@ -99,7 +99,7 @@
     "vite": "3.1.0",
     "vite-plugin-html": "3.2.0",
     "vite-plugin-pwa": "0.12.7",
-    "wrangler": "2.1.2"
+    "wrangler": "2.1.3"
   },
   "babel": {
     "plugins": [
