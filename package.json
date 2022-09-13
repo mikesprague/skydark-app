@@ -99,7 +99,7 @@
     "vite": "3.1.0",
     "vite-plugin-html": "3.2.0",
     "vite-plugin-pwa": "0.12.7",
-    "wrangler": "2.1.0"
+    "wrangler": "2.1.2"
   },
   "babel": {
     "plugins": [
