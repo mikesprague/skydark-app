@@ -13,9 +13,6 @@ export default defineConfig({
   publicDir: '../public',
   base: './',
   outDir: './',
-  server: {
-    strictPort: true,
-  },
   plugins: [
     VitePWA({
       injectRegister: 'auto',
