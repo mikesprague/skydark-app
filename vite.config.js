@@ -1,8 +1,7 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-
-const appVersion = (await import('./package.json')).version;
+import { version } from './package.json';
 
 export default defineConfig({
   root: 'src',
@@ -35,7 +34,7 @@ export default defineConfig({
         name: 'Sky Dark (Powered by Dark Sky)',
         short_name: 'Sky Dark',
         description: 'Sky Dark (Powered by Dark Sky)',
-        version: appVersion,
+        version,
         lang: 'en-US',
         dir: 'auto',
         orientation: 'portrait',
