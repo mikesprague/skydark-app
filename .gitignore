@@ -121,14 +121,8 @@ dist
 # Misc
 
 build
-TODO.md
-sample-data.json
 
-# Local Netlify folders
+# CloudFlare/Wrangler CLI stuff
 
-.netlify
-lambda
-
-.vercel
 .dev.vars
-
+dev-dist/
