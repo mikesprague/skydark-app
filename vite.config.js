@@ -14,8 +14,11 @@ export default defineConfig({
   outDir: './',
   plugins: [
     VitePWA({
+      strategies: 'generateSW',
       injectRegister: 'auto',
       registerType: 'prompt',
+      filename: 'service-worker.js',
+      manifestFilename: 'skydark.webmanifest',
       workbox: {
         navigateFallbackDenylist: [/^\/api/],
         clientsClaim: true,
@@ -23,7 +26,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       devOptions: {
-        enabled: false,
+        enabled: true,
       },
       includeAssets: [
         './images/skydark-app-icon-64.png',
