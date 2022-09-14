@@ -1,8 +1,7 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-
-const appVersion = (await import('./package.json')).version;
+import { version } from './package.json';
 
 export default defineConfig({
   root: 'src',
@@ -15,8 +14,11 @@ export default defineConfig({
   outDir: './',
   plugins: [
     VitePWA({
+      strategies: 'generateSW',
       injectRegister: 'auto',
       registerType: 'prompt',
+      filename: 'service-worker.js',
+      manifestFilename: 'skydark.webmanifest',
       workbox: {
         navigateFallbackDenylist: [/^\/api/],
         clientsClaim: true,
@@ -24,7 +26,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       devOptions: {
-        enabled: false,
+        enabled: true,
       },
       includeAssets: [
         './images/skydark-app-icon-64.png',
@@ -35,7 +37,7 @@ export default defineConfig({
         name: 'Sky Dark (Powered by Dark Sky)',
         short_name: 'Sky Dark',
         description: 'Sky Dark (Powered by Dark Sky)',
-        version: appVersion,
+        version,
         lang: 'en-US',
         dir: 'auto',
         orientation: 'portrait',
