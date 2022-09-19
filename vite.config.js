@@ -12,6 +12,7 @@ export default defineConfig({
   publicDir: '../public',
   base: './',
   outDir: './',
+  appType: 'custom',
   plugins: [
     VitePWA({
       strategies: 'generateSW',
