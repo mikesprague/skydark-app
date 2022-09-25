@@ -171,8 +171,8 @@
   .leaflet-popup-content-wrapper,
   .leaflet-popup-tip {
     @apply bg-gray-100;
-    @apply dark: bg-gray-700;
+    @apply dark:bg-gray-700;
     @apply text-gray-700;
-    @apply dark: text-gray-100;
+    @apply dark:text-gray-100;
   }
 }
