@@ -43,7 +43,7 @@ export default defineConfig({
         dir: 'auto',
         orientation: 'portrait',
         display: 'standalone',
-	id: '/',
+	      id: '/',
         start_url: '/',
         background_color: '#181c1d',
         theme_color: '#181c1d',
