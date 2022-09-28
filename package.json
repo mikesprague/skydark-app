@@ -47,7 +47,7 @@
     "cross-env": "7.0.3",
     "dayjs": "1.11.5",
     "dotenv": "16.0.2",
-    "jose": "4.9.3",
+    "jose": "4.10.0",
     "leaflet": "1.9.1",
     "nanoid": "4.0.0",
     "prop-types": "15.8.1",
@@ -57,7 +57,7 @@
     "react-google-charts": "4.0.0",
     "react-leaflet": "4.1.0",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.4.34",
+    "sweetalert2": "11.4.35",
     "sweetalert2-react-content": "5.0.3",
     "tippy.js": "6.3.7"
   },
