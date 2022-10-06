@@ -43,12 +43,12 @@
     "@fortawesome/react-fontawesome": "0.2.0",
     "@sweetalert2/theme-dark": "5.0.12",
     "@tippyjs/react": "4.2.6",
-    "axios": "0.27.2",
+    "axios": "1.1.0",
     "cross-env": "7.0.3",
     "dayjs": "1.11.5",
     "dotenv": "16.0.3",
     "jose": "4.10.0",
-    "leaflet": "1.9.1",
+    "leaflet": "1.9.2",
     "nanoid": "4.0.0",
     "prop-types": "15.8.1",
     "query-string": "7.1.1",
@@ -57,7 +57,7 @@
     "react-google-charts": "4.0.0",
     "react-leaflet": "4.1.0",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.4.36",
+    "sweetalert2": "11.4.37",
     "sweetalert2-react-content": "5.0.3",
     "tippy.js": "6.3.7"
   },
@@ -96,10 +96,10 @@
     "stylelint-config-standard-scss": "5.0.0",
     "stylelint-prettier": "2.0.0",
     "tailwindcss": "3.1.8",
-    "vite": "3.1.4",
+    "vite": "3.1.6",
     "vite-plugin-html": "3.2.0",
     "vite-plugin-pwa": "0.13.1",
-    "wrangler": "2.1.9"
+    "wrangler": "2.1.10"
   },
   "babel": {
     "plugins": [
