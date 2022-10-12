@@ -57,7 +57,7 @@
     "react-google-charts": "4.0.0",
     "react-leaflet": "4.1.0",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.5.0",
+    "sweetalert2": "11.5.1",
     "sweetalert2-react-content": "5.0.3",
     "tippy.js": "6.3.7"
   },
@@ -82,7 +82,7 @@
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-markdown": "3.0.0",
     "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-react": "7.31.9",
+    "eslint-plugin-react": "7.31.10",
     "eslint-plugin-react-hooks": "4.6.0",
     "postcss": "8.4.17",
     "postcss-cli": "10.0.0",
