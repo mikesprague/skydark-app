@@ -321,9 +321,9 @@ export const Hour = ({
           )
             ? {
                 marginRight: `${
-                  Math.round(
+                  (Math.round(
                     80 - Math.round(data[conditionToShow]) * valScale,
-                  ) * 0.2
+                  ) * 0.2) / 2
                 }rem`,
               }
             : {}
