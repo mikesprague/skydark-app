@@ -15,15 +15,20 @@ export const CurrentHourly = () => {
   const containerRef = useRef();
   const data = useContext(WeatherDataContext);
 
-  const [valScale, setValScale] = useState(1);
+  const [maxValue, setMaxValue] = useState(0);
+  const [valueRange, setValueRange] = useState(0);
 
   useEffect(() => {
     if (data) {
-        const allVals = data.weather.hourly.data.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
-        const max = Math.max(...allVals);
-        const scale = 80 / max;
+      const allVals = data.weather.hourly.data
+        .slice(0, 23)
+        .map((hour) => hour[hourlyConditionToShow]);
+      const max = Math.max(...allVals);
+      const min = Math.min(...allVals);
+      const range = max - min;
 
-        setValScale(scale);
+      setMaxValue(max);
+      setValueRange(range);
     }
   }, [hourlyConditionToShow, data]);
 
@@ -71,7 +76,9 @@ export const CurrentHourly = () => {
           const summaryText = formatSummary(hourData, data.weather.hourly.data, index, startIndex);
           const dayDataIndex = dayjs.unix(hourData.time).format('D') > dayjs().format('D') ? 1 : 0;
 
-          return index >= startIndex && index <= endIndex && index % 2 === startIndex ? (
+          return index >= startIndex &&
+            index <= endIndex &&
+            index % 2 === startIndex ? (
             <Hour
               key={nanoid(7)}
               data={hourData}
@@ -80,7 +87,8 @@ export const CurrentHourly = () => {
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
               dayData={data.weather.daily.data[dayDataIndex]}
-              valScale={valScale}
+              valueRange={valueRange}
+              maxValue={maxValue}
             />
           ) : (
             ''

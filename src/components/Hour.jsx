@@ -27,7 +27,8 @@ export const Hour = ({
   isFirst,
   isLast,
   conditionToShow,
-  valScale = 1,
+  valueRange,
+  maxValue,
 }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] =
     useState('temperature');
@@ -321,9 +322,9 @@ export const Hour = ({
           )
             ? {
                 marginRight: `${
-                  (Math.round(
-                    80 - Math.round(data[conditionToShow]) * valScale,
-                  ) * 0.2) / 2
+                  (maxValue - Math.round(data[conditionToShow])) *
+                  (100 / valueRange) *
+                  0.05
                 }rem`,
               }
             : {}

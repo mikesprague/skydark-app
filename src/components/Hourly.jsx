@@ -23,15 +23,20 @@ export const Hourly = ({ data, dayData }) => {
     setHourlyData(data.data);
   }, [data]);
 
-  const [valScale, setValScale] = useState(1);
+  const [maxValue, setMaxValue] = useState(0);
+  const [valueRange, setValueRange] = useState(0);
 
   useEffect(() => {
     if (hourlyData) {
-      const allVals = hourlyData.slice(0, 23).map((hour) => hour[hourlyConditionToShow]);
+      const allVals = hourlyData
+        .slice(0, 23)
+        .map((hour) => hour[hourlyConditionToShow]);
       const max = Math.max(...allVals);
-      const scale = 80 / max;
+      const min = Math.min(...allVals);
+      const range = max - min;
 
-      setValScale(scale);
+      setMaxValue(max);
+      setValueRange(range);
     }
   }, [hourlyConditionToShow, hourlyData]);
 
@@ -66,7 +71,8 @@ export const Hourly = ({ data, dayData }) => {
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
               dayData={dayData}
-              valScale={valScale}
+              valueRange={valueRange}
+              maxValue={maxValue}
             />
           ) : (
             ''
