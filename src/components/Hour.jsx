@@ -369,7 +369,8 @@ Hour.propTypes = {
   isFirst: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
   conditionToShow: PropTypes.string.isRequired,
-  valScale: PropTypes.number.isRequired,
+  valueRange: PropTypes.number.isRequired,
+  maxValue: PropTypes.number.isRequired,
 };
 
 export default Hour;
