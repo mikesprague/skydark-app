@@ -317,17 +317,17 @@ export const Hour = ({
         className="condition"
         onClick={clickHandler}
         style={
-          ['temperature', 'apparentTemperature', 'dewPoint'].includes(
+          ['humidity', 'cloudCover', 'precipProbability'].includes(
             conditionToShow,
           )
-            ? {
+            ? {}
+            : {
                 marginRight: `${
                   (maxValue - Math.round(data[conditionToShow])) *
                   (100 / valueRange) *
                   0.05
                 }rem`,
               }
-            : {}
         }
       >
         <span
