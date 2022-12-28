@@ -1,5 +1,5 @@
 import * as jose from 'jose';
-import * as qs from 'query-string';
+import queryString from 'query-string';
 
 /* eslint-disable import/prefer-default-export */
 export const onRequestGet = async (context) => {
@@ -79,12 +79,12 @@ export const onRequestGet = async (context) => {
     timezone: tz,
   };
 
-  const queryString = qs.stringify(queryParams, {
+  const qs = queryString.stringify(queryParams, {
     arrayFormat: 'comma',
   });
 
   const data = await fetch(
-    `https://weatherkit.apple.com/api/v1/weather/en-US/${lat}/${lng}?${queryString}`,
+    `https://weatherkit.apple.com/api/v1/weather/en-US/${lat}/${lng}?${qs}`,
     {
       headers,
     },
