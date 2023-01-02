@@ -110,7 +110,7 @@ export const apiUrl = () => {
     window.location.hostname.includes('localhost') ||
     window.location.hostname.includes('127.0.0.1')
   ) {
-    urlToReturn = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api`;
+    urlToReturn = `${window.location.protocol}//${window.location.hostname}:8788/api`;
   }
   // console.log(urlToReturn);
 
