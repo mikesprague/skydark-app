@@ -26,6 +26,7 @@ export const onRequestGet = async (context) => {
     APPLE_DEVELOPER_KEY_ID,
     APPLE_DEVELOPER_TEAM_ID,
     APPLE_DEVELOPER_APP_ID,
+    GOOGLE_MAPS_API_KEY,
   } = env;
 
   const urlParams = new URL(url).searchParams;
@@ -64,6 +65,76 @@ export const onRequestGet = async (context) => {
   lat = lat || defaultLat;
   lng = lng || defaultLng;
 
+  const geocodeApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
+  const locationData = await fetch(geocodeApiUrl)
+    .then(async (response) => {
+      const data = await response.json();
+      // console.log(data);
+      const fullResults = data.results;
+      const formattedAddress = fullResults[0].formatted_address.replace(
+        'Seneca Falls',
+        'Seneca Moistens',
+      );
+      let locationName = '';
+      const isUSA = formattedAddress.toLowerCase().includes('usa');
+      const addressTargets = [
+        'postal_town',
+        'locality',
+        'neighborhood',
+        'administrative_area_level_2',
+        'administrative_area_level_1',
+        'country',
+      ];
+
+      addressTargets.forEach((target) => {
+        if (!locationName.length) {
+          fullResults.forEach((result) => {
+            if (!locationName.length) {
+              result.address_components.forEach((component) => {
+                if (
+                  !locationName.length &&
+                  component.types.indexOf(target) > -1
+                ) {
+                  locationName = component.long_name;
+                }
+              });
+            }
+          });
+        }
+      });
+
+      fullResults[0].address_components.forEach((component) => {
+        if (
+          isUSA &&
+          component.types.indexOf('administrative_area_level_1') > -1
+        ) {
+          locationName = `${locationName}, ${component.short_name}`;
+        }
+
+        if (!isUSA && component.types.indexOf('country') > -1) {
+          locationName = `${locationName}, ${component.short_name}`;
+        }
+      });
+      // console.log(locationName);
+      const returnData = {
+        location: {
+          locationName,
+          formattedAddress,
+          fullResults,
+        },
+      };
+
+      return returnData;
+    })
+    .catch((error) => {
+      console.error(error);
+
+      return new Response(JSON.stringify(error), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    });
+
   const tz = timezone || 'America/New_York';
   const countryCode = country || 'US';
 
@@ -83,22 +154,40 @@ export const onRequestGet = async (context) => {
     arrayFormat: 'comma',
   });
 
-  const data = await fetch(
+  const weatherData = await fetch(
     `https://weatherkit.apple.com/api/v1/weather/en-US/${lat}/${lng}?${qs}`,
     {
       headers,
     },
-  ).then(async (response) => response.json());
+  ).then(async (response) => {
+    const weather = await response.json();
+    const returnData = {
+      weather,
+    };
 
-  // console.log(data);
-
-  const response = new Response(JSON.stringify(data), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'max-age=300, s-maxage=300',
-    },
+    return returnData;
   });
+
+  // console.log(weatherData);
+
+  // const returnData = JSON.stringify({
+  //   location: locationData.location,
+  //   weather: weatherData.weather,
+  // });
+
+  const response = new Response(
+    JSON.stringify({
+      location: locationData.location,
+      weather: weatherData.weather,
+    }),
+    {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=300, s-maxage=300',
+      },
+    },
+  );
 
   // cache data;
   context.waitUntil(cache.put(request, response.clone()));
