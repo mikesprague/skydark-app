@@ -36,6 +36,13 @@ export const isDev = () => {
   return false;
 };
 
+export const metricToImperial = {
+  cToF: (value) => value * 1.8 + 32,
+  mToMi: (value) => value / 1609.344,
+  kmToMi: (value) => value / 1.609344,
+  mmToIn: (value) => value / 25.4,
+};
+
 const defaultModalConfig = {
   showCloseButton: true,
   showConfirmButton: false,
