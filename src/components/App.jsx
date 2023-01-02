@@ -80,7 +80,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const getWeatherData = async (latitude, longitude) => {
-      const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
+      const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${latitude}&lng=${longitude}`;
       const weatherApiData = await axios
         .get(weatherApiurl)
         .then((response) => response.data);
