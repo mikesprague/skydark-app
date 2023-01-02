@@ -23,7 +23,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
   const fullData = useContext(WeatherDataContext);
 
   const getDailyWeatherData = async (lat, lng, date) => {
-    const weatherApiurl = `${apiUrl()}/location-and-weather/?lat=${lat}&lng=${lng}&time=${date}`;
+    const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}`;
     const weatherApiData = await axios
       .get(weatherApiurl)
       .then((response) => response.data);
