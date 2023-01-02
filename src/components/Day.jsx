@@ -109,7 +109,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
             style={{
               position: 'relative',
               left: `${
-                Math.round(Math.round(data.temperatureMin) - minLow) * 0.8
+                Math.round(Math.round(data.temperatureMin) - minLow * 0.75)
               }%`,
             }}
           >
