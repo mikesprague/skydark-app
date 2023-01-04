@@ -48,18 +48,24 @@ export const SunriseSunset = () => {
 
   useEffect(() => {
     const init = () => {
-      const [today, tomorrow] = data.weather.daily.data;
+      const [today, tomorrow] = data.weather.forecastDaily.data;
       const now = dayjs();
       let isSunset = false;
-      let datetime = today.sunriseTime;
+      let datetime = today.sunrise;
 
-      if (dayjs(now).isAfter(dayjs.unix(today.sunriseTime)) && dayjs(now).isBefore(dayjs.unix(today.sunsetTime))) {
-        datetime = today.sunsetTime;
+      if (
+        dayjs(now).isAfter(dayjs.unix(today.sunrise)) &&
+        dayjs(now).isBefore(dayjs.unix(today.sunset))
+      ) {
+        datetime = today.sunset;
         isSunset = true;
       }
 
-      if (dayjs(now).isAfter(dayjs.unix(today.sunsetTime)) && dayjs(now).isBefore(dayjs.unix(tomorrow.sunriseTime))) {
-        datetime = tomorrow.sunriseTime;
+      if (
+        dayjs(now).isAfter(dayjs.unix(today.sunset)) &&
+        dayjs(now).isBefore(dayjs.unix(tomorrow.sunrise))
+      ) {
+        datetime = tomorrow.sunrise;
       }
 
       const event = isSunset ? 'Sunset' : 'Sunrise';

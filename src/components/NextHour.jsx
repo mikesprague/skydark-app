@@ -16,11 +16,12 @@ export const NextHour = () => {
 
     let summary;
 
-    if (data.weather.minutely) {
-      summary = data.weather.minutely.summary;
+    if (data.weather.forecastNextHour) {
+      summary = data.weather.forecastNextHour.summary;
     } else {
       summary =
-        data.weather.hourly.data[new Date().getMinutes() > 30 ? 1 : 0].summary;
+        data.weather.forecastHourly.data[new Date().getMinutes() > 30 ? 1 : 0]
+          .summary;
     }
 
     summary = summary.replace(' for the hour.', '');

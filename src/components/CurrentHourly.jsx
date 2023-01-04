@@ -20,7 +20,7 @@ export const CurrentHourly = () => {
 
   useEffect(() => {
     if (data) {
-      const allVals = data.weather.hourly.data
+      const allVals = data.weather.forecastHourly.data
         .slice(0, 23)
         .map((hour) => hour[hourlyConditionToShow]);
       const max = Math.max(...allVals);
@@ -37,7 +37,11 @@ export const CurrentHourly = () => {
     const newSelection = event.target;
 
     setHourlyConditionToShow(newSelection.dataset.label);
-    newSelection.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    newSelection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
     lastSelected.classList.add('pill');
     lastSelected.classList.remove('pill-selected');
     newSelection.classList.add('pill-selected');
@@ -53,28 +57,46 @@ export const CurrentHourly = () => {
           <em className="text-sm">
             High:{' '}
             {` ${formatCondition(
-              Math.max(...data.weather.hourly.data.slice(0, 23).map((hour) => Math.round(hour.temperature))),
+              Math.max(
+                ...data.weather.forecastHourly.data
+                  .slice(0, 23)
+                  .map((hour) => Math.round(hour.temperature)),
+              ),
               'temperature',
             )} `}
             Low:{' '}
             {` ${formatCondition(
-              Math.min(...data.weather.hourly.data.slice(0, 23).map((hour) => Math.round(hour.temperature))),
+              Math.min(
+                ...data.weather.forecastHourly.data
+                  .slice(0, 23)
+                  .map((hour) => Math.round(hour.temperature)),
+              ),
               'temperature',
             )} `}
-            {`\u00a0${data.weather.hourly.summary}`}
+            {`\u00a0${data.weather.forecastHourly.summary}`}
           </em>
         </p>
-        {data.weather.hourly.data.map((hourData, index) => {
+        {data.weather.forecastHourly.data.map((hourData, index) => {
           const startIndex =
             dayjs().format('m') <= 30 &&
-            dayjs.unix(data.weather.hourly.data[0].time).format('h') === dayjs().format('h')
+            dayjs
+              .unix(data.weather.forecastHourly.data[0].hourlyStart)
+              .format('h') === dayjs().format('h')
               ? 0
               : 1;
           const endIndex = startIndex + 22;
           const isFirst = index === startIndex;
           const isLast = index === endIndex;
-          const summaryText = formatSummary(hourData, data.weather.hourly.data, index, startIndex);
-          const dayDataIndex = dayjs.unix(hourData.time).format('D') > dayjs().format('D') ? 1 : 0;
+          const summaryText = formatSummary(
+            hourData,
+            data.weather.forecastHourly.data,
+            index,
+            startIndex,
+          );
+          const dayDataIndex =
+            dayjs.unix(hourData.hourlyStart).format('D') > dayjs().format('D')
+              ? 1
+              : 0;
 
           return index >= startIndex &&
             index <= endIndex &&
@@ -86,7 +108,7 @@ export const CurrentHourly = () => {
               isFirst={isFirst}
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
-              dayData={data.weather.daily.data[dayDataIndex]}
+              dayData={data.weather.forecastDaily.data[dayDataIndex]}
               valueRange={valueRange}
               maxValue={maxValue}
             />
@@ -96,17 +118,62 @@ export const CurrentHourly = () => {
         })}
       </ul>
       <div ref={containerRef} className="flex condition-select-container">
-        <Pill dataLabel="temperature" label="Temp (&deg;F)" selected={true} clickHandler={changeHandler} />
-        <Pill dataLabel="apparentTemperature" label="Feels-Like (&deg;F)" clickHandler={changeHandler} />
-        <Pill dataLabel="precipProbability" label="Precip Prob (%)" clickHandler={changeHandler} />
-        <Pill dataLabel="precipIntensity" label="Precip Rate (IN/HR)" clickHandler={changeHandler} />
-        <Pill dataLabel="windSpeed" label="Wind (MPH)" clickHandler={changeHandler} />
-        <Pill dataLabel="windGust" label="Wind Gust (MPH)" clickHandler={changeHandler} />
-        <Pill dataLabel="humidity" label="Humidity (%)" clickHandler={changeHandler} />
-        <Pill dataLabel="dewPoint" label="Dew Point (&deg;F)" clickHandler={changeHandler} />
-        <Pill dataLabel="uvIndex" label="UV Index" clickHandler={changeHandler} />
-        <Pill dataLabel="cloudCover" label="Cloud Cover (%)" clickHandler={changeHandler} />
-        <Pill dataLabel="pressure" label="Pressure (MB)" clickHandler={changeHandler} />
+        <Pill
+          dataLabel="temperature"
+          label="Temp (&deg;F)"
+          selected={true}
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="temperatureApparent"
+          label="Feels-Like (&deg;F)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="precipitationChance"
+          label="Precip Prob (%)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="precipitationIntensity"
+          label="Precip Rate (IN/HR)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="windSpeed"
+          label="Wind (MPH)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="windGust"
+          label="Wind Gust (MPH)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="humidity"
+          label="Humidity (%)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="temperatureDewPoint"
+          label="Dew Point (&deg;F)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="uvIndex"
+          label="UV Index"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="cloudCover"
+          label="Cloud Cover (%)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="pressure"
+          label="Pressure (MB)"
+          clickHandler={changeHandler}
+        />
       </div>
     </div>
   );

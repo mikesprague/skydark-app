@@ -72,8 +72,8 @@ export const Hour = ({
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="modal-headline">
-          {`${dayjs.unix(data.time).format('ddd, MMMM D')} at ${dayjs
-            .unix(data.time)
+          {`${dayjs.unix(data.hourlyStart).format('ddd, MMMM D')} at ${dayjs
+            .unix(data.hourlyStart)
             .format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">{data.summary}</h4>
@@ -96,8 +96,8 @@ export const Hour = ({
               <br />
               Feels Like:
               {` ${formatCondition(
-                data.apparentTemperature,
-                'apparentTemperature',
+                data.temperatureApparent,
+                'temperatureApparent',
               )}`}
             </small>
           </div>
@@ -150,7 +150,10 @@ export const Hour = ({
               {` ${formatCondition(data.humidity, 'humidity')}`}
               <br />
               Dew Point:
-              {` ${formatCondition(data.dewPoint, 'dewPoint')}`}
+              {` ${formatCondition(
+                data.temperatureDewPoint,
+                'temperatureDewPoint',
+              )}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -169,14 +172,14 @@ export const Hour = ({
             <small>
               Precipitaton:
               {` ${formatCondition(
-                data.precipProbability,
-                'precipProbability',
+                data.precipitationChance,
+                'precipitationChance',
               )}`}
               <br />
               Intensity:
               {` ${formatCondition(
-                data.precipIntensity,
-                'precipIntensity',
+                data.precipitationIntensity,
+                'precipitationIntensity',
               )} in/hr`}
             </small>
           </div>
@@ -263,10 +266,7 @@ export const Hour = ({
             <br />
             <small>
               Sunrise:
-              {` ${formatCondition(
-                dayData.sunriseTime,
-                'sunriseTime',
-              ).toLowerCase()}`}
+              {` ${formatCondition(dayData.sunrise, 'sunrise').toLowerCase()}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -308,7 +308,7 @@ export const Hour = ({
           } ${getConditionBarClass(data)}`}
         />
         <div className="time">
-          {dayjs.unix(data.time).format('h a').toUpperCase()}
+          {dayjs.unix(data.hourlyStart).format('h a').toUpperCase()}
         </div>
         <div className={summaryTextClass}>{summaryText.trim()}</div>
         <div className="spacer">&nbsp;</div>
@@ -317,7 +317,7 @@ export const Hour = ({
         className="condition"
         onClick={clickHandler}
         style={
-          ['humidity', 'cloudCover', 'precipProbability'].includes(
+          ['humidity', 'cloudCover', 'precipitationChance'].includes(
             conditionToShow,
           )
             ? {}

@@ -43,10 +43,10 @@ export const WeatherAlert = () => {
             </h3>
             <p className="pl-4 mb-4 text-sm text-left">
               <strong>Effective: </strong>
-              {dayjs.unix(alert.time).format('ddd, D MMM YYYY h:mm:ss A')}
+              {dayjs.unix(alert.issuedTime).format('ddd, D MMM YYYY h:mm:ss A')}
               <br />
               <strong>Expires: </strong>
-              {dayjs.unix(alert.expires).format('ddd, D MMM YYYY h:mm:ss A')}
+              {dayjs.unix(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
             </p>
             <p className="mb-6 text-center">{alert.description}</p>
             <p className="m-4 text-center">

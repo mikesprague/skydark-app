@@ -26,7 +26,7 @@ export const Currently = () => {
         <h3 className="modal-heading" id="modal-headline">
           Current Conditions
         </h3>
-        <h4 className="mb-2 text-lg">{data.weather.currently.summary}</h4>
+        <h4 className="mb-2 text-lg">{data.weather.currentWeather.summary}</h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -43,14 +43,14 @@ export const Currently = () => {
             <small>
               Temp:
               {` ${formatCondition(
-                data.weather.currently.temperature,
+                data.weather.currentWeather.temperature,
                 'temperature',
               )}`}
               <br />
               Feels Like:
               {` ${formatCondition(
-                data.weather.currently.apparentTemperature,
-                'apparentTemperature',
+                data.weather.currentWeather.temperatureApparent,
+                'temperatureApparent',
               )}`}
             </small>
           </div>
@@ -69,13 +69,13 @@ export const Currently = () => {
             <small>
               Wind:
               {` ${formatCondition(
-                data.weather.currently.windSpeed,
+                data.weather.currentWeather.windSpeed,
                 'windSpeed',
               )} mph `}
               <FontAwesomeIcon
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
-                transform={{ rotate: data.weather.currently.windBearing }}
+                transform={{ rotate: data.weather.currentWeather.windBearing }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
                   '--fa-secondary-color': 'darkslategray',
@@ -86,7 +86,7 @@ export const Currently = () => {
               <br />
               Gusts:
               {` ${formatCondition(
-                data.weather.currently.windGust,
+                data.weather.currentWeather.windGust,
                 'windGust',
               )} mph`}
             </small>
@@ -107,14 +107,14 @@ export const Currently = () => {
             <small>
               Humidity:
               {` ${formatCondition(
-                data.weather.currently.humidity,
+                data.weather.currentWeather.humidity,
                 'humidity',
               )}`}
               <br />
               Dew Point:
               {` ${formatCondition(
-                data.weather.currently.dewPoint,
-                'dewPoint',
+                data.weather.currentWeather.temperatureDewPoint,
+                'temperatureDewPoint',
               )}`}
             </small>
           </div>
@@ -134,14 +134,14 @@ export const Currently = () => {
             <small>
               Precipitaton:
               {` ${formatCondition(
-                data.weather.currently.precipProbability,
-                'precipProbability',
+                data.weather.currentWeather.precipitationChance,
+                'precipitationChance',
               )}`}
               <br />
               Intensity:
               {` ${formatCondition(
-                data.weather.currently.precipIntensity,
-                'precipIntensity',
+                data.weather.currentWeather.precipitationIntensity,
+                'precipitationIntensity',
               )} in/hr`}
             </small>
           </div>
@@ -160,7 +160,7 @@ export const Currently = () => {
             <small>
               Cloud Cover:
               {` ${formatCondition(
-                data.weather.currently.cloudCover,
+                data.weather.currentWeather.cloudCover,
                 'cloudCover',
               )}`}
             </small>
@@ -180,7 +180,7 @@ export const Currently = () => {
             <small>
               Visibiity:
               {` ${formatCondition(
-                data.weather.currently.visibility,
+                data.weather.currentWeather.visibility,
                 'visibility',
               )} mi`}
             </small>
@@ -200,7 +200,7 @@ export const Currently = () => {
             <small>
               Pressure:
               {` ${formatCondition(
-                data.weather.currently.pressure,
+                data.weather.currentWeather.pressure,
                 'pressure',
               )} mb`}
             </small>
@@ -219,7 +219,10 @@ export const Currently = () => {
             <br />
             <small>
               UV Index:
-              {` ${formatCondition(data.weather.currently.uvIndex, 'uvIndex')}`}
+              {` ${formatCondition(
+                data.weather.currentWeather.uvIndex,
+                'uvIndex',
+              )}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -238,8 +241,8 @@ export const Currently = () => {
             <small>
               Sunrise:
               {` ${formatCondition(
-                data.weather.daily.data[0].sunriseTime,
-                'sunriseTime',
+                data.weather.forecastDaily.data[0].sunrise,
+                'sunrise',
               ).toLowerCase()}`}
             </small>
           </div>
@@ -259,7 +262,7 @@ export const Currently = () => {
             <small>
               Sunset:
               {` ${formatCondition(
-                data.weather.daily.data[0].sunsetTime,
+                data.weather.forecastDaily.data[0].sunsetTime,
                 'sunsetTime',
               ).toLowerCase()}`}
             </small>
@@ -277,8 +280,11 @@ export const Currently = () => {
     <div className="current-conditions" onClick={clickHandler}>
       <div className="icon">
         <FontAwesomeIcon
-          icon={['fad', getWeatherIcon(currentData.currently.icon).icon]}
-          style={getWeatherIcon(currentData.currently.icon).iconStyles}
+          icon={[
+            'fad',
+            getWeatherIcon(currentData.currently.conditionCode).icon,
+          ]}
+          style={getWeatherIcon(currentData.currently.conditionCode).iconStyles}
           fixedWidth
           size="4x"
         />
@@ -291,8 +297,8 @@ export const Currently = () => {
           ).trim()}
         </h2>
         <h3 className="feels-like-temp">{`Feels ${formatCondition(
-          currentData.currently.apparentTemperature,
-          'apparentTemperature',
+          currentData.currently.temperatureApparent,
+          'temperatureApparent',
         ).trim()}`}</h3>
       </div>
     </div>

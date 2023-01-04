@@ -132,6 +132,17 @@ export const handleError = (error) => {
   }
 };
 
+export const titleCaseToSentenceCase = (words) =>
+  words
+    .split('')
+    // eslint-disable-next-line no-confusing-arrow
+    .map((character, index) =>
+      index > 0 && /[A-Z]/.test(character)
+        ? ` ${character.toLowerCase()}`
+        : character,
+    )
+    .join('');
+
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
@@ -160,19 +171,19 @@ const formatDecimal = (num, places = 2) => Number(num.toFixed(places));
 export const formatCondition = (value, condition) => {
   switch (condition) {
     case 'temperature':
-    case 'apparentTemperature':
-    case 'dewPoint':
+    case 'temperatureApparent':
+    case 'temperatureDewPoint':
       return formatTemp(value);
-    case 'precipProbability':
+    case 'precipitationChance':
     case 'humidity':
     case 'cloudCover':
       return formatPercent(value);
-    case 'precipIntensity':
+    case 'precipitationIntensity':
       return `${formatDecimal(value)}`;
     case 'pressure':
       return `${formatNum(value)}`;
-    case 'sunriseTime':
-    case 'sunsetTime':
+    case 'sunrise':
+    case 'sunset':
       return `${dayjs.unix(value).format('h:mm A')}`;
     case 'uvIndex':
       return `${formatNum(value)}`;
@@ -208,23 +219,26 @@ export const getRadarTs = () => {
 };
 
 export const getConditionBarClass = (data) => {
-  const { icon, cloudCover, summary } = data;
+  let { conditionCode, cloudCover, summary } = data;
+
+  conditionCode = conditionCode.toLowerCase();
   const clouds = Math.round(cloudCover * 100);
-  const summaryNormalized = summary.toLowerCase();
-  const isCloudy = () => icon.includes('cloudy') || clouds >= 40;
+  // const summaryNormalized = summary.toLowerCase();
+  const isCloudy = () => conditionCode.includes('cloudy') || clouds >= 40;
   const isRaining = () =>
-    icon.includes('rain') ||
-    icon.includes('thunderstorm') ||
-    icon.includes('hail');
-  const isSnowing = () => icon.includes('snow') || icon.includes('sleet');
-  const isLight = () => summaryNormalized.includes('light');
-  const isHeavy = () => summaryNormalized.includes('heavy');
-  const isDrizzle = () => summaryNormalized.includes('drizzle');
-  const isFlurries = () => summaryNormalized.includes('flurries');
-  const isOvercast = () => summaryNormalized.includes('overcast');
-  const isClear = () => icon.includes('clear');
+    conditionCode.includes('rain') ||
+    conditionCode.includes('thunderstorm') ||
+    conditionCode.includes('hail');
+  const isSnowing = () =>
+    conditionCode.includes('snow') || conditionCode.includes('sleet');
+  const isLight = () => conditionCode.includes('light');
+  const isHeavy = () => conditionCode.includes('heavy');
+  const isDrizzle = () => conditionCode.includes('drizzle');
+  const isFlurries = () => conditionCode.includes('flurries');
+  const isOvercast = () => conditionCode.includes('overcast');
+  const isClear = () => conditionCode.includes('clear');
   const hasMostly = () =>
-    icon.includes('mostly') || summaryNormalized.includes('mostly');
+    conditionCode.includes('mostly') || conditionCode.includes('mostly');
 
   if (isRaining()) {
     if (isHeavy()) {
@@ -292,7 +306,7 @@ export const formatSummary = (
       ? ''
       : currentHourData.summary;
 
-  return summary.trim();
+  return summary;
 };
 
 export const getUvIndexClasses = (uvIndex) => {

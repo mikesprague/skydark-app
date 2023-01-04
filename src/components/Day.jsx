@@ -17,7 +17,7 @@ import './Day.scss';
 
 export const Day = ({ data, dayIndex, minLow }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(
-    `hourlyData_${data.time}`,
+    `hourlyData_${data.startTime}`,
     null,
   );
   const fullData = useContext(WeatherDataContext);
@@ -38,7 +38,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
     const currentSummary = clickedEl.closest('summary');
     const scrollMarker = currentDetail.querySelector('.scroll-marker');
     const isOpen = currentDetail.getAttribute('open') === null;
-    const date = currentSummary.dataset.time;
+    const date = currentSummary.dataset.dailyStart;
 
     allDetails.forEach((detail) => {
       if (detail !== currentDetail) {
@@ -57,7 +57,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
 
         setHourlyData({
           lastUpdated: dayjs().toString(),
-          data: weatherData.weather.hourly.data,
+          data: weatherData.weather.forecastHourly.data,
         });
       }
 
@@ -76,7 +76,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
 
   return (
     <details className="day">
-      <summary data-time={data.time} onClick={clickHandler}>
+      <summary data-time={data.dailyStart} onClick={clickHandler}>
         <div className="relative hidden w-0 h-0 text-transparent scroll-marker -top-12">
           &nbsp;
         </div>
@@ -85,21 +85,21 @@ export const Day = ({ data, dayIndex, minLow }) => {
             <strong>
               {dayIndex === 0
                 ? 'TODAY'
-                : dayjs.unix(data.time).format('ddd').toUpperCase()}
+                : dayjs.unix(data.dailyStart).format('ddd').toUpperCase()}
             </strong>
             <br />
             <span className="precip">
               <FontAwesomeIcon icon={['fad', 'droplet']} />
               {` ${formatCondition(
-                data.precipProbability,
-                'precipProbability',
+                data.precipitationChance,
+                'precipitationChance',
               )}`}
             </span>
           </div>
           <div className="icon">
             <FontAwesomeIcon
-              icon={['fad', getWeatherIcon(data.icon).icon]}
-              style={getWeatherIcon(data.icon).iconStyles}
+              icon={['fad', getWeatherIcon(data.conditionCode).icon]}
+              style={getWeatherIcon(data.conditionCode).iconStyles}
               size="2x"
               fixedWidth
             />
@@ -108,9 +108,9 @@ export const Day = ({ data, dayIndex, minLow }) => {
             className="temps"
             style={{
               position: 'relative',
-              left: `${
-                Math.round(Math.round(data.temperatureMin) - minLow * 0.75)
-              }%`,
+              left: `${Math.round(
+                Math.round(data.temperatureMin) - minLow * 0.75,
+              )}%`,
             }}
           >
             {formatCondition(data.temperatureMin, 'temperature').trim()}

@@ -16,8 +16,8 @@ export const PrecipChart = () => {
 
     const dataArray = [['Minute', 'Precipitation']];
 
-    data.weather.minutely.data.forEach((minute, index) => {
-      dataArray.push([index, minute.precipIntensity]);
+    data.weather.forecastNextHour.data.forEach((minute, index) => {
+      dataArray.push([index, minute.precipitationIntensity]);
     });
     setChartData(dataArray);
   }, [data]);
