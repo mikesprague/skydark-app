@@ -1,4 +1,5 @@
 import * as jose from 'jose';
+import dayjs from 'dayjs';
 import queryString from 'query-string';
 
 /* eslint-disable import/prefer-default-export */
@@ -59,10 +60,15 @@ export const onRequestGet = async (context) => {
   let lat = urlParams.get('lat') || latitude;
   let lng = urlParams.get('lng') || longitude;
 
-  const dailyStart = urlParams.get('dailyStart');
-  const hourlyStart = urlParams.get('hourlyStart');
-  const forecastStart = urlParams.get('forecastStart');
-  const startTime = urlParams.get('startTime');
+  const currentHourAsIsoDate = dayjs()
+    .set('hour', dayjs().hour())
+    .set('minute', 0)
+    .set('second', 0)
+    .set('millisecond', 0)
+    .toISOString();
+
+  const dailyStart = urlParams.get('dailyStart') || currentHourAsIsoDate;
+  const hourlyStart = urlParams.get('hourlyStart') || currentHourAsIsoDate;
 
   const defaultLat = '40.71455';
   const defaultLng = '-74.00712';
@@ -154,9 +160,7 @@ export const onRequestGet = async (context) => {
     ],
     timezone: tz,
     dailyStart,
-    forecastStart,
     hourlyStart,
-    startTime,
   };
 
   const qs = queryString.stringify(queryParams, {
