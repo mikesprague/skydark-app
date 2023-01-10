@@ -59,6 +59,11 @@ export const onRequestGet = async (context) => {
   let lat = urlParams.get('lat') || latitude;
   let lng = urlParams.get('lng') || longitude;
 
+  const dailyStart = urlParams.get('dailyStart');
+  const hourlyStart = urlParams.get('hourlyStart');
+  const forecastStart = urlParams.get('forecastStart');
+  const startTime = urlParams.get('startTime');
+
   const defaultLat = '40.71455';
   const defaultLng = '-74.00712';
 
@@ -148,6 +153,10 @@ export const onRequestGet = async (context) => {
       'weatherAlerts',
     ],
     timezone: tz,
+    dailyStart,
+    forecastStart,
+    hourlyStart,
+    startTime,
   };
 
   const qs = queryString.stringify(queryParams, {
