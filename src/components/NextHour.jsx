@@ -17,15 +17,18 @@ export const NextHour = () => {
     let summary;
 
     if (data.weather.forecastNextHour) {
-      summary = data.weather.forecastNextHour.summary;
+      summary = data.weather.forecastNextHour.summary[0].condition;
     } else {
       summary =
-        data.weather.forecastHourly.data[new Date().getMinutes() > 30 ? 1 : 0]
-          .summary;
+        data.weather.forecastHourly.hours[new Date().getMinutes() > 30 ? 1 : 0]
+          .conditionCode;
     }
 
-    summary = summary.replace(' for the hour.', '');
-    summary = summary.charAt(0).toUpperCase() + summary.slice(1);
+    summary =
+      summary && summary.length ? summary.replace(' for the hour.', '') : '';
+    summary = summary.length
+      ? summary.charAt(0).toUpperCase() + summary.slice(1)
+      : '';
     setSummaryText(summary);
 
     return () => setSummaryText(null);

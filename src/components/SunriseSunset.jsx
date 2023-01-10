@@ -48,7 +48,7 @@ export const SunriseSunset = () => {
 
   useEffect(() => {
     const init = () => {
-      const [today, tomorrow] = data.weather.forecastDaily.data;
+      const [today, tomorrow] = data.weather.forecastDaily.days;
       const now = dayjs();
       let isSunset = false;
       let datetime = today.sunrise;

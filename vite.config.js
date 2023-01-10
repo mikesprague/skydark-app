@@ -27,7 +27,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       devOptions: {
-        enabled: true,
+        enabled: false,
       },
       includeAssets: [
         './images/skydark-app-icon-64.png',
@@ -43,7 +43,7 @@ export default defineConfig({
         dir: 'auto',
         orientation: 'portrait',
         display: 'standalone',
-	      id: '/',
+        id: '/',
         start_url: '/',
         background_color: '#181c1d',
         theme_color: '#181c1d',

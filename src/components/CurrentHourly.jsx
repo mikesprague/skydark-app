@@ -20,7 +20,7 @@ export const CurrentHourly = () => {
 
   useEffect(() => {
     if (data) {
-      const allVals = data.weather.forecastHourly.data
+      const allVals = data.weather.forecastHourly.hours
         .slice(0, 23)
         .map((hour) => hour[hourlyConditionToShow]);
       const max = Math.max(...allVals);
@@ -58,7 +58,7 @@ export const CurrentHourly = () => {
             High:{' '}
             {` ${formatCondition(
               Math.max(
-                ...data.weather.forecastHourly.data
+                ...data.weather.forecastHourly.hours
                   .slice(0, 23)
                   .map((hour) => Math.round(hour.temperature)),
               ),
@@ -67,7 +67,7 @@ export const CurrentHourly = () => {
             Low:{' '}
             {` ${formatCondition(
               Math.min(
-                ...data.weather.forecastHourly.data
+                ...data.weather.forecastHourly.hours
                   .slice(0, 23)
                   .map((hour) => Math.round(hour.temperature)),
               ),
@@ -76,11 +76,11 @@ export const CurrentHourly = () => {
             {`\u00a0${data.weather.forecastHourly.summary}`}
           </em>
         </p>
-        {data.weather.forecastHourly.data.map((hourData, index) => {
+        {data.weather.forecastHourly.hours.map((hourData, index) => {
           const startIndex =
             dayjs().format('m') <= 30 &&
             dayjs
-              .unix(data.weather.forecastHourly.data[0].hourlyStart)
+              .unix(data.weather.forecastHourly.hours[0].hourlyStart)
               .format('h') === dayjs().format('h')
               ? 0
               : 1;
@@ -89,7 +89,7 @@ export const CurrentHourly = () => {
           const isLast = index === endIndex;
           const summaryText = formatSummary(
             hourData,
-            data.weather.forecastHourly.data,
+            data.weather.forecastHourly.hours,
             index,
             startIndex,
           );
@@ -104,11 +104,11 @@ export const CurrentHourly = () => {
             <Hour
               key={nanoid(7)}
               data={hourData}
-              summary={summaryText}
+              summary={summaryText || ''}
               isFirst={isFirst}
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
-              dayData={data.weather.forecastDaily.data[dayDataIndex]}
+              dayData={data.weather.forecastDaily.days[dayDataIndex]}
               valueRange={valueRange}
               maxValue={maxValue}
             />

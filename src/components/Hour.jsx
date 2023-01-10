@@ -43,7 +43,8 @@ export const Hour = ({
   const [summaryTextClass, setSummaryTextClass] = useState('summary one-line');
 
   useEffect(() => {
-    const summaryTextArray = summary.split(' ');
+    const summaryTextArray =
+      summary && summary.length ? summary.split(' ') : [];
 
     if (summaryTextArray.length > 2) {
       if (
@@ -355,6 +356,7 @@ Hour.propTypes = {
       PropTypes.number,
       PropTypes.array,
       PropTypes.object,
+      PropTypes.bool,
     ]),
   ).isRequired,
   dayData: PropTypes.objectOf(
@@ -363,6 +365,7 @@ Hour.propTypes = {
       PropTypes.number,
       PropTypes.array,
       PropTypes.object,
+      PropTypes.bool,
     ]),
   ).isRequired,
   summary: PropTypes.string.isRequired,

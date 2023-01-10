@@ -241,7 +241,7 @@ export const Currently = () => {
             <small>
               Sunrise:
               {` ${formatCondition(
-                data.weather.forecastDaily.data[0].sunrise,
+                data.weather.forecastDaily.days[0].sunrise,
                 'sunrise',
               ).toLowerCase()}`}
             </small>
@@ -262,7 +262,7 @@ export const Currently = () => {
             <small>
               Sunset:
               {` ${formatCondition(
-                data.weather.forecastDaily.data[0].sunsetTime,
+                data.weather.forecastDaily.days[0].sunset,
                 'sunsetTime',
               ).toLowerCase()}`}
             </small>
@@ -282,9 +282,11 @@ export const Currently = () => {
         <FontAwesomeIcon
           icon={[
             'fad',
-            getWeatherIcon(currentData.currently.conditionCode).icon,
+            getWeatherIcon(currentData.currentWeather.conditionCode).icon,
           ]}
-          style={getWeatherIcon(currentData.currently.conditionCode).iconStyles}
+          style={
+            getWeatherIcon(currentData.currentWeather.conditionCode).iconStyles
+          }
           fixedWidth
           size="4x"
         />
@@ -292,12 +294,12 @@ export const Currently = () => {
       <div className="temperature">
         <h2 className="actual-temp">
           {formatCondition(
-            currentData.currently.temperature,
+            currentData.currentWeather.temperature,
             'temperature',
           ).trim()}
         </h2>
         <h3 className="feels-like-temp">{`Feels ${formatCondition(
-          currentData.currently.temperatureApparent,
+          currentData.currentWeather.temperatureApparent,
           'temperatureApparent',
         ).trim()}`}</h3>
       </div>

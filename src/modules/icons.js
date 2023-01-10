@@ -161,121 +161,476 @@ export const initIcons = () => {
   );
 };
 
-export const getWeatherIcon = (icon) => {
-  const iconMap = {
-    'clear-day': {
+export const getWeatherIcon = (conditionCode) => {
+  const iconMap = [
+    {
+      code: 'BlowingDust',
+      description: 'Blowing dust or sandstorm',
+      type: 'visibility',
+      icon: 'sun-dust',
+      iconStyles: {
+        '--fa-primary-color': 'gold',
+        '--fa-secondary-color': 'silver',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Clear',
+      description: 'Clear',
+      type: 'visibility',
       icon: 'sun',
       iconStyles: {
         '--fa-primary-color': 'gold',
         '--fa-secondary-color': 'darkorange',
         '--fa-secondary-opacity': '.75',
       },
-    },
-    'clear-night': {
-      icon: 'moon-stars',
-      iconStyles: {
+      nightIcon: 'moon-stars',
+      nightIconStyles: {
         '--fa-primary-color': 'plum',
         '--fa-secondary-color': 'palegoldenrod',
         '--fa-secondary-opacity': '1',
       },
     },
-    rain: {
-      icon: 'cloud-rain',
-      iconStyles: {
-        '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'dodgerblue',
-        '--fa-secondary-opacity': '.75',
-      },
-    },
-    snow: {
-      icon: 'cloud-snow',
-      iconStyles: {
-        '--fa-primary-color': 'silver',
-        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
-        '--fa-secondary-opacity': '1',
-      },
-    },
-    sleet: {
-      icon: 'cloud-sleet',
-      iconStyles: {
-        '--fa-primary-color': 'silver',
-        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
-        '--fa-secondary-opacity': '.9',
-      },
-    },
-    wind: {
-      icon: 'wind',
-      iconStyles: {
-        '--fa-primary-color': 'skyblue',
-        '--fa-secondary-color': 'lightgray',
-        '--fa-secondary-opacity': '.75',
-      },
-    },
-    fog: {
-      icon: 'cloud-fog',
-      iconStyles: {
-        '--fa-primary-color': 'lightgray',
-        '--fa-secondary-color': 'silver',
-        '--fa-secondary-opacity': '1',
-      },
-    },
-    cloudy: {
+    {
+      code: 'Cloudy',
+      description: 'Cloudy, overcast conditions',
+      type: 'visibility',
       icon: 'clouds',
       iconStyles: {
         '--fa-primary-color': 'silver',
         '--fa-secondary-color': 'darkgray',
         '--fa-secondary-opacity': '.75',
       },
+      nightIcon: null,
+      nightIconStyles: {},
     },
-    'partly-cloudy-day': {
-      icon: 'clouds-sun',
+    {
+      code: 'Foggy',
+      description: 'Fog',
+      type: 'visibility',
+      icon: 'cloud-fog',
+      iconStyles: {
+        '--fa-primary-color': 'lightgray',
+        '--fa-secondary-color': 'silver',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Haze',
+      description: 'Haze',
+      type: 'visibility',
+      icon: 'sun-haze',
+      iconStyles: {
+        '--fa-primary-color': 'gold',
+        '--fa-secondary-color': 'silver',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'MostlyClear',
+      description: 'Mostly clear',
+      type: 'visibility',
+      icon: 'sun-cloud',
+      iconStyles: {
+        '--fa-primary-color': 'gold',
+        '--fa-secondary-color': 'silver',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: 'moon-cloud',
+      nightIconStyles: {
+        '--fa-primary-color': 'plum',
+        '--fa-secondary-color': 'silver',
+        '--fa-secondary-opacity': '1',
+      },
+    },
+    {
+      code: 'MostlyCloudy',
+      description: 'Mostly cloudy',
+      type: 'visibility',
+      icon: 'cloud-sun',
       iconStyles: {
         '--fa-primary-color': 'silver',
         '--fa-secondary-color': 'gold',
         '--fa-secondary-opacity': '.75',
       },
-    },
-    'partly-cloudy-night': {
-      icon: 'clouds-moon',
-      iconStyles: {
+      nightIcon: 'clouds-moon',
+      nightIconStyles: {
         '--fa-primary-color': 'silver',
         '--fa-secondary-color': 'plum',
         '--fa-secondary-opacity': '1',
       },
     },
-    hail: {
-      icon: 'cloud-hail',
+    {
+      code: 'PartlyCloudy',
+      description: 'Partly cloudy',
+      type: 'visibility',
+      icon: 'cloud-sun',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
-        '--fa-secondary-opacity': '.9',
+        '--fa-secondary-color': 'gold',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: 'clouds-moon',
+      nightIconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'plum',
+        '--fa-secondary-opacity': '1',
       },
     },
-    hurricane: {
-      icon: 'hurricane',
+    {
+      code: 'Smoky',
+      description: 'Smoky',
+      type: 'visibility',
+      icon: 'smoke',
       iconStyles: {
-        '--fa-primary-color': 'black',
-        '--fa-secondary-color': 'crimson',
-        '--fa-secondary-opacity': '.9',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'darkgray',
+        '--fa-secondary-opacity': '.75',
       },
+      nightIcon: null,
+      nightIconStyles: {},
     },
-    thunderstorm: {
+    {
+      code: 'Breezy',
+      description: 'Breezy, light wind',
+      type: 'wind',
+      icon: 'wind',
+      iconStyles: {
+        '--fa-primary-color': 'skyblue',
+        '--fa-secondary-color': 'lightgray',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Windy',
+      description: 'Windy',
+      type: 'wind',
+      icon: 'wind',
+      iconStyles: {
+        '--fa-primary-color': 'skyblue',
+        '--fa-secondary-color': 'lightgray',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Drizzle',
+      description: 'Drizzle or light rain',
+      type: 'precipitation',
+      icon: 'cloud-drizzle',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'dodgerblue',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'HeavyRain',
+      description: 'Heavy rain',
+      type: 'precipitation',
+      icon: 'cloud-showers-heavy',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'dodgerblue',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'IsolatedThunderstorms',
+      description: 'Thunderstorms covering less than 1/8 of the forecast area',
+      type: 'precipitation',
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
         '--fa-secondary-color': 'yellow',
         '--fa-secondary-opacity': '.8',
       },
+      nightIcon: null,
+      nightIconStyles: {},
     },
-    tornado: {
-      icon: 'tornado',
+    {
+      code: 'Rain',
+      description: 'Rain',
+      type: 'precipitation',
+      icon: 'cloud-rain',
       iconStyles: {
-        '--fa-primary-color': 'skyblue',
-        '--fa-secondary-color': 'silver',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'dodgerblue',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'SunShowers',
+      description: 'Rain with visible sun',
+      type: 'precipitation',
+      icon: 'cloud-sun-rain',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'gold',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: 'cloud-moon-rain',
+      nightIconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'plum',
         '--fa-secondary-opacity': '.75',
       },
     },
-  };
+    {
+      code: 'ScatteredThunderstorms',
+      description:
+        'Numerous thunderstorms spread across up to 50% of the forecast area',
+      type: 'precipitation',
+      icon: 'cloud-bolt',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'yellow',
+        '--fa-secondary-opacity': '.8',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'StrongStorms',
+      description: 'Notably strong thunderstorms',
+      type: 'precipitation',
+      icon: 'cloud-showers-water',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'dodgerblue',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Thunderstorms',
+      description: 'Thunderstorms',
+      type: 'precipitation',
+      icon: 'cloud-bolt',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'yellow',
+        '--fa-secondary-opacity': '.8',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Frigid',
+      description: 'Frigid conditions, low temperatures, or ice crystals',
+      type: 'hazardous',
+      icon: 'temp-snow',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Hail',
+      description: 'Hail',
+      type: 'hazardous',
+      icon: 'cloud-hail',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '.9',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Hot',
+      description: 'High temperatures',
+      type: 'hazardous',
+      icon: 'temperature-sun',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'gold',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Flurries',
+      description: 'Flurries or light snow',
+      type: 'winter-precipitation',
+      icon: 'cloud-snow',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Sleet',
+      description: 'Sleet',
+      type: 'winter-precipitation',
+      icon: 'cloud-sleet',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '.9',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Snow',
+      description: 'Snow',
+      type: 'winter-precipitation',
+      icon: 'snowflakes',
+      iconStyles: {
+        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-color': 'silver',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'SunFlurries',
+      description: 'Snow flurries with visible sun',
+      type: 'winter-precipitation',
+      icon: 'cloud-snow',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'WintryMix',
+      description: 'Wintry mix',
+      type: 'winter-precipitation',
+      icon: 'snowflake-droplets',
+      iconStyles: {
+        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-color': 'dodgerblue',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Blizzard',
+      description: 'Blizzard',
+      type: 'hazardous-winter',
+      icon: 'snow-blowing',
+      iconStyles: {
+        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-color': 'lightgray',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'BlowingSnow',
+      description: 'Blowing or drifting snow',
+      type: 'hazardous-winter',
+      icon: 'snow-blowing',
+      iconStyles: {
+        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-color': 'lightgray',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'FreezingDrizzle',
+      description: 'Freezing drizzle or light rain',
+      type: 'hazardous-winter',
+      icon: 'cloud-sleet',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '.9',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'FreezingRain',
+      description: 'Freezing rain',
+      type: 'hazardous-winter',
+      icon: 'cloud-sleet',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-opacity': '.9',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'HeavySnow',
+      description: 'Heavy snow',
+      type: 'hazardous-winter',
+      icon: 'snow-blowing',
+      iconStyles: {
+        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
+        '--fa-secondary-color': 'lightgray',
+        '--fa-secondary-opacity': '1',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'Hurricane',
+      description: 'Hurricane',
+      type: 'tropical-hazard',
+      icon: 'hurricane',
+      iconStyles: {
+        '--fa-primary-color': 'black',
+        '--fa-secondary-color': 'crimson',
+        '--fa-secondary-opacity': '.9',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+    {
+      code: 'TropicalStorm',
+      description: 'Tropical storm',
+      type: 'tropical-hazard',
+      icon: 'hurricane',
+      iconStyles: {
+        '--fa-primary-color': 'black',
+        '--fa-secondary-color': 'crimson',
+        '--fa-secondary-opacity': '.9',
+      },
+      nightIcon: null,
+      nightIconStyles: {},
+    },
+  ];
 
-  return iconMap[icon];
+  const [icon] = iconMap.filter(
+    (condition) => condition.code === conditionCode,
+  );
+
+  return icon;
 };

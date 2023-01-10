@@ -57,7 +57,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
 
         setHourlyData({
           lastUpdated: dayjs().toString(),
-          data: weatherData.weather.forecastHourly.data,
+          data: weatherData.weather.forecastHourly.hours,
         });
       }
 
@@ -141,6 +141,7 @@ Day.propTypes = {
       PropTypes.number,
       PropTypes.array,
       PropTypes.object,
+      PropTypes.bool,
     ]),
   ).isRequired,
   dayIndex: PropTypes.number.isRequired,
