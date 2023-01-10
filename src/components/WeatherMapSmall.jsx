@@ -71,8 +71,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const coordinates = {
-      lat: data.weather.latitude,
-      lng: data.weather.longitude,
+      lat: data.weather.currentWeather.metadata.latitude,
+      lng: data.weather.currentWeather.metadata.longitude,
     };
 
     setLocationCoordinates(coordinates);
