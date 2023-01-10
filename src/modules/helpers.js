@@ -118,6 +118,7 @@ export const apiUrl = () => {
     window.location.hostname.includes('127.0.0.1')
   ) {
     urlToReturn = `${window.location.protocol}//${window.location.hostname}:8788/api`;
+    urlToReturn = 'https://dev.skydark.app/api';
   }
   // console.log(urlToReturn);
 
@@ -163,7 +164,8 @@ export const initLeafletImages = (leafletRef) => {
 // eslint-disable-next-line no-promise-executor-return
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
+const formatTemp = (temp) =>
+  `${Math.round(metricToImperial.cToF(temp))}${String.fromCharCode(176)}`;
 const formatPercent = (num) => `${Math.round(num * 100)}%`;
 const formatNum = (num) => Number(Math.round(num));
 const formatDecimal = (num, places = 2) => Number(num.toFixed(places));
@@ -184,7 +186,7 @@ export const formatCondition = (value, condition) => {
       return `${formatNum(value)}`;
     case 'sunrise':
     case 'sunset':
-      return `${dayjs.unix(value).format('h:mm A')}`;
+      return `${dayjs(value).format('h:mm A')}`;
     case 'uvIndex':
       return `${formatNum(value)}`;
     case 'visibility':
@@ -296,17 +298,18 @@ export const formatSummary = (
   let summary = '';
 
   if (index === startIndex) {
-    summary = currentHourData.summary;
+    summary = currentHourData.conditionCode;
 
     return summary;
   }
 
   summary =
-    index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary
+    index >= 2 &&
+    currentHourData.conditionCode === allHourlyData[index - 2].conditionCode
       ? ''
-      : currentHourData.summary;
+      : currentHourData.conditionCode;
 
-  return summary;
+  return titleCaseToSentenceCase(summary);
 };
 
 export const getUvIndexClasses = (uvIndex) => {

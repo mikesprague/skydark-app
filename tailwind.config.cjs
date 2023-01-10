@@ -15,7 +15,7 @@ module.exports = {
     colors: {
       white: colors.white,
       black: colors.black,
-      gray: process.env['NODE_ENV'] === 'development' ? colors.slate : colors.zinc,
+      gray: process.env.NODE_ENV === 'development' ? colors.slate : colors.zinc,
       red: colors.red,
       orange: colors.orange,
       yellow: colors.yellow,

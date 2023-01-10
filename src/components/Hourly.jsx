@@ -20,7 +20,7 @@ export const Hourly = ({ data, dayData }) => {
       return;
     }
 
-    setHourlyData(data.data);
+    setHourlyData(data.data.slice(0, 23));
   }, [data]);
 
   const [maxValue, setMaxValue] = useState(0);

@@ -2,7 +2,12 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
-import { formatCondition, formatSummary } from '../modules/helpers';
+import {
+  formatCondition,
+  formatSummary,
+  metricToImperial,
+  titleCaseToSentenceCase,
+} from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
 import { Pill } from './Pill';
@@ -11,7 +16,8 @@ import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './CurrentHourly.scss';
 
 export const CurrentHourly = () => {
-  const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
+  const [hourlyConditionToShow, setHourlyConditionToShow] =
+    useState('temperature');
   const containerRef = useRef();
   const data = useContext(WeatherDataContext);
 
@@ -23,8 +29,8 @@ export const CurrentHourly = () => {
       const allVals = data.weather.forecastHourly.hours
         .slice(0, 23)
         .map((hour) => hour[hourlyConditionToShow]);
-      const max = Math.max(...allVals);
-      const min = Math.min(...allVals);
+      const max = metricToImperial.cToF(Math.max(...allVals));
+      const min = metricToImperial.cToF(Math.min(...allVals));
       const range = max - min;
 
       setMaxValue(max);
@@ -73,15 +79,17 @@ export const CurrentHourly = () => {
               ),
               'temperature',
             )} `}
-            {`\u00a0${data.weather.forecastHourly.summary}`}
+            {`\u00a0${titleCaseToSentenceCase(
+              data.weather.forecastDaily.days[0].conditionCode,
+            )}`}
           </em>
         </p>
         {data.weather.forecastHourly.hours.map((hourData, index) => {
           const startIndex =
             dayjs().format('m') <= 30 &&
-            dayjs
-              .unix(data.weather.forecastHourly.hours[0].hourlyStart)
-              .format('h') === dayjs().format('h')
+            dayjs(data.weather.forecastHourly.hours[0].hourlyStart).format(
+              'h',
+            ) === dayjs().format('h')
               ? 0
               : 1;
           const endIndex = startIndex + 22;
@@ -94,7 +102,7 @@ export const CurrentHourly = () => {
             startIndex,
           );
           const dayDataIndex =
-            dayjs.unix(hourData.hourlyStart).format('D') > dayjs().format('D')
+            dayjs(hourData.hourlyStart).format('D') > dayjs().format('D')
               ? 1
               : 0;
 

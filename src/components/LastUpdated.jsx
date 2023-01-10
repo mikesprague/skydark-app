@@ -32,7 +32,13 @@ export const LastUpdated = () => {
       <small>
         {`Last updated ${lastUpdatedString}`}
         <br />
-        <a href="https://darksky.net/poweredby/" rel="noopener noreferrer" target="_blank">Powered by Dark Sky</a>
+        <a
+          href="https://weatherkit.apple.com/legal-attribution.html"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Powered by Apple Weather
+        </a>
       </small>
     </div>
   );

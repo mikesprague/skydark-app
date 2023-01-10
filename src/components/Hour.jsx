@@ -11,7 +11,9 @@ import {
   formatCondition,
   getConditionBarClass,
   getUvIndexClasses,
+  metricToImperial,
   openModalWithComponent,
+  titleCaseToSentenceCase,
 } from '../modules/helpers';
 
 import './Hour.scss';
@@ -40,42 +42,18 @@ export const Hour = ({
   }, [hourlyConditionToShow, conditionToShow]);
 
   const [summaryText, setSummaryText] = useState('');
-  const [summaryTextClass, setSummaryTextClass] = useState('summary one-line');
 
   useEffect(() => {
-    const summaryTextArray =
-      summary && summary.length ? summary.split(' ') : [];
-
-    if (summaryTextArray.length > 2) {
-      if (
-        summaryTextArray.length === 3 &&
-        (summaryTextArray.join(' ').trim().toLowerCase() === 'rain and humid' ||
-          summaryTextArray.join(' ').trim().toLowerCase() === 'rain and moist')
-      ) {
-        summaryTextArray.splice(2, 0, '\u000a');
-      } else if (
-        summaryTextArray.length >= 4 ||
-        summaryTextArray[0].trim().toLowerCase() === 'humid' ||
-        summaryTextArray[0].trim().toLowerCase() === 'moist'
-      ) {
-        summaryTextArray.splice(2, 0, '\u000a');
-      } else {
-        summaryTextArray.splice(1, 0, '\u000a');
-      }
-
-      setSummaryTextClass('summary');
-    }
-
-    setSummaryText(summaryTextArray.join(' ').trim());
+    setSummaryText(titleCaseToSentenceCase(summary).trim());
   }, [summary]);
 
   const clickHandler = () => {
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="modal-headline">
-          {`${dayjs.unix(data.hourlyStart).format('ddd, MMMM D')} at ${dayjs
-            .unix(data.hourlyStart)
-            .format('h:mm A')}`}
+          {`${dayjs(data.hourlyStart).format('ddd, MMMM D')} at ${dayjs(
+            data.hourlyStart,
+          ).format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">{data.summary}</h4>
         <div className="flex flex-wrap mt-2">
@@ -309,26 +287,29 @@ export const Hour = ({
           } ${getConditionBarClass(data)}`}
         />
         <div className="time">
-          {dayjs.unix(data.hourlyStart).format('h a').toUpperCase()}
+          {dayjs(data.forecastStart).format('h a').toUpperCase()}
         </div>
-        <div className={summaryTextClass}>{summaryText.trim()}</div>
+        <div className="summary one-line">{summaryText.trim()}</div>
         <div className="spacer">&nbsp;</div>
       </div>
       <div
         className="condition"
         onClick={clickHandler}
         style={
-          ['humidity', 'cloudCover', 'precipitationChance'].includes(
-            conditionToShow,
-          )
-            ? {}
-            : {
+          [
+            'temperature',
+            'temperatureApparent',
+            'temperatureDewPoint',
+          ].includes(conditionToShow)
+            ? {
                 marginRight: `${
-                  (maxValue - Math.round(data[conditionToShow])) *
+                  (maxValue -
+                    Math.round(metricToImperial.cToF(data[conditionToShow]))) *
                   (100 / valueRange) *
                   0.05
                 }rem`,
               }
+            : {}
         }
       >
         <span
