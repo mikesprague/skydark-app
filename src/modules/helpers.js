@@ -142,6 +142,15 @@ export const titleCaseToSentenceCase = (words) =>
     )
     .join('');
 
+export const titleCaseAddSpace = (words) =>
+  words
+    .split('')
+    // eslint-disable-next-line no-confusing-arrow
+    .map((character, index) =>
+      index > 0 && /[A-Z]/.test(character) ? ` ${character}` : character,
+    )
+    .join('');
+
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
@@ -318,7 +327,7 @@ export const formatSummary = (
       ? ''
       : currentHourData.conditionCode;
 
-  return titleCaseToSentenceCase(summary);
+  return titleCaseAddSpace(summary);
 };
 
 export const getUvIndexClasses = (uvIndex) => {

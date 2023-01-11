@@ -13,7 +13,7 @@ import {
   getUvIndexClasses,
   metricToImperial,
   openModalWithComponent,
-  titleCaseToSentenceCase,
+  titleCaseAddSpace,
 } from '../modules/helpers';
 
 import './Hour.scss';
@@ -44,7 +44,7 @@ export const Hour = ({
   const [summaryText, setSummaryText] = useState('');
 
   useEffect(() => {
-    setSummaryText(titleCaseToSentenceCase(summary));
+    setSummaryText(titleCaseAddSpace(summary));
   }, [summary]);
 
   const clickHandler = () => {
@@ -56,7 +56,7 @@ export const Hour = ({
           ).format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">
-          {titleCaseToSentenceCase(data.conditionCode)}
+          {titleCaseAddSpace(data.conditionCode)}
         </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">

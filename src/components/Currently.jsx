@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   formatCondition,
   openModalWithComponent,
-  titleCaseToSentenceCase,
+  titleCaseAddSpace,
 } from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
 
@@ -31,7 +31,7 @@ export const Currently = () => {
           Current Conditions
         </h3>
         <h4 className="mb-2 text-lg">
-          {titleCaseToSentenceCase(data.weather.currentWeather.conditionCode)}
+          {titleCaseAddSpace(data.weather.currentWeather.conditionCode)}
         </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
