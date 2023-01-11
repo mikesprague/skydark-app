@@ -44,7 +44,7 @@ export const Hour = ({
   const [summaryText, setSummaryText] = useState('');
 
   useEffect(() => {
-    setSummaryText(titleCaseToSentenceCase(summary).trim());
+    setSummaryText(titleCaseToSentenceCase(summary));
   }, [summary]);
 
   const clickHandler = () => {
@@ -55,7 +55,9 @@ export const Hour = ({
             data.forecastStart,
           ).format('h:mm A')}`}
         </h3>
-        <h4 className="mb-2 text-lg">{data.summary}</h4>
+        <h4 className="mb-2 text-lg">
+          {titleCaseToSentenceCase(data.conditionCode)}
+        </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -98,7 +100,7 @@ export const Hour = ({
               <FontAwesomeIcon
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
-                transform={{ rotate: data.windBearing }}
+                transform={{ rotate: data.windDirection }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
                   '--fa-secondary-color': 'darkslategray',
@@ -263,10 +265,7 @@ export const Hour = ({
             <br />
             <small>
               Sunset:
-              {` ${formatCondition(
-                dayData.sunsetTime,
-                'sunset',
-              ).toLowerCase()}`}
+              {` ${formatCondition(dayData.sunset, 'sunset').toLowerCase()}`}
             </small>
           </div>
         </div>

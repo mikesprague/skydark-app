@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { formatCondition, openModalWithComponent } from '../modules/helpers';
+import {
+  formatCondition,
+  openModalWithComponent,
+  titleCaseToSentenceCase,
+} from '../modules/helpers';
 import { getWeatherIcon } from '../modules/icons';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
@@ -26,7 +30,9 @@ export const Currently = () => {
         <h3 className="modal-heading" id="modal-headline">
           Current Conditions
         </h3>
-        <h4 className="mb-2 text-lg">{data.weather.currentWeather.summary}</h4>
+        <h4 className="mb-2 text-lg">
+          {titleCaseToSentenceCase(data.weather.currentWeather.conditionCode)}
+        </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -75,7 +81,9 @@ export const Currently = () => {
               <FontAwesomeIcon
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
-                transform={{ rotate: data.weather.currentWeather.windBearing }}
+                transform={{
+                  rotate: data.weather.currentWeather.windDirection,
+                }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
                   '--fa-secondary-color': 'darkslategray',
@@ -263,7 +271,7 @@ export const Currently = () => {
               Sunset:
               {` ${formatCondition(
                 data.weather.forecastDaily.days[0].sunset,
-                'sunsetTime',
+                'sunset',
               ).toLowerCase()}`}
             </small>
           </div>
