@@ -181,6 +181,7 @@
           "unnamedComponents": "arrow-function"
         }
       ],
+      "react/destructuring-assignment": "warn",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "error",
       "react/jsx-boolean-value": "off",
