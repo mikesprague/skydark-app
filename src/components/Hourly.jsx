@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import { formatSummary, metricToImperial } from '../modules/helpers';
+import {
+  formatSummary,
+  metricToImperial,
+  titleCaseToSentenceCase,
+} from '../modules/helpers';
 
 import { Hour } from './Hour';
 import { Loading } from './Loading';
@@ -59,7 +63,7 @@ export const Hourly = ({ data, dayData }) => {
   return hourlyData ? (
     <div className="hourly-container">
       <p className="mb-2 -mt-2 text-sm leading-normal text-center">
-        {dayData.summary}
+        {titleCaseToSentenceCase(dayData.conditionCode)}
       </p>
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
