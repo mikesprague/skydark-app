@@ -3,7 +3,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { titleCaseToSentenceCase } from '../modules/helpers.js';
+import {
+  titleCaseToSentenceCase,
+  isRaining,
+  isSnowing,
+} from '../modules/helpers.js';
 
 import './NextHour.scss';
 
@@ -32,17 +36,7 @@ export const NextHour = () => {
       return;
     }
 
-    if (
-      summaryText.toLowerCase().includes('rain') ||
-      summaryText.toLowerCase().includes('storm') ||
-      summaryText.toLowerCase().includes('shower') ||
-      summaryText.toLowerCase().includes('drizzle') ||
-      summaryText.toLowerCase().includes('snow') ||
-      summaryText.toLowerCase().includes('sleet') ||
-      summaryText.toLowerCase().includes('blizzard') ||
-      summaryText.toLowerCase().includes('flurries') ||
-      summaryText.toLowerCase().includes('wintry')
-    ) {
+    if (isRaining(summaryText) || isSnowing(summaryText)) {
       setNextHourPrecipitation(true);
     }
 
