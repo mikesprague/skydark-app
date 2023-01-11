@@ -34,10 +34,14 @@ export const NextHour = () => {
 
     if (
       summaryText.toLowerCase().includes('rain') ||
+      summaryText.toLowerCase().includes('storm') ||
+      summaryText.toLowerCase().includes('shower') ||
       summaryText.toLowerCase().includes('drizzle') ||
       summaryText.toLowerCase().includes('snow') ||
+      summaryText.toLowerCase().includes('sleet') ||
+      summaryText.toLowerCase().includes('blizzard') ||
       summaryText.toLowerCase().includes('flurries') ||
-      summaryText.toLowerCase().includes('sleet')
+      summaryText.toLowerCase().includes('wintry')
     ) {
       setNextHourPrecipitation(true);
     }
