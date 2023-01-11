@@ -187,7 +187,9 @@ export const formatCondition = (value, condition) => {
     case 'uvIndex':
       return `${formatNum(value)}`;
     case 'visibility':
-      return `${formatNum(metricToImperial.mToMi(value))}`;
+      return metricToImperial.mToMi(value) >= 10
+        ? 10
+        : `${formatNum(metricToImperial.mToMi(value))}`;
     case 'windSpeed':
     case 'windGust':
       return `${formatNum(metricToImperial.kmToMi(value))}`;
