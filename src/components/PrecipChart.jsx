@@ -3,6 +3,8 @@ import { Chart } from 'react-google-charts';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
+import { metricToImperial } from '../modules/helpers';
+
 import './PrecipChart.scss';
 
 export const PrecipChart = () => {
@@ -19,7 +21,10 @@ export const PrecipChart = () => {
     data.weather.forecastNextHour.minutes
       .slice(0, 59)
       .forEach((minute, index) => {
-        dataArray.push([index, minute.precipitationIntensity]);
+        dataArray.push([
+          index,
+          metricToImperial.mmToIn(minute.precipitationIntensity),
+        ]);
       });
     setChartData(dataArray);
   }, [data]);
