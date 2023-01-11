@@ -4,22 +4,27 @@ h1 {
 
 .about-content {
   @apply px-4;
-  @apply my-16;
+  @apply my-8;
 
   h2 {
-    @apply inline;
     @apply font-semibold;
     @apply leading-loose;
     @apply text-xl;
     @apply text-center;
     @apply text-gray-700;
     @apply dark:text-gray-200;
+    @apply mb-2;
+    }
+
+    h2.version {
+      @apply text-2xl;
   }
 
   p {
-    @apply pb-4;
+    @apply mt-4;
     @apply text-base;
     @apply leading-normal;
+    @apply text-justify;
   }
 
   a {

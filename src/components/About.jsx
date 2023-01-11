@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Tippy from '@tippyjs/react';
+import { version } from '../../package.json';
 
 import 'tippy.js/dist/tippy.css';
 import './About.scss';
@@ -20,6 +21,7 @@ export const About = () => (
       </div>
     </div>
     <div className="about-content">
+      <h2 className="version">Sky Dark v{version}</h2>
       <h2>Background</h2>
       <p>
         {'Sky Dark is an open source '}
