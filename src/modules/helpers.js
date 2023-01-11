@@ -228,83 +228,88 @@ export const getRadarTs = () => {
   return ts;
 };
 
+export const isSnowing = (condition) =>
+  condition.toLowerCase().includes('snow') ||
+  condition.toLowerCase().includes('sleet') ||
+  condition.toLowerCase().includes('blizzard') ||
+  condition.toLowerCase().includes('flurries') ||
+  condition.toLowerCase().includes('wintry');
+
+export const isRaining = (condition) =>
+  condition.toLowerCase().includes('rain') ||
+  condition.toLowerCase().includes('storm') ||
+  condition.toLowerCase().includes('shower') ||
+  condition.toLowerCase().includes('drizzle');
+
+export const isCloudy = (condition) =>
+  condition.toLowerCase().includes('cloudy');
+export const isHazy = (condition) => condition.toLowerCase().includes('haze');
+export const isLight = (condition) => condition.toLowerCase().includes('light');
+export const isHeavy = (condition) => condition.toLowerCase().includes('heavy');
+export const isDrizzle = (condition) =>
+  condition.toLowerCase().includes('drizzle');
+export const isFlurries = (condition) =>
+  condition.toLowerCase().includes('flurries');
+export const isClear = (condition) => condition.toLowerCase().includes('clear');
+export const hasMostly = (condition) =>
+  condition.toLowerCase().includes('mostly');
+export const hasPartly = (condition) =>
+  condition.toLowerCase().includes('partly');
+
 export const getConditionBarClass = (data) => {
-  const { cloudCover } = data;
-  let { conditionCode } = data;
+  const { conditionCode, cloudCover } = data;
 
-  conditionCode = conditionCode.toLowerCase();
   const clouds = Math.round(cloudCover * 100);
-  // const summaryNormalized = summary.toLowerCase();
-  const isCloudy = () => conditionCode.includes('cloudy');
-  const isHazy = () => conditionCode.includes('haze');
-  const isRaining = () =>
-    conditionCode.includes('rain') ||
-    conditionCode.includes('storm') ||
-    conditionCode.includes('shower') ||
-    conditionCode.includes('drizzle');
-  const isSnowing = () =>
-    conditionCode.includes('snow') ||
-    conditionCode.includes('sleet') ||
-    conditionCode.includes('blizzard') ||
-    conditionCode.includes('flurries') ||
-    conditionCode.includes('Wintry');
-  const isLight = () => conditionCode.includes('light');
-  const isHeavy = () => conditionCode.includes('heavy');
-  const isDrizzle = () => conditionCode.includes('drizzle');
-  const isFlurries = () => conditionCode.includes('flurries');
-  const isClear = () => conditionCode.includes('clear');
-  const hasMostly = () => conditionCode.includes('mostly');
-  const hasPartly = () => conditionCode.includes('partly');
 
-  if (isClear()) {
+  if (isClear(conditionCode)) {
     return 'bg-white';
   }
 
-  if (isRaining()) {
-    if (isHeavy()) {
+  if (isRaining(conditionCode)) {
+    if (isHeavy(conditionCode)) {
       return 'bg-blue-600';
     }
 
-    if (isLight()) {
+    if (isLight(conditionCode)) {
       return 'bg-blue-400';
     }
 
-    if (isDrizzle()) {
+    if (isDrizzle(conditionCode)) {
       return 'bg-blue-300';
     }
 
     return 'bg-blue-500';
   }
 
-  if (isSnowing()) {
-    if (isHeavy()) {
+  if (isSnowing(conditionCode)) {
+    if (isHeavy(conditionCode)) {
       return 'bg-purple-600';
     }
 
-    if (isLight()) {
+    if (isLight(conditionCode)) {
       return 'bg-purple-400';
     }
 
-    if (isFlurries()) {
+    if (isFlurries(conditionCode)) {
       return 'bg-purple-300';
     }
 
     return 'bg-purple-500';
   }
 
-  if (isCloudy()) {
-    if (hasMostly()) {
+  if (isCloudy(conditionCode)) {
+    if (hasMostly(conditionCode)) {
       return 'bg-gray-500';
     }
 
-    if (hasPartly()) {
+    if (hasPartly(conditionCode)) {
       return 'bg-gray-400';
     }
 
     return 'bg-gray-600';
   }
 
-  if (isHazy()) {
+  if (isHazy(conditionCode)) {
     return 'bg-gray-300';
   }
 
