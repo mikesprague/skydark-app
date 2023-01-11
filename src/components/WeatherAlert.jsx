@@ -39,20 +39,23 @@ export const WeatherAlert = () => {
         {alertData.map((alert, alertIdx) => (
           <div className="weatherAlertItem" key={nanoid(7)}>
             <h3 className="modal-heading" id="modal-headline">
-              {alert.title}
+              {alert.description}
             </h3>
             <p className="pl-4 mb-4 text-sm text-left">
-              <strong>Effective: </strong>
+              <strong>Issued: </strong>
               {dayjs(alert.issuedTime).format('ddd, D MMM YYYY h:mm:ss A')}
+              <br />
+              <strong>Effective: </strong>
+              {dayjs(alert.effectiveTime).format('ddd, D MMM YYYY h:mm:ss A')}
               <br />
               <strong>Expires: </strong>
               {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
             </p>
-            <p className="mb-6 text-center">{alert.description}</p>
+            <p className="mb-6 text-center">{alert.messages}</p>
             <p className="m-4 text-center">
               <a
                 className="px-4 py-2 my-6 text-sm bg-blue-500"
-                href={alert.uri}
+                href={alert.detailsUrl}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -85,8 +88,8 @@ export const WeatherAlert = () => {
           <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
           &nbsp;
           {alertData.length > 1
-            ? `${alertData[0].title} | +${alertData.length - 1}`
-            : alertData[0].title}
+            ? `${alertData[0].description} | +${alertData.length - 1}`
+            : alertData[0].description}
         </span>
       </button>
     </div>
