@@ -4,10 +4,10 @@ import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
-  titleCaseToSentenceCase,
   isRaining,
   isSnowing,
-} from '../modules/helpers.js';
+  titleCaseToSentenceCase,
+} from '../modules/helpers';
 
 import './NextHour.scss';
 
