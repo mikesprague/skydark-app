@@ -13,6 +13,7 @@ import './NextHour.scss';
 
 export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);
+  const [precipTypeText, setPrecipTypeText] = useState(null);
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
@@ -20,11 +21,13 @@ export const NextHour = () => {
       return;
     }
 
-    const summary =
-      data.weather.forecastHourly.hours[new Date().getMinutes() > 30 ? 1 : 0]
-        .conditionCode;
+    const hour = new Date().getMinutes() > 30 ? 1 : 0;
+    const precipType =
+      data.weather.forecastHourly.hours[hour].precipitationType;
+    const summary = data.weather.forecastHourly.hours[hour].conditionCode;
 
     setSummaryText(titleCaseToSentenceCase(summary));
+    setPrecipTypeText(titleCaseToSentenceCase(precipType));
 
     return () => setSummaryText(null);
   }, [data]);
@@ -36,12 +39,12 @@ export const NextHour = () => {
       return;
     }
 
-    if (isRaining(summaryText) || isSnowing(summaryText)) {
+    if (isRaining(precipTypeText) || isSnowing(precipTypeText)) {
       setNextHourPrecipitation(true);
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [summaryText]);
+  }, [summaryText, precipTypeText]);
 
   return data ? (
     <>
