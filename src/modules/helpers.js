@@ -262,6 +262,10 @@ export const getConditionBarClass = (data) => {
   const clouds = Math.round(cloudCover * 100);
 
   if (isClear(conditionCode)) {
+    if (hasMostly(conditionCode)) {
+      return 'bg-gray-50';
+    }
+
     return 'bg-white';
   }
 
