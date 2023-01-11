@@ -116,7 +116,7 @@ export const apiUrl = () => {
     window.location.hostname.includes('127.0.0.1')
   ) {
     urlToReturn = `${window.location.protocol}//${window.location.hostname}:8788/api`;
-    urlToReturn = 'https://dev.skydark.app/api';
+    // urlToReturn = 'https://dev.skydark.app/api';
   }
   // console.log(urlToReturn);
 
