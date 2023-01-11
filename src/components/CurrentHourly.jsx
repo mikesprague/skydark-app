@@ -6,7 +6,7 @@ import {
   formatCondition,
   formatSummary,
   metricToImperial,
-  titleCaseAddSpace,
+  titleCaseToSentenceCase,
 } from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
@@ -79,7 +79,7 @@ export const CurrentHourly = () => {
               ),
               'temperature',
             )} `}
-            {`\u00a0${titleCaseAddSpace(
+            {`\u00a0${titleCaseToSentenceCase(
               data.weather.forecastDaily.days[0].conditionCode,
             )}`}
           </em>

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { titleCaseAddSpace } from '../modules/helpers.js';
+import { titleCaseToSentenceCase } from '../modules/helpers.js';
 
 import './NextHour.scss';
 
@@ -20,7 +20,7 @@ export const NextHour = () => {
       data.weather.forecastHourly.hours[new Date().getMinutes() > 30 ? 1 : 0]
         .conditionCode;
 
-    setSummaryText(titleCaseAddSpace(summary));
+    setSummaryText(titleCaseToSentenceCase(summary));
 
     return () => setSummaryText(null);
   }, [data]);
