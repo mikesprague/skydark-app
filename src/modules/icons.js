@@ -63,6 +63,7 @@ import {
   faWindTurbine,
 } from '@fortawesome/pro-duotone-svg-icons';
 import {
+  faApple,
   faChrome,
   faDev,
   faEdge,
@@ -88,6 +89,7 @@ import { isDarkModeEnabled } from './theme';
 export const initIcons = () => {
   library.add(
     faAngleUp,
+    faApple,
     faBan,
     faBolt,
     faCalendar,

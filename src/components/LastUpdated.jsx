@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -20,7 +21,7 @@ export const LastUpdated = () => {
     const updateString = () => {
       setLastUpdatedString(dayjs(dayjs(data.lastUpdated)).from());
     };
-    const clockInterval = setInterval(updateString, (1000));
+    const clockInterval = setInterval(updateString, 1000);
 
     updateString();
 
@@ -31,14 +32,19 @@ export const LastUpdated = () => {
     <div className="last-updated-container">
       <small>
         {`Last updated ${lastUpdatedString}`}
-        <br />
-        <a
-          href="https://weatherkit.apple.com/legal-attribution.html"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Powered by Apple Weather
-        </a>
+        <p style={{ marginTop: '0.25rem' }}>
+          <a
+            href="https://weatherkit.apple.com/legal-attribution.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Powered by{' '}
+            <span style={{ fontSize: '1.25rem' }}>
+              <FontAwesomeIcon icon={['fab', 'apple']} fixedWidth />
+            </span>{' '}
+            Weather
+          </a>
+        </p>
       </small>
     </div>
   );
