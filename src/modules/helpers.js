@@ -221,7 +221,8 @@ export const getRadarTs = () => {
 };
 
 export const getConditionBarClass = (data) => {
-  let { conditionCode, cloudCover, summary } = data;
+  const { cloudCover } = data;
+  let { conditionCode } = data;
 
   conditionCode = conditionCode.toLowerCase();
   const clouds = Math.round(cloudCover * 100);
@@ -229,18 +230,20 @@ export const getConditionBarClass = (data) => {
   const isCloudy = () => conditionCode.includes('cloudy') || clouds >= 40;
   const isRaining = () =>
     conditionCode.includes('rain') ||
-    conditionCode.includes('thunderstorm') ||
-    conditionCode.includes('hail');
+    conditionCode.includes('storm') ||
+    conditionCode.includes('shower');
   const isSnowing = () =>
-    conditionCode.includes('snow') || conditionCode.includes('sleet');
+    conditionCode.includes('snow') ||
+    conditionCode.includes('sleet') ||
+    conditionCode.includes('blizzard') ||
+    conditionCode.includes('Wintry');
   const isLight = () => conditionCode.includes('light');
   const isHeavy = () => conditionCode.includes('heavy');
   const isDrizzle = () => conditionCode.includes('drizzle');
   const isFlurries = () => conditionCode.includes('flurries');
-  const isOvercast = () => conditionCode.includes('overcast');
   const isClear = () => conditionCode.includes('clear');
-  const hasMostly = () =>
-    conditionCode.includes('mostly') || conditionCode.includes('mostly');
+  const hasMostly = () => conditionCode.includes('mostly');
+  const hasPartly = () => conditionCode.includes('partly');
 
   if (isRaining()) {
     if (isHeavy()) {
@@ -258,12 +261,12 @@ export const getConditionBarClass = (data) => {
     return isLight() || isFlurries() ? 'bg-purple-400' : 'bg-purple-500';
   }
 
-  if (isOvercast()) {
+  if (isCloudy() && hasMostly()) {
     return 'bg-gray-600';
   }
 
   if (isCloudy()) {
-    return hasMostly() || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
+    return hasPartly() ? 'bg-gray-400' : 'bg-gray-500';
   }
 
   if (isClear()) {

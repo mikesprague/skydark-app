@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import { formatSummary } from '../modules/helpers';
+import { formatSummary, metricToImperial } from '../modules/helpers';
 
 import { Hour } from './Hour';
 import { Loading } from './Loading';
@@ -12,7 +12,8 @@ import './Hourly.scss';
 
 export const Hourly = ({ data, dayData }) => {
   const [hourlyData, setHourlyData] = useState(null);
-  const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
+  const [hourlyConditionToShow, setHourlyConditionToShow] =
+    useState('temperature');
   const containerRef = useRef();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export const Hourly = ({ data, dayData }) => {
       return;
     }
 
-    setHourlyData(data.data.slice(0, 23));
+    setHourlyData(data.data.forecastHourly.hours.slice(0, 23));
   }, [data]);
 
   const [maxValue, setMaxValue] = useState(0);
@@ -31,8 +32,8 @@ export const Hourly = ({ data, dayData }) => {
       const allVals = hourlyData
         .slice(0, 23)
         .map((hour) => hour[hourlyConditionToShow]);
-      const max = Math.max(...allVals);
-      const min = Math.min(...allVals);
+      const max = metricToImperial.cToF(Math.max(...allVals));
+      const min = metricToImperial.cToF(Math.min(...allVals));
       const range = max - min;
 
       setMaxValue(max);
@@ -45,7 +46,11 @@ export const Hourly = ({ data, dayData }) => {
     const newSelection = event.target;
 
     setHourlyConditionToShow(newSelection.dataset.label);
-    newSelection.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    newSelection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
     lastSelected.classList.add('pill');
     lastSelected.classList.remove('pill-selected');
     newSelection.classList.add('pill-selected');

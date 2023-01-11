@@ -68,7 +68,11 @@ export const onRequestGet = async (context) => {
     .toISOString();
 
   const dailyStart = urlParams.get('dailyStart') || currentHourAsIsoDate;
+  const dailyEnd = urlParams.get('dailyEnd');
   const hourlyStart = urlParams.get('hourlyStart') || currentHourAsIsoDate;
+  const hourlyEnd = urlParams.get('hourlyEnd');
+
+  console.log(dailyStart, dailyEnd);
 
   const defaultLat = '40.71455';
   const defaultLng = '-74.00712';
@@ -160,7 +164,9 @@ export const onRequestGet = async (context) => {
     ],
     timezone: tz,
     dailyStart,
+    dailyEnd,
     hourlyStart,
+    hourlyEnd,
   };
 
   const qs = queryString.stringify(queryParams, {

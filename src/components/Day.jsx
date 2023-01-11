@@ -28,11 +28,12 @@ export const Day = ({ data, dayIndex, minLow }) => {
   const fullData = useContext(WeatherDataContext);
 
   const getDailyWeatherData = async (lat, lng, date) => {
-    const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&hourlyStart=`;
+    const endDate = dayjs(date).add(1, 'day').toISOString();
+    const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
     const weatherApiData = await axios
       .get(weatherApiurl)
       .then((response) => response.data);
-    console.log(weatherApiData);
+    // console.log(weatherApiData);
 
     return weatherApiData;
   };
@@ -45,6 +46,14 @@ export const Day = ({ data, dayIndex, minLow }) => {
     const scrollMarker = currentDetail.querySelector('.scroll-marker');
     const isOpen = currentDetail.getAttribute('open') === null;
     const date = currentSummary.dataset.time;
+    const midnightAsIsoDate = dayjs(date)
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0)
+      .set('millisecond', 0)
+      .toISOString();
+
+    console.log(date, midnightAsIsoDate);
 
     allDetails.forEach((detail) => {
       if (detail !== currentDetail) {
@@ -58,7 +67,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
         const weatherData = await getDailyWeatherData(
           fullData.weather.currentWeather.metadata.latitude,
           fullData.weather.currentWeather.metadata.longitude,
-          date,
+          midnightAsIsoDate,
         );
 
         setHourlyData({
