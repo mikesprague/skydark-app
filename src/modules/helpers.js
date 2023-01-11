@@ -256,12 +256,24 @@ export const getConditionBarClass = (data) => {
   const hasMostly = () => conditionCode.includes('mostly');
   const hasPartly = () => conditionCode.includes('partly');
 
+  if (isClear()) {
+    return 'bg-white';
+  }
+
   if (isRaining()) {
     if (isHeavy()) {
       return 'bg-blue-600';
     }
 
-    return isLight() || isDrizzle() ? 'bg-blue-400' : 'bg-blue-500';
+    if (isLight()) {
+      return 'bg-blue-400';
+    }
+
+    if (isDrizzle()) {
+      return 'bg-blue-300';
+    }
+
+    return 'bg-blue-500';
   }
 
   if (isSnowing()) {
@@ -269,23 +281,31 @@ export const getConditionBarClass = (data) => {
       return 'bg-purple-600';
     }
 
-    return isLight() || isFlurries() ? 'bg-purple-400' : 'bg-purple-500';
-  }
+    if (isLight()) {
+      return 'bg-purple-400';
+    }
 
-  if (isCloudy() && hasMostly()) {
-    return 'bg-gray-600';
+    if (isFlurries()) {
+      return 'bg-purple-300';
+    }
+
+    return 'bg-purple-500';
   }
 
   if (isCloudy()) {
-    return hasPartly() ? 'bg-gray-400' : 'bg-gray-500';
+    if (hasMostly()) {
+      return 'bg-gray-500';
+    }
+
+    if (hasPartly()) {
+      return 'bg-gray-400';
+    }
+
+    return 'bg-gray-600';
   }
 
   if (isHazy()) {
     return 'bg-gray-300';
-  }
-
-  if (isClear()) {
-    return 'bg-white';
   }
 
   // handle windy and other non-standard conditins using cloud conditions
