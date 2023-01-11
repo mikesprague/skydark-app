@@ -35,9 +35,9 @@ export default defineConfig({
         './images/skydark-app-icon-128.png',
       ],
       manifest: {
-        name: 'Sky Dark (Powered by Dark Sky)',
+        name: 'Sky Dark (Powered by Apple Weather)',
         short_name: 'Sky Dark',
-        description: 'Sky Dark (Powered by Dark Sky)',
+        description: 'Sky Dark (Powered by Apple Weather)',
         version,
         lang: 'en-US',
         dir: 'auto',
