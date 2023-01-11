@@ -233,7 +233,8 @@ export const isSnowing = (condition) =>
   condition.toLowerCase().includes('sleet') ||
   condition.toLowerCase().includes('blizzard') ||
   condition.toLowerCase().includes('flurries') ||
-  condition.toLowerCase().includes('wintry');
+  condition.toLowerCase().includes('wintry') ||
+  condition.toLowerCase().includes('mixed');
 
 export const isRaining = (condition) =>
   condition.toLowerCase().includes('rain') ||
