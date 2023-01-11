@@ -13,7 +13,7 @@ Android app used to be my daily driver and I missed the experience.
 
 ## :toolbox: Uses (incomplete list)
 
-- [Dark Sky API](https://darksky.net/poweredby/)
+- [Apple WeatherKit (REST API)](https://developer.apple.com/weatherkit/)
 - [OpenWeatherMap API](https://openweathermap.org/api/weathermaps)
 - [Leaflet](https://leafletjs.com/)
 - [Tailwind CSS](https://tailwindcss.com/)

@@ -13,13 +13,13 @@ export const SunriseSunset = () => {
   const data = useContext(WeatherDataContext);
 
   const formatTimeString = (time) => {
-    const totalMinutes = dayjs(dayjs.unix(time)).diff(dayjs(), 'minute');
+    const totalMinutes = dayjs(dayjs(time)).diff(dayjs(), 'minute');
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
 
     let hoursText = totalMinutes > 54 ? hours : '';
 
-    if (hoursText === '' && (totalMinutes > 54 && totalMinutes < 67)) {
+    if (hoursText === '' && totalMinutes > 54 && totalMinutes < 67) {
       hoursText = 1;
     }
 
@@ -41,29 +41,39 @@ export const SunriseSunset = () => {
       minutesFraction = String.fromCharCode(190);
     }
 
-    return (hoursText === '' && minutesFraction === '')
+    return hoursText === '' && minutesFraction === ''
       ? 'now'
-      : `in ${hoursText}${minutesFraction} hour${hoursText === 1 || (hoursText === '' && minutesFraction !== '') ? '' : 's'}`;
+      : `in ${hoursText}${minutesFraction} hour${
+          hoursText === 1 || (hoursText === '' && minutesFraction !== '')
+            ? ''
+            : 's'
+        }`;
   };
 
   useEffect(() => {
     const init = () => {
-      const [today, tomorrow] = data.weather.daily.data;
+      const [today, tomorrow] = data.weather.forecastDaily.days;
       const now = dayjs();
       let isSunset = false;
-      let datetime = today.sunriseTime;
+      let datetime = today.sunrise;
 
-      if (dayjs(now).isAfter(dayjs.unix(today.sunriseTime)) && dayjs(now).isBefore(dayjs.unix(today.sunsetTime))) {
-        datetime = today.sunsetTime;
+      if (
+        dayjs(now).isAfter(dayjs(today.sunrise)) &&
+        dayjs(now).isBefore(dayjs(today.sunset))
+      ) {
+        datetime = today.sunset;
         isSunset = true;
       }
 
-      if (dayjs(now).isAfter(dayjs.unix(today.sunsetTime)) && dayjs(now).isBefore(dayjs.unix(tomorrow.sunriseTime))) {
-        datetime = tomorrow.sunriseTime;
+      if (
+        dayjs(now).isAfter(dayjs(today.sunset)) &&
+        dayjs(now).isBefore(dayjs(tomorrow.sunrise))
+      ) {
+        datetime = tomorrow.sunrise;
       }
 
       const event = isSunset ? 'Sunset' : 'Sunrise';
-      const time = dayjs.unix(datetime).format('h:mm A');
+      const time = dayjs(datetime).format('h:mm A');
       const timeString = formatTimeString(datetime);
 
       setNext({
@@ -74,7 +84,7 @@ export const SunriseSunset = () => {
     };
 
     init();
-    const clockInterval = setInterval(init, (1000));
+    const clockInterval = setInterval(init, 1000);
 
     return () => clearInterval(clockInterval);
   }, [data]);

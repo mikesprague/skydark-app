@@ -26,17 +26,26 @@ export const Daily = () => {
       return;
     }
 
-    const slicedData = dailyData.daily.data.slice(0, 8);
+    const slicedData = dailyData.forecastDaily.days.slice(0, 8);
     const allLows = slicedData.map((val) => val.temperatureMin);
 
     setMinLow(Math.round(Math.min(...allLows)));
   }, [dailyData]);
 
-  return dailyData && dailyData.daily ? (
+  return dailyData && dailyData.forecastDaily ? (
     <div className="daily-container">
       <div className="daily">
-        {dailyData.daily.data.map((dayData, dayIndex) => {
-          return dayIndex <= 7 ? <Day key={nanoid(7)} data={dayData} dayIndex={dayIndex} minLow={minLow} /> : '';
+        {dailyData.forecastDaily.days.map((dayData, dayIndex) => {
+          return dayIndex <= 7 ? (
+            <Day
+              key={nanoid(7)}
+              data={dayData}
+              dayIndex={dayIndex}
+              minLow={minLow}
+            />
+          ) : (
+            ''
+          );
         })}
       </div>
     </div>

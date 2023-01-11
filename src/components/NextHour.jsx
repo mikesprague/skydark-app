@@ -3,6 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
+import {
+  isRaining,
+  isSnowing,
+  titleCaseToSentenceCase,
+} from '../modules/helpers';
+
 import './NextHour.scss';
 
 export const NextHour = () => {
@@ -14,18 +20,11 @@ export const NextHour = () => {
       return;
     }
 
-    let summary;
+    const summary =
+      data.weather.forecastHourly.hours[new Date().getMinutes() > 30 ? 1 : 0]
+        .conditionCode;
 
-    if (data.weather.minutely) {
-      summary = data.weather.minutely.summary;
-    } else {
-      summary =
-        data.weather.hourly.data[new Date().getMinutes() > 30 ? 1 : 0].summary;
-    }
-
-    summary = summary.replace(' for the hour.', '');
-    summary = summary.charAt(0).toUpperCase() + summary.slice(1);
-    setSummaryText(summary);
+    setSummaryText(titleCaseToSentenceCase(summary));
 
     return () => setSummaryText(null);
   }, [data]);
@@ -37,15 +36,7 @@ export const NextHour = () => {
       return;
     }
 
-    if (
-      summaryText.toLowerCase().includes('rain') ||
-      summaryText.toLowerCase().includes('drizzle') ||
-      summaryText.toLowerCase().includes('snow') ||
-      summaryText.toLowerCase().includes('flurries') ||
-      summaryText.toLowerCase().includes('sleet') ||
-      summaryText.toLowerCase().includes('start') ||
-      summaryText.toLowerCase().includes('stop')
-    ) {
+    if (isRaining(summaryText) || isSnowing(summaryText)) {
       setNextHourPrecipitation(true);
     }
 

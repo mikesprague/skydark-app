@@ -22,16 +22,16 @@ export const WeatherAlert = () => {
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data.weather.alerts) {
+    if (!data.weather.weatherAlerts.alerts.length) {
       return;
     }
 
-    setAlertData(data.weather.alerts);
+    setAlertData(data.weather.weatherAlerts.alerts);
 
     return () => {
       setAlertData(null);
     };
-  }, [data]);
+  }, [data, data.weather.weatherAlerts.alerts]);
 
   const weatherAlertHandler = () => {
     openModalWithComponent(
@@ -43,10 +43,10 @@ export const WeatherAlert = () => {
             </h3>
             <p className="pl-4 mb-4 text-sm text-left">
               <strong>Effective: </strong>
-              {dayjs.unix(alert.time).format('ddd, D MMM YYYY h:mm:ss A')}
+              {dayjs(alert.issuedTime).format('ddd, D MMM YYYY h:mm:ss A')}
               <br />
               <strong>Expires: </strong>
-              {dayjs.unix(alert.expires).format('ddd, D MMM YYYY h:mm:ss A')}
+              {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
             </p>
             <p className="mb-6 text-center">{alert.description}</p>
             <p className="m-4 text-center">

@@ -27,7 +27,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       devOptions: {
-        enabled: true,
+        enabled: false,
       },
       includeAssets: [
         './images/skydark-app-icon-64.png',
@@ -35,15 +35,15 @@ export default defineConfig({
         './images/skydark-app-icon-128.png',
       ],
       manifest: {
-        name: 'Sky Dark (Powered by Dark Sky)',
+        name: 'Sky Dark (Powered by Apple Weather)',
         short_name: 'Sky Dark',
-        description: 'Sky Dark (Powered by Dark Sky)',
+        description: 'Sky Dark (Powered by Apple Weather)',
         version,
         lang: 'en-US',
         dir: 'auto',
         orientation: 'portrait',
         display: 'standalone',
-	      id: '/',
+        id: '/',
         start_url: '/',
         background_color: '#181c1d',
         theme_color: '#181c1d',

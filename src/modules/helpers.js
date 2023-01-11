@@ -108,8 +108,6 @@ export const openToastWithContent = (config) => {
   });
 };
 
-export const scaleDivisor = 75;
-
 export const apiUrl = () => {
   let urlToReturn = `${window.location.protocol}//${window.location.hostname}/api`;
 
@@ -118,6 +116,7 @@ export const apiUrl = () => {
     window.location.hostname.includes('127.0.0.1')
   ) {
     urlToReturn = `${window.location.protocol}//${window.location.hostname}:8788/api`;
+    // urlToReturn = 'https://dev.skydark.app/api';
   }
   // console.log(urlToReturn);
 
@@ -131,6 +130,26 @@ export const handleError = (error) => {
     Bugsnag.notify(error);
   }
 };
+
+export const titleCaseToSentenceCase = (words) =>
+  words
+    .split('')
+    // eslint-disable-next-line no-confusing-arrow
+    .map((character, index) =>
+      index > 0 && /[A-Z]/.test(character)
+        ? ` ${character.toLowerCase()}`
+        : character,
+    )
+    .join('');
+
+export const titleCaseAddSpace = (words) =>
+  words
+    .split('')
+    // eslint-disable-next-line no-confusing-arrow
+    .map((character, index) =>
+      index > 0 && /[A-Z]/.test(character) ? ` ${character}` : character,
+    )
+    .join('');
 
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
@@ -160,27 +179,29 @@ const formatDecimal = (num, places = 2) => Number(num.toFixed(places));
 export const formatCondition = (value, condition) => {
   switch (condition) {
     case 'temperature':
-    case 'apparentTemperature':
-    case 'dewPoint':
-      return formatTemp(value);
-    case 'precipProbability':
+    case 'temperatureApparent':
+    case 'temperatureDewPoint':
+      return formatTemp(metricToImperial.cToF(value));
+    case 'precipitationChance':
     case 'humidity':
     case 'cloudCover':
       return formatPercent(value);
-    case 'precipIntensity':
-      return `${formatDecimal(value)}`;
+    case 'precipitationIntensity':
+      return `${formatDecimal(metricToImperial.mmToIn(value))}`;
     case 'pressure':
       return `${formatNum(value)}`;
-    case 'sunriseTime':
-    case 'sunsetTime':
-      return `${dayjs.unix(value).format('h:mm A')}`;
+    case 'sunrise':
+    case 'sunset':
+      return `${dayjs(value).format('h:mm A')}`;
     case 'uvIndex':
       return `${formatNum(value)}`;
     case 'visibility':
-      return `${formatNum(value)}`;
+      return metricToImperial.mToMi(value) >= 10
+        ? 10
+        : `${formatNum(metricToImperial.mToMi(value))}`;
     case 'windSpeed':
     case 'windGust':
-      return `${formatNum(value)}`;
+      return `${formatNum(metricToImperial.kmToMi(value))}`;
     default:
       return `${value}`;
   }
@@ -207,51 +228,89 @@ export const getRadarTs = () => {
   return ts;
 };
 
-export const getConditionBarClass = (data) => {
-  const { icon, cloudCover, summary } = data;
-  const clouds = Math.round(cloudCover * 100);
-  const summaryNormalized = summary.toLowerCase();
-  const isCloudy = () => icon.includes('cloudy') || clouds >= 40;
-  const isRaining = () =>
-    icon.includes('rain') ||
-    icon.includes('thunderstorm') ||
-    icon.includes('hail');
-  const isSnowing = () => icon.includes('snow') || icon.includes('sleet');
-  const isLight = () => summaryNormalized.includes('light');
-  const isHeavy = () => summaryNormalized.includes('heavy');
-  const isDrizzle = () => summaryNormalized.includes('drizzle');
-  const isFlurries = () => summaryNormalized.includes('flurries');
-  const isOvercast = () => summaryNormalized.includes('overcast');
-  const isClear = () => icon.includes('clear');
-  const hasMostly = () =>
-    icon.includes('mostly') || summaryNormalized.includes('mostly');
+export const isSnowing = (condition) =>
+  condition.toLowerCase().includes('snow') ||
+  condition.toLowerCase().includes('sleet') ||
+  condition.toLowerCase().includes('blizzard') ||
+  condition.toLowerCase().includes('flurries') ||
+  condition.toLowerCase().includes('wintry');
 
-  if (isRaining()) {
-    if (isHeavy()) {
+export const isRaining = (condition) =>
+  condition.toLowerCase().includes('rain') ||
+  condition.toLowerCase().includes('storm') ||
+  condition.toLowerCase().includes('shower') ||
+  condition.toLowerCase().includes('drizzle');
+
+export const isCloudy = (condition) =>
+  condition.toLowerCase().includes('cloudy');
+export const isHazy = (condition) => condition.toLowerCase().includes('haze');
+export const isLight = (condition) => condition.toLowerCase().includes('light');
+export const isHeavy = (condition) => condition.toLowerCase().includes('heavy');
+export const isDrizzle = (condition) =>
+  condition.toLowerCase().includes('drizzle');
+export const isFlurries = (condition) =>
+  condition.toLowerCase().includes('flurries');
+export const isClear = (condition) => condition.toLowerCase().includes('clear');
+export const hasMostly = (condition) =>
+  condition.toLowerCase().includes('mostly');
+export const hasPartly = (condition) =>
+  condition.toLowerCase().includes('partly');
+
+export const getConditionBarClass = (data) => {
+  const { conditionCode, cloudCover } = data;
+
+  const clouds = Math.round(cloudCover * 100);
+
+  if (isClear(conditionCode)) {
+    return 'bg-white';
+  }
+
+  if (isRaining(conditionCode)) {
+    if (isHeavy(conditionCode)) {
       return 'bg-blue-600';
     }
 
-    return isLight() || isDrizzle() ? 'bg-blue-400' : 'bg-blue-500';
+    if (isLight(conditionCode)) {
+      return 'bg-blue-400';
+    }
+
+    if (isDrizzle(conditionCode)) {
+      return 'bg-blue-300';
+    }
+
+    return 'bg-blue-500';
   }
 
-  if (isSnowing()) {
-    if (isHeavy()) {
+  if (isSnowing(conditionCode)) {
+    if (isHeavy(conditionCode)) {
       return 'bg-purple-600';
     }
 
-    return isLight() || isFlurries() ? 'bg-purple-400' : 'bg-purple-500';
+    if (isLight(conditionCode)) {
+      return 'bg-purple-400';
+    }
+
+    if (isFlurries(conditionCode)) {
+      return 'bg-purple-300';
+    }
+
+    return 'bg-purple-500';
   }
 
-  if (isOvercast()) {
+  if (isCloudy(conditionCode)) {
+    if (hasMostly(conditionCode)) {
+      return 'bg-gray-500';
+    }
+
+    if (hasPartly(conditionCode)) {
+      return 'bg-gray-400';
+    }
+
     return 'bg-gray-600';
   }
 
-  if (isCloudy()) {
-    return hasMostly() || clouds >= 60 ? 'bg-gray-500' : 'bg-gray-400';
-  }
-
-  if (isClear()) {
-    return 'bg-white';
+  if (isHazy(conditionCode)) {
+    return 'bg-gray-300';
   }
 
   // handle windy and other non-standard conditins using cloud conditions
@@ -282,17 +341,18 @@ export const formatSummary = (
   let summary = '';
 
   if (index === startIndex) {
-    summary = currentHourData.summary;
+    summary = currentHourData.conditionCode;
 
     return summary;
   }
 
   summary =
-    index >= 2 && currentHourData.summary === allHourlyData[index - 2].summary
+    index >= 2 &&
+    currentHourData.conditionCode === allHourlyData[index - 2].conditionCode
       ? ''
-      : currentHourData.summary;
+      : currentHourData.conditionCode;
 
-  return summary.trim();
+  return titleCaseAddSpace(summary);
 };
 
 export const getUvIndexClasses = (uvIndex) => {

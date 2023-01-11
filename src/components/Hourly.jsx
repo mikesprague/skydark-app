@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import { formatSummary } from '../modules/helpers';
+import {
+  formatSummary,
+  metricToImperial,
+  titleCaseToSentenceCase,
+} from '../modules/helpers';
 
 import { Hour } from './Hour';
 import { Loading } from './Loading';
@@ -12,7 +16,8 @@ import './Hourly.scss';
 
 export const Hourly = ({ data, dayData }) => {
   const [hourlyData, setHourlyData] = useState(null);
-  const [hourlyConditionToShow, setHourlyConditionToShow] = useState('temperature');
+  const [hourlyConditionToShow, setHourlyConditionToShow] =
+    useState('temperature');
   const containerRef = useRef();
 
   useEffect(() => {
@@ -20,7 +25,7 @@ export const Hourly = ({ data, dayData }) => {
       return;
     }
 
-    setHourlyData(data.data);
+    setHourlyData(data.data.forecastHourly.hours.slice(0, 23));
   }, [data]);
 
   const [maxValue, setMaxValue] = useState(0);
@@ -31,8 +36,8 @@ export const Hourly = ({ data, dayData }) => {
       const allVals = hourlyData
         .slice(0, 23)
         .map((hour) => hour[hourlyConditionToShow]);
-      const max = Math.max(...allVals);
-      const min = Math.min(...allVals);
+      const max = metricToImperial.cToF(Math.max(...allVals));
+      const min = metricToImperial.cToF(Math.min(...allVals));
       const range = max - min;
 
       setMaxValue(max);
@@ -45,7 +50,11 @@ export const Hourly = ({ data, dayData }) => {
     const newSelection = event.target;
 
     setHourlyConditionToShow(newSelection.dataset.label);
-    newSelection.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    newSelection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
     lastSelected.classList.add('pill');
     lastSelected.classList.remove('pill-selected');
     newSelection.classList.add('pill-selected');
@@ -53,10 +62,13 @@ export const Hourly = ({ data, dayData }) => {
 
   return hourlyData ? (
     <div className="hourly-container">
-      <p className="mb-2 -mt-2 text-sm leading-normal text-center">{dayData.summary}</p>
+      <p className="mb-2 -mt-2 text-sm leading-normal text-center">
+        {titleCaseToSentenceCase(dayData.conditionCode)}
+      </p>
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
-          const lastHour = hourlyData.length === 24 ? 22 : hourlyData.length - 1;
+          const lastHour =
+            hourlyData.length === 24 ? 22 : hourlyData.length - 1;
           const firstHour = 0;
           const isFirst = index === firstHour;
           const isLast = index === lastHour;
@@ -80,17 +92,62 @@ export const Hourly = ({ data, dayData }) => {
         })}
       </ul>
       <div className="flex condition-select-container" ref={containerRef}>
-        <Pill dataLabel="temperature" label="Temp (&deg;F)" selected={true} clickHandler={changeHandler} />
-        <Pill dataLabel="apparentTemperature" label="Feels-Like (&deg;F)" clickHandler={changeHandler} />
-        <Pill dataLabel="precipProbability" label="Precip Prob (%)" clickHandler={changeHandler} />
-        <Pill dataLabel="precipIntensity" label="Precip Rate (IN/HR)" clickHandler={changeHandler} />
-        <Pill dataLabel="windSpeed" label="Wind (MPH)" clickHandler={changeHandler} />
-        <Pill dataLabel="windGust" label="Wind Gust (MPH)" clickHandler={changeHandler} />
-        <Pill dataLabel="humidity" label="Humidity (%)" clickHandler={changeHandler} />
-        <Pill dataLabel="dewPoint" label="Dew Point (&deg;F)" clickHandler={changeHandler} />
-        <Pill dataLabel="uvIndex" label="UV Index" clickHandler={changeHandler} />
-        <Pill dataLabel="cloudCover" label="Cloud Cover (%)" clickHandler={changeHandler} />
-        <Pill dataLabel="pressure" label="Pressure (MB)" clickHandler={changeHandler} />
+        <Pill
+          dataLabel="temperature"
+          label="Temp (&deg;F)"
+          selected={true}
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="temperatureApparent"
+          label="Feels-Like (&deg;F)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="precipitationChance"
+          label="Precip Prob (%)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="precipitationIntensity"
+          label="Precip Rate (IN/HR)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="windSpeed"
+          label="Wind (MPH)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="windGust"
+          label="Wind Gust (MPH)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="humidity"
+          label="Humidity (%)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="temperatureDewPoint"
+          label="Dew Point (&deg;F)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="uvIndex"
+          label="UV Index"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="cloudCover"
+          label="Cloud Cover (%)"
+          clickHandler={changeHandler}
+        />
+        <Pill
+          dataLabel="pressure"
+          label="Pressure (MB)"
+          clickHandler={changeHandler}
+        />
       </div>
     </div>
   ) : (

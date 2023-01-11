@@ -1,6 +1,6 @@
 {
   "name": "skydark-app",
-  "version": "2.4.4",
+  "version": "3.0.0",
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
   "type": "module",
@@ -57,7 +57,7 @@
     "react-google-charts": "4.0.0",
     "react-leaflet": "4.2.0",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.6.16",
+    "sweetalert2": "11.7.0",
     "sweetalert2-react-content": "5.0.7",
     "tippy.js": "6.3.7"
   },
@@ -67,7 +67,7 @@
     "@babel/preset-env": "7.20.2",
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@tailwindcss/forms": "0.5.3",
-    "@tailwindcss/typography": "0.5.8",
+    "@tailwindcss/typography": "0.5.9",
     "@vitejs/plugin-react-swc": "3.0.1",
     "autoprefixer": "10.4.13",
     "babel-plugin-add-react-displayname": "0.0.5",
@@ -80,14 +80,14 @@
     "eslint-plugin-compat": "4.0.2",
     "eslint-plugin-html": "7.1.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-jsx-a11y": "6.7.0",
     "eslint-plugin-markdown": "3.0.0",
     "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-react": "7.31.11",
+    "eslint-plugin-react": "7.32.0",
     "eslint-plugin-react-hooks": "4.6.0",
-    "postcss": "8.4.20",
+    "postcss": "8.4.21",
     "postcss-cli": "10.1.0",
-    "prettier": "2.8.1",
+    "prettier": "2.8.2",
     "prettier-eslint": "15.0.1",
     "sass": "1.57.1",
     "stylelint": "14.16.1",
@@ -100,7 +100,7 @@
     "vite": "4.0.4",
     "vite-plugin-html": "3.2.0",
     "vite-plugin-pwa": "0.14.1",
-    "wrangler": "2.6.2"
+    "wrangler": "2.7.1"
   },
   "babel": {
     "plugins": [
@@ -181,6 +181,7 @@
           "unnamedComponents": "arrow-function"
         }
       ],
+      "react/destructuring-assignment": "warn",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "error",
       "react/jsx-boolean-value": "off",

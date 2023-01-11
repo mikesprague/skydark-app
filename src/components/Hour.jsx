@@ -11,7 +11,9 @@ import {
   formatCondition,
   getConditionBarClass,
   getUvIndexClasses,
+  metricToImperial,
   openModalWithComponent,
+  titleCaseAddSpace,
 } from '../modules/helpers';
 
 import './Hour.scss';
@@ -40,43 +42,22 @@ export const Hour = ({
   }, [hourlyConditionToShow, conditionToShow]);
 
   const [summaryText, setSummaryText] = useState('');
-  const [summaryTextClass, setSummaryTextClass] = useState('summary one-line');
 
   useEffect(() => {
-    const summaryTextArray = summary.split(' ');
-
-    if (summaryTextArray.length > 2) {
-      if (
-        summaryTextArray.length === 3 &&
-        (summaryTextArray.join(' ').trim().toLowerCase() === 'rain and humid' ||
-          summaryTextArray.join(' ').trim().toLowerCase() === 'rain and moist')
-      ) {
-        summaryTextArray.splice(2, 0, '\u000a');
-      } else if (
-        summaryTextArray.length >= 4 ||
-        summaryTextArray[0].trim().toLowerCase() === 'humid' ||
-        summaryTextArray[0].trim().toLowerCase() === 'moist'
-      ) {
-        summaryTextArray.splice(2, 0, '\u000a');
-      } else {
-        summaryTextArray.splice(1, 0, '\u000a');
-      }
-
-      setSummaryTextClass('summary');
-    }
-
-    setSummaryText(summaryTextArray.join(' ').trim());
+    setSummaryText(titleCaseAddSpace(summary));
   }, [summary]);
 
   const clickHandler = () => {
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="modal-headline">
-          {`${dayjs.unix(data.time).format('ddd, MMMM D')} at ${dayjs
-            .unix(data.time)
-            .format('h:mm A')}`}
+          {`${dayjs(data.forecastStart).format('ddd, MMMM D')} at ${dayjs(
+            data.forecastStart,
+          ).format('h:mm A')}`}
         </h3>
-        <h4 className="mb-2 text-lg">{data.summary}</h4>
+        <h4 className="mb-2 text-lg">
+          {titleCaseAddSpace(data.conditionCode)}
+        </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -96,8 +77,8 @@ export const Hour = ({
               <br />
               Feels Like:
               {` ${formatCondition(
-                data.apparentTemperature,
-                'apparentTemperature',
+                data.temperatureApparent,
+                'temperatureApparent',
               )}`}
             </small>
           </div>
@@ -119,7 +100,7 @@ export const Hour = ({
               <FontAwesomeIcon
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
-                transform={{ rotate: data.windBearing }}
+                transform={{ rotate: data.windDirection }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
                   '--fa-secondary-color': 'darkslategray',
@@ -150,7 +131,10 @@ export const Hour = ({
               {` ${formatCondition(data.humidity, 'humidity')}`}
               <br />
               Dew Point:
-              {` ${formatCondition(data.dewPoint, 'dewPoint')}`}
+              {` ${formatCondition(
+                data.temperatureDewPoint,
+                'temperatureDewPoint',
+              )}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -169,14 +153,14 @@ export const Hour = ({
             <small>
               Precipitaton:
               {` ${formatCondition(
-                data.precipProbability,
-                'precipProbability',
+                data.precipitationChance,
+                'precipitationChance',
               )}`}
               <br />
               Intensity:
               {` ${formatCondition(
-                data.precipIntensity,
-                'precipIntensity',
+                data.precipitationIntensity,
+                'precipitationIntensity',
               )} in/hr`}
             </small>
           </div>
@@ -263,10 +247,7 @@ export const Hour = ({
             <br />
             <small>
               Sunrise:
-              {` ${formatCondition(
-                dayData.sunriseTime,
-                'sunriseTime',
-              ).toLowerCase()}`}
+              {` ${formatCondition(dayData.sunrise, 'sunrise').toLowerCase()}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -284,10 +265,7 @@ export const Hour = ({
             <br />
             <small>
               Sunset:
-              {` ${formatCondition(
-                dayData.sunsetTime,
-                'sunsetTime',
-              ).toLowerCase()}`}
+              {` ${formatCondition(dayData.sunset, 'sunset').toLowerCase()}`}
             </small>
           </div>
         </div>
@@ -308,26 +286,29 @@ export const Hour = ({
           } ${getConditionBarClass(data)}`}
         />
         <div className="time">
-          {dayjs.unix(data.time).format('h a').toUpperCase()}
+          {dayjs(data.forecastStart).format('h a').toUpperCase()}
         </div>
-        <div className={summaryTextClass}>{summaryText.trim()}</div>
+        <div className="summary one-line">{summaryText.trim()}</div>
         <div className="spacer">&nbsp;</div>
       </div>
       <div
         className="condition"
         onClick={clickHandler}
         style={
-          ['humidity', 'cloudCover', 'precipProbability'].includes(
-            conditionToShow,
-          )
-            ? {}
-            : {
+          [
+            'temperature',
+            'temperatureApparent',
+            'temperatureDewPoint',
+          ].includes(conditionToShow)
+            ? {
                 marginRight: `${
-                  (maxValue - Math.round(data[conditionToShow])) *
+                  (maxValue -
+                    Math.round(metricToImperial.cToF(data[conditionToShow]))) *
                   (100 / valueRange) *
                   0.05
                 }rem`,
               }
+            : {}
         }
       >
         <span
@@ -355,6 +336,7 @@ Hour.propTypes = {
       PropTypes.number,
       PropTypes.array,
       PropTypes.object,
+      PropTypes.bool,
     ]),
   ).isRequired,
   dayData: PropTypes.objectOf(
@@ -363,6 +345,7 @@ Hour.propTypes = {
       PropTypes.number,
       PropTypes.array,
       PropTypes.object,
+      PropTypes.bool,
     ]),
   ).isRequired,
   summary: PropTypes.string.isRequired,
