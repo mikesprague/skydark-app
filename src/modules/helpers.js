@@ -162,8 +162,7 @@ export const initLeafletImages = (leafletRef) => {
 // eslint-disable-next-line no-promise-executor-return
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const formatTemp = (temp) =>
-  `${Math.round(metricToImperial.cToF(temp))}${String.fromCharCode(176)}`;
+const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
 const formatPercent = (num) => `${Math.round(num * 100)}%`;
 const formatNum = (num) => Number(Math.round(num));
 const formatDecimal = (num, places = 2) => Number(num.toFixed(places));
@@ -173,13 +172,13 @@ export const formatCondition = (value, condition) => {
     case 'temperature':
     case 'temperatureApparent':
     case 'temperatureDewPoint':
-      return formatTemp(value);
+      return formatTemp(metricToImperial.cToF(value));
     case 'precipitationChance':
     case 'humidity':
     case 'cloudCover':
       return formatPercent(value);
     case 'precipitationIntensity':
-      return `${formatDecimal(value)}`;
+      return `${formatDecimal(metricToImperial.mmToIn(value))}`;
     case 'pressure':
       return `${formatNum(value)}`;
     case 'sunrise':
@@ -188,10 +187,10 @@ export const formatCondition = (value, condition) => {
     case 'uvIndex':
       return `${formatNum(value)}`;
     case 'visibility':
-      return `${formatNum(value)}`;
+      return `${formatNum(metricToImperial.mToMi(value))}`;
     case 'windSpeed':
     case 'windGust':
-      return `${formatNum(value)}`;
+      return `${formatNum(metricToImperial.kmToMi(value))}`;
     default:
       return `${value}`;
   }
