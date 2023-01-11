@@ -265,7 +265,7 @@ export const Hour = ({
               Sunset:
               {` ${formatCondition(
                 dayData.sunsetTime,
-                'sunsetTime',
+                'sunset',
               ).toLowerCase()}`}
             </small>
           </div>
