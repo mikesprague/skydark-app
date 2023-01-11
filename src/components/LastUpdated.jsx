@@ -39,7 +39,7 @@ export const LastUpdated = () => {
             target="_blank"
           >
             Powered by{' '}
-            <span style={{ fontSize: '1.25rem' }}>
+            <span style={{ fontSize: '1.2rem' }}>
               <FontAwesomeIcon icon={['fab', 'apple']} fixedWidth />
             </span>{' '}
             Weather
