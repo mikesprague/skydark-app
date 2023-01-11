@@ -10,7 +10,6 @@ import {
   faCircleInfo,
   faClock,
   faCloud,
-  faCloudSun,
   faCloudBolt,
   faCloudDrizzle,
   faCloudFog,
@@ -18,6 +17,7 @@ import {
   faCloudRain,
   faCloudSleet,
   faCloudSnow,
+  faCloudSun,
   faClouds,
   faCloudsMoon,
   faCloudsSun,
@@ -508,7 +508,7 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'Snow',
       description: 'Snow',
       type: 'winter-precipitation',
-      icon: 'snowflakes',
+      icon: 'cloud-sleet',
       iconStyles: {
         '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-color': 'silver',
@@ -534,7 +534,7 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'WintryMix',
       description: 'Wintry mix',
       type: 'winter-precipitation',
-      icon: 'snowflake-droplets',
+      icon: 'cloud-sleet',
       iconStyles: {
         '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-color': 'dodgerblue',
@@ -547,7 +547,7 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'Blizzard',
       description: 'Blizzard',
       type: 'hazardous-winter',
-      icon: 'snow-blowing',
+      icon: 'cloud-snow',
       iconStyles: {
         '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-color': 'lightgray',

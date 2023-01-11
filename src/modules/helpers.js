@@ -108,8 +108,6 @@ export const openToastWithContent = (config) => {
   });
 };
 
-export const scaleDivisor = 75;
-
 export const apiUrl = () => {
   let urlToReturn = `${window.location.protocol}//${window.location.hostname}/api`;
 
@@ -227,15 +225,18 @@ export const getConditionBarClass = (data) => {
   conditionCode = conditionCode.toLowerCase();
   const clouds = Math.round(cloudCover * 100);
   // const summaryNormalized = summary.toLowerCase();
-  const isCloudy = () => conditionCode.includes('cloudy') || clouds >= 40;
+  const isCloudy = () => conditionCode.includes('cloudy');
+  const isHazy = () => conditionCode.includes('haze');
   const isRaining = () =>
     conditionCode.includes('rain') ||
     conditionCode.includes('storm') ||
-    conditionCode.includes('shower');
+    conditionCode.includes('shower') ||
+    conditionCode.includes('drizzle');
   const isSnowing = () =>
     conditionCode.includes('snow') ||
     conditionCode.includes('sleet') ||
     conditionCode.includes('blizzard') ||
+    conditionCode.includes('flurries') ||
     conditionCode.includes('Wintry');
   const isLight = () => conditionCode.includes('light');
   const isHeavy = () => conditionCode.includes('heavy');
@@ -267,6 +268,10 @@ export const getConditionBarClass = (data) => {
 
   if (isCloudy()) {
     return hasPartly() ? 'bg-gray-400' : 'bg-gray-500';
+  }
+
+  if (isHazy()) {
+    return 'bg-gray-300';
   }
 
   if (isClear()) {

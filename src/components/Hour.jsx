@@ -51,8 +51,8 @@ export const Hour = ({
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="modal-headline">
-          {`${dayjs(data.hourlyStart).format('ddd, MMMM D')} at ${dayjs(
-            data.hourlyStart,
+          {`${dayjs(data.forecastStart).format('ddd, MMMM D')} at ${dayjs(
+            data.forecastStart,
           ).format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">{data.summary}</h4>

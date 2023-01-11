@@ -53,8 +53,6 @@ export const Day = ({ data, dayIndex, minLow }) => {
       .set('millisecond', 0)
       .toISOString();
 
-    console.log(date, midnightAsIsoDate);
-
     allDetails.forEach((detail) => {
       if (detail !== currentDetail) {
         detail.removeAttribute('open');
@@ -100,7 +98,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
             <strong>
               {dayIndex === 0
                 ? 'TODAY'
-                : dayjs(data.dailyStart).format('ddd').toUpperCase()}
+                : dayjs(data.forecastStart).format('ddd').toUpperCase()}
             </strong>
             <br />
             <span className="precip">
