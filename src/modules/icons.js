@@ -534,7 +534,7 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'Snow',
       description: 'Snow',
       type: 'winter-precipitation',
-      icon: 'cloud-sleet',
+      icon: 'cloud-snow',
       iconStyles: {
         '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-color': 'silver',
