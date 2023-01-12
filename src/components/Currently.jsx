@@ -142,13 +142,13 @@ export const Currently = () => {
             <small>
               Precipitaton:
               {` ${formatCondition(
-                data.weather.currentWeather.precipitationChance,
+                data.weather.forecastNextHour.minutes[0].precipitationChance,
                 'precipitationChance',
               )}`}
               <br />
               Intensity:
               {` ${formatCondition(
-                data.weather.currentWeather.precipitationIntensity,
+                data.weather.forecastNextHour.minutes[0].precipitationIntensity,
                 'precipitationIntensity',
               )} in/hr`}
             </small>
