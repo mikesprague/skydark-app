@@ -290,10 +290,20 @@ export const Currently = () => {
         <FontAwesomeIcon
           icon={[
             'fad',
-            getWeatherIcon(currentData.currentWeather.conditionCode).icon,
+            !currentData.currentWeather.daylight &&
+            getWeatherIcon(currentData.currentWeather.conditionCode).nightIcon
+              ? getWeatherIcon(currentData.currentWeather.conditionCode)
+                  .nightIcon
+              : getWeatherIcon(currentData.currentWeather.conditionCode).icon,
           ]}
           style={
-            getWeatherIcon(currentData.currentWeather.conditionCode).iconStyles
+            !currentData.currentWeather.daylight &&
+            getWeatherIcon(currentData.currentWeather.conditionCode)
+              .nightIconStyles
+              ? getWeatherIcon(currentData.currentWeather.conditionCode)
+                  .nightIconStyles
+              : getWeatherIcon(currentData.currentWeather.conditionCode)
+                  .iconStyles
           }
           fixedWidth
           size="4x"
