@@ -264,7 +264,7 @@ export const getConditionBarClass = (data) => {
 
   if (isClear(conditionCode)) {
     if (hasMostly(conditionCode)) {
-      return 'bg-gray-50';
+      return 'bg-gray-100';
     }
 
     return 'bg-white';
@@ -275,12 +275,12 @@ export const getConditionBarClass = (data) => {
       return 'bg-blue-600';
     }
 
-    if (isLight(conditionCode)) {
-      return 'bg-blue-400';
-    }
+    // if (isLight(conditionCode)) {
+    //   return 'bg-blue-400';
+    // }
 
     if (isDrizzle(conditionCode)) {
-      return 'bg-blue-300';
+      return 'bg-blue-400';
     }
 
     return 'bg-blue-500';
@@ -291,12 +291,12 @@ export const getConditionBarClass = (data) => {
       return 'bg-purple-600';
     }
 
-    if (isLight(conditionCode)) {
-      return 'bg-purple-400';
-    }
+    // if (isLight(conditionCode)) {
+    //   return 'bg-purple-400';
+    // }
 
     if (isFlurries(conditionCode)) {
-      return 'bg-purple-300';
+      return 'bg-purple-400';
     }
 
     return 'bg-purple-500';
