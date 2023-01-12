@@ -625,7 +625,7 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'HeavySnow',
       description: 'Heavy snow',
       type: 'hazardous-winter',
-      icon: 'snow-blowing',
+      icon: 'snowflakes',
       iconStyles: {
         '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-color': 'lightgray',
