@@ -4,16 +4,16 @@ import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
+  titleCaseToSentenceCase,
   isRaining,
   isSnowing,
-  titleCaseToSentenceCase,
 } from '../modules/helpers';
 
 import './NextHour.scss';
 
 export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);
-  const [precipTypeText, setPrecipTypeText] = useState(null);
+  const [minutesData, setMinutesData] = useState(null);
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
@@ -21,13 +21,14 @@ export const NextHour = () => {
       return;
     }
 
+    const { weather } = data;
+
     const hour = new Date().getMinutes() > 30 ? 1 : 0;
-    const precipType =
-      data.weather.forecastHourly.hours[hour].precipitationType;
-    const summary = data.weather.forecastHourly.hours[hour].conditionCode;
+    const summary = weather.forecastHourly.hours[hour].conditionCode;
+    const minutes = weather.forecastNextHour.minutes.slice(0, 59);
 
     setSummaryText(titleCaseToSentenceCase(summary));
-    setPrecipTypeText(titleCaseToSentenceCase(precipType));
+    setMinutesData(minutes);
 
     return () => setSummaryText(null);
   }, [data]);
@@ -35,16 +36,24 @@ export const NextHour = () => {
   const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
 
   useEffect(() => {
-    if (!summaryText) {
+    if (!summaryText || !minutesData) {
       return;
     }
 
-    if (isRaining(precipTypeText) || isSnowing(precipTypeText)) {
+    const precipNextHour = minutesData.filter(
+      (minute) => minute.precipitationIntensity > 0,
+    );
+
+    if (
+      (isRaining(summaryText.toLowerCase()) ||
+        isSnowing(summaryText.toLowerCase())) &&
+      precipNextHour.length
+    ) {
       setNextHourPrecipitation(true);
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [summaryText, precipTypeText]);
+  }, [minutesData, summaryText]);
 
   return data ? (
     <>
