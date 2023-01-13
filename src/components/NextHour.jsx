@@ -150,7 +150,9 @@ export const NextHour = () => {
           nextHourPrecipitation ? ' -mt-8' : ''
         }`}
       >
-        {longSummaryText.length ? longSummaryText : `Next Hour: ${summaryText}`}
+        {longSummaryText && longSummaryText.length
+          ? longSummaryText
+          : `Next Hour: ${summaryText}`}
       </p>
     </>
   ) : (
