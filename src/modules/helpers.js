@@ -275,9 +275,9 @@ export const getConditionBarClass = (data) => {
       return 'bg-blue-600';
     }
 
-    // if (isLight(conditionCode)) {
-    //   return 'bg-blue-400';
-    // }
+    if (isLight(conditionCode)) {
+      return 'bg-blue-400';
+    }
 
     if (isDrizzle(conditionCode)) {
       return 'bg-blue-400';
@@ -291,9 +291,9 @@ export const getConditionBarClass = (data) => {
       return 'bg-purple-600';
     }
 
-    // if (isLight(conditionCode)) {
-    //   return 'bg-purple-400';
-    // }
+    if (isLight(conditionCode)) {
+      return 'bg-purple-400';
+    }
 
     if (isFlurries(conditionCode)) {
       return 'bg-purple-400';
@@ -348,7 +348,15 @@ export const formatSummary = (
   if (index === startIndex) {
     summary = currentHourData.conditionCode;
 
-    return summary;
+    if (isDrizzle(summary)) {
+      summary = 'LightRain';
+    }
+
+    if (isFlurries(summary)) {
+      summary = 'LightSnow';
+    }
+
+    return titleCaseAddSpace(summary);
   }
 
   summary =
@@ -356,6 +364,14 @@ export const formatSummary = (
     currentHourData.conditionCode === allHourlyData[index - 2].conditionCode
       ? ''
       : currentHourData.conditionCode;
+
+  if (isDrizzle(summary)) {
+    summary = 'LightRain';
+  }
+
+  if (isFlurries(summary)) {
+    summary = 'LightSnow';
+  }
 
   return titleCaseAddSpace(summary);
 };
