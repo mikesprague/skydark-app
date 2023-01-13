@@ -39,7 +39,6 @@ export const SunriseSunset = () => {
 
     if (minutes > 37 && minutes <= 54) {
       minutesFraction = String.fromCharCode(190);
-      hoursText = hours - 1;
     }
 
     return hoursText === '' && minutesFraction === ''

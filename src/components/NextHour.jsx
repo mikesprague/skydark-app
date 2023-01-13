@@ -125,7 +125,9 @@ export const NextHour = () => {
             );
 
             setLongSummaryText(
-              `${summaryText} starting in ${stopTime} minutes`,
+              `${capitalizeWord(
+                nextHourParts[1].condition.trim(),
+              )} starting in ${stopTime} minutes`,
             );
           }
 
