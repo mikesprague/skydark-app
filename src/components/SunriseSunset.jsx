@@ -24,7 +24,7 @@ export const SunriseSunset = () => {
     }
 
     if (totalMinutes > 54 && (minutes > 54 || minutes < 7)) {
-      hoursText = hours + 1;
+      hoursText += 1;
     }
 
     let minutesFraction = '';
@@ -39,6 +39,7 @@ export const SunriseSunset = () => {
 
     if (minutes > 37 && minutes <= 54) {
       minutesFraction = String.fromCharCode(190);
+      hoursText = hours - 1;
     }
 
     return hoursText === '' && minutesFraction === ''
