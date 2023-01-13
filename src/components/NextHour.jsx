@@ -99,7 +99,7 @@ export const NextHour = () => {
           }
         }
 
-        if (nextHourParts.length === 1) {
+        if (nextHourParts.length > 1) {
           console.log('starting/stopping');
         }
 
