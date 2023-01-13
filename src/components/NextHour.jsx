@@ -36,9 +36,7 @@ export const NextHour = () => {
         .includes(weather.forecastNextHour.summary[0].condition.toLowerCase())
     ) {
       // console.log("let's use current condition code");
-      summary = capitalizeWord(
-        data.weather.forecastNextHour.summary[0].condition,
-      );
+      summary = capitalizeWord(weather.currentWeather.conditionCode);
     }
 
     const minutes = weather.forecastNextHour.minutes.slice(0, 59);
@@ -91,6 +89,12 @@ export const NextHour = () => {
 
       if (nextHourParts.length) {
         // console.log("it's precipitating!");
+        if (
+          nextHourParts.length === 1 &&
+          nextHourParts[0].condition.trim() !== 'clear'
+        ) {
+          setLongSummaryText(`${summaryText} for the hour`);
+        }
 
         if (
           nextHourParts.length === 1 &&
