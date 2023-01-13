@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 
 import { PrecipChart } from './PrecipChart';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
-  titleCaseToSentenceCase,
+  isDrizzle,
+  isFlurries,
   isRaining,
   isSnowing,
+  titleCaseToSentenceCase,
 } from '../modules/helpers';
 
 import './NextHour.scss';
@@ -24,8 +27,16 @@ export const NextHour = () => {
     const { weather } = data;
 
     const hour = new Date().getMinutes() > 30 ? 1 : 0;
-    const summary = weather.forecastHourly.hours[hour].conditionCode;
+    let summary = weather.forecastHourly.hours[hour].conditionCode;
     const minutes = weather.forecastNextHour.minutes.slice(0, 59);
+
+    if (isDrizzle(summary)) {
+      summary = 'LightRain';
+    }
+
+    if (isFlurries(summary)) {
+      summary = 'LightSnow';
+    }
 
     setSummaryText(titleCaseToSentenceCase(summary));
     setMinutesData(minutes);
@@ -55,6 +66,50 @@ export const NextHour = () => {
     return () => setNextHourPrecipitation(false);
   }, [minutesData, summaryText]);
 
+  const [longSummaryText, setLongSummaryText] = useState(null);
+
+  useEffect(() => {
+    if (!summaryText || !data) {
+      return;
+    }
+
+    if (nextHourPrecipitation) {
+      const nextHourParts = data.weather.forecastNextHour.summary;
+      const conditions = ['clear', 'precipitation'];
+
+      if (nextHourParts.length) {
+        // const firstCondition = nextHourParts[0].condition
+        //   .trim()
+        //   .replace(/^\w/, (c) => c.toUpperCase());
+        if (
+          nextHourParts.length === 1 &&
+          !conditions.includes(nextHourParts[0].condition.trim())
+        ) {
+          // console.log("it's precipitating!");
+          if (nextHourParts[0].endTime) {
+            // console.log("it's stropping!");
+            const stopTime = dayjs().diff(nextHourParts[0].endTime, 'm');
+
+            setLongSummaryText(
+              `${summaryText} stopping in ${stopTime} minutes`,
+            );
+          } else {
+            setLongSummaryText(summaryText);
+            // console.log('precipitation through the hour!');
+          }
+        }
+
+        if (nextHourParts.length === 1) {
+          console.log('starting/stopping');
+        }
+
+        // nextHourParts.forEach((part, idx) => {
+        //   console.log(part, idx);
+        // });
+      }
+    }
+  }, [summaryText, data, nextHourPrecipitation]);
+
   return data ? (
     <>
       {nextHourPrecipitation ? <PrecipChart /> : ''}
@@ -63,7 +118,7 @@ export const NextHour = () => {
           nextHourPrecipitation ? ' -mt-8' : ''
         }`}
       >
-        {`Next Hour: ${summaryText}`}
+        {`Next Hour: ${longSummaryText || summaryText}`}
       </p>
     </>
   ) : (
