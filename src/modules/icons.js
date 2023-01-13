@@ -208,7 +208,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Clear',
@@ -238,7 +238,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Foggy',
@@ -251,7 +251,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Haze',
@@ -264,7 +264,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'MostlyClear',
@@ -328,7 +328,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Breezy',
@@ -341,7 +341,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Windy',
@@ -354,7 +354,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Drizzle',
@@ -367,7 +367,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'HeavyRain',
@@ -380,7 +380,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'IsolatedThunderstorms',
@@ -389,11 +389,11 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'yellow',
+        '--fa-secondary-color': 'gold',
         '--fa-secondary-opacity': '.8',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Rain',
@@ -406,7 +406,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'SunShowers',
@@ -433,11 +433,11 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'yellow',
+        '--fa-secondary-color': 'gold',
         '--fa-secondary-opacity': '.8',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'StrongStorms',
@@ -450,7 +450,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Thunderstorms',
@@ -459,11 +459,11 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'yellow',
+        '--fa-secondary-color': 'gold',
         '--fa-secondary-opacity': '.8',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Frigid',
@@ -476,7 +476,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Hail',
@@ -489,7 +489,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.9',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Hot',
@@ -502,7 +502,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Flurries',
@@ -515,7 +515,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Sleet',
@@ -528,7 +528,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.9',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Snow',
@@ -541,7 +541,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'SunFlurries',
@@ -554,7 +554,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'WintryMix',
@@ -567,7 +567,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Blizzard',
@@ -580,7 +580,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'BlowingSnow',
@@ -593,7 +593,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'FreezingDrizzle',
@@ -606,7 +606,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.9',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'FreezingRain',
@@ -619,7 +619,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.9',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'HeavySnow',
@@ -632,7 +632,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'Hurricane',
@@ -645,7 +645,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.9',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
     {
       code: 'TropicalStorm',
@@ -658,7 +658,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-opacity': '.9',
       },
       nightIcon: null,
-      nightIconStyles: {},
+      nightIconStyles: null,
     },
   ];
 
