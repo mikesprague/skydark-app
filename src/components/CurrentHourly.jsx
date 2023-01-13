@@ -80,7 +80,12 @@ export const CurrentHourly = () => {
               'temperature',
             )} `}
             {`\u00a0${titleCaseToSentenceCase(
-              data.weather.forecastDaily.days[0].conditionCode,
+              data.weather.forecastDaily.days[0].restOfDayForecast
+                .conditionCode !==
+                data.weather.forecastDaily.days[1].conditionCode
+                ? `${data.weather.forecastDaily.days[0].restOfDayForecast.conditionCode} then ${data.weather.forecastDaily.days[1].conditionCode}`
+                : data.weather.forecastDaily.days[0].restOfDayForecast
+                    .conditionCode,
             )}`}
           </em>
         </p>

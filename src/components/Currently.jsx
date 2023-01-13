@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   formatCondition,
+  isDrizzle,
+  isFlurries,
   openModalWithComponent,
   titleCaseAddSpace,
 } from '../modules/helpers';
@@ -24,15 +26,33 @@ export const Currently = () => {
     setCurrentData(data.weather);
   }, [data]);
 
+  const [summary, setSummary] = useState(null);
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    let summaryText = data.weather.currentWeather.conditionCode;
+
+    if (isDrizzle(summaryText)) {
+      summaryText = 'LightRain';
+    }
+
+    if (isFlurries(summaryText)) {
+      summaryText = 'LightSnow';
+    }
+
+    setSummary(summaryText);
+  }, [data]);
+
   const clickHandler = () => {
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="modal-headline">
           Current Conditions
         </h3>
-        <h4 className="mb-2 text-lg">
-          {titleCaseAddSpace(data.weather.currentWeather.conditionCode)}
-        </h4>
+        <h4 className="mb-2 text-lg">{titleCaseAddSpace(summary)}</h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
