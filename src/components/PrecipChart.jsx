@@ -19,7 +19,7 @@ export const PrecipChart = () => {
     const dataArray = [['Minute', 'Precipitation']];
 
     data.weather.forecastNextHour.minutes
-      .slice(0, 59)
+      .slice(0, 61)
       .forEach((minute, index) => {
         dataArray.push([
           index,
