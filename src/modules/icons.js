@@ -259,8 +259,8 @@ export const getWeatherIcon = (conditionCode) => {
       type: 'visibility',
       icon: 'sun-haze',
       iconStyles: {
-        '--fa-primary-color': 'gold',
-        '--fa-secondary-color': 'silver',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'gold',
         '--fa-secondary-opacity': '.75',
       },
       nightIcon: null,
