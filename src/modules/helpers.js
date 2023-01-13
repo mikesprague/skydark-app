@@ -131,6 +131,9 @@ export const handleError = (error) => {
   }
 };
 
+export const capitalizeWord = (word) =>
+  word.replace(/^\w/, (c) => c.toUpperCase());
+
 export const titleCaseToSentenceCase = (words) =>
   words
     .split('')
