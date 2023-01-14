@@ -33,7 +33,13 @@ export const Currently = () => {
       return;
     }
 
-    setSummary(data.weather.currentWeather.conditionCode);
+    let summaryText = data.weather.currentWeather.conditionCode;
+
+    if (summaryText === 'Cloudy') {
+      summaryText = 'Overcast';
+    }
+
+    setSummary(summaryText);
   }, [data]);
 
   const clickHandler = () => {

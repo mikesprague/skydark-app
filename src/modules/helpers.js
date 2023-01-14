@@ -246,7 +246,8 @@ export const isRaining = (condition) =>
   condition.toLowerCase().includes('drizzle');
 
 export const isCloudy = (condition) =>
-  condition.toLowerCase().includes('cloudy');
+  condition.toLowerCase().includes('cloudy') ||
+  condition.toLowerCase().includes('overcast');
 export const isHazy = (condition) => condition.toLowerCase().includes('haze');
 export const isLight = (condition) => condition.toLowerCase().includes('light');
 export const isHeavy = (condition) => condition.toLowerCase().includes('heavy');
@@ -351,6 +352,10 @@ export const formatSummary = (
   if (index === startIndex) {
     summary = currentHourData.conditionCode;
 
+    if (summary === 'Cloudy') {
+      summary = 'Overcast';
+    }
+
     return titleCaseAddSpace(summary);
   }
 
@@ -359,6 +364,10 @@ export const formatSummary = (
     currentHourData.conditionCode === allHourlyData[index - 2].conditionCode
       ? ''
       : currentHourData.conditionCode;
+
+  if (summary === 'Cloudy') {
+    summary = 'Overcast';
+  }
 
   return titleCaseAddSpace(summary);
 };
