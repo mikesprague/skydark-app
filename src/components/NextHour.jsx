@@ -41,6 +41,10 @@ export const NextHour = () => {
 
     const minutes = weather.forecastNextHour.minutes.slice(0, 59);
 
+    if (summary.toLowerCase() === 'cloudy') {
+      summary = 'Overcast';
+    }
+
     setSummaryText(titleCaseToSentenceCase(summary));
     setMinutesData(minutes);
 
