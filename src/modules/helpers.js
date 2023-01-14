@@ -351,14 +351,6 @@ export const formatSummary = (
   if (index === startIndex) {
     summary = currentHourData.conditionCode;
 
-    if (isDrizzle(summary)) {
-      summary = 'LightRain';
-    }
-
-    if (isFlurries(summary)) {
-      summary = 'LightSnow';
-    }
-
     return titleCaseAddSpace(summary);
   }
 
@@ -367,14 +359,6 @@ export const formatSummary = (
     currentHourData.conditionCode === allHourlyData[index - 2].conditionCode
       ? ''
       : currentHourData.conditionCode;
-
-  if (isDrizzle(summary)) {
-    summary = 'LightRain';
-  }
-
-  if (isFlurries(summary)) {
-    summary = 'LightSnow';
-  }
 
   return titleCaseAddSpace(summary);
 };

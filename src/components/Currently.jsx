@@ -33,17 +33,7 @@ export const Currently = () => {
       return;
     }
 
-    let summaryText = data.weather.currentWeather.conditionCode;
-
-    if (isDrizzle(summaryText)) {
-      summaryText = 'LightRain';
-    }
-
-    if (isFlurries(summaryText)) {
-      summaryText = 'LightSnow';
-    }
-
-    setSummary(summaryText);
+    setSummary(data.weather.currentWeather.conditionCode);
   }, [data]);
 
   const clickHandler = () => {

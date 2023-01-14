@@ -41,14 +41,6 @@ export const NextHour = () => {
 
     const minutes = weather.forecastNextHour.minutes.slice(0, 59);
 
-    if (isDrizzle(summary)) {
-      summary = 'LightRain';
-    }
-
-    if (isFlurries(summary)) {
-      summary = 'LightSnow';
-    }
-
     setSummaryText(titleCaseToSentenceCase(summary));
     setMinutesData(minutes);
 
