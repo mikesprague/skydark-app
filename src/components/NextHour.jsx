@@ -75,7 +75,7 @@ export const NextHour = () => {
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [minutesData, summaryText]);
+  }, [minutesData, summaryText, data]);
 
   const [longSummaryText, setLongSummaryText] = useState(null);
 
@@ -146,7 +146,7 @@ export const NextHour = () => {
         // });
       }
     }
-  }, [summaryText, data, nextHourPrecipitation]);
+  }, [data, nextHourPrecipitation, summaryText]);
 
   return data ? (
     <>
