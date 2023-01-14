@@ -51,15 +51,19 @@ export const WeatherAlert = () => {
               <strong>Expires: </strong>
               {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
             </p>
-            <p className="mb-6 text-center">{alert.messages}</p>
+            <iframe
+              title="weatherAlerts"
+              className="mb-6 text-center max-h-60 h-fit"
+              src={alert.detailsUrl}
+            />
             <p className="m-4 text-center">
               <a
                 className="px-4 py-2 my-6 text-sm bg-blue-500"
-                href={alert.detailsUrl}
+                href={alert.attributionUrl}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                More Info
+                Source
               </a>
             </p>
             {alertData.length > 1 && alertIdx + 1 < alertData.length ? (
