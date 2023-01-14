@@ -56,7 +56,9 @@ export const Hour = ({
           ).format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">
-          {titleCaseAddSpace(data.conditionCode)}
+          {titleCaseAddSpace(
+            data.conditionCode === 'Cloudy' ? 'Overcast' : data.conditionCode,
+          )}
         </h4>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
