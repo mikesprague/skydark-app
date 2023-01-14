@@ -86,6 +86,21 @@ export const NextHour = () => {
 
     if (nextHourPrecipitation) {
       const nextHourParts = data.weather.forecastNextHour.summary;
+      let tmpSummaryText = '';
+
+      if (
+        !summaryText.toLowerCase().includes(nextHourParts[0].condition.trim())
+      ) {
+        if (summaryText.includes('Drizzle')) {
+          tmpSummaryText = summaryText.replace('Drizzle', 'Flurries');
+        }
+
+        if (summaryText.includes('Flurries')) {
+          tmpSummaryText = summaryText.replace('Flurries', 'Drizzle');
+        }
+      }
+
+      console.log(tmpSummaryText);
 
       if (nextHourParts.length) {
         // console.log("it's precipitating!");
@@ -93,7 +108,11 @@ export const NextHour = () => {
           nextHourParts.length === 1 &&
           nextHourParts[0].condition.trim() !== 'clear'
         ) {
-          setLongSummaryText(`${summaryText} for the hour`);
+          setLongSummaryText(
+            `${
+              tmpSummaryText.trim().length ? tmpSummaryText : summaryText
+            } for the hour`,
+          );
         }
 
         if (
@@ -105,11 +124,17 @@ export const NextHour = () => {
             const stopTime = dayjs(nextHourParts[0].endTime).diff(dayjs(), 'm');
 
             setLongSummaryText(
-              `${summaryText} stopping in ${stopTime} minutes`,
+              `${
+                tmpSummaryText.trim().length ? tmpSummaryText : summaryText
+              } stopping in ${stopTime} minutes`,
             );
           } else {
             // console.log('precipitation through the hour!');
-            setLongSummaryText(`${summaryText} for the hour`);
+            setLongSummaryText(
+              `${
+                tmpSummaryText.trim().length ? tmpSummaryText : summaryText
+              } for the hour`,
+            );
           }
         }
 
@@ -136,7 +161,9 @@ export const NextHour = () => {
             const stopTime = dayjs(nextHourParts[0].endTime).diff(dayjs(), 'm');
 
             setLongSummaryText(
-              `${summaryText} stopping in ${stopTime} minutes`,
+              `${
+                tmpSummaryText.trim().length ? tmpSummaryText : summaryText
+              } stopping in ${stopTime} minutes`,
             );
           }
         }
@@ -145,6 +172,8 @@ export const NextHour = () => {
         //   console.log(part, idx);
         // });
       }
+    } else {
+      setLongSummaryText(`${summaryText} for the hour`);
     }
   }, [data, nextHourPrecipitation, summaryText, longSummaryText]);
 
@@ -158,7 +187,7 @@ export const NextHour = () => {
       >
         {longSummaryText && longSummaryText.length
           ? longSummaryText
-          : `Next Hour: ${summaryText}`}
+          : summaryText}
       </p>
     </>
   ) : (
