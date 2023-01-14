@@ -62,9 +62,9 @@ export const Hourly = ({ data, dayData }) => {
 
   return hourlyData ? (
     <div className="hourly-container">
-      <p className="mb-2 -mt-2 text-sm leading-normal text-center">
+      {/* <p className="mb-2 -mt-2 text-sm leading-normal text-center">
         {titleCaseToSentenceCase(dayData.conditionCode)}
-      </p>
+      </p> */}
       <ul className="hourly">
         {hourlyData.map((hour, index) => {
           const lastHour =
