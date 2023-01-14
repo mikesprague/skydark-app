@@ -146,7 +146,7 @@ export const NextHour = () => {
         // });
       }
     }
-  }, [data, nextHourPrecipitation, summaryText]);
+  }, [data, nextHourPrecipitation, summaryText, longSummaryText]);
 
   return data ? (
     <>
