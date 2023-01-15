@@ -6,8 +6,6 @@ import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
   capitalizeWord,
-  isDrizzle,
-  isFlurries,
   isRaining,
   isSnowing,
   titleCaseToSentenceCase,
@@ -22,6 +20,10 @@ export const NextHour = () => {
 
   useEffect(() => {
     if (!data.weather) {
+      return;
+    }
+
+    if (!data.weather.forecastNextHour.condition.length) {
       return;
     }
 
@@ -96,7 +98,7 @@ export const NextHour = () => {
         }
       }
 
-      console.log(tmpSummaryText);
+      // console.log(tmpSummaryText);
 
       if (nextHourParts.length) {
         // console.log("it's precipitating!");
@@ -173,7 +175,7 @@ export const NextHour = () => {
     }
   }, [data, nextHourPrecipitation, summaryText, longSummaryText]);
 
-  return data ? (
+  return data.weather.forecastNextHour.condition.length ? (
     <>
       {nextHourPrecipitation ? <PrecipChart /> : ''}
       <p
