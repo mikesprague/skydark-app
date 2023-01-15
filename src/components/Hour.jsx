@@ -66,12 +66,12 @@ export const Hour = ({
           <FontAwesomeIcon
             icon={[
               'fad',
-              !dayData.daylight && getWeatherIcon(data.conditionCode).nightIcon
+              !data.daylight && getWeatherIcon(data.conditionCode).nightIcon
                 ? getWeatherIcon(data.conditionCode).nightIcon
                 : getWeatherIcon(data.conditionCode).icon,
             ]}
             style={
-              !dayData.daylight &&
+              !data.daylight &&
               getWeatherIcon(data.conditionCode).nightIconStyles
                 ? getWeatherIcon(data.conditionCode).nightIconStyles
                 : getWeatherIcon(data.conditionCode).iconStyles
