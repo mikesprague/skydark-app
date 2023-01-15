@@ -49,6 +49,29 @@ export const Currently = () => {
           Current Conditions
         </h3>
         <h4 className="mb-2 text-lg">{titleCaseAddSpace(summary)}</h4>
+        <div className="icon">
+          <FontAwesomeIcon
+            icon={[
+              'fad',
+              !currentData.currentWeather.daylight &&
+              getWeatherIcon(currentData.currentWeather.conditionCode).nightIcon
+                ? getWeatherIcon(currentData.currentWeather.conditionCode)
+                    .nightIcon
+                : getWeatherIcon(currentData.currentWeather.conditionCode).icon,
+            ]}
+            style={
+              !currentData.currentWeather.daylight &&
+              getWeatherIcon(currentData.currentWeather.conditionCode)
+                .nightIconStyles
+                ? getWeatherIcon(currentData.currentWeather.conditionCode)
+                    .nightIconStyles
+                : getWeatherIcon(currentData.currentWeather.conditionCode)
+                    .iconStyles
+            }
+            fixedWidth
+            size="4x"
+          />
+        </div>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -211,7 +234,15 @@ export const Currently = () => {
           </div>
           <div className="conditions-item">
             <FontAwesomeIcon
-              icon={['fad', 'gauge']}
+              icon={[
+                'fad',
+                // eslint-disable-next-line no-nested-ternary
+                data.weather.currentWeather.pressureTrend === 'steady'
+                  ? 'gauge'
+                  : data.weather.currentWeather.pressureTrend === 'rising'
+                  ? 'gauge-high'
+                  : 'gauge-low',
+              ]}
               size="2x"
               fixedWidth
               style={{

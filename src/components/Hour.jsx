@@ -16,6 +16,8 @@ import {
   titleCaseAddSpace,
 } from '../modules/helpers';
 
+import { getWeatherIcon } from '../modules/icons';
+
 import './Hour.scss';
 
 dayjs.extend(utc);
@@ -60,6 +62,24 @@ export const Hour = ({
             data.conditionCode === 'Cloudy' ? 'Overcast' : data.conditionCode,
           )}
         </h4>
+        <div className="my-1">
+          <FontAwesomeIcon
+            icon={[
+              'fad',
+              !dayData.daylight && getWeatherIcon(data.conditionCode).nightIcon
+                ? getWeatherIcon(data.conditionCode).nightIcon
+                : getWeatherIcon(data.conditionCode).icon,
+            ]}
+            style={
+              !dayData.daylight &&
+              getWeatherIcon(data.conditionCode).nightIconStyles
+                ? getWeatherIcon(data.conditionCode).nightIconStyles
+                : getWeatherIcon(data.conditionCode).iconStyles
+            }
+            fixedWidth
+            size="4x"
+          />
+        </div>
         <div className="flex flex-wrap mt-2">
           <div className="conditions-item">
             <FontAwesomeIcon
@@ -202,7 +222,15 @@ export const Hour = ({
           </div>
           <div className="conditions-item">
             <FontAwesomeIcon
-              icon={['fad', 'gauge']}
+              icon={[
+                'fad',
+                // eslint-disable-next-line no-nested-ternary
+                data.pressureTrend === 'steady'
+                  ? 'gauge'
+                  : data.pressureTrend === 'rising'
+                  ? 'gauge-high'
+                  : 'gauge-low',
+              ]}
               size="2x"
               fixedWidth
               style={{
