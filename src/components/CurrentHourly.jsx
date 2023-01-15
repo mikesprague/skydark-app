@@ -7,7 +7,6 @@ import {
   formatSummary,
   getNextTwentyFourText,
   metricToImperial,
-  titleCaseToSentenceCase,
 } from '../modules/helpers';
 import { Hour } from './Hour';
 import { NextHour } from './NextHour';
@@ -26,17 +25,19 @@ export const CurrentHourly = () => {
   const [valueRange, setValueRange] = useState(0);
 
   useEffect(() => {
-    if (data) {
-      const allVals = data.weather.forecastHourly.hours
-        .slice(0, 23)
-        .map((hour) => hour[hourlyConditionToShow]);
-      const max = metricToImperial.cToF(Math.max(...allVals));
-      const min = metricToImperial.cToF(Math.min(...allVals));
-      const range = max - min;
-
-      setMaxValue(max);
-      setValueRange(range);
+    if (!data) {
+      return;
     }
+
+    const allVals = data.weather.forecastHourly.hours
+      .slice(0, 23)
+      .map((hour) => hour[hourlyConditionToShow]);
+    const max = metricToImperial.cToF(Math.max(...allVals));
+    const min = metricToImperial.cToF(Math.min(...allVals));
+    const range = max - min;
+
+    setMaxValue(max);
+    setValueRange(range);
   }, [hourlyConditionToShow, data]);
 
   const changeHandler = (event) => {
@@ -54,7 +55,7 @@ export const CurrentHourly = () => {
     newSelection.classList.add('pill-selected');
   };
 
-  return (
+  return data ? (
     <div className="current-hourly-container">
       <NextHour />
       <ul className="hourly">
@@ -183,6 +184,8 @@ export const CurrentHourly = () => {
         />
       </div>
     </div>
+  ) : (
+    ''
   );
 };
 
