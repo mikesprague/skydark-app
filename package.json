@@ -165,6 +165,15 @@
       "sourceType": "module"
     },
     "rules": {
+      "node/no-missing-import": [
+        "error",
+        {
+          "tryExtensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
       "react/jsx-filename-extension": [
         "error",
         {
