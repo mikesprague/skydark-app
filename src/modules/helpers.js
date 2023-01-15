@@ -413,10 +413,20 @@ export const initSkyDark = () => {
 export const getNextTwentyFourText = (data) => {
   let dataPartOne = data.weather.forecastDaily.days[0].restOfDayForecast;
   let dataPartTwo = data.weather.forecastDaily.days[0].overnightForecast;
+  let startAtOvernight = false;
 
   if (dayjs().hour() >= 19) {
     dataPartOne = data.weather.forecastDaily.days[0].overnightForecast;
     dataPartTwo = data.weather.forecastDaily.days[1].daytimeForecast;
+    startAtOvernight = true;
+  }
+
+  if (dataPartOne.conditionCode === 'Cloudy') {
+    dataPartOne.conditionCode = 'Overcast';
+  }
+
+  if (dataPartTwo.conditionCode === 'Cloudy') {
+    dataPartTwo.conditionCode = 'Overcast';
   }
 
   // console.log(dataPartOne, dataPartTwo);
@@ -424,17 +434,11 @@ export const getNextTwentyFourText = (data) => {
     // eslint-disable-next-line no-nested-ternary
     dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
     dataPartOne.precipitationType !== dataPartTwo.precipitationType
-      ? `${
-          dataPartOne.conditionCode === 'Cloudy'
-            ? 'Overcast'
-            : dataPartOne.conditionCode
-        } then ${
-          dataPartTwo.conditionCode === 'Cloudy'
-            ? 'Overcast'
-            : dataPartTwo.conditionCode
+      ? `${dataPartOne.conditionCode} ${
+          startAtOvernight ? 'overnight,' : ','
+        } ${dataPartTwo.conditionCode} ${
+          startAtOvernight ? 'in the morning' : 'overnight'
         }`
-      : dataPartOne.conditionCode === 'Cloudy'
-      ? 'Overcast throughout the day'
       : `${dataPartOne.conditionCode} throughout the day`;
 
   return titleCaseToSentenceCase(returnString);
