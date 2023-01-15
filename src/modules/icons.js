@@ -542,8 +542,8 @@ export const getWeatherIcon = (conditionCode) => {
       type: 'winter-precipitation',
       icon: 'cloud-snow',
       iconStyles: {
-        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
-        '--fa-secondary-color': 'silver',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
@@ -581,8 +581,8 @@ export const getWeatherIcon = (conditionCode) => {
       type: 'hazardous-winter',
       icon: 'cloud-snow',
       iconStyles: {
-        '--fa-primary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
-        '--fa-secondary-color': 'lightgray',
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': isDarkModeEnabled() ? 'white' : 'gainsboro',
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
