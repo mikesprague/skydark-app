@@ -23,34 +23,43 @@ export const NextHour = () => {
       return;
     }
 
-    if (!data.weather.forecastNextHour.condition.length) {
-      return;
-    }
-
     const { weather } = data;
-
-    const hour = new Date().getMinutes() > 30 ? 1 : 0;
-    let summary = capitalizeWord(weather.forecastNextHour.summary[0].condition);
+    const hour = dayjs().minute() > 30 ? 1 : 0;
 
     if (
-      !weather.forecastHourly.hours[hour].conditionCode
-        .toLowerCase()
-        .includes(weather.forecastNextHour.summary[0].condition.toLowerCase())
+      weather.forecastNextHour.metadata.temporarilyUnavailable ||
+      !weather.forecastNextHour.minutes.length
     ) {
-      // console.log("let's use current condition code");
-      summary = capitalizeWord(weather.currentWeather.conditionCode);
+      setSummaryText(
+        titleCaseToSentenceCase(
+          weather.forecastHourly.hours[hour].conditionCode,
+        ),
+      );
+    } else {
+      let summary = capitalizeWord(
+        weather.forecastNextHour.summary[0].condition,
+      );
+
+      if (
+        !weather.forecastHourly.hours[hour].conditionCode
+          .toLowerCase()
+          .includes(weather.forecastNextHour.summary[0].condition.toLowerCase())
+      ) {
+        // console.log("let's use current condition code");
+        summary = capitalizeWord(weather.currentWeather.conditionCode);
+      }
+
+      if (summary.toLowerCase() === 'cloudy') {
+        summary = 'Overcast';
+      }
+
+      const minutes = weather.forecastNextHour.minutes.slice(0, 59);
+
+      setSummaryText(titleCaseToSentenceCase(summary));
+      setMinutesData(minutes);
     }
 
-    const minutes = weather.forecastNextHour.minutes.slice(0, 59);
-
-    if (summary.toLowerCase() === 'cloudy') {
-      summary = 'Overcast';
-    }
-
-    setSummaryText(titleCaseToSentenceCase(summary));
-    setMinutesData(minutes);
-
-    return () => setSummaryText(null);
+    // return () => setSummaryText(null);
   }, [data]);
 
   const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
@@ -72,7 +81,7 @@ export const NextHour = () => {
       setNextHourPrecipitation(true);
     }
 
-    return () => setNextHourPrecipitation(false);
+    // return () => setNextHourPrecipitation(false);
   }, [minutesData, summaryText, data]);
 
   const [longSummaryText, setLongSummaryText] = useState(null);
@@ -165,17 +174,13 @@ export const NextHour = () => {
             );
           }
         }
-
-        // nextHourParts.forEach((part, idx) => {
-        //   console.log(part, idx);
-        // });
       }
     } else {
       setLongSummaryText(`${summaryText} for the hour`);
     }
   }, [data, nextHourPrecipitation, summaryText, longSummaryText]);
 
-  return data.weather.forecastNextHour.condition.length ? (
+  return longSummaryText || summaryText ? (
     <>
       {nextHourPrecipitation ? <PrecipChart /> : ''}
       <p
