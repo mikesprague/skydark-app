@@ -291,7 +291,7 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'MostlyCloudy',
       description: 'Mostly cloudy',
       type: 'visibility',
-      icon: 'cloud-sun',
+      icon: 'clouds-sun',
       iconStyles: {
         '--fa-primary-color': 'silver',
         '--fa-secondary-color': 'gold',
@@ -314,7 +314,7 @@ export const getWeatherIcon = (conditionCode) => {
         '--fa-secondary-color': 'gold',
         '--fa-secondary-opacity': '.75',
       },
-      nightIcon: 'clouds-moon',
+      nightIcon: 'cloud-moon',
       nightIconStyles: {
         '--fa-primary-color': 'silver',
         '--fa-secondary-color': 'plum',
