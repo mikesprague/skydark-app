@@ -419,7 +419,7 @@ export const getNextTwentyFourText = (data) => {
     dataPartTwo = data.weather.forecastDaily.days[1].daytimeForecast;
   }
 
-  console.log(dataPartOne, dataPartTwo);
+  // console.log(dataPartOne, dataPartTwo);
   const returnString =
     // eslint-disable-next-line no-nested-ternary
     dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
