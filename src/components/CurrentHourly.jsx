@@ -83,7 +83,8 @@ export const CurrentHourly = () => {
               // eslint-disable-next-line no-nested-ternary
               data.weather.forecastDaily.days[0].restOfDayForecast
                 .conditionCode !==
-                data.weather.forecastDaily.days[1].conditionCode &&
+                data.weather.forecastDaily.days[1].daytimeForecast
+                  .conditionCode ||
                 data.weather.forecastDaily.days[0].precipitationType !==
                   data.weather.forecastDaily.days[1].precipitationType
                 ? `${
@@ -93,16 +94,16 @@ export const CurrentHourly = () => {
                       : data.weather.forecastDaily.days[0].restOfDayForecast
                           .conditionCode
                   } then ${
-                    data.weather.forecastDaily.days[1].conditionCode ===
-                    'Cloudy'
+                    data.weather.forecastDaily.days[1].daytimeForecast
+                      .conditionCode === 'Cloudy'
                       ? 'Overcast'
-                      : data.weather.forecastDaily.days[1].conditionCode
+                      : data.weather.forecastDaily.days[1].daytimeForecast
+                          .conditionCode
                   }`
                 : data.weather.forecastDaily.days[0].restOfDayForecast
                     .conditionCode === 'Cloudy'
                 ? 'Overcast'
-                : data.weather.forecastDaily.days[0].restOfDayForecast
-                    .conditionCode,
+                : `${data.weather.forecastDaily.days[0].restOfDayForecast.conditionCode} throughout the day`,
             )}`}
           </em>
         </p>
