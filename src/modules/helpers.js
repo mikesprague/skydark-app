@@ -408,3 +408,34 @@ export const initSkyDark = () => {
   initAppSettings();
   initDarkMode();
 };
+
+
+export const getNextTwentyFourText = (data) => {
+  let dataPartOne = data.weather.forecastDaily.days[0].restOfDayForecast;
+  let dataPartTwo = data.weather.forecastDaily.days[0].overnightForecast;
+
+  if (dayjs().hour() >= 19) {
+    dataPartOne = data.weather.forecastDaily.days[0].overnightForecast;
+    dataPartTwo = data.weather.forecastDaily.days[1].daytimeForecast;
+  }
+
+  console.log(dataPartOne, dataPartTwo);
+  const returnString =
+    // eslint-disable-next-line no-nested-ternary
+    dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
+    dataPartOne.precipitationType !== dataPartTwo.precipitationType
+      ? `${
+          dataPartOne.conditionCode === 'Cloudy'
+            ? 'Overcast'
+            : dataPartOne.conditionCode
+        } then ${
+          dataPartTwo.conditionCode === 'Cloudy'
+            ? 'Overcast'
+            : dataPartTwo.conditionCode
+        }`
+      : dataPartOne.conditionCode === 'Cloudy'
+      ? 'Overcast throughout the day'
+      : `${dataPartOne.conditionCode} throughout the day`;
+
+  return titleCaseToSentenceCase(returnString);
+};

@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import {
   formatCondition,
   formatSummary,
+  getNextTwentyFourText,
   metricToImperial,
   titleCaseToSentenceCase,
 } from '../modules/helpers';
@@ -79,32 +80,7 @@ export const CurrentHourly = () => {
               ),
               'temperature',
             )} `}
-            {`\u00a0${titleCaseToSentenceCase(
-              // eslint-disable-next-line no-nested-ternary
-              data.weather.forecastDaily.days[0].restOfDayForecast
-                .conditionCode !==
-                data.weather.forecastDaily.days[1].daytimeForecast
-                  .conditionCode ||
-                data.weather.forecastDaily.days[0].precipitationType !==
-                  data.weather.forecastDaily.days[1].precipitationType
-                ? `${
-                    data.weather.forecastDaily.days[0].restOfDayForecast
-                      .conditionCode === 'Cloudy'
-                      ? 'Overcast'
-                      : data.weather.forecastDaily.days[0].restOfDayForecast
-                          .conditionCode
-                  } then ${
-                    data.weather.forecastDaily.days[1].daytimeForecast
-                      .conditionCode === 'Cloudy'
-                      ? 'Overcast'
-                      : data.weather.forecastDaily.days[1].daytimeForecast
-                          .conditionCode
-                  }`
-                : data.weather.forecastDaily.days[0].restOfDayForecast
-                    .conditionCode === 'Cloudy'
-                ? 'Overcast'
-                : `${data.weather.forecastDaily.days[0].restOfDayForecast.conditionCode} throughout the day`,
-            )}`}
+            {`\u00a0${getNextTwentyFourText(data)}`}
           </em>
         </p>
         {data.weather.forecastHourly.hours.map((hourData, index) => {
