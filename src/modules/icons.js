@@ -395,7 +395,7 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'gold',
+        '--fa-secondary-color': 'yellow-400',
         '--fa-secondary-opacity': '.8',
       },
       nightIcon: null,
@@ -439,7 +439,7 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'gold',
+        '--fa-secondary-color': 'yellow-400',
         '--fa-secondary-opacity': '.8',
       },
       nightIcon: null,
@@ -465,7 +465,7 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'cloud-bolt',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'gold',
+        '--fa-secondary-color': 'yellow-400',
         '--fa-secondary-opacity': '.8',
       },
       nightIcon: null,
@@ -504,7 +504,7 @@ export const getWeatherIcon = (conditionCode) => {
       icon: 'heat',
       iconStyles: {
         '--fa-primary-color': 'silver',
-        '--fa-secondary-color': 'gold',
+        '--fa-secondary-color': 'gainsboro',
         '--fa-secondary-opacity': '1',
       },
       nightIcon: null,
