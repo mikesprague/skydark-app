@@ -111,8 +111,13 @@ export const Day = ({ data, dayIndex, minLow }) => {
           </div>
           <div className="icon">
             <FontAwesomeIcon
-              icon={['fad', getWeatherIcon(data.conditionCode).icon]}
-              style={getWeatherIcon(data.conditionCode).iconStyles}
+              icon={[
+                'fad',
+                getWeatherIcon(data.daytimeForecast.conditionCode).icon,
+              ]}
+              style={
+                getWeatherIcon(data.daytimeForecast.conditionCode).iconStyles
+              }
               size="2x"
               fixedWidth
             />
