@@ -2,11 +2,13 @@ import dayjs from 'dayjs';
 
 export function setData(key, data) {
   const dataToSet = JSON.stringify(data);
+
   localStorage.setItem(key, dataToSet);
 }
 
 export function getData(key) {
   const dataToGet = localStorage.getItem(key);
+
   return JSON.parse(dataToGet);
 }
 
@@ -25,16 +27,23 @@ export function isCached(key) {
 export function isCacheValid(key, duration, durationType) {
   const lastUpdated = getData(key);
   const nextUpdateTime = dayjs(lastUpdated).add(duration, durationType);
+
   if (dayjs().isAfter(nextUpdateTime) || !lastUpdated === null) {
     return false;
   }
+
   return true;
 }
 
 export const isCacheExpired = (lastUpdated, cacheDurationInMinutes) => {
-  const nextUpdateTime = dayjs(lastUpdated).add(cacheDurationInMinutes, 'minute');
+  const nextUpdateTime = dayjs(lastUpdated).add(
+    cacheDurationInMinutes,
+    'minute',
+  );
+
   if (dayjs().isAfter(nextUpdateTime)) {
     return true;
   }
+
   return false;
 };

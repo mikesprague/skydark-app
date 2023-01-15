@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
 import { getData, setData } from '../modules/local-storage';
 
 // Similar to `useState` but with some lightweight behind-the-scenes
@@ -9,6 +10,7 @@ export const useLocalStorage = (key, val) => {
 
   useEffect(() => {
     const storedValue = getData(key);
+
     setValue(storedValue);
 
     const handleChanges = (e) => {
@@ -24,11 +26,13 @@ export const useLocalStorage = (key, val) => {
     };
   }, [key, val]);
 
-  const updater = useCallback((newValue) => {
-    setValue(newValue);
-    setData(key, newValue);
-  },
-  [key]);
+  const updater = useCallback(
+    (newValue) => {
+      setValue(newValue);
+      setData(key, newValue);
+    },
+    [key],
+  );
 
   return [value, updater];
 };
