@@ -435,9 +435,9 @@ export const getNextTwentyFourText = (data) => {
     dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
     dataPartOne.precipitationType !== dataPartTwo.precipitationType
       ? `${dataPartOne.conditionCode} ${
-          startAtOvernight ? 'overnight,' : ','
-        } ${dataPartTwo.conditionCode} ${
-          startAtOvernight ? 'in the morning' : 'overnight'
+          startAtOvernight ? 'overnight' : ''
+        }, then ${dataPartTwo.conditionCode} ${
+          startAtOvernight ? '' : 'overnight'
         }`
       : `${dataPartOne.conditionCode} throughout the day`;
 
