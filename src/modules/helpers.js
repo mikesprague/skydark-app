@@ -414,11 +414,16 @@ export const getNextTwentyFourText = (data) => {
   let dataPartOne = data.weather.forecastDaily.days[0].restOfDayForecast;
   let dataPartTwo = data.weather.forecastDaily.days[0].overnightForecast;
   let startAtOvernight = false;
+  let showDaytimeOnly = false;
 
   if (dayjs().hour() >= 19) {
     dataPartOne = data.weather.forecastDaily.days[0].overnightForecast;
     dataPartTwo = data.weather.forecastDaily.days[1].daytimeForecast;
     startAtOvernight = true;
+  }
+
+  if (dayjs().hour() <= 12) {
+    showDaytimeOnly = true;
   }
 
   if (dataPartOne.conditionCode === 'Cloudy') {
@@ -430,16 +435,18 @@ export const getNextTwentyFourText = (data) => {
   }
 
   // console.log(dataPartOne, dataPartTwo);
-  const returnString =
+  let returnString =
     // eslint-disable-next-line no-nested-ternary
     dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
     dataPartOne.precipitationType !== dataPartTwo.precipitationType
       ? `${dataPartOne.conditionCode} ${
-          startAtOvernight ? 'overnight' : ''
-        }, then ${dataPartTwo.conditionCode} ${
-          startAtOvernight ? '' : 'overnight'
-        }`
+          startAtOvernight ? 'overnight' : 'throughout the day'
+        }, ${dataPartTwo.conditionCode} ${startAtOvernight ? '' : 'overnight'}`
       : `${dataPartOne.conditionCode} throughout the day`;
+
+  if (showDaytimeOnly) {
+    returnString = `${dataPartOne.conditionCode} throughout the day`;
+  }
 
   return titleCaseToSentenceCase(returnString);
 };
