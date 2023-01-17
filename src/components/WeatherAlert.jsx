@@ -22,8 +22,10 @@ export const WeatherAlert = () => {
   const [alertData, setAlertData] = useState(null);
   const data = useContext(WeatherDataContext);
 
+  const { weather } = data;
+
   useEffect(() => {
-    if (!data.weather.weatherAlerts.alerts.length) {
+    if (!data || !weather.weatherAlerts.alerts.length) {
       return;
     }
 
@@ -43,8 +45,12 @@ export const WeatherAlert = () => {
       setAlertData(returnData);
     };
 
-    getWeatherAlerts(data.weather.weatherAlerts.alerts);
-  }, [data]);
+    getWeatherAlerts(weather.weatherAlerts.alerts);
+
+    return () => {
+      setAlertData(null);
+    };
+  }, [data, weather.weatherAlerts.alerts]);
 
   const weatherAlertHandler = () => {
     openModalWithComponent(
