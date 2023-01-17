@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
@@ -9,7 +10,7 @@ import utc from 'dayjs/plugin/utc';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { openModalWithComponent } from '../modules/helpers';
+import { apiUrl, openModalWithComponent } from '../modules/helpers';
 
 import './WeatherAlert.scss';
 
@@ -26,12 +27,24 @@ export const WeatherAlert = () => {
       return;
     }
 
-    setAlertData(data.weather.weatherAlerts.alerts);
+    const getWeatherAlerts = async (alerts) => {
+      const returnData = [];
 
-    return () => {
-      setAlertData(null);
+      // eslint-disable-next-line no-restricted-syntax
+      for await (const alert of alerts) {
+        const weatherApiurl = `${apiUrl()}/apple-weather/?alertId=${alert.id}`;
+        const weatherApiData = await axios
+          .get(weatherApiurl)
+          .then((response) => response.data);
+
+        returnData.push(weatherApiData.weather);
+      }
+
+      setAlertData(returnData);
     };
-  }, [data, data.weather.weatherAlerts.alerts]);
+
+    getWeatherAlerts(data.weather.weatherAlerts.alerts);
+  }, [data]);
 
   const weatherAlertHandler = () => {
     openModalWithComponent(
@@ -51,15 +64,11 @@ export const WeatherAlert = () => {
               <strong>Expires: </strong>
               {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
             </p>
-            <iframe
-              title="weatherAlerts"
-              className="mb-6 text-center max-h-60 h-fit"
-              src={alert.detailsUrl}
-            />
+            <p className="mb-6 text-center">{alert.messages[0].text}</p>
             <p className="m-4 text-center">
               <a
                 className="px-4 py-2 my-6 text-sm bg-blue-500"
-                href={alert.attributionUrl}
+                href={alert.attributionURL}
                 rel="noopener noreferrer"
                 target="_blank"
               >
