@@ -74,8 +74,8 @@ export const NextHour = () => {
     );
 
     if (
-      isRaining(summaryText.toLowerCase()) ||
-      isSnowing(summaryText.toLowerCase()) ||
+      (isRaining(summaryText.toLowerCase()) ||
+        isSnowing(summaryText.toLowerCase())) &&
       precipNextHour.length
     ) {
       setNextHourPrecipitation(true);
