@@ -435,17 +435,20 @@ export const getNextTwentyFourText = (data) => {
   }
 
   // console.log(dataPartOne, dataPartTwo);
-  let returnString =
-    // eslint-disable-next-line no-nested-ternary
-    dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
-    dataPartOne.precipitationType !== dataPartTwo.precipitationType
-      ? `${dataPartOne.conditionCode} ${
-          startAtOvernight ? 'overnight' : 'throughout the day'
-        }, ${dataPartTwo.conditionCode} ${startAtOvernight ? '' : 'overnight'}`
-      : `${dataPartOne.conditionCode} throughout the day`;
+  let returnString = '';
 
   if (showDaytimeOnly) {
     returnString = `${dataPartOne.conditionCode} throughout the day`;
+  } else {
+    returnString =
+      dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
+      dataPartOne.precipitationType !== dataPartTwo.precipitationType
+        ? `${dataPartOne.conditionCode} ${
+            startAtOvernight ? 'overnight' : 'throughout the day'
+          }, ${dataPartTwo.conditionCode} ${
+            startAtOvernight ? 'tomorrow' : 'overnight'
+          }`
+        : `${dataPartOne.conditionCode} throughout the day`;
   }
 
   return titleCaseToSentenceCase(returnString);
