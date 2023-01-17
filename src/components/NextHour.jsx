@@ -81,7 +81,7 @@ export const NextHour = () => {
       setNextHourPrecipitation(true);
     }
 
-    // return () => setNextHourPrecipitation(false);
+    return () => setNextHourPrecipitation(false);
   }, [minutesData, summaryText, data]);
 
   const [longSummaryText, setLongSummaryText] = useState(null);
@@ -94,19 +94,17 @@ export const NextHour = () => {
     if (nextHourPrecipitation) {
       const nextHourParts = data.weather.forecastNextHour.summary;
       let tmpSummaryText = '';
+      // if (
+      //   !summaryText.toLowerCase().includes(nextHourParts[0].condition.trim())
+      // ) {
+      //   if (summaryText.includes('Drizzle')) {
+      //     tmpSummaryText = summaryText.replace('Drizzle', 'Flurries');
+      //   }
 
-      if (
-        !summaryText.toLowerCase().includes(nextHourParts[0].condition.trim())
-      ) {
-        if (summaryText.includes('Drizzle')) {
-          tmpSummaryText = summaryText.replace('Drizzle', 'Flurries');
-        }
-
-        if (summaryText.includes('Flurries')) {
-          tmpSummaryText = summaryText.replace('Flurries', 'Drizzle');
-        }
-      }
-
+      //   if (summaryText.includes('Flurries')) {
+      //     tmpSummaryText = summaryText.replace('Flurries', 'Drizzle');
+      //   }
+      // }
       // console.log(tmpSummaryText);
 
       if (nextHourParts.length) {
@@ -116,9 +114,8 @@ export const NextHour = () => {
           nextHourParts[0].condition.trim() !== 'clear'
         ) {
           setLongSummaryText(
-            `${
-              tmpSummaryText.trim().length ? tmpSummaryText : summaryText
-            } for the hour`,
+            // `${tmpSummaryText.trim().length ? tmpSummaryText : summaryText} for the hour`,
+            `${summaryText} for the hour`,
           );
         }
 
