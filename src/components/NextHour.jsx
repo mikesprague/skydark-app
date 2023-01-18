@@ -73,11 +73,7 @@ export const NextHour = () => {
       (minute) => minute.precipitationIntensity > 0,
     );
 
-    if (
-      (isRaining(summaryText.toLowerCase()) ||
-        isSnowing(summaryText.toLowerCase())) &&
-      precipNextHour.length
-    ) {
+    if (precipNextHour.length) {
       setNextHourPrecipitation(true);
     }
 
