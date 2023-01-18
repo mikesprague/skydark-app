@@ -59,7 +59,7 @@ export const NextHour = () => {
       setMinutesData(minutes);
     }
 
-    // return () => setSummaryText(null);
+    return () => setSummaryText(null);
   }, [data]);
 
   const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
@@ -73,12 +73,34 @@ export const NextHour = () => {
       (minute) => minute.precipitationIntensity > 0,
     );
 
-    if (precipNextHour.length) {
+    const summaryHasPrecip = (summary) => {
+      if (summary.length === 1) {
+        return (
+          isSnowing(summary[0].condition) || isRaining(summary[0].condition)
+        );
+      }
+
+      if (summary.length >= 2) {
+        return (
+          isSnowing(summary[0].condition) ||
+          isSnowing(summary[1].condition) ||
+          isRaining(summary[0].condition) ||
+          isRaining(summary[1].condition)
+        );
+      }
+
+      return false;
+    };
+
+    if (
+      precipNextHour.length &&
+      summaryHasPrecip(data.weather.forecastNextHour.summary)
+    ) {
       setNextHourPrecipitation(true);
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [minutesData, summaryText, data]);
+  }, [data.weather.forecastNextHour.summary, minutesData, summaryText]);
 
   const [longSummaryText, setLongSummaryText] = useState(null);
 
@@ -171,7 +193,7 @@ export const NextHour = () => {
     } else {
       setLongSummaryText(`${summaryText} for the hour`);
     }
-  }, [data, nextHourPrecipitation, summaryText, longSummaryText]);
+  }, [data, nextHourPrecipitation, summaryText]);
 
   return longSummaryText || summaryText ? (
     <>
