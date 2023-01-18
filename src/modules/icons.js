@@ -247,6 +247,19 @@ export const getWeatherIcon = (conditionCode) => {
       nightIconStyles: null,
     },
     {
+      code: 'Overcast',
+      description: 'Cloudy, overcast conditions',
+      type: 'visibility',
+      icon: 'clouds',
+      iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'darkgray',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: null,
+      nightIconStyles: null,
+    },
+    {
       code: 'Foggy',
       description: 'Fog',
       type: 'visibility',
