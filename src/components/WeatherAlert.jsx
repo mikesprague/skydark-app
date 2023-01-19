@@ -52,6 +52,20 @@ export const WeatherAlert = () => {
     };
   }, [data, weather.weatherAlerts.alerts]);
 
+  const formatAlert = (alert) => {
+    let alertParts = alert.split('\n* ');
+
+    alertParts = alertParts.map((alertPart, idx) => {
+      if (idx === 0) {
+        return alertPart.replace(/\.\.\./g, ' ').trim();
+      }
+
+      return `${alertPart.replace(/\.\.\./, ': ').trim()}\n\n`;
+    });
+
+    return alertParts;
+  };
+
   const weatherAlertHandler = () => {
     openModalWithComponent(
       <>
@@ -70,7 +84,22 @@ export const WeatherAlert = () => {
               <strong>Expires: </strong>
               {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
             </p>
-            <p className="mb-6 text-center">{alert.messages[0].text}</p>
+            <p className="mb-6 text-center">
+              <strong>{formatAlert(alert.messages[alertIdx].text)[0]}</strong>
+            </p>
+            {formatAlert(alert.messages[alertIdx].text).map(
+              (alertPart, idx) => {
+                if (idx >= 1) {
+                  return (
+                    <p className="mb-6 px-3 text-left" key={nanoid(6)}>
+                      {alertPart}
+                    </p>
+                  );
+                }
+
+                return '';
+              },
+            )}
             <p className="m-4 text-center">
               <a
                 className="px-4 py-2 my-6 text-sm bg-blue-500"
