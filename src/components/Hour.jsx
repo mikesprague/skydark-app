@@ -58,9 +58,7 @@ export const Hour = ({
           ).format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">
-          {titleCaseAddSpace(
-            data.conditionCode === 'Cloudy' ? 'Overcast' : data.conditionCode,
-          )}
+          {titleCaseAddSpace(data.conditionCode)}
         </h4>
         <div className="my-1">
           <FontAwesomeIcon

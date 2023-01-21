@@ -17,13 +17,13 @@ export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);
   const [minutesData, setMinutesData] = useState(null);
   const data = useContext(WeatherDataContext);
+  const { weather } = data;
 
   useEffect(() => {
-    if (!data.weather) {
+    if (!weather) {
       return;
     }
 
-    const { weather } = data;
     const hour = dayjs().minute() > 30 ? 1 : 0;
 
     if (
@@ -49,10 +49,6 @@ export const NextHour = () => {
         summary = capitalizeWord(weather.currentWeather.conditionCode);
       }
 
-      if (summary.toLowerCase() === 'cloudy') {
-        summary = 'Overcast';
-      }
-
       const minutes = weather.forecastNextHour.minutes.slice(0, 59);
 
       setSummaryText(titleCaseToSentenceCase(summary));
@@ -60,7 +56,7 @@ export const NextHour = () => {
     }
 
     return () => setSummaryText(null);
-  }, [data]);
+  }, [weather]);
 
   const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
 
@@ -94,36 +90,23 @@ export const NextHour = () => {
 
     if (
       precipNextHour.length &&
-      summaryHasPrecip(data.weather.forecastNextHour.summary)
+      summaryHasPrecip(weather.forecastNextHour.summary)
     ) {
       setNextHourPrecipitation(true);
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [data.weather.forecastNextHour.summary, minutesData, summaryText]);
+  }, [weather.forecastNextHour.summary, minutesData, summaryText]);
 
   const [longSummaryText, setLongSummaryText] = useState(null);
 
   useEffect(() => {
-    if (!summaryText || !data) {
+    if (!summaryText || !weather) {
       return;
     }
 
     if (nextHourPrecipitation) {
-      const nextHourParts = data.weather.forecastNextHour.summary;
-      let tmpSummaryText = '';
-      // if (
-      //   !summaryText.toLowerCase().includes(nextHourParts[0].condition.trim())
-      // ) {
-      //   if (summaryText.includes('Drizzle')) {
-      //     tmpSummaryText = summaryText.replace('Drizzle', 'Flurries');
-      //   }
-
-      //   if (summaryText.includes('Flurries')) {
-      //     tmpSummaryText = summaryText.replace('Flurries', 'Drizzle');
-      //   }
-      // }
-      // console.log(tmpSummaryText);
+      const nextHourParts = weather.forecastNextHour.summary;
 
       if (nextHourParts.length) {
         // console.log("it's precipitating!");
@@ -131,10 +114,7 @@ export const NextHour = () => {
           nextHourParts.length === 1 &&
           nextHourParts[0].condition.trim() !== 'clear'
         ) {
-          setLongSummaryText(
-            // `${tmpSummaryText.trim().length ? tmpSummaryText : summaryText} for the hour`,
-            `${summaryText} for the hour`,
-          );
+          setLongSummaryText(`${summaryText} for the hour`);
         }
 
         if (
@@ -146,17 +126,11 @@ export const NextHour = () => {
             const stopTime = dayjs(nextHourParts[0].endTime).diff(dayjs(), 'm');
 
             setLongSummaryText(
-              `${
-                tmpSummaryText.trim().length ? tmpSummaryText : summaryText
-              } stopping in ${stopTime} minutes`,
+              `${summaryText} stopping in ${stopTime} minutes`,
             );
           } else {
             // console.log('precipitation through the hour!');
-            setLongSummaryText(
-              `${
-                tmpSummaryText.trim().length ? tmpSummaryText : summaryText
-              } for the hour`,
-            );
+            setLongSummaryText(`${summaryText} for the hour`);
           }
         }
 
@@ -183,9 +157,7 @@ export const NextHour = () => {
             const stopTime = dayjs(nextHourParts[0].endTime).diff(dayjs(), 'm');
 
             setLongSummaryText(
-              `${
-                tmpSummaryText.trim().length ? tmpSummaryText : summaryText
-              } stopping in ${stopTime} minutes`,
+              `${summaryText} stopping in ${stopTime} minutes`,
             );
           }
         }
@@ -193,7 +165,7 @@ export const NextHour = () => {
     } else {
       setLongSummaryText(`${summaryText} for the hour`);
     }
-  }, [data, nextHourPrecipitation, summaryText]);
+  }, [weather, nextHourPrecipitation, summaryText]);
 
   return longSummaryText || summaryText ? (
     <>

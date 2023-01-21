@@ -15,30 +15,27 @@ import './Currently.scss';
 export const Currently = () => {
   const [currentData, setCurrentData] = useState(null);
   const data = useContext(WeatherDataContext);
+  const { weather } = data;
 
   useEffect(() => {
-    if (!data) {
+    if (!weather) {
       return;
     }
 
-    setCurrentData(data.weather);
-  }, [data]);
+    setCurrentData(weather);
+  }, [weather]);
 
   const [summary, setSummary] = useState(null);
 
   useEffect(() => {
-    if (!data) {
+    if (!weather) {
       return;
     }
 
-    let summaryText = data.weather.currentWeather.conditionCode;
-
-    if (summaryText === 'Cloudy') {
-      summaryText = 'Overcast';
-    }
+    const summaryText = weather.currentWeather.conditionCode;
 
     setSummary(summaryText);
-  }, [data]);
+  }, [weather]);
 
   const clickHandler = () => {
     openModalWithComponent(
@@ -78,7 +75,7 @@ export const Currently = () => {
               fixedWidth
               style={{
                 '--fa-primary-color': 'red',
-                '--fa-seconday-color': 'lightgray',
+                '--fa-secondary-color': 'lightgray',
                 '--fa-secondary-opacity': '.9',
               }}
             />
@@ -86,13 +83,13 @@ export const Currently = () => {
             <small>
               Temp:
               {` ${formatCondition(
-                data.weather.currentWeather.temperature,
+                weather.currentWeather.temperature,
                 'temperature',
               )}`}
               <br />
               Feels Like:
               {` ${formatCondition(
-                data.weather.currentWeather.temperatureApparent,
+                weather.currentWeather.temperatureApparent,
                 'temperatureApparent',
               )}`}
             </small>
@@ -112,14 +109,14 @@ export const Currently = () => {
             <small>
               Wind:
               {` ${formatCondition(
-                data.weather.currentWeather.windSpeed,
+                weather.currentWeather.windSpeed,
                 'windSpeed',
               )} mph `}
               <FontAwesomeIcon
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
                 transform={{
-                  rotate: data.weather.currentWeather.windDirection,
+                  rotate: weather.currentWeather.windDirection,
                 }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
@@ -131,7 +128,7 @@ export const Currently = () => {
               <br />
               Gusts:
               {` ${formatCondition(
-                data.weather.currentWeather.windGust,
+                weather.currentWeather.windGust,
                 'windGust',
               )} mph`}
             </small>
@@ -152,13 +149,13 @@ export const Currently = () => {
             <small>
               Humidity:
               {` ${formatCondition(
-                data.weather.currentWeather.humidity,
+                weather.currentWeather.humidity,
                 'humidity',
               )}`}
               <br />
               Dew Point:
               {` ${formatCondition(
-                data.weather.currentWeather.temperatureDewPoint,
+                weather.currentWeather.temperatureDewPoint,
                 'temperatureDewPoint',
               )}`}
             </small>
@@ -177,15 +174,19 @@ export const Currently = () => {
             />
             <br />
             <small>
-              Precipitaton:
-              {` ${formatCondition(
-                data.weather.forecastNextHour.minutes[0].precipitationChance,
-                'precipitationChance',
-              )}`}
+              Precipitation:
+              {` ${
+                weather.forecastNextHour.minutes.length
+                  ? formatCondition(
+                      weather.forecastNextHour.minutes[0].precipitationChance,
+                      'precipitationChance',
+                    )
+                  : 'n/a'
+              }`}
               <br />
               Intensity:
               {` ${formatCondition(
-                data.weather.forecastNextHour.minutes[0].precipitationIntensity,
+                weather.currentWeather.precipitationIntensity,
                 'precipitationIntensity',
               )} in/hr`}
             </small>
@@ -205,7 +206,7 @@ export const Currently = () => {
             <small>
               Cloud Cover:
               {` ${formatCondition(
-                data.weather.currentWeather.cloudCover,
+                weather.currentWeather.cloudCover,
                 'cloudCover',
               )}`}
             </small>
@@ -223,9 +224,9 @@ export const Currently = () => {
             />
             <br />
             <small>
-              Visibiity:
+              Visibility:
               {` ${formatCondition(
-                data.weather.currentWeather.visibility,
+                weather.currentWeather.visibility,
                 'visibility',
               )} mi`}
             </small>
@@ -235,9 +236,9 @@ export const Currently = () => {
               icon={[
                 'fad',
                 // eslint-disable-next-line no-nested-ternary
-                data.weather.currentWeather.pressureTrend === 'steady'
+                weather.currentWeather.pressureTrend === 'steady'
                   ? 'gauge'
-                  : data.weather.currentWeather.pressureTrend === 'rising'
+                  : weather.currentWeather.pressureTrend === 'rising'
                   ? 'gauge-high'
                   : 'gauge-low',
               ]}
@@ -253,7 +254,7 @@ export const Currently = () => {
             <small>
               Pressure:
               {` ${formatCondition(
-                data.weather.currentWeather.pressure,
+                weather.currentWeather.pressure,
                 'pressure',
               )} mb`}
             </small>
@@ -272,10 +273,7 @@ export const Currently = () => {
             <br />
             <small>
               UV Index:
-              {` ${formatCondition(
-                data.weather.currentWeather.uvIndex,
-                'uvIndex',
-              )}`}
+              {` ${formatCondition(weather.currentWeather.uvIndex, 'uvIndex')}`}
             </small>
           </div>
           <div className="conditions-item">
@@ -294,7 +292,7 @@ export const Currently = () => {
             <small>
               Sunrise:
               {` ${formatCondition(
-                data.weather.forecastDaily.days[0].sunrise,
+                weather.forecastDaily.days[0].sunrise,
                 'sunrise',
               ).toLowerCase()}`}
             </small>
@@ -315,7 +313,7 @@ export const Currently = () => {
             <small>
               Sunset:
               {` ${formatCondition(
-                data.weather.forecastDaily.days[0].sunset,
+                weather.forecastDaily.days[0].sunset,
                 'sunset',
               ).toLowerCase()}`}
             </small>

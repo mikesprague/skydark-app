@@ -352,9 +352,9 @@ export const formatSummary = (
   if (index === startIndex) {
     summary = currentHourData.conditionCode;
 
-    if (summary === 'Cloudy') {
-      summary = 'Overcast';
-    }
+    // if (summary === 'Cloudy') {
+    //   summary = 'Overcast';
+    // }
 
     return titleCaseAddSpace(summary);
   }
@@ -365,9 +365,9 @@ export const formatSummary = (
       ? ''
       : currentHourData.conditionCode;
 
-  if (summary === 'Cloudy') {
-    summary = 'Overcast';
-  }
+  // if (summary === 'Cloudy') {
+  //   summary = 'Overcast';
+  // }
 
   return titleCaseAddSpace(summary);
 };
@@ -409,7 +409,6 @@ export const initSkyDark = () => {
   initDarkMode();
 };
 
-
 export const getNextTwentyFourText = (data) => {
   let dataPartOne = data.weather.forecastDaily.days[0].restOfDayForecast;
   let dataPartTwo = data.weather.forecastDaily.days[0].overnightForecast;
@@ -424,14 +423,6 @@ export const getNextTwentyFourText = (data) => {
 
   if (dayjs().hour() <= 12) {
     showDaytimeOnly = true;
-  }
-
-  if (dataPartOne.conditionCode === 'Cloudy') {
-    dataPartOne.conditionCode = 'Overcast';
-  }
-
-  if (dataPartTwo.conditionCode === 'Cloudy') {
-    dataPartTwo.conditionCode = 'Overcast';
   }
 
   // console.log(dataPartOne, dataPartTwo);
