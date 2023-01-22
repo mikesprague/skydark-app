@@ -120,7 +120,7 @@ export const Hour = ({
               <FontAwesomeIcon
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
-                transform={{ rotate: data.windDirection }}
+                transform={{ rotate: data.windDirection - 180 }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
                   '--fa-secondary-color': 'darkslategray',

@@ -116,7 +116,7 @@ export const Currently = () => {
                 icon={['fad', 'circle-chevron-up']}
                 size="lg"
                 transform={{
-                  rotate: weather.currentWeather.windDirection,
+                  rotate: weather.currentWeather.windDirection - 180,
                 }}
                 style={{
                   '--fa-primary-color': 'ghostwhite',
