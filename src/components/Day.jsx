@@ -10,8 +10,8 @@ import {
   metricToImperial,
   sleep,
 } from '../modules/helpers';
+import { getData, isCacheExpired } from '../modules/local-storage';
 import { getWeatherIcon } from '../modules/icons';
-import { isCacheExpired } from '../modules/local-storage';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 import { Hourly } from './Hourly';
@@ -26,6 +26,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
     null,
   );
   const fullData = useContext(WeatherDataContext);
+  const { weather } = fullData;
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const endDate = dayjs(date).add(1, 'day').toISOString();
@@ -35,7 +36,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
       .then((response) => response.data);
     // console.log(weatherApiData);
 
-    return weatherApiData;
+    return weatherApiData.weather;
   };
 
   const clickHandler = async (event) => {
@@ -62,15 +63,25 @@ export const Day = ({ data, dayIndex, minLow }) => {
 
     if (isOpen) {
       if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
+        setHourlyData(null);
+
+        const coordinates = getData('coordinates');
+        let { lat, lng } = coordinates;
+
+        if (!lat || !lng) {
+          lat = weather.currentWeather.metadata.latitude;
+          lng = weather.currentWeather.metadata.longitude;
+        }
+
         const weatherData = await getDailyWeatherData(
-          fullData.weather.currentWeather.metadata.latitude,
-          fullData.weather.currentWeather.metadata.longitude,
+          lat,
+          lng,
           midnightAsIsoDate,
         );
 
         setHourlyData({
           lastUpdated: dayjs().toString(),
-          data: weatherData.weather,
+          data: weatherData,
         });
       }
 
@@ -87,7 +98,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
     }
   };
 
-  return (
+  return data ? (
     <details className="day">
       <summary data-time={data.forecastStart} onClick={clickHandler}>
         <div className="relative hidden w-0 h-0 text-transparent scroll-marker -top-12">
@@ -153,6 +164,8 @@ export const Day = ({ data, dayIndex, minLow }) => {
         <Loading fullHeight={false} />
       )}
     </details>
+  ) : (
+    ''
   );
 };
 
