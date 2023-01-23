@@ -409,15 +409,15 @@ export const initSkyDark = () => {
   initDarkMode();
 };
 
-export const getNextTwentyFourText = (data) => {
-  let dataPartOne = data.weather.forecastDaily.days[0].restOfDayForecast;
-  let dataPartTwo = data.weather.forecastDaily.days[0].overnightForecast;
+export const getNextTwentyFourText = (weatherData) => {
+  let dataPartOne = weatherData.forecastDaily.days[0].restOfDayForecast;
+  let dataPartTwo = weatherData.forecastDaily.days[0].overnightForecast;
   let startAtOvernight = false;
   let showDaytimeOnly = false;
 
   if (dayjs().hour() >= 19) {
-    dataPartOne = data.weather.forecastDaily.days[0].overnightForecast;
-    dataPartTwo = data.weather.forecastDaily.days[1].daytimeForecast;
+    dataPartOne = weatherData.forecastDaily.days[0].overnightForecast;
+    dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
     startAtOvernight = true;
   }
 

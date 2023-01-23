@@ -20,25 +20,26 @@ export const CurrentHourly = () => {
     useState('temperature');
   const containerRef = useRef();
   const data = useContext(WeatherDataContext);
+  const { weather } = data;
 
   const [maxValue, setMaxValue] = useState(0);
   const [valueRange, setValueRange] = useState(0);
 
   useEffect(() => {
-    if (!data) {
+    if (!weather) {
       return;
     }
 
-    const allVals = data.weather.forecastHourly.hours
+    const allValues = weather.forecastHourly.hours
       .slice(0, 23)
       .map((hour) => hour[hourlyConditionToShow]);
-    const max = metricToImperial.cToF(Math.max(...allVals));
-    const min = metricToImperial.cToF(Math.min(...allVals));
+    const max = metricToImperial.cToF(Math.max(...allValues));
+    const min = metricToImperial.cToF(Math.min(...allValues));
     const range = max - min;
 
     setMaxValue(max);
     setValueRange(range);
-  }, [hourlyConditionToShow, data]);
+  }, [hourlyConditionToShow, weather]);
 
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
@@ -66,7 +67,7 @@ export const CurrentHourly = () => {
             High:{' '}
             {` ${formatCondition(
               Math.max(
-                ...data.weather.forecastHourly.hours
+                ...weather.forecastHourly.hours
                   .slice(0, 23)
                   .map((hour) => Math.round(hour.temperature)),
               ),
@@ -75,21 +76,20 @@ export const CurrentHourly = () => {
             Low:{' '}
             {` ${formatCondition(
               Math.min(
-                ...data.weather.forecastHourly.hours
+                ...weather.forecastHourly.hours
                   .slice(0, 23)
                   .map((hour) => Math.round(hour.temperature)),
               ),
               'temperature',
             )} `}
-            {`\u00a0${getNextTwentyFourText(data)}`}
+            {`\u00a0${getNextTwentyFourText(weather)}`}
           </em>
         </p>
-        {data.weather.forecastHourly.hours.map((hourData, index) => {
+        {weather.forecastHourly.hours.map((hourData, index) => {
           const startIndex =
             dayjs().format('m') <= 30 &&
-            dayjs(data.weather.forecastHourly.hours[0].hourlyStart).format(
-              'h',
-            ) === dayjs().format('h')
+            dayjs(weather.forecastHourly.hours[0].hourlyStart).format('h') ===
+              dayjs().format('h')
               ? 0
               : 1;
           const endIndex = startIndex + 22;
@@ -97,7 +97,7 @@ export const CurrentHourly = () => {
           const isLast = index === endIndex;
           const summaryText = formatSummary(
             hourData,
-            data.weather.forecastHourly.hours,
+            weather.forecastHourly.hours,
             index,
             startIndex,
           );
@@ -116,7 +116,7 @@ export const CurrentHourly = () => {
               isFirst={isFirst}
               isLast={isLast}
               conditionToShow={hourlyConditionToShow}
-              dayData={data.weather.forecastDaily.days[dayDataIndex]}
+              dayData={weather.forecastDaily.days[dayDataIndex]}
               valueRange={valueRange}
               maxValue={maxValue}
             />
