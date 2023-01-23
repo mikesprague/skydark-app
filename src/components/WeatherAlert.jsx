@@ -25,7 +25,9 @@ export const WeatherAlert = () => {
   const { weather } = data;
 
   useEffect(() => {
-    if (!data || !weather.weatherAlerts.alerts.length) {
+    if (!weather.weatherAlerts.alerts.length) {
+      setAlertData(null);
+
       return;
     }
 
@@ -47,10 +49,10 @@ export const WeatherAlert = () => {
 
     getWeatherAlerts(weather.weatherAlerts.alerts);
 
-    return () => {
-      setAlertData(null);
-    };
-  }, [data, weather.weatherAlerts.alerts]);
+    // return () => {
+    //   setAlertData(null);
+    // };
+  }, [weather.weatherAlerts.alerts]);
 
   const formatAlert = (alert) => {
     let alertParts = alert.split('\n* ');
