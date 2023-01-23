@@ -263,14 +263,18 @@ export const getWeatherIcon = (conditionCode) => {
       code: 'Haze',
       description: 'Haze',
       type: 'visibility',
-      icon: 'cloud-fog',
+      icon: 'sun-haze',
       iconStyles: {
+        '--fa-primary-color': 'silver',
+        '--fa-secondary-color': 'gold',
+        '--fa-secondary-opacity': '.75',
+      },
+      nightIcon: 'cloud-fog',
+      nightIconStyles: {
         '--fa-primary-color': 'lightgray',
         '--fa-secondary-color': 'silver',
         '--fa-secondary-opacity': '1',
       },
-      nightIcon: null,
-      nightIconStyles: null,
     },
     {
       code: 'MostlyClear',
