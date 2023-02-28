@@ -49,10 +49,10 @@ export const WeatherAlert = () => {
 
     getWeatherAlerts(weather.weatherAlerts.alerts);
 
-    // return () => {
-    //   setAlertData(null);
-    // };
-  }, [weather.weatherAlerts.alerts]);
+    return () => {
+      setAlertData(null);
+    };
+  }, [weather]);
 
   const formatAlert = (alert) => {
     let alertParts = alert.split('\n* ');
