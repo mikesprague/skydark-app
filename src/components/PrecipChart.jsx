@@ -23,7 +23,14 @@ export const PrecipChart = () => {
       .forEach((minute, index) => {
         dataArray.push([
           index,
-          metricToImperial.mmToIn(minute.precipitationIntensity),
+          metricToImperial.mmToIn(
+            data.weather.forecastNextHour.summary &&
+              data.weather.forecastNextHour.summary.length &&
+              data.weather.forecastNextHour.summary[0].condition.toLowerCase() ===
+                'snow'
+              ? minute.precipitationIntensity * 2
+              : minute.precipitationIntensity,
+          ),
         ]);
       });
     setChartData(dataArray);
