@@ -139,7 +139,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
               position: 'relative',
               left: `${Math.round(
                 Math.round(metricToImperial.cToF(data.temperatureMin)) -
-                  metricToImperial.cToF(minLow) * 0.8,
+                  metricToImperial.cToF(minLow) * 0.75,
               )}%`,
             }}
           >
@@ -148,9 +148,8 @@ export const Day = ({ data, dayIndex, minLow }) => {
               className="temps-spacer"
               style={{
                 width: `${
-                  (metricToImperial.cToF(data.temperatureMax) -
-                    metricToImperial.cToF(data.temperatureMin)) *
-                  1.2
+                  metricToImperial.cToF(data.temperatureMax) -
+                    metricToImperial.cToF(data.temperatureMin)
                 }%`,
               }}
             />
