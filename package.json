@@ -48,7 +48,7 @@
     "dayjs": "1.11.7",
     "dotenv": "16.0.3",
     "jose": "4.14.4",
-    "leaflet": "1.9.3",
+    "leaflet": "1.9.4",
     "nanoid": "4.0.2",
     "prop-types": "15.8.1",
     "query-string": "8.1.0",
