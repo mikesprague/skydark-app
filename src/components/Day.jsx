@@ -150,7 +150,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
                 width: `${
                   (metricToImperial.cToF(data.temperatureMax) -
                     metricToImperial.cToF(data.temperatureMin)) *
-                  1.2
+                  1.5
                 }%`,
               }}
             />
