@@ -139,7 +139,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
               position: 'relative',
               left: `${Math.round(
                 Math.round(metricToImperial.cToF(data.temperatureMin)) -
-                  metricToImperial.cToF(minLow) * 0.95,
+                  metricToImperial.cToF(minLow) * 0.98,
               )}%`,
             }}
           >
