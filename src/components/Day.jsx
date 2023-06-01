@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import useLocalStorageState from 'use-local-storage-state';
 
 import {
   apiUrl,
@@ -12,7 +13,6 @@ import {
 } from '../modules/helpers';
 import { getData, isCacheExpired } from '../modules/local-storage';
 import { getWeatherIcon } from '../modules/icons';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 
 import { Hourly } from './Hourly';
 import { Loading } from './Loading';
@@ -21,9 +21,11 @@ import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import './Day.scss';
 
 export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
-  const [hourlyData, setHourlyData] = useLocalStorage(
+  const [hourlyData, setHourlyData] = useLocalStorageState(
     `hourlyData_${dayjs(data.forecastStart).unix()}`,
-    null,
+    {
+      defaultValue: null,
+    },
   );
   const fullData = useContext(WeatherDataContext);
   const { weather } = fullData;

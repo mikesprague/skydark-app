@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import useLocalStorageState from 'use-local-storage-state';
 
 import { apiUrl, handleError } from '../modules/helpers';
 import { initIcons } from '../modules/icons';
@@ -31,7 +31,9 @@ dayjs.extend(relativeTime);
 initIcons();
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [coordinates, setCoordinates] = useLocalStorage('coordinates', null);
+  const [coordinates, setCoordinates] = useLocalStorageState('coordinates', {
+    defaultValue: null,
+  });
 
   useEffect(() => {
     async function getPosition(position) {
@@ -70,9 +72,15 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, [coordinates, setCoordinates]);
 
-  const [weatherData, setWeatherData] = useLocalStorage('weatherData', null);
-  const [locationData, setLocationData] = useLocalStorage('locationData', null);
-  const [lastUpdated, setLastUpdated] = useLocalStorage('lastUpdated', null);
+  const [weatherData, setWeatherData] = useLocalStorageState('weatherData', {
+    defaultValue: null,
+  });
+  const [locationData, setLocationData] = useLocalStorageState('locationData', {
+    defaultValue: null,
+  });
+  const [lastUpdated, setLastUpdated] = useLocalStorageState('lastUpdated', {
+    defaultValue: null,
+  });
 
   useEffect(() => {
     if (!coordinates) {
