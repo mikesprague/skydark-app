@@ -20,6 +20,7 @@ export const Daily = () => {
   }, [data]);
 
   const [minLow, setMinLow] = useState(0);
+  const [maxHigh, setMaxHigh] = useState(0);
 
   useEffect(() => {
     if (!dailyData) {
@@ -28,8 +29,10 @@ export const Daily = () => {
 
     const slicedData = dailyData.forecastDaily.days.slice(0, 8);
     const allLows = slicedData.map((val) => val.temperatureMin);
+    const allHighs = slicedData.map((val) => val.temperatureMax);
 
     setMinLow(Math.round(Math.min(...allLows)));
+    setMaxHigh(Math.round(Math.max(...allHighs)));
   }, [dailyData]);
 
   return dailyData && dailyData.forecastDaily ? (
@@ -42,6 +45,7 @@ export const Daily = () => {
               data={dayData}
               dayIndex={dayIndex}
               minLow={minLow}
+              maxHigh={maxHigh}
             />
           ) : (
             ''

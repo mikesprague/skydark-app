@@ -20,7 +20,7 @@ import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
 import './Day.scss';
 
-export const Day = ({ data, dayIndex, minLow }) => {
+export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   const [hourlyData, setHourlyData] = useLocalStorage(
     `hourlyData_${dayjs(data.forecastStart).unix()}`,
     null,
@@ -139,7 +139,7 @@ export const Day = ({ data, dayIndex, minLow }) => {
               position: 'relative',
               left: `${Math.round(
                 Math.round(metricToImperial.cToF(data.temperatureMin)) -
-                  metricToImperial.cToF(minLow) * 0.98,
+                  metricToImperial.cToF(minLow),
               )}%`,
             }}
           >
@@ -150,7 +150,9 @@ export const Day = ({ data, dayIndex, minLow }) => {
                 width: `${
                   (metricToImperial.cToF(data.temperatureMax) -
                     metricToImperial.cToF(data.temperatureMin)) *
-                  1.5
+                  (50 /
+                    (metricToImperial.cToF(maxHigh) -
+                      metricToImperial.cToF(minLow)))
                 }%`,
               }}
             />
@@ -182,6 +184,7 @@ Day.propTypes = {
   ).isRequired,
   dayIndex: PropTypes.number.isRequired,
   minLow: PropTypes.number.isRequired,
+  maxHigh: PropTypes.number.isRequired,
 };
 
 export default Day;
