@@ -436,13 +436,10 @@ export const getNextTwentyFourText = (weatherData) => {
     returnString =
       dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
       dataPartOne.precipitationType !== dataPartTwo.precipitationType
-        ? `${dataPartOne.conditionCode} ${
-            startAtOvernight ? 'overnight' : 'throughout the day'
-          }, ${dataPartTwo.conditionCode} ${
-            startAtOvernight ? 'tomorrow' : 'overnight'
-          }`
-        : `${dataPartOne.conditionCode} tomorrow`;
-    // console.log('in');
+        ? `${dataPartOne.conditionCode} ${'overnight'}, ${
+            dataPartTwo.conditionCode
+          } ${'tomorrow'}`
+        : `${dataPartOne.conditionCode} tonight and tomorrow`;
   }
 
   return titleCaseToSentenceCase(returnString);
