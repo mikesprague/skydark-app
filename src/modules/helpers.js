@@ -425,6 +425,8 @@ export const getNextTwentyFourText = (weatherData) => {
     showDaytimeOnly = true;
   }
 
+  console.log(startAtOvernight, showDaytimeOnly);
+
   // console.log(dataPartOne, dataPartTwo);
   let returnString = '';
 
@@ -439,7 +441,8 @@ export const getNextTwentyFourText = (weatherData) => {
           }, ${dataPartTwo.conditionCode} ${
             startAtOvernight ? 'tomorrow' : 'overnight'
           }`
-        : `${dataPartOne.conditionCode} throughout the day`;
+        : `${dataPartOne.conditionCode} tomorrow`;
+    // console.log('in');
   }
 
   return titleCaseToSentenceCase(returnString);
