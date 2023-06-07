@@ -59,32 +59,32 @@ export const CurrentHourly = () => {
   return data ? (
     <div className="current-hourly-container">
       <NextHour />
+      <p className="mt-3 mb-5 ml-2 text-base leading-none">
+        <strong className="text-lg font-medium">Next 24 Hours</strong>
+        <br />
+        <em className="text-sm">
+          High:{' '}
+          {` ${formatCondition(
+            Math.max(
+              ...weather.forecastHourly.hours
+                .slice(0, 23)
+                .map((hour) => Math.round(hour.temperature)),
+            ),
+            'temperature',
+          )} `}
+          Low:{' '}
+          {` ${formatCondition(
+            Math.min(
+              ...weather.forecastHourly.hours
+                .slice(0, 23)
+                .map((hour) => Math.round(hour.temperature)),
+            ),
+            'temperature',
+          )} `}
+          {`\u00a0${getNextTwentyFourText(weather)}`}
+        </em>
+      </p>
       <ul className="hourly">
-        <p className="mt-3 mb-5 ml-2 text-base leading-none">
-          <strong className="text-lg font-medium">Next 24 Hours</strong>
-          <br />
-          <em className="text-sm">
-            High:{' '}
-            {` ${formatCondition(
-              Math.max(
-                ...weather.forecastHourly.hours
-                  .slice(0, 23)
-                  .map((hour) => Math.round(hour.temperature)),
-              ),
-              'temperature',
-            )} `}
-            Low:{' '}
-            {` ${formatCondition(
-              Math.min(
-                ...weather.forecastHourly.hours
-                  .slice(0, 23)
-                  .map((hour) => Math.round(hour.temperature)),
-              ),
-              'temperature',
-            )} `}
-            {`\u00a0${getNextTwentyFourText(weather)}`}
-          </em>
-        </p>
         {weather.forecastHourly.hours.map((hourData, index) => {
           const startIndex =
             dayjs().format('m') <= 30 &&
