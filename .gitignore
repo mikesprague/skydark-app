@@ -126,3 +126,4 @@ build
 
 .dev.vars
 dev-dist/
+.wrangler/
