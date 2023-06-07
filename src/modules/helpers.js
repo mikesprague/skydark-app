@@ -425,7 +425,7 @@ export const getNextTwentyFourText = (weatherData) => {
     showDaytimeOnly = true;
   }
 
-  console.log(startAtOvernight, showDaytimeOnly);
+  // console.log(startAtOvernight, showDaytimeOnly);
 
   // console.log(dataPartOne, dataPartTwo);
   let returnString = '';
