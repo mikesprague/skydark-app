@@ -25,29 +25,13 @@ export const WeatherAlert = () => {
   const { weather } = data;
 
   useEffect(() => {
-    if (!weather.weatherAlerts.alerts.length) {
+    if (!weather.weatherAlertsData || !weather.weatherAlertsData.length) {
       setAlertData(null);
 
       return;
     }
 
-    const getWeatherAlerts = async (alerts) => {
-      const returnData = [];
-
-      // eslint-disable-next-line no-restricted-syntax
-      for await (const alert of alerts) {
-        const weatherApiurl = `${apiUrl()}/apple-weather/?alertId=${alert.id}`;
-        const weatherApiData = await axios
-          .get(weatherApiurl)
-          .then((response) => response.data);
-
-        returnData.push(weatherApiData.weather);
-      }
-
-      setAlertData(returnData);
-    };
-
-    getWeatherAlerts(weather.weatherAlerts.alerts);
+    setAlertData(weather.weatherAlertsData);
 
     return () => {
       setAlertData(null);
