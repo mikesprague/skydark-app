@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
@@ -10,7 +9,7 @@ import utc from 'dayjs/plugin/utc';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { apiUrl, openModalWithComponent } from '../modules/helpers';
+import { openModalWithComponent } from '../modules/helpers';
 
 import './WeatherAlert.scss';
 
