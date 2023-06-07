@@ -190,6 +190,26 @@ export const onRequestGet = async (context) => {
     headers,
   }).then(async (response) => {
     const weather = await response.json();
+
+    weather.weatherAlertsData = [];
+
+    if (weather.weatherAlerts && weather.weatherAlerts.alerts) {
+      // eslint-disable-next-line no-restricted-syntax
+      for await (const alert of weather.weatherAlerts.alerts) {
+        await fetch(
+          `${appleWeatherApiUrlPrefix}weatherAlert/en-US/${alert.id}`,
+          {
+            headers,
+          },
+        ).then(async (alertResponse) => {
+          const alertData = await alertResponse.json();
+
+          // console.log(JSON.stringify(alertData));
+          weather.weatherAlertsData.push(alertData);
+        });
+      }
+    }
+
     const returnData = {
       weather,
     };
