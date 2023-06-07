@@ -54,12 +54,12 @@ const defaultModalConfig = {
   heightAuto: true,
   width: '28rem',
   showClass: {
-    popup: 'swal2-show',
+    popup: 'animate__animated animate__fadeIn animate__faster',
     backdrop: 'swal2-backdrop-show',
     icon: 'swal2-icon-show',
   },
   hideClass: {
-    popup: 'swal2-hide',
+    popup: 'animate__animated animate__fadeOut animate__faster',
     backdrop: 'swal2-backdrop-hide',
     icon: 'swal2-icon-hide',
   },
@@ -95,14 +95,14 @@ export const openModalWithMarkup = (markupToShow, config = null) => {
     modalConfig = { ...defaultModalConfig, ...config };
   }
 
-  Swal.fire({
+  MySwal.fire({
     ...modalConfig,
     html: markupToShow,
   });
 };
 
 export const openToastWithContent = (config) => {
-  Swal.fire({
+  MySwal.fire({
     ...config,
     ...defaultToastConfig,
   });
