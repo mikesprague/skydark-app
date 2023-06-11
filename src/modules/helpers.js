@@ -436,9 +436,11 @@ export const getNextTwentyFourText = (weatherData) => {
     returnString =
       dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
       dataPartOne.precipitationType !== dataPartTwo.precipitationType
-        ? `${dataPartOne.conditionCode} ${'overnight'}, ${
-            dataPartTwo.conditionCode
-          } ${'tomorrow'}`
+        ? `${dataPartOne.conditionCode} ${
+            startAtOvernight ? 'overnight' : 'today'
+          }, ${dataPartTwo.conditionCode} ${
+            startAtOvernight ? 'tomorrow' : 'overnight'
+          }`
         : `${dataPartOne.conditionCode} tonight and tomorrow`;
   }
 
