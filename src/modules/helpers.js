@@ -409,9 +409,12 @@ export const initSkyDark = () => {
   initDarkMode();
 };
 
-export const getNextTwentyFourText = (weatherData) => {
+export const getNextTwentyFourText = (
+  weatherData,
+  extendedForecast = false,
+) => {
   let dataPartOne = weatherData.forecastDaily.days[0].restOfDayForecast;
-  let dataPartTwo = weatherData.forecastDaily.days[0].overnightForecast;
+  let dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
   let startAtOvernight = false;
   let showDaytimeOnly = false;
 
@@ -421,7 +424,7 @@ export const getNextTwentyFourText = (weatherData) => {
     startAtOvernight = true;
   }
 
-  if (dayjs().hour() <= 12) {
+  if (dayjs().hour() <= 12 || extendedForecast) {
     showDaytimeOnly = true;
   }
 
@@ -437,9 +440,9 @@ export const getNextTwentyFourText = (weatherData) => {
       dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
       dataPartOne.precipitationType !== dataPartTwo.precipitationType
         ? `${dataPartOne.conditionCode} ${
-            startAtOvernight ? 'overnight' : 'today'
+            startAtOvernight ? 'tonight' : 'today'
           }, ${dataPartTwo.conditionCode} ${
-            startAtOvernight ? 'tomorrow' : 'overnight'
+            startAtOvernight ? 'tomorrow' : 'tonight'
           }`
         : `${dataPartOne.conditionCode} tonight and tomorrow`;
   }
