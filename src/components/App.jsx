@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import React, { Suspense, lazy, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
