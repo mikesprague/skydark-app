@@ -88,19 +88,6 @@ export const openModalWithComponent = (componentToShow, config = null) => {
   });
 };
 
-export const openModalWithMarkup = (markupToShow, config = null) => {
-  let modalConfig = defaultModalConfig;
-
-  if (config) {
-    modalConfig = { ...defaultModalConfig, ...config };
-  }
-
-  MySwal.fire({
-    ...modalConfig,
-    html: markupToShow,
-  });
-};
-
 export const openToastWithContent = (config) => {
   MySwal.fire({
     ...config,
