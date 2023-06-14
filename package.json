@@ -164,14 +164,8 @@
       "sourceType": "module"
     },
     "rules": {
-      "node/no-missing-import": [
-        "error",
-        {
-          "tryExtensions": [
-            ".js",
-            ".jsx"
-          ]
-        }
+      "n/no-missing-import": [
+        "warn"
       ],
       "react/jsx-filename-extension": [
         "error",
