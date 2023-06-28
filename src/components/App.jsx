@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import useGeolocation from 'beautiful-react-hooks/useGeolocation';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { apiUrl, handleError } from '../modules/helpers';
+import { apiUrl } from '../modules/helpers';
 import { initIcons } from '../modules/icons';
 import { isCacheExpired } from '../modules/local-storage';
 
@@ -34,42 +35,11 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     defaultValue: null,
   });
 
-  useEffect(() => {
-    async function getPosition(position) {
-      const { latitude, longitude, accuracy } = position.coords;
-
-      setCoordinates({
-        lat: latitude,
-        lng: longitude,
-        accuracy,
-        lastUpdated: dayjs().toString(),
-      });
-    }
-
-    async function geolocationError(error) {
-      handleError(error);
-    }
-
-    async function doGeolocation() {
-      const geolocationOptions = {
-        enableHighAccuracy: true,
-        maximumAge: 3600000, // 1 hour (60 seconds * 60 minutes) * 1000 milliseconds
-      };
-
-      await navigator.geolocation.getCurrentPosition(
-        getPosition,
-        geolocationError,
-        geolocationOptions,
-      );
-    }
-
-    if (
-      !coordinates ||
-      (coordinates && isCacheExpired(coordinates.lastUpdated, 10))
-    ) {
-      doGeolocation();
-    }
-  }, [coordinates, setCoordinates]);
+  const [geoState, { onChange }] = useGeolocation({
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 3600000,
+  });
 
   const [weatherData, setWeatherData] = useLocalStorageState('weatherData', {
     defaultValue: null,
@@ -82,9 +52,30 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   });
 
   useEffect(() => {
-    if (!coordinates) {
-      return;
-    }
+    const handleGeoChange = (geo) => {
+      if (geo && geo.position && geo.position.coords) {
+        const { latitude, longitude, accuracy } = geo.position.coords;
+
+        if (coordinates && coordinates.lat && coordinates.lng) {
+          if (
+            Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
+            Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
+            !isCacheExpired(coordinates.lastUpdated, 5)
+          ) {
+            // console.log('same coords in cache ttl, no update');
+            return;
+          }
+        }
+        // console.log('handleGeoChange:', geoState);
+
+        setCoordinates({
+          lat: latitude,
+          lng: longitude,
+          accuracy,
+          lastUpdated: dayjs().toString(),
+        });
+      }
+    };
 
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
@@ -98,17 +89,56 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
       setLastUpdated(lastUpdatedString);
     };
 
-    const { lat, lng } = coordinates;
+    if (!coordinates || isCacheExpired(coordinates.lastUpdated, 5)) {
+      // console.log('useEffect');
+      handleGeoChange(geoState);
+    } else {
+      const { lat, lng } = coordinates;
 
-    if (weatherData && lastUpdated) {
-      if (isCacheExpired(lastUpdated, 5)) {
+      if (weatherData && lastUpdated) {
+        if (isCacheExpired(lastUpdated, 5)) {
+          getWeatherData(lat, lng);
+        }
+      } else {
         getWeatherData(lat, lng);
       }
-    } else {
-      getWeatherData(lat, lng);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coordinates]);
+  }, [
+    coordinates,
+    geoState,
+    lastUpdated,
+    weatherData,
+    setWeatherData,
+    setLastUpdated,
+    setLocationData,
+    setCoordinates,
+  ]);
+
+  onChange(() => {
+    // console.log('onChange');
+    if (geoState && geoState.position && geoState.position.coords) {
+      const { latitude, longitude, accuracy } = geoState.position.coords;
+
+      if (coordinates && coordinates.lat && coordinates.lng) {
+        if (
+          Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
+          Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
+          !isCacheExpired(coordinates.lastUpdated, 5)
+        ) {
+          // console.log('same coords in cache ttl, no update');
+          return;
+        }
+      }
+      // console.log('handleGeoChange:', geoState);
+
+      setCoordinates({
+        lat: latitude,
+        lng: longitude,
+        accuracy,
+        lastUpdated: dayjs().toString(),
+      });
+    }
+  });
 
   const returnData = useMemo(
     () => ({
