@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid';
 import { Day } from './Day';
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
 
+import { metricToImperial } from '../modules/helpers';
+
 import './Daily.scss';
 
 export const Daily = () => {
@@ -31,8 +33,8 @@ export const Daily = () => {
     const allLows = slicedData.map((val) => val.temperatureMin);
     const allHighs = slicedData.map((val) => val.temperatureMax);
 
-    setMinLow(Math.round(Math.min(...allLows)));
-    setMaxHigh(Math.round(Math.max(...allHighs)));
+    setMinLow(Math.round(metricToImperial.cToF(Math.min(...allLows))));
+    setMaxHigh(Math.round(metricToImperial.cToF(Math.max(...allHighs))));
   }, [dailyData]);
 
   return dailyData && dailyData.forecastDaily ? (
