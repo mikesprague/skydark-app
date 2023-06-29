@@ -41,6 +41,39 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     maximumAge: 3600000,
   });
 
+  const handleGeoChange = (geo) => {
+    if (geo && geo.position && geo.position.coords) {
+      const { latitude, longitude, accuracy } = geo.position.coords;
+
+      if (coordinates && coordinates.lat && coordinates.lng) {
+        if (
+          Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
+          Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
+          !isCacheExpired(coordinates.lastUpdated, 5)
+        ) {
+          // console.log('same coords in cache ttl, no update');
+          return;
+        }
+      }
+      // console.log('handleGeoChange:', geoState);
+
+      setCoordinates({
+        lat: latitude,
+        lng: longitude,
+        accuracy,
+        lastUpdated: dayjs().toString(),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (coordinates && !isCacheExpired(coordinates.lastUpdated, 5)) {
+      return;
+    }
+
+    handleGeoChange(geoState);
+  });
+
   const [weatherData, setWeatherData] = useLocalStorageState('weatherData', {
     defaultValue: null,
   });
@@ -52,30 +85,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   });
 
   useEffect(() => {
-    const handleGeoChange = (geo) => {
-      if (geo && geo.position && geo.position.coords) {
-        const { latitude, longitude, accuracy } = geo.position.coords;
-
-        if (coordinates && coordinates.lat && coordinates.lng) {
-          if (
-            Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
-            Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
-            !isCacheExpired(coordinates.lastUpdated, 5)
-          ) {
-            // console.log('same coords in cache ttl, no update');
-            return;
-          }
-        }
-        // console.log('handleGeoChange:', geoState);
-
-        setCoordinates({
-          lat: latitude,
-          lng: longitude,
-          accuracy,
-          lastUpdated: dayjs().toString(),
-        });
-      }
-    };
+    if (!coordinates) {
+      return;
+    }
 
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
@@ -89,19 +101,14 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
       setLastUpdated(lastUpdatedString);
     };
 
-    if (!coordinates || isCacheExpired(coordinates.lastUpdated, 5)) {
-      // console.log('useEffect');
-      handleGeoChange(geoState);
-    } else {
-      const { lat, lng } = coordinates;
+    const { lat, lng } = coordinates;
 
-      if (weatherData && lastUpdated) {
-        if (isCacheExpired(lastUpdated, 5)) {
-          getWeatherData(lat, lng);
-        }
-      } else {
+    if (weatherData && lastUpdated) {
+      if (isCacheExpired(lastUpdated, 5)) {
         getWeatherData(lat, lng);
       }
+    } else {
+      getWeatherData(lat, lng);
     }
   }, [
     coordinates,
