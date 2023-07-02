@@ -143,7 +143,6 @@ export const titleCaseAddSpace = (words) =>
 
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
-/* eslint-disable global-require */
 /* eslint-disable no-undef */
 export const initLeafletImages = (leafletRef) => {
   delete leafletRef.Icon.Default.prototype._getIconUrl;
@@ -155,7 +154,6 @@ export const initLeafletImages = (leafletRef) => {
 };
 /* eslint-enable no-underscore-dangle */
 /* eslint-enable no-param-reassign */
-/* eslint-enable global-require */
 /* eslint-enable no-undef */
 
 // eslint-disable-next-line no-promise-executor-return
@@ -400,38 +398,48 @@ export const getNextTwentyFourText = (
   weatherData,
   extendedForecast = false,
 ) => {
-  let dataPartOne = weatherData.forecastDaily.days[0].restOfDayForecast;
-  let dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
-  let startAtOvernight = false;
-  let showDaytimeOnly = false;
+  let dataPartOne;
+  let dataPartTwo;
 
-  if (dayjs().hour() >= 19) {
+  // daytimeForecast - 7am to 7pm
+  // overnightForecast - 7pm to 7am
+  // restOfDayForecast - now to 12am
+
+  let startAtOvernight = false;
+
+  if ((dayjs().hour() >= 7 && dayjs().hour() < 19) || extendedForecast) {
+    dataPartOne = weatherData.forecastDaily.days[0].daytimeForecast;
+    dataPartTwo = weatherData.forecastDaily.days[0].overnightForecast;
+  }
+
+  if (dayjs().hour() >= 19 || dayjs().hour() < 7) {
+    startAtOvernight = true;
     dataPartOne = weatherData.forecastDaily.days[0].overnightForecast;
     dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
-    startAtOvernight = true;
   }
 
-  if (dayjs().hour() <= 12 || extendedForecast) {
-    showDaytimeOnly = true;
-  }
-
-  // console.log(startAtOvernight, showDaytimeOnly);
-
-  // console.log(dataPartOne, dataPartTwo);
   let returnString = '';
 
-  if (showDaytimeOnly) {
-    returnString = `${dataPartOne.conditionCode} throughout the day`;
+  if (extendedForecast) {
+    returnString =
+      dataPartOne.conditionCode === dataPartTwo.conditionCode ||
+      dataPartOne.precipitationType === dataPartTwo.precipitationType
+        ? `${dataPartOne.conditionCode} ${'during the day and overnight'}`
+        : `${dataPartOne.conditionCode} ${'during the day'}, ${
+            dataPartTwo.conditionCode
+          } ${'overnight'}`;
   } else {
     returnString =
-      dataPartOne.conditionCode !== dataPartTwo.conditionCode ||
-      dataPartOne.precipitationType !== dataPartTwo.precipitationType
+      dataPartOne.conditionCode === dataPartTwo.conditionCode ||
+      dataPartOne.precipitationType === dataPartTwo.precipitationType
         ? `${dataPartOne.conditionCode} ${
+            startAtOvernight ? 'tonight and tomorrow' : 'today and overnight'
+          }`
+        : `${dataPartOne.conditionCode} ${
             startAtOvernight ? 'tonight' : 'today'
           }, ${dataPartTwo.conditionCode} ${
-            startAtOvernight ? 'tomorrow' : 'tonight'
-          }`
-        : `${dataPartOne.conditionCode} tonight and tomorrow`;
+            startAtOvernight ? 'tomorrow' : 'overnight'
+          }`;
   }
 
   return titleCaseToSentenceCase(returnString);
