@@ -2,15 +2,12 @@ import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import useLocalStorageState from 'use-local-storage-state';
 
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-import {
-  getRadarTs,
-  initLeafletImages,
-  openModalWithComponent,
-} from '../modules/helpers';
+import { initLeafletImages, openModalWithComponent } from '../modules/helpers';
 import { isDarkModeEnabled } from '../modules/theme';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext';
@@ -22,8 +19,6 @@ import './WeatherMapSmall.scss';
 initLeafletImages(L);
 
 export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [tsData, setTsData] = useState([getRadarTs()]);
-
   const mapClickHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -48,19 +43,23 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     );
   };
 
+  const [tsData, setTsData] = useLocalStorageState('radarTimestamps', {
+    defaultValue: null,
+  });
+
   useEffect(() => {
     const getTimestamps = async () => {
       await axios
         .get('https://api.rainviewer.com/public/weather-maps.json')
         .then((response) => {
-          const nowTs = response.data.radar.past.map((item) => item.time);
+          // const nowTs = response.data.radar.past.map((item) => item.time);
 
-          setTsData(nowTs);
+          setTsData(response.data.radar.past);
         });
     };
 
     getTimestamps();
-  }, []);
+  }, [setTsData]);
 
   const [locationCoordinates, setLocationCoordinates] = useState(null);
   const data = useContext(WeatherDataContext);
@@ -78,7 +77,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     setLocationCoordinates(coordinates);
   }, [data]);
 
-  return (
+  return tsData ? (
     <div className="small-map-container">
       {locationCoordinates && locationCoordinates.lat ? (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -177,8 +176,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
               </LayersControl.BaseLayer>
               <LayersControl.Overlay name="Radar" checked>
                 <TileLayer
-                  url={`https://tilecache.rainviewer.com/v2/radar/${
-                    tsData[tsData.length - 1]
+                  url={`https://tilecache.rainviewer.com/${
+                    tsData[tsData.length - 1].path
                   }/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}
                   attribution={
@@ -193,6 +192,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
         ''
       )}
     </div>
+  ) : (
+    ''
   );
 };
 

@@ -42,21 +42,15 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [popupAddress, setPopupAddress] = useState(null);
   const coordinates = getData('coordinates');
 
-  const [tsData, setTsData] = useState([getRadarTs()]);
+  const [tsData, setTsData] = useState(getData('radarTimestamps'));
 
   useEffect(() => {
-    if (!coordinates) {
-      window.location.href = '/';
-    }
-
     const getTimestamps = async () => {
       await axios
         .get('https://api.rainviewer.com/public/weather-maps.json')
         .then((response) => {
-          const nowTs = response.data.radar.past.map((item) => item.time);
 
-          setTsData(nowTs);
-          // console.log(response.data);
+          setTsData(response.data.radar.past);
           // return response.data;
         });
     };
@@ -65,28 +59,21 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
 
     setPopupAddress(locationData.formattedAddress);
     getTimestamps();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setTsData]);
 
-  const [ts, setTs] = useState(null);
-  const [rangeMax, setRangeMax] = useState(13);
-  const [rangeValue, setRangeValue] = useState(13);
+  const [ts, setTs] = useState(tsData[12]);
+  const [rangeValue, setRangeValue] = useState(12);
 
   useEffect(() => {
-    if (!tsData) {
+    if (!Number(tsData)) {
       return;
     }
 
-    setTs(tsData[tsData.length - 1]);
-    setRangeMax(tsData.length - 1);
-    setRangeValue(tsData.length - 1);
+    setTs(tsData[12]);
+    setRangeValue(12);
   }, [tsData]);
 
-  const [radarMapUrl, setRadarMapUrl] = useState(
-    `https://tilecache.rainviewer.com/v2/radar/${
-      tsData[tsData.length - 1]
-    }/512/{z}/{x}/{y}/8/1_1.png`,
-  );
+  const [radarMapUrl, setRadarMapUrl] = useState(null);
 
   useLayoutEffect(() => {
     if (!ts) {
@@ -94,7 +81,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     setRadarMapUrl(
-      `https://tilecache.rainviewer.com/v2/radar/${ts}/512/{z}/{x}/{y}/8/1_1.png`,
+      `https://tilecache.rainviewer.com/${ts.path}/512/{z}/{x}/{y}/8/1_1.png`,
     );
   }, [ts]);
 
@@ -110,7 +97,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     (value) => {
       setTs(tsData[value]);
       setRadarMapUrl(
-        `https://tilecache.rainviewer.com/v2/radar/${tsData[value]}/512/{z}/{x}/{y}/8/1_1.png`,
+        `https://tilecache.rainviewer.com/${tsData[value].path}/512/{z}/{x}/{y}/8/1_1.png`,
       );
       setRangeValue(value);
     },
@@ -134,15 +121,16 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     } else {
       timerHandle.current = setInterval(() => {
         const currentVal = parseInt(rangeSliderRef.current.value, 10);
-        const nextVal = currentVal + 1 > rangeMax ? 0 : currentVal + 1;
+        const nextVal = currentVal === 12 ? 0 : currentVal + 1;
 
+        // console.log(currentVal, nextVal);
         rangeSliderRef.current.value = nextVal;
         advanceRangeSlider(nextVal);
       }, 500);
     }
-  }, [advanceRangeSlider, isPlaying, rangeMax]);
+  }, [advanceRangeSlider, isPlaying]);
 
-  return (
+  return tsData ? (
     <>
       <div className="map-container">
         <MapContainer
@@ -275,14 +263,16 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       <div className="slider-container">
         {tsData && ts ? (
           <div className="slider">
-            <div className="value-label">{dayjs.unix(ts).format('h:mmA')}</div>
+            <div className="value-label">
+              {dayjs.unix(ts.time).format('h:mmA')}
+            </div>
             <input
               className="range-slider"
               type="range"
               min={0}
-              max={rangeMax}
+              max={12}
               step={1}
-              value={rangeValue || rangeMax}
+              value={rangeValue}
               onChange={rangeSliderHandler}
               onInput={rangeSliderHandler}
               ref={rangeSliderRef}
@@ -304,6 +294,8 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         )}
       </div>
     </>
+  ) : (
+    ''
   );
 };
 
