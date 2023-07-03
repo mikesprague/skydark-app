@@ -210,6 +210,18 @@ export const onRequestGet = async (context) => {
       }
     }
 
+    weather.radarData = {};
+    weather.radarData.past = [];
+    weather.radarData.nowcast = [];
+    await fetch(`https://api.rainviewer.com/public/weather-maps.json`).then(
+      async (radarResponse) => {
+        const radarJson = await radarResponse.json();
+
+        weather.radarData.past = [...radarJson.radar.past];
+        weather.radarData.nowcast = [...radarJson.radar.nowcast];
+      },
+    );
+
     const returnData = {
       weather,
     };
