@@ -121,31 +121,31 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     setCoordinates,
   ]);
 
-  onChange(() => {
-    // console.log('onChange');
-    if (geoState && geoState.position && geoState.position.coords) {
-      const { latitude, longitude, accuracy } = geoState.position.coords;
+  // onChange(() => {
+  //   // console.log('onChange');
+  //   if (geoState && geoState.position && geoState.position.coords) {
+  //     const { latitude, longitude, accuracy } = geoState.position.coords;
 
-      if (coordinates && coordinates.lat && coordinates.lng) {
-        if (
-          Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
-          Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
-          !isCacheExpired(coordinates.lastUpdated, 5)
-        ) {
-          // console.log('same coords in cache ttl, no update');
-          return;
-        }
-      }
-      // console.log('handleGeoChange:', geoState);
+  //     if (coordinates && coordinates.lat && coordinates.lng) {
+  //       if (
+  //         Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
+  //         Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
+  //         !isCacheExpired(coordinates.lastUpdated, 5)
+  //       ) {
+  //         // console.log('same coords in cache ttl, no update');
+  //         return;
+  //       }
+  //     }
+  //     // console.log('handleGeoChange:', geoState);
 
-      setCoordinates({
-        lat: latitude,
-        lng: longitude,
-        accuracy,
-        lastUpdated: dayjs().toString(),
-      });
-    }
-  });
+  //     setCoordinates({
+  //       lat: latitude,
+  //       lng: longitude,
+  //       accuracy,
+  //       lastUpdated: dayjs().toString(),
+  //     });
+  //   }
+  // });
 
   const returnData = useMemo(
     () => ({
