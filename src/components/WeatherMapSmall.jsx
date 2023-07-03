@@ -34,10 +34,10 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
           // closeButton.blur();
         },
         showClass: {
-          popup: '',
+          popup: 'animate__animated animate__fadeIn animate__faster',
         },
         hideClass: {
-          popup: '',
+          popup: 'animate__animated animate__fadeOut animate__faster',
         },
       },
     );

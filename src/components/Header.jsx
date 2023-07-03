@@ -25,10 +25,10 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
 
   const dontAnimateModalConfig = {
     showClass: {
-      popup: '',
+      popup: 'animate__animated animate__fadeIn animate__faster',
     },
     hideClass: {
-      popup: '',
+      popup: 'animate__animated animate__fadeOut animate__faster',
     },
   };
 
