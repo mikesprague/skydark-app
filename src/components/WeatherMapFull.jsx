@@ -18,14 +18,13 @@ import React, {
 } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import dayjs from 'dayjs';
 
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-import { getRadarTs, initLeafletImages } from '../modules/helpers';
 import { getData } from '../modules/local-storage';
+import { initLeafletImages } from '../modules/helpers';
 import { isDarkModeEnabled } from '../modules/theme';
 
 import './WeatherMapFull.scss';
@@ -42,35 +41,28 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const [popupAddress, setPopupAddress] = useState(null);
   const coordinates = getData('coordinates');
 
-  const [tsData, setTsData] = useState(getData('radarTimestamps'));
+  const [tsData, setTsData] = useState(null);
 
   useEffect(() => {
-    const getTimestamps = async () => {
-      await axios
-        .get('https://api.rainviewer.com/public/weather-maps.json')
-        .then((response) => {
-
-          setTsData(response.data.radar.past);
-          // return response.data;
-        });
-    };
-
     const locationData = getData('locationData');
+    const { radarData } = getData('weatherData');
 
+    setTsData([...radarData.past, ...radarData.nowcast]);
     setPopupAddress(locationData.formattedAddress);
-    getTimestamps();
-  }, [setTsData]);
+  }, []);
 
-  const [ts, setTs] = useState(tsData[12]);
-  const [rangeValue, setRangeValue] = useState(12);
+  const [ts, setTs] = useState(null);
+  const [rangeValue, setRangeValue] = useState(null);
+  const [rangeMaxValue, setRangeMaxValue] = useState(null);
 
   useEffect(() => {
-    if (!Number(tsData)) {
+    if (!tsData) {
       return;
     }
 
     setTs(tsData[12]);
     setRangeValue(12);
+    setRangeMaxValue(tsData.length - 1);
   }, [tsData]);
 
   const [radarMapUrl, setRadarMapUrl] = useState(null);
@@ -81,7 +73,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     setRadarMapUrl(
-      `https://tilecache.rainviewer.com/${ts.path}/512/{z}/{x}/{y}/8/1_1.png`,
+      `https://tilecache.rainviewer.com${ts.path}/512/{z}/{x}/{y}/8/1_1.png`,
     );
   }, [ts]);
 
@@ -121,16 +113,16 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     } else {
       timerHandle.current = setInterval(() => {
         const currentVal = parseInt(rangeSliderRef.current.value, 10);
-        const nextVal = currentVal === 12 ? 0 : currentVal + 1;
+        const nextVal = currentVal === rangeMaxValue ? 0 : currentVal + 1;
 
         // console.log(currentVal, nextVal);
         rangeSliderRef.current.value = nextVal;
         advanceRangeSlider(nextVal);
       }, 500);
     }
-  }, [advanceRangeSlider, isPlaying]);
+  }, [advanceRangeSlider, isPlaying, rangeMaxValue]);
 
-  return tsData ? (
+  return tsData && ts ? (
     <>
       <div className="map-container">
         <MapContainer
@@ -239,9 +231,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
             </LayersControl.BaseLayer>
             <LayersControl.Overlay name="Radar" checked="checked">
               <TileLayer
-                url={`https://tilecache.rainviewer.com/v2/radar/${
-                  tsData ? tsData[0] : getRadarTs()
-                }/512/{z}/{x}/{y}/8/1_1.png`}
+                url={`https://tilecache.rainviewer.com/v2/radar${tsData[0]}/512/{z}/{x}/{y}/8/1_1.png`}
                 opacity={0.8}
                 attribution={
                   '&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'
@@ -270,7 +260,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               className="range-slider"
               type="range"
               min={0}
-              max={12}
+              max={rangeMaxValue}
               step={1}
               value={rangeValue}
               onChange={rangeSliderHandler}
