@@ -307,7 +307,7 @@ export const getConditionBarClass = (data) => {
     return 'bg-gray-300';
   }
 
-  // handle windy and other non-standard conditins using cloud conditions
+  // handle windy and other non-standard conditions using cloud conditions
   if (clouds < 20) {
     return 'bg-white';
   }
@@ -337,10 +337,6 @@ export const formatSummary = (
   if (index === startIndex) {
     summary = currentHourData.conditionCode;
 
-    // if (summary === 'Cloudy') {
-    //   summary = 'Overcast';
-    // }
-
     return titleCaseAddSpace(summary);
   }
 
@@ -349,10 +345,6 @@ export const formatSummary = (
     currentHourData.conditionCode === allHourlyData[index - 2].conditionCode
       ? ''
       : currentHourData.conditionCode;
-
-  // if (summary === 'Cloudy') {
-  //   summary = 'Overcast';
-  // }
 
   return titleCaseAddSpace(summary);
 };
