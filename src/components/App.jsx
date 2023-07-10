@@ -35,11 +35,16 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     defaultValue: null,
   });
 
-  const [geoState, { onChange }] = useGeolocation({
+  const [geoState] = useGeolocation({
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 3600000,
   });
+
+  // geoState.onError,
+  // geoState.isSupported,
+  // geoState.isRetrieving,
+  // geoState.position
 
   const handleGeoChange = (geo) => {
     if (geo && geo.position && geo.position.coords) {
@@ -121,32 +126,6 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     setCoordinates,
   ]);
 
-  // onChange(() => {
-  //   // console.log('onChange');
-  //   if (geoState && geoState.position && geoState.position.coords) {
-  //     const { latitude, longitude, accuracy } = geoState.position.coords;
-
-  //     if (coordinates && coordinates.lat && coordinates.lng) {
-  //       if (
-  //         Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
-  //         Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
-  //         !isCacheExpired(coordinates.lastUpdated, 5)
-  //       ) {
-  //         // console.log('same coords in cache ttl, no update');
-  //         return;
-  //       }
-  //     }
-  //     // console.log('handleGeoChange:', geoState);
-
-  //     setCoordinates({
-  //       lat: latitude,
-  //       lng: longitude,
-  //       accuracy,
-  //       lastUpdated: dayjs().toString(),
-  //     });
-  //   }
-  // });
-
   const returnData = useMemo(
     () => ({
       weather: weatherData,
@@ -156,7 +135,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     [lastUpdated, locationData, weatherData],
   );
 
-  return weatherData && locationData ? (
+  return returnData ? (
     <Suspense fallback={<Loading fullHeight={true} />}>
       <WeatherDataContext.Provider value={returnData}>
         <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
