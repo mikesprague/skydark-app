@@ -397,18 +397,18 @@ export const getNextTwentyFourText = (weatherData) => {
   let firstPart = 'today';
   let secondPart = 'overnight';
 
-  if (dayjs().hour() >= 6 && dayjs().hour() < 12) {
+  if (dayjs().hour() >= 5 && dayjs().hour() < 12) {
     dataPartOne = weatherData.forecastDaily.days[0].daytimeForecast;
     dataPartTwo = weatherData.forecastDaily.days[0].overnightForecast;
   }
 
-  if (dayjs().hour() >= 12 && dayjs().hour() <= 18) {
+  if (dayjs().hour() >= 12 && dayjs().hour() < 18) {
     secondPart = 'tomorrow';
     dataPartOne = weatherData.forecastDaily.days[0].restOfDayForecast;
     dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
   }
 
-  if (dayjs().hour() > 18 || dayjs().hour() < 6) {
+  if (dayjs().hour() >= 18 || dayjs().hour() < 5) {
     firstPart = 'tonight';
     secondPart = 'tomorrow';
     dataPartOne = weatherData.forecastDaily.days[0].overnightForecast;
