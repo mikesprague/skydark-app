@@ -386,53 +386,41 @@ export const initSkyDark = () => {
   initDarkMode();
 };
 
-export const getNextTwentyFourText = (
-  weatherData,
-  extendedForecast = false,
-) => {
+export const getNextTwentyFourText = (weatherData) => {
   let dataPartOne;
   let dataPartTwo;
 
   // daytimeForecast - 7am to 7pm
   // overnightForecast - 7pm to 7am
-  // restOfDayForecast - now to 12am
+  // restOfDayForecast - current time to 12am
 
-  let startAtOvernight = false;
+  let firstPart = 'today';
+  let secondPart = 'overnight';
 
-  if ((dayjs().hour() >= 7 && dayjs().hour() < 19) || extendedForecast) {
+  if (dayjs().hour() >= 6 && dayjs().hour() < 12) {
     dataPartOne = weatherData.forecastDaily.days[0].daytimeForecast;
     dataPartTwo = weatherData.forecastDaily.days[0].overnightForecast;
   }
 
-  if (dayjs().hour() >= 19 || dayjs().hour() < 7) {
-    startAtOvernight = true;
+  if (dayjs().hour() >= 12 && dayjs().hour() <= 18) {
+    secondPart = 'tomorrow';
+    dataPartOne = weatherData.forecastDaily.days[0].restOfDayForecast;
+    dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
+  }
+
+  if (dayjs().hour() > 18 || dayjs().hour() < 6) {
+    firstPart = 'tonight';
+    secondPart = 'tomorrow';
     dataPartOne = weatherData.forecastDaily.days[0].overnightForecast;
     dataPartTwo = weatherData.forecastDaily.days[1].daytimeForecast;
   }
 
   let returnString = '';
 
-  if (extendedForecast) {
-    returnString =
-      dataPartOne.conditionCode === dataPartTwo.conditionCode ||
-      dataPartOne.precipitationType === dataPartTwo.precipitationType
-        ? `${dataPartOne.conditionCode} ${'during the day and overnight'}`
-        : `${dataPartOne.conditionCode} ${'during the day'}, ${
-            dataPartTwo.conditionCode
-          } ${'overnight'}`;
-  } else {
-    returnString =
-      dataPartOne.conditionCode === dataPartTwo.conditionCode ||
-      dataPartOne.precipitationType === dataPartTwo.precipitationType
-        ? `${dataPartOne.conditionCode} ${
-            startAtOvernight ? 'tonight and tomorrow' : 'today and overnight'
-          }`
-        : `${dataPartOne.conditionCode} ${
-            startAtOvernight ? 'tonight' : 'today'
-          }, ${dataPartTwo.conditionCode} ${
-            startAtOvernight ? 'tomorrow' : 'overnight'
-          }`;
-  }
+  returnString =
+    dataPartOne.conditionCode === dataPartTwo.conditionCode
+      ? `${dataPartOne.conditionCode} ${`${firstPart} and ${secondPart}`}`
+      : `${dataPartOne.conditionCode} ${firstPart}, ${dataPartTwo.conditionCode} ${secondPart}`;
 
   return titleCaseToSentenceCase(returnString);
 };
