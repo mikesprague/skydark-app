@@ -417,10 +417,22 @@ export const getNextTwentyFourText = (weatherData) => {
 
   let returnString = '';
 
+  // eslint-disable-next-line no-confusing-arrow
+  const formatIsolated = (conditionCode) =>
+    conditionCode.toLowerCase().includes('isolated')
+      ? `${conditionCode} possible`
+      : conditionCode;
+
   returnString =
     dataPartOne.conditionCode === dataPartTwo.conditionCode
-      ? `${dataPartOne.conditionCode} ${`${firstPart} and ${secondPart}`}`
-      : `${dataPartOne.conditionCode} ${firstPart}, ${dataPartTwo.conditionCode} ${secondPart}`;
+      ? `${formatIsolated(
+          dataPartOne.conditionCode,
+        )} ${`${firstPart} and ${secondPart}`}`
+      : `${formatIsolated(
+          dataPartOne.conditionCode,
+        )} ${firstPart}, ${formatIsolated(
+          dataPartTwo.conditionCode,
+        )} ${secondPart}`;
 
   return titleCaseToSentenceCase(returnString);
 };
