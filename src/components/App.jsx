@@ -135,7 +135,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     [lastUpdated, locationData, weatherData],
   );
 
-  return returnData ? (
+  return weatherData && locationData ? (
     <Suspense fallback={<Loading fullHeight={true} />}>
       <WeatherDataContext.Provider value={returnData}>
         <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
