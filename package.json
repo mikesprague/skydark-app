@@ -58,7 +58,7 @@
     "react-google-charts": "4.0.0",
     "react-leaflet": "4.2.1",
     "register-service-worker": "1.7.2",
-    "sweetalert2": "11.7.15",
+    "sweetalert2": "11.7.16",
     "sweetalert2-react-content": "5.0.7",
     "tippy.js": "6.3.7",
     "use-local-storage-state": "18.3.3"
