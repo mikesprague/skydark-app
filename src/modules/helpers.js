@@ -418,20 +418,34 @@ export const getNextTwentyFourText = (weatherData) => {
   let returnString = '';
 
   // eslint-disable-next-line no-confusing-arrow
-  const formatIsolated = (conditionCode) =>
-    conditionCode.toLowerCase().includes('isolated')
-      ? `${conditionCode} possible`
-      : conditionCode;
+  const formatPrecip = (data) => {
+    const { conditionCode, precipitationChance } = data;
+
+    const probability = Math.round(precipitationChance * 100);
+    let probabilityText = '';
+
+    if (probability > 0 && probability < 40) {
+      probabilityText = ' possible';
+    }
+
+    if (probability >= 40 && probability < 60) {
+      probabilityText = ' likely';
+    }
+
+    if (probability >= 60 && probability < 80) {
+      probabilityText = ' probable';
+    }
+
+    console.log(data, probability, probabilityText);
+
+    return `${conditionCode}${probabilityText}`;
+  };
 
   returnString =
     dataPartOne.conditionCode === dataPartTwo.conditionCode
-      ? `${formatIsolated(
-          dataPartOne.conditionCode,
-        )} ${`${firstPart} and ${secondPart}`}`
-      : `${formatIsolated(
-          dataPartOne.conditionCode,
-        )} ${firstPart}, ${formatIsolated(
-          dataPartTwo.conditionCode,
+      ? `${formatPrecip(dataPartOne)} ${`${firstPart} and ${secondPart}`}`
+      : `${formatPrecip(dataPartOne)} ${firstPart}, ${formatPrecip(
+          dataPartTwo,
         )} ${secondPart}`;
 
   return titleCaseToSentenceCase(returnString);
