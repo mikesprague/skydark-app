@@ -421,6 +421,10 @@ export const getNextTwentyFourText = (weatherData) => {
   const formatPrecip = (data) => {
     const { conditionCode, precipitationChance } = data;
 
+    if (!isRaining(conditionCode)) {
+      return conditionCode;
+    }
+
     const probability = Math.round(precipitationChance * 100);
     let probabilityText = '';
 
