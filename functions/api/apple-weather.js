@@ -28,6 +28,7 @@ export const onRequestGet = async (context) => {
     APPLE_DEVELOPER_TEAM_ID,
     APPLE_DEVELOPER_APP_ID,
     GOOGLE_MAPS_API_KEY,
+    AIR_NOW_API_KEY,
   } = env;
 
   const urlParams = new URL(url).searchParams;
@@ -221,6 +222,15 @@ export const onRequestGet = async (context) => {
         weather.radarData.nowcast = [...radarJson.radar.nowcast];
       },
     );
+
+    weather.airQualityData = {};
+    await fetch(
+      `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&distance=100&API_KEY=${AIR_NOW_API_KEY}`,
+    ).then(async (airQualityResponse) => {
+      const airQualityJson = await airQualityResponse.json();
+
+      weather.airQualityData = airQualityJson;
+    });
 
     const returnData = {
       weather,
