@@ -33,26 +33,6 @@ export const AirQuality = () => {
     setAqiData(weather.airQualityData);
   }, [weather]);
 
-  const airQualityHandler = () => {
-    return;
-    // openModalWithComponent(
-    //   <>
-    //     <h3 className="modal-heading" id="aqi-headline">
-    //       Current Air Quality
-    //     </h3>
-    //     <p className="mb-6 text-center">
-    //       <strong>
-
-    //       </strong>
-    //     </p>
-    //   </>,
-    //   {
-    //     position: 'center',
-    //     padding: '1rem',
-    //   },
-    // );
-  };
-
   const getAirQualityClass = (data) => {
     const { Category } = data;
     const { Number: aqiNumber } = Category;
@@ -73,6 +53,22 @@ export const AirQuality = () => {
       default:
         return 'air-quality-text unknown';
     }
+  };
+
+  const airQualityHandler = () => {
+    openModalWithComponent(
+      <>
+        <h3 className="modal-heading" id="aqi-headline">
+          Air Quality Index
+        </h3>
+        <h4 className="mb-2 text-lg"><span className={getAirQualityClass(aqiData[0])}>{aqiData[0].AQI} {aqiData[0].Category.Name}</span></h4>
+        <p>Primary Polutant: {aqiData[0].ParameterName} {aqiData[0].AQI}</p>
+      </>,
+      {
+        position: 'center',
+        padding: '1rem',
+      },
+    );
   };
 
   return aqiData ? (
