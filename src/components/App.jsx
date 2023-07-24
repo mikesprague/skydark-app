@@ -15,6 +15,7 @@ import { WeatherDataContext } from '../contexts/WeatherDataContext';
 import 'sweetalert2/src/sweetalert2';
 import './App.scss';
 
+const AirQuality = lazy(() => import('./AirQuality'));
 const CurrentHourly = lazy(() => import('./CurrentHourly'));
 const Currently = lazy(() => import('./Currently'));
 const Daily = lazy(() => import('./Daily'));
@@ -141,6 +142,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
         <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         <LayoutContainer>
           <Currently />
+          <AirQuality />
           <WeatherAlert />
           <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
           <CurrentHourly />
