@@ -39,19 +39,19 @@ export const AirQuality = () => {
 
     switch (aqiNumber) {
       case 1:
-        return 'air-quality-text good';
+        return 'good';
       case 2:
-        return 'air-quality-text moderate';
+        return 'moderate';
       case 3:
-        return 'air-quality-text unhealthy-for-sensitive-groups';
+        return 'unhealthy-for-sensitive-groups';
       case 4:
-        return 'air-quality-text unhealthy';
+        return 'unhealthy';
       case 5:
-        return 'air-quality-text very-unhealthy';
+        return 'very-unhealthy';
       case 6:
-        return 'air-quality-text hazardous';
+        return 'hazardous';
       default:
-        return 'air-quality-text unknown';
+        return 'unknown';
     }
   };
 
@@ -73,12 +73,12 @@ export const AirQuality = () => {
   };
 
   return aqiData ? (
-    <div className="air-quality-container">
-      <button type="button" onClick={airQualityHandler} className="air-quality-button" title={`Air Quality Index: ${aqiData[0].AQI} (${aqiData[0].Category.Name})`}>
+    <div className="aqi-container">
+      <button type="button" onClick={airQualityHandler} className="aqi-button" title={`Air Quality Index: ${aqiData[0].AQI} (${aqiData[0].Category.Name})`}>
         <span className="leading-loose">
           {/* <FontAwesomeIcon icon={['fad', 'wind']} />
           &nbsp; AQI {aqiData[0].AQI} {aqiData[0].Category.Name} */}
-          <strong>AQI</strong> <span className={getAirQualityClass(aqiData[0])}>{aqiData[0].AQI}</span>
+          <strong>AQI</strong> <span className={`aqi-bubble aqi-color-${getAirQualityClass(aqiData[0])}`}>{aqiData[0].AQI}</span>
         </span>
       </button>
     </div>

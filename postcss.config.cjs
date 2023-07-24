@@ -27,6 +27,7 @@ const cssWhitelistClassArray = [
   /border-black/,
   /border-b/,
   /swal2/,
+  /aqi-(\w+)/,
 ];
 
 // Export all plugins our postcss should use
