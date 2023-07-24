@@ -225,7 +225,7 @@ export const onRequestGet = async (context) => {
 
     weather.airQualityData = {};
     await fetch(
-      `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&distance=100&API_KEY=${AIR_NOW_API_KEY}`,
+      `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&distance=150&API_KEY=${AIR_NOW_API_KEY}`,
     ).then(async (airQualityResponse) => {
       const airQualityJson = await airQualityResponse.json();
 
