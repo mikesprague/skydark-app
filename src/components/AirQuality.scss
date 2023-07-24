@@ -62,4 +62,20 @@
       @apply border-rose-900;
     }
   }
+
+  &-modal {
+    &-container {
+      @apply flex;
+      @apply flex-wrap;
+      @apply mt-2;
+    }
+
+    &-item {
+      @apply text-base;
+      @apply mb-4;
+      @apply leading-4;
+      @apply text-center;
+      @apply w-1/2;
+    }
+  }
 }

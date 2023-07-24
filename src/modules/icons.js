@@ -1,5 +1,6 @@
 import {
   faAngleUp,
+  faArrowUpRightFromSquare,
   faBan,
   faBolt,
   faCalendar,
@@ -105,6 +106,7 @@ export const initIcons = () => {
   library.add(
     faAngleUp,
     faApple,
+    faArrowUpRightFromSquare,
     faBan,
     faBolt,
     faCalendar,
