@@ -440,7 +440,7 @@ export const getNextTwentyFourText = (weatherData) => {
       probabilityText = ' probable';
     }
 
-    console.log(data, probability, probabilityText);
+    // console.log(data, probability, probabilityText);
 
     return `${conditionCode}${probabilityText}`;
   };
