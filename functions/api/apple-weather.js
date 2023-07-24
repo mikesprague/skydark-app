@@ -229,7 +229,12 @@ export const onRequestGet = async (context) => {
     ).then(async (airQualityResponse) => {
       const airQualityJson = await airQualityResponse.json();
 
-      weather.airQualityData = airQualityJson;
+      // eslint-disable-next-line no-confusing-arrow
+      const airQualityObject = airQualityJson.sort((a, b) =>
+        a.AQI > b.AQI ? -1 : 1,
+      );
+
+      weather.airQualityData = airQualityObject;
     });
 
     const returnData = {
