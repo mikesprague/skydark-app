@@ -56,6 +56,7 @@ export const AirQuality = () => {
   };
 
   const airQualityHandler = () => {
+    return;
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="aqi-headline">

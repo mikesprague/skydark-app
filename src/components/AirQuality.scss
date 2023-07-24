@@ -15,7 +15,6 @@
 
 .air-quality-container {
   margin-top: -.4rem;
-  // @apply mb-1;
   @apply text-center;
   @apply break-words;
 }
@@ -23,7 +22,6 @@
 .air-quality-text {
   @apply leading-4;
   @apply px-2;
-  @apply mt-1;
   @apply font-medium;
   @apply border;
   @apply rounded-full;
