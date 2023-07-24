@@ -59,7 +59,7 @@ export const AirQuality = () => {
 
     switch (aqiNumber) {
       case 1:
-        return 'air-quality-text moderate';
+        return 'air-quality-text good';
       case 2:
         return 'air-quality-text moderate';
       case 3:
