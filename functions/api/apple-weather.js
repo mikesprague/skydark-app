@@ -2,6 +2,8 @@ import * as jose from 'jose';
 import dayjs from 'dayjs';
 import queryString from 'query-string';
 
+import { version } from '../../package.json';
+
 /* eslint-disable import/prefer-default-export */
 export const onRequestGet = async (context) => {
   const CACHE_NAME = 'apple-weather';
@@ -214,18 +216,25 @@ export const onRequestGet = async (context) => {
     weather.radarData = {};
     weather.radarData.past = [];
     weather.radarData.nowcast = [];
-    await fetch(`https://api.rainviewer.com/public/weather-maps.json`).then(
-      async (radarResponse) => {
-        const radarJson = await radarResponse.json();
-
-        weather.radarData.past = [...radarJson.radar.past];
-        weather.radarData.nowcast = [...radarJson.radar.nowcast];
+    await fetch(`https://api.rainviewer.com/public/weather-maps.json`, {
+      headers: {
+        'User-Agent': `SkyDark/${version}`,
       },
-    );
+    }).then(async (radarResponse) => {
+      const radarJson = await radarResponse.json();
+
+      weather.radarData.past = [...radarJson.radar.past];
+      weather.radarData.nowcast = [...radarJson.radar.nowcast];
+    });
 
     weather.airQualityData = {};
     await fetch(
       `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&distance=150&API_KEY=${AIR_NOW_API_KEY}`,
+      {
+        headers: {
+          'User-Agent': `SkyDark/${version}`,
+        },
+      },
     ).then(async (airQualityResponse) => {
       const airQualityJson = await airQualityResponse.json();
 
