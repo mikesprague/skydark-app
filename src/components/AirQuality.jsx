@@ -35,7 +35,7 @@ export const AirQuality = () => {
     setAqiData(weather.airQualityData);
   }, [weather]);
 
-  const getAirQualityClass = (airQualityData) => {
+  const getAirQualityColor = (airQualityData) => {
     const { Category } = airQualityData;
     const { Number: aqiNumber } = Category;
 
@@ -90,7 +90,7 @@ export const AirQuality = () => {
             <br />
             <br />
             <span
-              className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
+              className={`text-xl aqi-bubble aqi-color-${getAirQualityColor(
                 aqiData[0],
               )}`}
             >
@@ -109,7 +109,7 @@ export const AirQuality = () => {
             <br />
             <br />
             <span
-              className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
+              className={`text-xl aqi-bubble aqi-color-${getAirQualityColor(
                 aqiData[1],
               )} mt-3`}
             >
@@ -153,7 +153,7 @@ export const AirQuality = () => {
           &nbsp; AQI {aqiData[0].AQI} {aqiData[0].Category.Name} */}
           <strong>AQI</strong>{' '}
           <span
-            className={`aqi-bubble aqi-color-${getAirQualityClass(aqiData[0])}`}
+            className={`aqi-bubble aqi-color-${getAirQualityColor(aqiData[0])}`}
           >
             {aqiData[0].AQI}
           </span>
