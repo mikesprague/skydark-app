@@ -246,6 +246,20 @@ export const onRequestGet = async (context) => {
       weather.airQualityData = airQualityObject;
     });
 
+    weather.aitQualityForecastData = {};
+    await fetch(
+      `https://www.airnowapi.org/aq/forecast/latLong/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&date=&distance=150&API_KEY=${AIR_NOW_API_KEY}`,
+      {
+        headers: {
+          'User-Agent': `SkyDark/${version}`,
+        },
+      },
+    ).then(async (airQualityResponse) => {
+      const airQualityJson = await airQualityResponse.json();
+
+      weather.aitQualityForecastData = airQualityJson;
+    });
+
     const returnData = {
       weather,
     };
