@@ -75,11 +75,15 @@ export const AirQuality = () => {
           Air Quality Index
         </h3>
         <h4 className="mb-2 text-lg">
-          {`Current Air Quality ${
-            formatAirQualityHour(aqiData[0].HourObserved)[0]
-          } ${formatAirQualityHour(aqiData[0].HourObserved)[1]}`}
+          {`${aqiData[0].ReportingArea} Reporting Area`}
         </h4>
-        <h5 className="mb-2 text-base">{`${aqiData[0].ReportingArea} Reporting Area`}</h5>
+        <h5 className="mb-2 -mt-1 text-base">
+          <strong>Current Air Quality</strong>
+          <br />
+          <small>{`Reported at ${
+            formatAirQualityHour(aqiData[0].HourObserved)[0]
+          } ${formatAirQualityHour(aqiData[0].HourObserved)[1]}`}</small>
+        </h5>
         <div className="aqi-modal-container">
           <div className="aqi-modal-item leading-8">
             <strong className="text-base">
