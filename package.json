@@ -44,7 +44,7 @@
     "@sweetalert2/theme-dark": "5.0.15",
     "@tippyjs/react": "4.2.6",
     "axios": "1.4.0",
-    "beautiful-react-hooks": "4.3.0",
+    "beautiful-react-hooks": "5.0.0",
     "cross-env": "7.0.3",
     "dayjs": "1.11.9",
     "dotenv": "16.3.1",
