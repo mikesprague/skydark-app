@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
 import './LastUpdated.scss';
 

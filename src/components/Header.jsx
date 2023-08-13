@@ -8,13 +8,13 @@ import React, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
-import { openModalWithComponent } from '../modules/helpers';
+import { openModalWithComponent } from '../modules/helpers.js';
 
-import { About } from './About';
-import { Settings } from './Settings';
-import { WeatherMapFull } from './WeatherMapFull';
+import { About } from './About.jsx';
+import { Settings } from './Settings.jsx';
+import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './Header.scss';
 

@@ -100,7 +100,7 @@ import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
 import { faLocation } from '@fortawesome/pro-light-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-import { isDarkModeEnabled } from './theme';
+import { isDarkModeEnabled } from './theme.js';
 
 export const initIcons = () => {
   library.add(

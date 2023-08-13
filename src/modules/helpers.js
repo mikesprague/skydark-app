@@ -4,12 +4,12 @@ import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
 import withReactContent from 'sweetalert2-react-content';
 
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
-import { initDarkMode, isDarkModeEnabled } from './theme';
-import { initAppSettings } from './settings';
+import { initDarkMode, isDarkModeEnabled } from './theme.js';
+import { initAppSettings } from './settings.js';
 
 const MySwal = withReactContent(Swal);
 
@@ -453,4 +453,37 @@ export const getNextTwentyFourText = (weatherData) => {
         )} ${secondPart}`;
 
   return titleCaseToSentenceCase(returnString);
+};
+
+export const formatAirQualityHour = (hour) => {
+  const now = new Date();
+
+  now.setHours(hour);
+
+  const timeString = dayjs.tz(now).format('h A z');
+  const dateString = dayjs.tz(now).format('MMM D');
+
+  return [timeString, dateString];
+};
+
+export const getAirQualityClass = (airQualityData) => {
+  const { Category } = airQualityData;
+  const { Number: aqiNumber } = Category;
+
+  switch (aqiNumber) {
+    case 1:
+      return 'good';
+    case 2:
+      return 'moderate';
+    case 3:
+      return 'unhealthy-for-sensitive-groups';
+    case 4:
+      return 'unhealthy';
+    case 5:
+      return 'very-unhealthy';
+    case 6:
+      return 'hazardous';
+    default:
+      return 'unknown';
+  }
 };

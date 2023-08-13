@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
-import { metricToImperial } from '../modules/helpers';
+import { metricToImperial } from '../modules/helpers.js';
 
 import './PrecipChart.scss';
 

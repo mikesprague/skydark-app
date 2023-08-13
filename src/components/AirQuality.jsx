@@ -3,14 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 // import { nanoid } from 'nanoid';
 
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
+import advancedFormat from 'dayjs/plugin/advancedFormat.js';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
-import { openModalWithComponent } from '../modules/helpers';
+import {
+  formatAirQualityHour,
+  getAirQualityClass,
+  openModalWithComponent,
+} from '../modules/helpers.js';
 
 import './AirQuality.scss';
 
@@ -35,39 +39,6 @@ export const AirQuality = () => {
     setAqiData(weather.airQualityData);
   }, [weather]);
 
-  const getAirQualityColor = (airQualityData) => {
-    const { Category } = airQualityData;
-    const { Number: aqiNumber } = Category;
-
-    switch (aqiNumber) {
-      case 1:
-        return 'good';
-      case 2:
-        return 'moderate';
-      case 3:
-        return 'unhealthy-for-sensitive-groups';
-      case 4:
-        return 'unhealthy';
-      case 5:
-        return 'very-unhealthy';
-      case 6:
-        return 'hazardous';
-      default:
-        return 'unknown';
-    }
-  };
-
-  const formatAirQualityHour = (hour) => {
-    const now = new Date();
-
-    now.setHours(hour);
-
-    const timeString = dayjs.tz(now).format('h A z');
-    const dateString = dayjs.tz(now).format('MMM D');
-
-    return [timeString, dateString];
-  };
-
   const airQualityHandler = () => {
     openModalWithComponent(
       <>
@@ -85,7 +56,7 @@ export const AirQuality = () => {
           } ${formatAirQualityHour(aqiData[0].HourObserved)[1]}`}</small>
         </h5>
         <div className="aqi-modal-container">
-          <div className="aqi-modal-item leading-8">
+          <div className="leading-8 aqi-modal-item">
             <strong className="text-base">
               {aqiData[0].ParameterName.trim().toLowerCase() === 'o3'
                 ? 'Ozone'
@@ -94,7 +65,7 @@ export const AirQuality = () => {
             <br />
             <br />
             <span
-              className={`text-xl aqi-bubble aqi-color-${getAirQualityColor(
+              className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
                 aqiData[0],
               )}`}
             >
@@ -113,7 +84,7 @@ export const AirQuality = () => {
             <br />
             <br />
             <span
-              className={`text-xl aqi-bubble aqi-color-${getAirQualityColor(
+              className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
                 aqiData[1],
               )} mt-3`}
             >
@@ -157,7 +128,7 @@ export const AirQuality = () => {
           &nbsp; AQI {aqiData[0].AQI} {aqiData[0].Category.Name} */}
           <strong>AQI</strong>{' '}
           <span
-            className={`aqi-bubble aqi-color-${getAirQualityColor(aqiData[0])}`}
+            className={`aqi-bubble aqi-color-${getAirQualityClass(aqiData[0])}`}
           >
             {aqiData[0].AQI}
           </span>

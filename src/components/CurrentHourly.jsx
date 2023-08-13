@@ -7,11 +7,12 @@ import {
   formatSummary,
   getNextTwentyFourText,
   metricToImperial,
-} from '../modules/helpers';
-import { Hour } from './Hour';
-import { NextHour } from './NextHour';
-import { Pill } from './Pill';
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+} from '../modules/helpers.js';
+
+import { Hour } from './Hour.jsx';
+import { NextHour } from './NextHour.jsx';
+import { Pill } from './Pill.jsx';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
 import './CurrentHourly.scss';
 

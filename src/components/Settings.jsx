@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { defaultAppSettings } from '../modules/settings';
+import { defaultAppSettings } from '../modules/settings.js';
 
 import './Settings.scss';
 

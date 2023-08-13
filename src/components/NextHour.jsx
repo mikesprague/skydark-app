@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
-import { PrecipChart } from './PrecipChart';
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { PrecipChart } from './PrecipChart.jsx';
+
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
 import {
   capitalizeWord,
   isRaining,
   isSnowing,
   titleCaseToSentenceCase,
-} from '../modules/helpers';
+} from '../modules/helpers.js';
 
 import './NextHour.scss';
 

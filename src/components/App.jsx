@@ -2,30 +2,31 @@ import React, { Suspense, lazy, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import useGeolocation from 'beautiful-react-hooks/useGeolocation';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { apiUrl } from '../modules/helpers';
-import { initIcons } from '../modules/icons';
-import { isCacheExpired } from '../modules/local-storage';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { apiUrl } from '../modules/helpers.js';
+import { initIcons } from '../modules/icons.js';
+import { isCacheExpired } from '../modules/local-storage.js';
 
-import 'sweetalert2/src/sweetalert2';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+
+import 'sweetalert2/src/sweetalert2.scss';
 import './App.scss';
 
-const AirQuality = lazy(() => import('./AirQuality'));
-const CurrentHourly = lazy(() => import('./CurrentHourly'));
-const Currently = lazy(() => import('./Currently'));
-const Daily = lazy(() => import('./Daily'));
-const Header = lazy(() => import('./Header'));
-const LastUpdated = lazy(() => import('./LastUpdated'));
-const LayoutContainer = lazy(() => import('./LayoutContainer'));
-const Loading = lazy(() => import('./Loading'));
-const SunriseSunset = lazy(() => import('./SunriseSunset'));
-const WeatherAlert = lazy(() => import('./WeatherAlert'));
-const WeatherMapSmall = lazy(() => import('./WeatherMapSmall'));
+const AirQuality = lazy(() => import('./AirQuality.jsx'));
+const CurrentHourly = lazy(() => import('./CurrentHourly.jsx'));
+const Currently = lazy(() => import('./Currently.jsx'));
+const Daily = lazy(() => import('./Daily.jsx'));
+const Header = lazy(() => import('./Header.jsx'));
+const LastUpdated = lazy(() => import('./LastUpdated.jsx'));
+const LayoutContainer = lazy(() => import('./LayoutContainer.jsx'));
+const Loading = lazy(() => import('./Loading.jsx'));
+const SunriseSunset = lazy(() => import('./SunriseSunset.jsx'));
+const WeatherAlert = lazy(() => import('./WeatherAlert.jsx'));
+const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
 
 dayjs.extend(relativeTime);
 

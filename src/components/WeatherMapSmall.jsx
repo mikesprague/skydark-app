@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-import { initLeafletImages, openModalWithComponent } from '../modules/helpers';
-import { isDarkModeEnabled } from '../modules/theme';
+import {
+  initLeafletImages,
+  openModalWithComponent,
+} from '../modules/helpers.js';
+import { isDarkModeEnabled } from '../modules/theme.js';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
-import { WeatherMapFull } from './WeatherMapFull';
+import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './WeatherMapSmall.scss';
 

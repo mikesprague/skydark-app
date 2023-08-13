@@ -2,10 +2,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 
-import { Day } from './Day';
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { Day } from './Day.jsx';
 
-import { metricToImperial } from '../modules/helpers';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+
+import { metricToImperial } from '../modules/helpers.js';
 
 import './Daily.scss';
 

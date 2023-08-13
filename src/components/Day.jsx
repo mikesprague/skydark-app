@@ -10,13 +10,14 @@ import {
   formatCondition,
   metricToImperial,
   sleep,
-} from '../modules/helpers';
-import { getData, isCacheExpired } from '../modules/local-storage';
-import { getWeatherIcon } from '../modules/icons';
+} from '../modules/helpers.js';
+import { getData, isCacheExpired } from '../modules/local-storage.js';
+import { getWeatherIcon } from '../modules/icons.js';
 
-import { Hourly } from './Hourly';
-import { Loading } from './Loading';
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { Hourly } from './Hourly.jsx';
+import { Loading } from './Loading.jsx';
+
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
 import './Day.scss';
 

@@ -130,12 +130,14 @@
       "node": true
     },
     "settings": {
+      "react": {
+        "version": "detect"
+      },
       "jest": {
         "version": 28
       }
     },
     "extends": [
-      "airbnb",
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:react-hooks/recommended",

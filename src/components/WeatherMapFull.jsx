@@ -23,9 +23,9 @@ import dayjs from 'dayjs';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-import { getData } from '../modules/local-storage';
-import { initLeafletImages } from '../modules/helpers';
-import { isDarkModeEnabled } from '../modules/theme';
+import { getData } from '../modules/local-storage.js';
+import { initLeafletImages } from '../modules/helpers.js';
+import { isDarkModeEnabled } from '../modules/theme.js';
 
 import './WeatherMapFull.scss';
 

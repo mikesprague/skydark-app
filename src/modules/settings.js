@@ -1,4 +1,4 @@
-import { getData, setData } from './local-storage';
+import { getData, setData } from './local-storage.js';
 
 export const defaultAppSettings = {
   // system|light|dark|sunrise-sunset
@@ -13,6 +13,7 @@ export const defaultAppSettings = {
 
 export const initAppSettings = () => {
   const hasAppSettings = getData('appSettings') || null;
+
   if (!hasAppSettings) {
     setData('appSettings', defaultAppSettings);
   }

@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext';
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
-import { openModalWithComponent } from '../modules/helpers';
+import { openModalWithComponent } from '../modules/helpers.js';
 
 import './WeatherAlert.scss';
 
@@ -82,7 +82,7 @@ export const WeatherAlert = () => {
               ? formatAlert(alert.messages[0].text).map((alertPart, idx) => {
                   if (idx >= 1) {
                     return (
-                      <p className="mb-6 px-3 text-left" key={nanoid(6)}>
+                      <p className="px-3 mb-6 text-left" key={nanoid(6)}>
                         {alertPart}
                       </p>
                     );

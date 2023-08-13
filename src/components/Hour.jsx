@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
 import {
   formatCondition,
@@ -14,9 +14,9 @@ import {
   metricToImperial,
   openModalWithComponent,
   titleCaseAddSpace,
-} from '../modules/helpers';
+} from '../modules/helpers.js';
 
-import { getWeatherIcon } from '../modules/icons';
+import { getWeatherIcon } from '../modules/icons.js';
 
 import './Hour.scss';
 
