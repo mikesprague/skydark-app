@@ -61,7 +61,7 @@
     "sweetalert2": "11.7.23",
     "sweetalert2-react-content": "5.0.7",
     "tippy.js": "6.3.7",
-    "use-local-storage-state": "19.0.2"
+    "use-local-storage-state": "19.0.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.22.10",
