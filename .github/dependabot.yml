@@ -11,3 +11,21 @@ updates:
       prefix: "chore"
       prefix-development: "chore"
       include: "scope"
+    groups:
+      babel:
+        patterns:
+          - "@babel*"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss*"
+      fontawesome:
+        patterns:
+          - "@fortawesome*"
+      bugsnag:
+        patterns:
+          - "@bugsnag*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
