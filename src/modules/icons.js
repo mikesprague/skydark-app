@@ -1,3 +1,15 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faApple,
+  faChrome,
+  faDev,
+  faEdge,
+  faFirefoxBrowser,
+  faGithub,
+  faHackerNews,
+  faProductHunt,
+  faRedditAlien,
+} from '@fortawesome/free-brands-svg-icons';
 import {
   faAngleUp,
   faArrowUpRightFromSquare,
@@ -78,17 +90,8 @@ import {
   faWind,
   faWindTurbine,
 } from '@fortawesome/pro-duotone-svg-icons';
-import {
-  faApple,
-  faChrome,
-  faDev,
-  faEdge,
-  faFirefoxBrowser,
-  faGithub,
-  faHackerNews,
-  faProductHunt,
-  faRedditAlien,
-} from '@fortawesome/free-brands-svg-icons';
+import { faLocation } from '@fortawesome/pro-light-svg-icons';
+import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
 import {
   faCircleInfo as faCircleInfoSolid,
   faGear as faGearSolid,
@@ -96,9 +99,6 @@ import {
   faLocationArrow as faLocationArrowSolid,
   faMap as faMapSolid,
 } from '@fortawesome/pro-solid-svg-icons';
-import { faCircleExclamation } from '@fortawesome/pro-regular-svg-icons';
-import { faLocation } from '@fortawesome/pro-light-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
 
 import { isDarkModeEnabled } from './theme.js';
 
@@ -199,7 +199,7 @@ export const initIcons = () => {
     faUser,
     faWifiSlash,
     faWind,
-    faWindTurbine,
+    faWindTurbine
   );
 };
 
@@ -675,7 +675,7 @@ export const getWeatherIcon = (conditionCode) => {
   ];
 
   const [icon] = iconMap.filter(
-    (condition) => condition.code === conditionCode,
+    (condition) => condition.code === conditionCode
   );
 
   return icon;

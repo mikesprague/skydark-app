@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 import Tippy from '@tippyjs/react';
+import React from 'react';
 import { version } from '../../package.json';
 
 import 'tippy.js/dist/tippy.css';

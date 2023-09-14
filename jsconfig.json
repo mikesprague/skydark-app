@@ -10,7 +10,7 @@
     ".history",
     ".git",
     "build",
-    "public",
+    "public"
   ],
   "include": [
     "src/components/**/*",

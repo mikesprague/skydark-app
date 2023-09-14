@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
+import React, { useContext, useEffect, useState } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
@@ -73,12 +73,12 @@ export const WeatherAlert = () => {
             </p>
             <p className="mb-6 text-center">
               <strong>
-                {alert.messages[0] && alert.messages[0].text
+                {alert?.messages[0]?.text
                   ? formatAlert(alert.messages[0].text)[0]
                   : ''}
               </strong>
             </p>
-            {alert.messages[0] && alert.messages[0].text
+            {alert.messages[0]?.text
               ? formatAlert(alert.messages[0].text).map((alertPart, idx) => {
                   if (idx >= 1) {
                     return (
@@ -112,7 +112,7 @@ export const WeatherAlert = () => {
       {
         position: 'center',
         padding: '1rem',
-      },
+      }
     );
   };
 

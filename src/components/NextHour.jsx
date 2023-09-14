@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { PrecipChart } from './PrecipChart.jsx';
 

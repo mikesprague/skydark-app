@@ -1,3 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   AttributionControl,
   Circle,
@@ -9,22 +19,12 @@ import {
   TileLayer,
   ZoomControl,
 } from 'react-leaflet';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 
-import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
-import { getData } from '../modules/local-storage.js';
 import { initLeafletImages } from '../modules/helpers.js';
+import { getData } from '../modules/local-storage.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 
 import './WeatherMapFull.scss';
@@ -73,7 +73,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     setRadarMapUrl(
-      `https://tilecache.rainviewer.com${ts.path}/512/{z}/{x}/{y}/8/1_1.png`,
+      `https://tilecache.rainviewer.com${ts.path}/512/{z}/{x}/{y}/8/1_1.png`
     );
   }, [ts]);
 
@@ -89,11 +89,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     (value) => {
       setTs(tsData[value]);
       setRadarMapUrl(
-        `https://tilecache.rainviewer.com/${tsData[value].path}/512/{z}/{x}/{y}/8/1_1.png`,
+        `https://tilecache.rainviewer.com/${tsData[value].path}/512/{z}/{x}/{y}/8/1_1.png`
       );
       setRangeValue(value);
     },
-    [tsData],
+    [tsData]
   );
 
   const rangeSliderHandler = (event) => {

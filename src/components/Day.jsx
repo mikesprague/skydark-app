@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import {
@@ -11,8 +11,8 @@ import {
   metricToImperial,
   sleep,
 } from '../modules/helpers.js';
-import { getData, isCacheExpired } from '../modules/local-storage.js';
 import { getWeatherIcon } from '../modules/icons.js';
+import { getData, isCacheExpired } from '../modules/local-storage.js';
 
 import { Hourly } from './Hourly.jsx';
 import { Loading } from './Loading.jsx';

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import {
   formatCondition,
@@ -9,10 +9,10 @@ import {
   metricToImperial,
 } from '../modules/helpers.js';
 
+import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 import { Hour } from './Hour.jsx';
 import { NextHour } from './NextHour.jsx';
 import { Pill } from './Pill.jsx';
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
 import './CurrentHourly.scss';
 

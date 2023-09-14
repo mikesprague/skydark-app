@@ -24,12 +24,11 @@ export const PrecipChart = () => {
         dataArray.push([
           index,
           metricToImperial.mmToIn(
-            data.weather.forecastNextHour.summary &&
-              data.weather.forecastNextHour.summary.length &&
-              data.weather.forecastNextHour.summary[0].condition.toLowerCase() ===
-                'snow'
+            data.weather.forecastNextHour?.summary &&
+            data.weather.forecastNextHour?.summary[0].condition.toLowerCase() ===
+              'snow'
               ? minute.precipitationIntensity * 2
-              : minute.precipitationIntensity,
+              : minute.precipitationIntensity
           ),
         ]);
       });

@@ -1,6 +1,6 @@
+import { nanoid } from 'nanoid';
 /* eslint-disable arrow-body-style */
 import React, { useContext, useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
 
 import { Day } from './Day.jsx';
 
@@ -38,7 +38,7 @@ export const Daily = () => {
     setMaxHigh(Math.round(metricToImperial.cToF(Math.max(...allHighs))));
   }, [dailyData]);
 
-  return dailyData && dailyData.forecastDaily ? (
+  return dailyData?.forecastDaily ? (
     <div className="daily-container">
       <div className="daily">
         {dailyData.forecastDaily.days.map((dayData, dayIndex) => {

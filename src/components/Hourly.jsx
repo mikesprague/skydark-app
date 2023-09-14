@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
 
 import {
   formatSummary,
@@ -157,10 +157,21 @@ export const Hourly = ({ data, dayData }) => {
 
 Hourly.displayName = 'Hourly';
 Hourly.propTypes = {
-  data: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]))
-    .isRequired,
+  data: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ])
+  ).isRequired,
   dayData: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ])
   ).isRequired,
 };
 

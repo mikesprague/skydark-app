@@ -1,9 +1,9 @@
-import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
-import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 
-import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 import {
   initLeafletImages,
@@ -40,7 +40,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
         hideClass: {
           popup: 'animate__animated animate__fadeOut animate__faster',
         },
-      },
+      }
     );
   };
 
@@ -62,8 +62,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
 
   return data.weather ? (
     <div className="small-map-container">
-      {locationCoordinates && locationCoordinates.lat ? (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      {locationCoordinates?.lat ? (
+        // biome-ignore lint/a11y/useValidAnchor: linking the map, button not appropriate
         <a href="#" onClick={mapClickHandler}>
           <MapContainer
             center={[locationCoordinates.lat, locationCoordinates.lng]}

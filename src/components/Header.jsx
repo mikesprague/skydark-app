@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 import React, {
   useContext,
   useEffect,
@@ -5,8 +7,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
@@ -47,7 +47,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
           // closeButton.blur();
         },
         ...dontAnimateModalConfig,
-      },
+      }
     );
   };
 

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime.js';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
 
@@ -89,11 +89,13 @@ export const SunriseSunset = () => {
     return () => clearInterval(clockInterval);
   }, [data]);
 
-  return next && next.event ? (
+  return next?.event ? (
     <div className="sunrise-sunset-time">
       {`${next.event} ${next.timeString} (${next.time})`}
     </div>
-  ) : '';
+  ) : (
+    ''
+  );
 };
 
 export default SunriseSunset;

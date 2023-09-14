@@ -1,15 +1,14 @@
-/* eslint-disable no-console */
 import Bugsnag from '@bugsnag/js';
-import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
+import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
 
-import { initDarkMode, isDarkModeEnabled } from './theme.js';
 import { initAppSettings } from './settings.js';
+import { initDarkMode, isDarkModeEnabled } from './theme.js';
 
 const MySwal = withReactContent(Swal);
 
@@ -141,10 +140,8 @@ export const titleCaseAddSpace = (words) =>
     )
     .join('');
 
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-undef */
 export const initLeafletImages = (leafletRef) => {
+  // biome-ignore lint/performance/noDelete: <explanation>
   delete leafletRef.Icon.Default.prototype._getIconUrl;
   leafletRef.Icon.Default.mergeOptions({
     iconRetinaUrl: 'images/leaflet/marker-icon-2x.png',
@@ -152,11 +149,7 @@ export const initLeafletImages = (leafletRef) => {
     shadowUrl: 'images/leaflet/marker-shadow.png',
   });
 };
-/* eslint-enable no-underscore-dangle */
-/* eslint-enable no-param-reassign */
-/* eslint-enable no-undef */
 
-// eslint-disable-next-line no-promise-executor-return
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const formatTemp = (temp) => `${Math.round(temp)}${String.fromCharCode(176)}`;
@@ -202,7 +195,8 @@ export const getRadarTs = () => {
   const seconds = now.second();
 
   minutes -= minutes % 10;
-  minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
+  // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
 
   const millisecondTs = dayjs()
     .hour(hours)

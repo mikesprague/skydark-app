@@ -43,6 +43,7 @@
       "vue-postcss",
       "xml",
       "xsl"
-    ]
+    ],
+    "cSpell.words": ["CARTO"]
   }
 }

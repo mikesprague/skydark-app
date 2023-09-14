@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
