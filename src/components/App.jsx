@@ -1,8 +1,8 @@
-import React, { Suspense, lazy, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
-import dayjs from 'dayjs';
 import useGeolocation from 'beautiful-react-hooks/useGeolocation';
+import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import React, { Suspense, lazy, useEffect, useMemo } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
@@ -49,10 +49,10 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   // geoState.position
 
   const handleGeoChange = (geo) => {
-    if (geo && geo.position && geo.position.coords) {
+    if (geo?.position?.coords) {
       const { latitude, longitude, accuracy } = geo.position.coords;
 
-      if (coordinates && coordinates.lat && coordinates.lng) {
+      if (coordinates?.lat && coordinates?.lng) {
         if (
           Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
           Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
