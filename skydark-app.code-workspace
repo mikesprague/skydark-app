@@ -5,7 +5,28 @@
 		}
 	],
 	"settings": {
-		// "sasslint.enable": false,
+    "[javascript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[jsonl]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[css]": {
+      "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    },
+    "editor.codeActionsOnSave": {
+      "quickfix.biome": true,
+      "source.organizeImports.biome": true
+    },
     "scss.validate": false,
     "stylelint.validate": [
       "css",
@@ -17,12 +38,11 @@
       "source.css.styled",
       "source.markdown.math",
       "styled-css",
-      "sugarss",
       "vue",
       "vue-html",
       "vue-postcss",
       "xml",
       "xsl"
     ]
-	},
+  }
 }
