@@ -60,7 +60,7 @@
     "sweetalert2": "11.7.28",
     "sweetalert2-react-content": "5.0.7",
     "tippy.js": "6.3.7",
-    "use-local-storage-state": "19.0.4"
+    "use-local-storage-state": "19.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.2.2",
