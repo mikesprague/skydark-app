@@ -1,6 +1,13 @@
 version: 2
+registries:
+  fortawesome:
+    type: "npm-registry"
+    url: "https://npm.fontawesome.com/"
+    token: ${{secrets.FONTAWESOME_NPM_AUTH_TOKEN}}
 updates:
   - package-ecosystem: "npm"
+    registries:
+      - fortawesome
     directory: "/"
     schedule:
       interval: "daily"
@@ -12,9 +19,6 @@ updates:
       prefix-development: "chore"
       include: "scope"
     groups:
-      babel:
-        patterns:
-          - "@babel*"
       tailwind:
         patterns:
           - "tailwindcss"
