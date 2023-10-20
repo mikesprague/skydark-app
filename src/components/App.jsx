@@ -79,7 +79,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     handleGeoChange(geoState);
-  });
+  }, [coordinates, geoState, handleGeoChange]);
 
   const [weatherData, setWeatherData] = useLocalStorageState('weatherData', {
     defaultValue: null,
@@ -119,13 +119,11 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, [
     coordinates,
-    geoState,
     lastUpdated,
     weatherData,
     setWeatherData,
     setLastUpdated,
     setLocationData,
-    setCoordinates,
   ]);
 
   const returnData = useMemo(
@@ -134,7 +132,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
       location: locationData,
       lastUpdated,
     }),
-    [lastUpdated, locationData, weatherData],
+    [lastUpdated, locationData, weatherData]
   );
 
   return weatherData && locationData ? (
