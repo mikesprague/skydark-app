@@ -33,12 +33,12 @@ export const NextHour = () => {
     ) {
       setSummaryText(
         titleCaseToSentenceCase(
-          weather.forecastHourly.hours[hour].conditionCode,
-        ),
+          weather.forecastHourly.hours[hour].conditionCode
+        )
       );
     } else {
       let summary = capitalizeWord(
-        weather.forecastNextHour.summary[0].condition,
+        weather.forecastNextHour.summary[0].condition
       );
 
       if (
@@ -67,7 +67,7 @@ export const NextHour = () => {
     }
 
     const precipNextHour = minutesData.filter(
-      (minute) => minute.precipitationIntensity > 0,
+      (minute) => minute.precipitationIntensity > 0
     );
 
     const summaryHasPrecip = (summary) => {
@@ -127,7 +127,7 @@ export const NextHour = () => {
             const stopTime = dayjs(nextHourParts[0].endTime).diff(dayjs(), 'm');
 
             setLongSummaryText(
-              `${summaryText} stopping in ${stopTime} minutes`,
+              `${summaryText} stopping in ${stopTime} minutes`
             );
           } else {
             // console.log('precipitation through the hour!');
@@ -143,13 +143,13 @@ export const NextHour = () => {
             // console.log("it's starting!");
             const stopTime = dayjs(nextHourParts[1].startTime).diff(
               dayjs(),
-              'm',
+              'm'
             );
 
             setLongSummaryText(
               `${capitalizeWord(
-                nextHourParts[1].condition.trim(),
-              )} starting in ${stopTime} minutes`,
+                nextHourParts[1].condition.trim()
+              )} starting in ${stopTime} minutes`
             );
           }
 
@@ -158,7 +158,7 @@ export const NextHour = () => {
             const stopTime = dayjs(nextHourParts[0].endTime).diff(dayjs(), 'm');
 
             setLongSummaryText(
-              `${summaryText} stopping in ${stopTime} minutes`,
+              `${summaryText} stopping in ${stopTime} minutes`
             );
           }
         }
@@ -176,9 +176,7 @@ export const NextHour = () => {
           nextHourPrecipitation ? ' -mt-8' : ''
         }`}
       >
-        {longSummaryText && longSummaryText.length
-          ? longSummaryText
-          : summaryText}
+        {longSummaryText?.length ? longSummaryText : summaryText}
       </p>
     </>
   ) : (

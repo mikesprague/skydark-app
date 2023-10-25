@@ -12,28 +12,31 @@ export const PrecipChart = () => {
   const data = useContext(WeatherDataContext);
 
   useEffect(() => {
-    if (!data) {
-      return;
-    }
-
     const dataArray = [['Minute', 'Precipitation']];
 
-    data.weather.forecastNextHour.minutes
-      .slice(0, 61)
-      .forEach((minute, index) => {
-        dataArray.push([
-          index,
-          metricToImperial.mmToIn(
-            data.weather.forecastNextHour?.summary &&
-            data.weather.forecastNextHour?.summary[0].condition.toLowerCase() ===
-              'snow'
-              ? minute.precipitationIntensity * 2
-              : minute.precipitationIntensity
-          ),
-        ]);
-      });
+    const minutes = data?.weather?.forecastNextHour?.minutes.slice(0, 61);
+    let index = 0;
+
+    for (const minute of minutes) {
+      dataArray.push([
+        index,
+        metricToImperial.mmToIn(
+          data.weather.forecastNextHour?.summary &&
+          data.weather.forecastNextHour?.summary[0].condition.toLowerCase() ===
+            'snow'
+            ? minute.precipitationIntensity * 2
+            : minute.precipitationIntensity
+        ),
+      ]);
+      index += 1;
+    }
     setChartData(dataArray);
-  }, [data]);
+
+    return () => {
+      setChartData(null);
+      index = 0;
+    };
+  }, []);
 
   return chartData ? (
     <Chart

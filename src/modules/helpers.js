@@ -127,7 +127,7 @@ export const titleCaseToSentenceCase = (words) =>
     .map((character, index) =>
       index > 0 && /[A-Z]/.test(character)
         ? ` ${character.toLowerCase()}`
-        : character,
+        : character
     )
     .join('');
 
@@ -136,7 +136,7 @@ export const titleCaseAddSpace = (words) =>
     .split('')
     // eslint-disable-next-line no-confusing-arrow
     .map((character, index) =>
-      index > 0 && /[A-Z]/.test(character) ? ` ${character}` : character,
+      index > 0 && /[A-Z]/.test(character) ? ` ${character}` : character
     )
     .join('');
 
@@ -196,7 +196,7 @@ export const getRadarTs = () => {
 
   minutes -= minutes % 10;
   // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
+  minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
 
   const millisecondTs = dayjs()
     .hour(hours)
@@ -211,34 +211,37 @@ minutes = minutes % 10 === 0 && seconds < 15 ? (minutes -= 10) : minutes;
 };
 
 export const isSnowing = (condition) =>
-  condition.toLowerCase().includes('snow') ||
-  condition.toLowerCase().includes('sleet') ||
-  condition.toLowerCase().includes('blizzard') ||
-  condition.toLowerCase().includes('flurries') ||
-  condition.toLowerCase().includes('wintry') ||
-  condition.toLowerCase().includes('mixed');
+  condition?.toLowerCase().includes('snow') ||
+  condition?.toLowerCase().includes('sleet') ||
+  condition?.toLowerCase().includes('blizzard') ||
+  condition?.toLowerCase().includes('flurries') ||
+  condition?.toLowerCase().includes('wintry') ||
+  condition?.toLowerCase().includes('mixed');
 
 export const isRaining = (condition) =>
-  condition.toLowerCase().includes('rain') ||
-  condition.toLowerCase().includes('storm') ||
-  condition.toLowerCase().includes('shower') ||
-  condition.toLowerCase().includes('drizzle');
+  condition?.toLowerCase().includes('rain') ||
+  condition?.toLowerCase().includes('storm') ||
+  condition?.toLowerCase().includes('shower') ||
+  condition?.toLowerCase().includes('drizzle');
 
 export const isCloudy = (condition) =>
-  condition.toLowerCase().includes('cloudy') ||
-  condition.toLowerCase().includes('overcast');
-export const isHazy = (condition) => condition.toLowerCase().includes('haze');
-export const isLight = (condition) => condition.toLowerCase().includes('light');
-export const isHeavy = (condition) => condition.toLowerCase().includes('heavy');
+  condition?.toLowerCase().includes('cloudy') ||
+  condition?.toLowerCase().includes('overcast');
+export const isHazy = (condition) => condition?.toLowerCase().includes('haze');
+export const isLight = (condition) =>
+  condition?.toLowerCase().includes('light');
+export const isHeavy = (condition) =>
+  condition?.toLowerCase().includes('heavy');
 export const isDrizzle = (condition) =>
-  condition.toLowerCase().includes('drizzle');
+  condition?.toLowerCase().includes('drizzle');
 export const isFlurries = (condition) =>
-  condition.toLowerCase().includes('flurries');
-export const isClear = (condition) => condition.toLowerCase().includes('clear');
+  condition?.toLowerCase().includes('flurries');
+export const isClear = (condition) =>
+  condition?.toLowerCase().includes('clear');
 export const hasMostly = (condition) =>
-  condition.toLowerCase().includes('mostly');
+  condition?.toLowerCase().includes('mostly');
 export const hasPartly = (condition) =>
-  condition.toLowerCase().includes('partly');
+  condition?.toLowerCase().includes('partly');
 
 export const getConditionBarClass = (data) => {
   const { conditionCode, cloudCover } = data;
@@ -324,7 +327,7 @@ export const formatSummary = (
   currentHourData,
   allHourlyData,
   index,
-  startIndex,
+  startIndex
 ) => {
   let summary = '';
 
@@ -380,6 +383,34 @@ export const initSkyDark = () => {
   initDarkMode();
 };
 
+export const formatPrecip = (data) => {
+  const { condition, conditionCode, precipitationChance } = data;
+
+  const conditionString = conditionCode || condition;
+
+  if (!isRaining(conditionString)) {
+    return conditionString;
+  }
+
+  const probability = Math.round(precipitationChance * 100);
+  let probabilityText = '';
+
+  if (probability > 0 && probability < 40) {
+    probabilityText = ' possible';
+  }
+
+  if (probability >= 40 && probability < 60) {
+    probabilityText = ' likely';
+  }
+
+  if (probability >= 60 && probability < 80) {
+    probabilityText = ' probable';
+  }
+  // console.log(data, probability, probabilityText);
+
+  return `${conditionString}${probabilityText}`;
+};
+
 export const getNextTwentyFourText = (weatherData) => {
   let dataPartOne;
   let dataPartTwo;
@@ -411,39 +442,11 @@ export const getNextTwentyFourText = (weatherData) => {
 
   let returnString = '';
 
-  // eslint-disable-next-line no-confusing-arrow
-  const formatPrecip = (data) => {
-    const { conditionCode, precipitationChance } = data;
-
-    if (!isRaining(conditionCode)) {
-      return conditionCode;
-    }
-
-    const probability = Math.round(precipitationChance * 100);
-    let probabilityText = '';
-
-    if (probability > 0 && probability < 40) {
-      probabilityText = ' possible';
-    }
-
-    if (probability >= 40 && probability < 60) {
-      probabilityText = ' likely';
-    }
-
-    if (probability >= 60 && probability < 80) {
-      probabilityText = ' probable';
-    }
-
-    // console.log(data, probability, probabilityText);
-
-    return `${conditionCode}${probabilityText}`;
-  };
-
   returnString =
     dataPartOne.conditionCode === dataPartTwo.conditionCode
       ? `${formatPrecip(dataPartOne)} ${`${firstPart} and ${secondPart}`}`
       : `${formatPrecip(dataPartOne)} ${firstPart}, ${formatPrecip(
-          dataPartTwo,
+          dataPartTwo
         )} ${secondPart}`;
 
   return titleCaseToSentenceCase(returnString);
