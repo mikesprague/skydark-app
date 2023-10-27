@@ -42,7 +42,7 @@ export const PrecipChart = () => {
     <Chart
       width="100%"
       height="140px"
-      chartType="AreaChart"
+      chartType="ColumnChart"
       loader={<div className="text-center text-transparent">Loading...</div>}
       data={chartData}
       options={{
@@ -50,7 +50,7 @@ export const PrecipChart = () => {
         series: [{ color: '#76a9fa', areaOpacity: 0.75 }],
         hAxis: {
           baselineColor: 'transparent',
-          gridlines: { color: 'transparent', count: 5 },
+          gridlines: { color: 'transparent', count: 7 },
           textPosition: 'out',
           textStyle: { color: '#999' },
           ticks: [
@@ -70,18 +70,18 @@ export const PrecipChart = () => {
           textStyle: { color: '#ccc' },
           ticks: [
             { v: 0, f: '' },
-            { v: 0.1, f: 'LIGHT' },
-            { v: 0.2, f: 'MED' },
-            { v: 0.3, f: 'HEAVY' },
+            { v: 0.08, f: 'LIGHT' },
+            { v: 0.16, f: 'MED' },
+            { v: 0.24, f: 'HEAVY' },
           ],
-          viewWindow: { min: 0, max: 0.34 },
+          viewWindow: { min: 0, max: 0.28 },
           viewWindowMode: 'maximized',
         },
         tooltip: {
           trigger: 'none',
         },
         enableInteractivity: false,
-        lineWidth: 0.25,
+        bar: { groupWidth: '80%' },
         pointsVisible: false,
         chartArea: { width: '100%', height: '140px', top: 0 },
         titlePosition: 'in',
