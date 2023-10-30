@@ -11,10 +11,15 @@ export const PrecipChart = () => {
   const [chartData, setChartData] = useState(null);
   const data = useContext(WeatherDataContext);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: not updating without the dependency
   useEffect(() => {
+    if (!data) {
+      return;
+    }
+
     const dataArray = [['Minute', 'Precipitation']];
 
-    const minutes = data?.weather?.forecastNextHour?.minutes.slice(0, 61);
+    const minutes = data.weather?.forecastNextHour?.minutes.slice(0, 61);
     let index = 0;
 
     for (const minute of minutes) {
@@ -36,7 +41,7 @@ export const PrecipChart = () => {
       setChartData(null);
       index = 0;
     };
-  }, []);
+  }, [data]);
 
   return chartData ? (
     <Chart
