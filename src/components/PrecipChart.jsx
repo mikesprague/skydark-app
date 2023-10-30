@@ -24,8 +24,8 @@ export const PrecipChart = () => {
           data.weather.forecastNextHour?.summary &&
           data.weather.forecastNextHour?.summary[0].condition.toLowerCase() ===
             'snow'
-            ? minute.precipitationIntensity * 2
-            : minute.precipitationIntensity
+            ? minute.precipitationIntensity * 3
+            : minute.precipitationIntensity * 2
         ),
       ]);
       index += 1;
