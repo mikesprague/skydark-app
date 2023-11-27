@@ -28,8 +28,8 @@ export const PrecipChart = () => {
         metricToImperial.mmToIn(
           data?.weather?.forecastNextHour?.summary[0]?.condition.toLowerCase() ===
           'snow'
-            ? minute.precipitationIntensity * 10
-            : minute.precipitationIntensity * 3
+            ? minute.precipitationIntensity * 5
+            : minute.precipitationIntensity * 2.5
         ),
       ]);
       index += 1;
