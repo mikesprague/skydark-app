@@ -26,11 +26,10 @@ export const PrecipChart = () => {
       dataArray.push([
         index,
         metricToImperial.mmToIn(
-          data.weather.forecastNextHour?.summary &&
-          data.weather.forecastNextHour?.summary[0].condition.toLowerCase() ===
-            'snow'
-            ? minute.precipitationIntensity * 3
-            : minute.precipitationIntensity * 2
+          data?.weather?.forecastNextHour?.summary[0]?.condition.toLowerCase() ===
+          'snow'
+            ? minute.precipitationIntensity * 10
+            : minute.precipitationIntensity * 3
         ),
       ]);
       index += 1;
