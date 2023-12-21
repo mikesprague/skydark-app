@@ -1,5 +1,5 @@
-import * as jose from 'jose';
 import dayjs from 'dayjs';
+import * as jose from 'jose';
 import queryString from 'query-string';
 
 import { version } from '../../package.json';
@@ -95,7 +95,7 @@ export const onRequestGet = async (context) => {
         const fullResults = data.results;
         const formattedAddress = fullResults[0].formatted_address.replace(
           'Seneca Falls',
-          'Seneca Moistens',
+          'Seneca Moistens'
         );
         let locationName = '';
         const isUSA = formattedAddress.toLowerCase().includes('usa');
@@ -108,24 +108,24 @@ export const onRequestGet = async (context) => {
           'country',
         ];
 
-        addressTargets.forEach((target) => {
+        for (const target of addressTargets) {
           if (!locationName.length) {
-            fullResults.forEach((result) => {
+            for (const result of fullResults) {
               if (!locationName.length) {
-                result.address_components.forEach((component) => {
+                for (const component of result.address_components) {
                   if (
                     !locationName.length &&
                     component.types.indexOf(target) > -1
                   ) {
                     locationName = component.long_name;
                   }
-                });
+                }
               }
-            });
+            }
           }
-        });
+        }
 
-        fullResults[0].address_components.forEach((component) => {
+        for (const component of fullResults[0].address_components) {
           if (
             isUSA &&
             component.types.indexOf('administrative_area_level_1') > -1
@@ -136,7 +136,8 @@ export const onRequestGet = async (context) => {
           if (!isUSA && component.types.indexOf('country') > -1) {
             locationName = `${locationName}, ${component.short_name}`;
           }
-        });
+        }
+
         // console.log(locationName);
         const returnData = {
           location: {
@@ -196,14 +197,14 @@ export const onRequestGet = async (context) => {
 
     weather.weatherAlertsData = [];
 
-    if (weather.weatherAlerts && weather.weatherAlerts.alerts) {
+    if (weather?.weatherAlerts?.alerts) {
       // eslint-disable-next-line no-restricted-syntax
       for await (const alert of weather.weatherAlerts.alerts) {
         await fetch(
           `${appleWeatherApiUrlPrefix}weatherAlert/en-US/${alert.id}`,
           {
             headers,
-          },
+          }
         ).then(async (alertResponse) => {
           const alertData = await alertResponse.json();
 
@@ -216,7 +217,7 @@ export const onRequestGet = async (context) => {
     weather.radarData = {};
     weather.radarData.past = [];
     weather.radarData.nowcast = [];
-    await fetch(`https://api.rainviewer.com/public/weather-maps.json`, {
+    await fetch('https://api.rainviewer.com/public/weather-maps.json', {
       headers: {
         'User-Agent': `SkyDark/${version}`,
       },
@@ -234,13 +235,13 @@ export const onRequestGet = async (context) => {
         headers: {
           'User-Agent': `SkyDark/${version}`,
         },
-      },
+      }
     ).then(async (airQualityResponse) => {
       const airQualityJson = await airQualityResponse.json();
 
       // eslint-disable-next-line no-confusing-arrow
       const airQualityObject = airQualityJson.sort((a, b) =>
-        a.AQI > b.AQI ? -1 : 1,
+        a.AQI > b.AQI ? -1 : 1
       );
 
       weather.airQualityData = airQualityObject;
@@ -253,7 +254,7 @@ export const onRequestGet = async (context) => {
         headers: {
           'User-Agent': `SkyDark/${version}`,
         },
-      },
+      }
     ).then(async (airQualityResponse) => {
       const airQualityJson = await airQualityResponse.json();
 
@@ -280,7 +281,7 @@ export const onRequestGet = async (context) => {
         'Content-Type': 'application/json',
         'Cache-Control': 'max-age=300, s-maxage=300',
       },
-    },
+    }
   );
 
   // cache data;
