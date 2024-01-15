@@ -1,6 +1,6 @@
-import { VitePWA } from 'vite-plugin-pwa';
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 import { version } from './package.json';
 
 export default defineConfig({
@@ -30,14 +30,20 @@ export default defineConfig({
         enabled: false,
       },
       includeAssets: [
-        './images/skydark-app-icon-64.png',
-        './images/skydark-app-icon-96.png',
-        './images/skydark-app-icon-128.png',
+        './images/skydark-app-64.png',
+        './images/skydark-app-96.png',
+        './images/skydark-app-128.png',
       ],
       manifest: {
-	      name: `${process.env.NODE_ENV === 'development' ? 'DEV ' : ''}Sky Dark (Powered by Apple Weather)`,
-        short_name: `${process.env.NODE_ENV === 'development' ? 'DEV ' : ''}Sky Dark`,
-        description: 'Sky Dark (Powered by Apple Weather)',
+        name: `${
+          process.env.NODE_ENV === 'development' ? 'DEV ' : ''
+        }Sky Dark (Powered by Apple Weather)`,
+        short_name: `${
+          process.env.NODE_ENV === 'development' ? 'DEV ' : ''
+        }Sky Dark`,
+        description: `${
+          process.env.NODE_ENV === 'development' ? 'DEV ' : ''
+        }Sky Dark (Powered by Apple Weather)`,
         version,
         lang: 'en-US',
         dir: 'auto',
@@ -49,58 +55,58 @@ export default defineConfig({
         theme_color: '#181c1d',
         icons: [
           {
-            src: '/images/skydark-app-icon-16.png',
+            src: '/images/skydark-app-16.png',
             type: 'image/png',
             sizes: '16x16',
           },
           {
-            src: '/images/skydark-app-icon-24.png',
+            src: '/images/skydark-app-24.png',
             type: 'image/png',
             sizes: '24x24',
           },
           {
-            src: '/images/skydark-app-icon-32.png',
+            src: '/images/skydark-app-32.png',
             type: 'image/png',
             sizes: '32x32',
           },
           {
-            src: '/images/skydark-app-icon-48.png',
+            src: '/images/skydark-app-48.png',
             type: 'image/png',
             sizes: '48x48',
           },
           {
-            src: '/images/skydark-app-icon-64.png',
+            src: '/images/skydark-app-64.png',
             type: 'image/png',
             sizes: '64x64',
           },
           {
-            src: '/images/skydark-app-icon-128.png',
+            src: '/images/skydark-app-128.png',
             type: 'image/png',
             sizes: '128x128',
           },
           {
-            src: '/images/skydark-app-icon-144.png',
+            src: '/images/skydark-app-144.png',
             type: 'image/png',
             sizes: '144x144',
           },
           {
-            src: '/images/skydark-app-icon-256.png',
+            src: '/images/skydark-app-256.png',
             type: 'image/png',
             sizes: '256x256',
           },
           {
-            src: '/images/skydark-app-icon-512.png',
+            src: '/images/skydark-app-512.png',
             type: 'image/png',
             sizes: '512x512',
           },
           {
-            src: '/images/skydark-app-icon-maskable-192.png',
+            src: '/images/skydark-app-192.png',
             type: 'image/png',
             sizes: '192x192',
             purpose: 'any',
           },
           {
-            src: '/images/skydark-app-icon-maskable-192.png',
+            src: '/images/skydark-app-192.png',
             type: 'image/png',
             sizes: '192x192',
             purpose: 'maskable',
