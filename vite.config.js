@@ -30,9 +30,14 @@ export default defineConfig({
         enabled: false,
       },
       includeAssets: [
-        './images/skydark-app-64.png',
+        './images/skydark-app-48.png',
         './images/skydark-app-96.png',
         './images/skydark-app-128.png',
+        './images/skydark-app-192.png',
+        './images/skydark-app-256.png',
+        './images/skydark-app-384.png',
+        './images/skydark-app-512.png',
+        './images/skydark-maskable-512.png',
       ],
       manifest: {
         name: `${
@@ -55,29 +60,14 @@ export default defineConfig({
         theme_color: '#181c1d',
         icons: [
           {
-            src: '/images/skydark-app-16.png',
-            type: 'image/png',
-            sizes: '16x16',
-          },
-          {
-            src: '/images/skydark-app-24.png',
-            type: 'image/png',
-            sizes: '24x24',
-          },
-          {
-            src: '/images/skydark-app-32.png',
-            type: 'image/png',
-            sizes: '32x32',
-          },
-          {
             src: '/images/skydark-app-48.png',
             type: 'image/png',
             sizes: '48x48',
           },
           {
-            src: '/images/skydark-app-64.png',
+            src: '/images/skydark-app-72.png',
             type: 'image/png',
-            sizes: '64x64',
+            sizes: '72x72',
           },
           {
             src: '/images/skydark-app-128.png',
@@ -85,9 +75,9 @@ export default defineConfig({
             sizes: '128x128',
           },
           {
-            src: '/images/skydark-app-144.png',
+            src: '/images/skydark-app-192.png',
             type: 'image/png',
-            sizes: '144x144',
+            sizes: '192x192',
           },
           {
             src: '/images/skydark-app-256.png',
@@ -95,20 +85,25 @@ export default defineConfig({
             sizes: '256x256',
           },
           {
+            src: '/images/skydark-app-384.png',
+            type: 'image/png',
+            sizes: '384x384',
+          },
+          {
             src: '/images/skydark-app-512.png',
             type: 'image/png',
             sizes: '512x512',
           },
           {
-            src: '/images/skydark-app-192.png',
+            src: '/images/skydark-app-512.png',
             type: 'image/png',
-            sizes: '192x192',
+            sizes: '512x512',
             purpose: 'any',
           },
           {
-            src: '/images/skydark-app-192.png',
+            src: '/images/skydark-maskable-512.png',
             type: 'image/png',
-            sizes: '192x192',
+            sizes: '512x512',
             purpose: 'maskable',
           },
         ],
