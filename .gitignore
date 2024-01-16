@@ -120,6 +120,7 @@ dist
 
 # Misc
 
+.DS_Store
 build
 
 # CloudFlare/Wrangler CLI stuff
