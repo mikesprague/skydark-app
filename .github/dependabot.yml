@@ -11,6 +11,11 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "America/New_York"
+    target-branch: "dev"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
   - package-ecosystem: "npm"
     registries:
       - fortawesome
