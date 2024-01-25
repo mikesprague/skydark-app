@@ -43,7 +43,7 @@
     "@fortawesome/react-fontawesome": "0.2.0",
     "@sweetalert2/theme-dark": "5.0.16",
     "@tippyjs/react": "4.2.6",
-    "axios": "1.6.5",
+    "axios": "1.6.6",
     "beautiful-react-hooks": "5.0.1",
     "cross-env": "7.0.3",
     "dayjs": "1.11.10",
