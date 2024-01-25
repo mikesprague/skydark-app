@@ -5,6 +5,12 @@ registries:
     url: "https://npm.fontawesome.com/"
     token: ${{secrets.FONTAWESOME_NPM_AUTH_TOKEN}}
 updates:
+  - package-ecosystem: "devcontainers" # See documentation for possible values
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "America/New_York"
   - package-ecosystem: "npm"
     registries:
       - fortawesome
