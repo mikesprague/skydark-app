@@ -47,7 +47,7 @@
     "beautiful-react-hooks": "5.0.1",
     "cross-env": "7.0.3",
     "dayjs": "1.11.10",
-    "dotenv": "16.4.1",
+    "dotenv": "16.4.2",
     "jose": "5.2.1",
     "leaflet": "1.9.4",
     "nanoid": "5.0.5",
