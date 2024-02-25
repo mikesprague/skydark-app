@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "checkJs": true,
+    "checkJs": false,
     "experimentalDecorators": true,
-    "target": "es2020"
+    "target": "es2020",
+    "moduleResolution": "nodenext"
   },
   "exclude": [
     "node_modules",
