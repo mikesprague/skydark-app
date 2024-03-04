@@ -84,7 +84,11 @@
     "wrangler": "3.30.1"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -95,5 +99,9 @@
     "commitizen": {
       "path": "./node_modules/cz-git"
     }
+  },
+  "volta": {
+    "node": "21.6.2",
+    "npm": "10.5.0"
   }
 }
