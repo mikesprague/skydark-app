@@ -92,20 +92,11 @@ export const SunriseSunset = () => {
 
   return next?.event ? (
     <div className="sunrise-sunset-time">
-      {`${next.event} $
-  {
-    next.timeString;
-  }
-  ($
-  {
-    next.time;
-  }
-  )`
-};
-</div>
-) : (
+      {`${next.event} ${next.timeString} (${next.time})`}
+    </div>
+  ) : (
     ''
-  )
+  );
 }
 
 export default SunriseSunset;
