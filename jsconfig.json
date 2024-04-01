@@ -2,17 +2,11 @@
   "compilerOptions": {
     "checkJs": false,
     "experimentalDecorators": true,
+    "module": "NodeNext",
     "target": "es2020",
     "moduleResolution": "nodenext"
   },
-  "exclude": [
-    "node_modules",
-    ".vscode",
-    ".history",
-    ".git",
-    "build",
-    "public"
-  ],
+  "exclude": ["node_modules", ".vscode", ".history", ".git", "build", "public"],
   "include": [
     "src/components/**/*",
     "src/hooks/**/*",
