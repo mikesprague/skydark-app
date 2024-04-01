@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import React, { useContext, useEffect, useState } from 'react';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { useCallback, useEffect, useState } from 'react';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import './SunriseSunset.scss';
 
@@ -10,9 +10,10 @@ dayjs.extend(relativeTime);
 
 export const SunriseSunset = () => {
   const [next, setNext] = useState(null);
-  const data = useContext(WeatherDataContext);
 
-  const formatTimeString = (time) => {
+  const { weatherData: weather } = useWeatherDataContext();
+
+  const formatTimeString = useCallback((time) => {
     const totalMinutes = dayjs(dayjs(time)).diff(dayjs(), 'minute');
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
@@ -48,11 +49,11 @@ export const SunriseSunset = () => {
             ? ''
             : 's'
         }`;
-  };
+  }, []);
 
   useEffect(() => {
     const init = () => {
-      const [today, tomorrow] = data.weather.forecastDaily.days;
+      const [today, tomorrow] = weather.forecastDaily.days;
       const now = dayjs();
       let isSunset = false;
       let datetime = today.sunrise;
@@ -87,15 +88,24 @@ export const SunriseSunset = () => {
     const clockInterval = setInterval(init, 1000);
 
     return () => clearInterval(clockInterval);
-  }, [data]);
+  }, [formatTimeString, weather]);
 
   return next?.event ? (
     <div className="sunrise-sunset-time">
-      {`${next.event} ${next.timeString} (${next.time})`}
-    </div>
-  ) : (
-    ''
-  );
+      {`${next.event} $
+  {
+    next.timeString;
+  }
+  ($
+  {
+    next.time;
+  }
+  )`
 };
+</div>
+) : (
+    ''
+  )
+}
 
 export default SunriseSunset;

@@ -1,9 +1,11 @@
+// eslint-disable-next-line import/no-unresolved
+import { registerSW } from 'virtual:pwa-register';
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-// eslint-disable-next-line import/no-unresolved
-import { registerSW } from 'virtual:pwa-register';
+
+import { WeatherDataProvider } from './contexts/WeatherDataContext';
 
 import { App } from './components/App';
 import { ErrorView } from './components/ErrorView';
@@ -26,9 +28,11 @@ const root = createRoot(container);
 root.render(
   <ErrorBoundary FallbackComponent={ErrorView}>
     <StrictMode>
+      <WeatherDataProvider>
       <App
         OPENWEATHERMAP_API_KEY={import.meta.env.VITE_OPENWEATHERMAP_API_KEY}
       />
+      </WeatherDataProvider>
     </StrictMode>
   </ErrorBoundary>,
 );
@@ -50,4 +54,3 @@ registerSW({
 });
 
 initSkyDark();
-

@@ -1,4 +1,4 @@
-import { getData, setData } from './local-storage.js';
+import { getData, setData } from './local-storage';
 
 export const defaultAppSettings = {
   // system|light|dark|sunrise-sunset

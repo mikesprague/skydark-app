@@ -1,18 +1,19 @@
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   formatCondition,
   formatSummary,
   getNextTwentyFourText,
   metricToImperial,
-} from '../modules/helpers.js';
+} from '../modules/helpers';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
-import { Hour } from './Hour.jsx';
-import { NextHour } from './NextHour.jsx';
-import { Pill } from './Pill.jsx';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
+
+import { Hour } from './Hour';
+import { NextHour } from './NextHour';
+import { Pill } from './Pill';
 
 import './CurrentHourly.scss';
 
@@ -20,8 +21,8 @@ export const CurrentHourly = () => {
   const [hourlyConditionToShow, setHourlyConditionToShow] =
     useState('temperature');
   const containerRef = useRef();
-  const data = useContext(WeatherDataContext);
-  const { weather } = data;
+
+  const {weatherData: weather } = useWeatherDataContext();
 
   const [maxValue, setMaxValue] = useState(0);
   const [valueRange, setValueRange] = useState(0);
@@ -57,7 +58,7 @@ export const CurrentHourly = () => {
     newSelection.classList.add('pill-selected');
   };
 
-  return data ? (
+  return weather ? (
     <div className="current-hourly-container">
       <NextHour />
       <p className="mt-3 mb-5 ml-2 text-base leading-none">

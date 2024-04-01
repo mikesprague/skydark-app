@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { resetData } from '../modules/local-storage.js';
+import { resetData } from '../modules/local-storage';
 
 export const ErrorView = () => {
   const clickHandler = () => {

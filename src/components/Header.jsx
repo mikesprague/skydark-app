@@ -1,27 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { openModalWithComponent } from '../modules/helpers.js';
+import { openModalWithComponent } from '../modules/helpers';
 
-import { About } from './About.jsx';
-import { Settings } from './Settings.jsx';
-import { WeatherMapFull } from './WeatherMapFull.jsx';
+import { About } from './About';
+import { Settings } from './Settings';
+import { WeatherMapFull } from './WeatherMapFull';
 
 import './Header.scss';
 
 export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
-  const data = useContext(WeatherDataContext);
+
+  const { locationData: location } = useWeatherDataContext();
 
   const dontAnimateModalConfig = {
     showClass: {
@@ -60,12 +55,12 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   };
 
   useEffect(() => {
-    if (!data) {
+    if (!location) {
       return;
     }
 
-    setLocationName(data.location.locationName);
-  }, [data]);
+    setLocationName(location.locationName);
+  }, [location]);
 
   useLayoutEffect(() => {
     const initScroll = () => {

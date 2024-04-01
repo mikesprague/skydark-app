@@ -2,40 +2,46 @@ import axios from 'axios';
 import useGeolocation from 'beautiful-react-hooks/useGeolocation';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { Suspense, lazy, useEffect, useMemo } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
+import { Suspense, lazy, useEffect, useMemo } from 'react';
 
-import relativeTime from 'dayjs/plugin/relativeTime.js';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { apiUrl } from '../modules/helpers.js';
-import { initIcons } from '../modules/icons.js';
-import { isCacheExpired } from '../modules/local-storage.js';
+import { apiUrl } from '../modules/helpers';
+import { initIcons } from '../modules/icons';
+import { isCacheExpired } from '../modules/local-storage';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import 'sweetalert2/src/sweetalert2.scss';
 import './App.scss';
 
-const AirQuality = lazy(() => import('./AirQuality.jsx'));
-const CurrentHourly = lazy(() => import('./CurrentHourly.jsx'));
-const Currently = lazy(() => import('./Currently.jsx'));
-const Daily = lazy(() => import('./Daily.jsx'));
-const Header = lazy(() => import('./Header.jsx'));
-const LastUpdated = lazy(() => import('./LastUpdated.jsx'));
-const LayoutContainer = lazy(() => import('./LayoutContainer.jsx'));
-const Loading = lazy(() => import('./Loading.jsx'));
-const SunriseSunset = lazy(() => import('./SunriseSunset.jsx'));
-const WeatherAlert = lazy(() => import('./WeatherAlert.jsx'));
-const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
+const AirQuality = lazy(() => import('./AirQuality'));
+const CurrentHourly = lazy(() => import('./CurrentHourly'));
+const Currently = lazy(() => import('./Currently'));
+const Daily = lazy(() => import('./Daily'));
+const Header = lazy(() => import('./Header'));
+const LastUpdated = lazy(() => import('./LastUpdated'));
+const LayoutContainer = lazy(() => import('./LayoutContainer'));
+const Loading = lazy(() => import('./Loading'));
+const SunriseSunset = lazy(() => import('./SunriseSunset'));
+const WeatherAlert = lazy(() => import('./WeatherAlert'));
+const WeatherMapSmall = lazy(() => import('./WeatherMapSmall'));
 
 dayjs.extend(relativeTime);
 
 initIcons();
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [coordinates, setCoordinates] = useLocalStorageState('coordinates', {
-    defaultValue: null,
-  });
+  const {
+    setWeatherData,
+    setLastUpdated,
+    setLocationData,
+    weatherData,
+    locationData,
+    lastUpdated,
+    coordinates,
+    setCoordinates,
+  } = useWeatherDataContext();
 
   const [geoState] = useGeolocation({
     enableHighAccuracy: true,
@@ -80,16 +86,6 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
     handleGeoChange(geoState);
   }, [coordinates, geoState, handleGeoChange]);
-
-  const [weatherData, setWeatherData] = useLocalStorageState('weatherData', {
-    defaultValue: null,
-  });
-  const [locationData, setLocationData] = useLocalStorageState('locationData', {
-    defaultValue: null,
-  });
-  const [lastUpdated, setLastUpdated] = useLocalStorageState('lastUpdated', {
-    defaultValue: null,
-  });
 
   useEffect(() => {
     if (!coordinates) {
@@ -137,7 +133,6 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
   return weatherData && locationData ? (
     <Suspense fallback={<Loading fullHeight={true} />}>
-      <WeatherDataContext.Provider value={returnData}>
         <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
         <LayoutContainer>
           <Currently />
@@ -149,11 +144,10 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
           <Daily />
           <LastUpdated />
         </LayoutContainer>
-      </WeatherDataContext.Provider>
     </Suspense>
   ) : (
     <Loading fullHeight={true} />
-  );
+  )
 };
 
 App.propTypes = {

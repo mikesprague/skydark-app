@@ -5,17 +5,17 @@ import {
   formatCondition,
   openModalWithComponent,
   titleCaseAddSpace,
-} from '../modules/helpers.js';
-import { getWeatherIcon } from '../modules/icons.js';
+} from '../modules/helpers';
+import { getWeatherIcon } from '../modules/icons';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import './Currently.scss';
 
 export const Currently = () => {
   const [currentData, setCurrentData] = useState(null);
-  const data = useContext(WeatherDataContext);
-  const { weather } = data;
+  
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather) {

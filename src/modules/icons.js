@@ -100,7 +100,7 @@ import {
   faMap as faMapSolid,
 } from '@fortawesome/pro-solid-svg-icons';
 
-import { isDarkModeEnabled } from './theme.js';
+import { isDarkModeEnabled } from './theme';
 
 export const initIcons = () => {
   library.add(

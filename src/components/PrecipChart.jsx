@@ -1,32 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { metricToImperial } from '../modules/helpers.js';
+import { metricToImperial } from '../modules/helpers';
 
 import './PrecipChart.scss';
 
 export const PrecipChart = () => {
   const [chartData, setChartData] = useState(null);
-  const data = useContext(WeatherDataContext);
+  
+  const { weatherData: weather } = useWeatherDataContext();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: not updating without the dependency
   useEffect(() => {
-    if (!data) {
+    if (!weather) {
       return;
     }
 
     const dataArray = [['Minute', 'Precipitation']];
 
-    const minutes = data.weather?.forecastNextHour?.minutes.slice(0, 61);
+    const minutes = weather?.forecastNextHour?.minutes.slice(0, 61);
     let index = 0;
 
     for (const minute of minutes) {
       dataArray.push([
         index,
         metricToImperial.mmToIn(
-          data?.weather?.forecastNextHour?.summary[0]?.condition.toLowerCase() ===
+          weather?.forecastNextHour?.summary[0]?.condition.toLowerCase() ===
           'snow'
             ? minute.precipitationIntensity * 4.5
             : minute.precipitationIntensity * 2.5
@@ -40,7 +40,7 @@ export const PrecipChart = () => {
       setChartData(null);
       index = 0;
     };
-  }, [data]);
+  }, [weather]);
 
   return chartData ? (
     <Chart

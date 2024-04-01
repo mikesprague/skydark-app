@@ -1,19 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import {
-  initLeafletImages,
-  openModalWithComponent,
-} from '../modules/helpers.js';
-import { isDarkModeEnabled } from '../modules/theme.js';
+import { initLeafletImages, openModalWithComponent } from '../modules/helpers';
+import { isDarkModeEnabled } from '../modules/theme';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { WeatherMapFull } from './WeatherMapFull.jsx';
+import { WeatherMapFull } from './WeatherMapFull';
 
 import './WeatherMapSmall.scss';
 
@@ -45,22 +42,23 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
   };
 
   const [locationCoordinates, setLocationCoordinates] = useState(null);
-  const data = useContext(WeatherDataContext);
+
+  const { weatherData: weather, locationData: location } = useWeatherDataContext();
 
   useEffect(() => {
-    if (!data) {
+    if (!weather) {
       return;
     }
 
     const coordinates = {
-      lat: data.weather.currentWeather.metadata.latitude,
-      lng: data.weather.currentWeather.metadata.longitude,
+      lat: weather.currentWeather.metadata.latitude,
+      lng: weather.currentWeather.metadata.longitude,
     };
 
     setLocationCoordinates(coordinates);
-  }, [data]);
+  }, [weather]);
 
-  return data.weather ? (
+  return weather ? (
     <div className="small-map-container">
       {locationCoordinates?.lat ? (
         // biome-ignore lint/a11y/useValidAnchor: linking the map, button not appropriate
@@ -160,8 +158,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
               <LayersControl.Overlay name="Radar" checked>
                 <TileLayer
                   url={`https://tilecache.rainviewer.com/${
-                    data.weather.radarData.past[
-                      data.weather.radarData.past.length - 1
+                    weather.radarData.past[
+                      weather.radarData.past.length - 1
                     ].path
                   }/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}

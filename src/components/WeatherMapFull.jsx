@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, {
+import {
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -23,9 +23,9 @@ import {
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { initLeafletImages } from '../modules/helpers.js';
-import { getData } from '../modules/local-storage.js';
-import { isDarkModeEnabled } from '../modules/theme.js';
+import { initLeafletImages } from '../modules/helpers';
+import { getData } from '../modules/local-storage';
+import { isDarkModeEnabled } from '../modules/theme';
 
 import './WeatherMapFull.scss';
 

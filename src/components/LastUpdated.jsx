@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import React, { useContext, useEffect, useState } from 'react';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { useContext, useEffect, useState } from 'react';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import './LastUpdated.scss';
 
@@ -11,22 +11,23 @@ dayjs.extend(relativeTime);
 
 export const LastUpdated = () => {
   const [lastUpdatedString, setLastUpdatedString] = useState(null);
-  const data = useContext(WeatherDataContext);
+  
+  const { lastUpdated } = useWeatherDataContext();
 
   useEffect(() => {
-    if (!data) {
+    if (!lastUpdated) {
       return;
     }
 
     const updateString = () => {
-      setLastUpdatedString(dayjs(dayjs(data.lastUpdated)).from());
+      setLastUpdatedString(dayjs(dayjs(lastUpdated)).from());
     };
     const clockInterval = setInterval(updateString, 1000);
 
     updateString();
 
     return () => clearInterval(clockInterval);
-  }, [data]);
+  }, [lastUpdated]);
 
   return (
     <div className="last-updated-container">

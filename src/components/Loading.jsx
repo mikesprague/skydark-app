@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export const Loading = ({ fullHeight }) => {
   let classList = 'flex items-center justify-center h-100 w-100 loading-container';

@@ -2,22 +2,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
+
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
   apiUrl,
   formatCondition,
   metricToImperial,
   sleep,
-} from '../modules/helpers.js';
-import { getWeatherIcon } from '../modules/icons.js';
-import { getData, isCacheExpired } from '../modules/local-storage.js';
+} from '../modules/helpers';
+import { getWeatherIcon } from '../modules/icons';
+import { getData, isCacheExpired } from '../modules/local-storage';
 
-import { Hourly } from './Hourly.jsx';
-import { Loading } from './Loading.jsx';
-
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { Hourly } from './Hourly';
+import { Loading } from './Loading';
 
 import './Day.scss';
 
@@ -28,8 +27,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
       defaultValue: null,
     },
   );
-  const fullData = useContext(WeatherDataContext);
-  const { weather } = fullData;
+  const { wetherData: weather } = useWeatherDataContext();
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const endDate = dayjs(date).add(1, 'day').toISOString();
@@ -57,12 +55,12 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
       .set('millisecond', 0)
       .toISOString();
 
-    allDetails.forEach((detail) => {
+    for (const detail of allDetails) {
       if (detail !== currentDetail) {
         detail.removeAttribute('open');
         detail.querySelector('.scroll-marker').classList.add('hidden');
       }
-    });
+    }
 
     if (isOpen) {
       if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {

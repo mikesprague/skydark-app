@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
@@ -41,7 +41,7 @@ export const Hour = ({
     setHourlyConditionToShow(conditionToShow);
 
     // return () => {};
-  }, [hourlyConditionToShow, conditionToShow]);
+  }, [conditionToShow]);
 
   const [summaryText, setSummaryText] = useState('');
 

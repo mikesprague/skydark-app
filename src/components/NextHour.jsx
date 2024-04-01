@@ -1,24 +1,24 @@
 import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 
-import { PrecipChart } from './PrecipChart.jsx';
+import { PrecipChart } from './PrecipChart';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
   capitalizeWord,
   isRaining,
   isSnowing,
   titleCaseToSentenceCase,
-} from '../modules/helpers.js';
+} from '../modules/helpers';
 
 import './NextHour.scss';
 
 export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);
   const [minutesData, setMinutesData] = useState(null);
-  const data = useContext(WeatherDataContext);
-  const { weather } = data;
+
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather) {

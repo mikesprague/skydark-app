@@ -1,15 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { defaultAppSettings } from '../modules/settings.js';
+import { defaultAppSettings } from '../modules/settings';
 
 import './Settings.scss';
 
 export const Settings = () => {
-  const [appSettings, setAppSettings] = useLocalStorageState('appSettings', {
-    defaultValue: defaultAppSettings,
-  });
+    const [appSettings, setAppSettings] = useLocalStorageState('appSettings', {
+      defaultValue: defaultAppSettings,
+    });
 
   return (
     <div className="contents">

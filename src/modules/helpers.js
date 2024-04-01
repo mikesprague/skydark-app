@@ -3,12 +3,12 @@ import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import utc from 'dayjs/plugin/utc.js';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
-import { initAppSettings } from './settings.js';
-import { initDarkMode, isDarkModeEnabled } from './theme.js';
+import { initAppSettings } from './settings';
+import { initDarkMode, isDarkModeEnabled } from './theme';
 
 const MySwal = withReactContent(Swal);
 

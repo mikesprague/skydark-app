@@ -1,26 +1,27 @@
 import { nanoid } from 'nanoid';
 /* eslint-disable arrow-body-style */
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Day } from './Day.jsx';
+import { Day } from './Day';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { metricToImperial } from '../modules/helpers.js';
+import { metricToImperial } from '../modules/helpers';
 
 import './Daily.scss';
 
 export const Daily = () => {
   const [dailyData, setDailyData] = useState(null);
-  const data = useContext(WeatherDataContext);
+  
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
-    if (!data) {
+    if (!weather) {
       return;
     }
 
-    setDailyData(data.weather);
-  }, [data]);
+    setDailyData(weather);
+  }, [weather]);
 
   const [minLow, setMinLow] = useState(0);
   const [maxHigh, setMaxHigh] = useState(0);

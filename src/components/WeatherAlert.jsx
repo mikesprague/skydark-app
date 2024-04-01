@@ -3,13 +3,13 @@ import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import React, { useContext, useEffect, useState } from 'react';
 
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import utc from 'dayjs/plugin/utc.js';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
-import { openModalWithComponent } from '../modules/helpers.js';
+import { openModalWithComponent } from '../modules/helpers';
 
 import './WeatherAlert.scss';
 
@@ -19,9 +19,8 @@ dayjs.extend(relativeTime);
 
 export const WeatherAlert = () => {
   const [alertData, setAlertData] = useState(null);
-  const data = useContext(WeatherDataContext);
 
-  const { weather } = data;
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather.weatherAlertsData || !weather.weatherAlertsData.length) {

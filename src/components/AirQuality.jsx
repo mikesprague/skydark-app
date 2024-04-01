@@ -1,20 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { nanoid } from 'nanoid';
 
-import advancedFormat from 'dayjs/plugin/advancedFormat.js';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import utc from 'dayjs/plugin/utc.js';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
-import { WeatherDataContext } from '../contexts/WeatherDataContext.js';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
   formatAirQualityHour,
   getAirQualityClass,
   openModalWithComponent,
-} from '../modules/helpers.js';
+} from '../modules/helpers';
 
 import './AirQuality.scss';
 
@@ -25,9 +25,10 @@ dayjs.extend(advancedFormat);
 
 export const AirQuality = () => {
   const [aqiData, setAqiData] = useState(null);
-  const data = useContext(WeatherDataContext);
-
-  const { weather, location } = data;
+  const {
+    weatherData: weather,
+    locationData: location,
+  } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather.airQualityData || !weather.airQualityData.length) {
