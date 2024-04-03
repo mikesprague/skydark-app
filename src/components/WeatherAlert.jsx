@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';

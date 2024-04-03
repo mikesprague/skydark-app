@@ -37,7 +37,7 @@ export const initDarkMode = () => {
   }
 
   // eslint-disable-next-line no-unused-vars
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (_event) => {
     // console.log("window.matchMedia('(prefers-color-scheme: dark)').matches: ", event.matches);
     window.location.reload();
   });

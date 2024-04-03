@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext';

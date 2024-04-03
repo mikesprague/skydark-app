@@ -112,7 +112,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       clearInterval(timerHandle.current);
     } else {
       timerHandle.current = setInterval(() => {
-        const currentVal = parseInt(rangeSliderRef.current.value, 10);
+        const currentVal = Number.parseInt(rangeSliderRef.current.value, 10);
         const nextVal = currentVal === rangeMaxValue ? 0 : currentVal + 1;
 
         // console.log(currentVal, nextVal);

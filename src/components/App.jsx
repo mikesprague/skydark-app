@@ -122,7 +122,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     setLocationData,
   ]);
 
-  const returnData = useMemo(
+  const _returnData = useMemo(
     () => ({
       weather: weatherData,
       location: locationData,

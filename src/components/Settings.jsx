@@ -6,7 +6,7 @@ import { defaultAppSettings } from '../modules/settings';
 import './Settings.scss';
 
 export const Settings = () => {
-    const [appSettings, setAppSettings] = useLocalStorageState('appSettings', {
+    const [_appSettings, _setAppSettings] = useLocalStorageState('appSettings', {
       defaultValue: defaultAppSettings,
     });
 

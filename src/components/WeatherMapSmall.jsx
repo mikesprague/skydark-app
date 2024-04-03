@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
@@ -43,7 +43,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
 
   const [locationCoordinates, setLocationCoordinates] = useState(null);
 
-  const { weatherData: weather, locationData: location } = useWeatherDataContext();
+  const { weatherData: weather, locationData: _location } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather) {

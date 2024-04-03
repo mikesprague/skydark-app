@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   formatCondition,
@@ -14,7 +14,7 @@ import './Currently.scss';
 
 export const Currently = () => {
   const [currentData, setCurrentData] = useState(null);
-  
+
   const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import {
   formatSummary,
   metricToImperial,
-  titleCaseToSentenceCase,
+  // titleCaseToSentenceCase,
 } from '../modules/helpers';
 
 import { Hour } from './Hour';
