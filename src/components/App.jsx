@@ -59,12 +59,10 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     for (const hourlyItem of hourlyItems) {
       const datePart = hourlyItem.split('_')[1];
       const date = dayjs.unix(datePart);
-      console.log('date:', date);
       if (date.isBefore(dayjs())) {
         localStorage.removeItem(hourlyItem);
       }
     }
-    console.log('hourlyItems:', hourlyItems);
   }, []);
 
   // geoState.onError,
