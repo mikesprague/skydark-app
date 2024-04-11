@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">= 20.x",
+    "node": ">= 21.x",
     "npm": ">= 10.x"
   },
   "scripts": {
@@ -87,7 +87,11 @@
     "wrangler": "3.49.0"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -100,7 +104,7 @@
     }
   },
   "volta": {
-    "node": "21.7.1",
-    "npm": "10.5.0"
+    "node": "21.7.3",
+    "npm": "10.5.2"
   }
 }
