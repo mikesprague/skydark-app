@@ -14,8 +14,10 @@
     "dev": "vite serve",
     "prebuild": "npm run clean",
     "preview": "vite preview",
-    "start": "cross-env NODE_ENV=development wrangler pages dev -- vite serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "cross-env NODE_ENV=development npm run build",
+    "start": "cross-env NODE_ENV=development concurrently 'npm run build -- --watch' 'npm run wrangler-pages-dev'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wrangler-pages-dev": "wrangler pages dev --live-reload true --local true ./build"
   },
   "keywords": [],
   "repository": {
@@ -69,6 +71,7 @@
     "@tailwindcss/typography": "0.5.12",
     "@vitejs/plugin-react-swc": "3.6.0",
     "autoprefixer": "10.4.19",
+    "concurrently": "8.2.2",
     "cssnano": "6.1.2",
     "cz-git": "1.9.1",
     "postcss": "8.4.38",
@@ -84,11 +87,7 @@
     "wrangler": "3.49.0"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
