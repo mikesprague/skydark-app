@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Suspense, lazy, useEffect, useMemo } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 
 import { apiUrl } from '../modules/helpers';
 import { initIcons } from '../modules/icons';
@@ -48,6 +49,23 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     timeout: 5000,
     maximumAge: 3600000,
   });
+
+  // clean up old localStorage data
+  useEffect(() => {
+    const items = { ...localStorage };
+    const hourlyItems = Object.keys(items).filter((key) =>
+      key.includes('hourlyData_')
+    );
+    for (const hourlyItem of hourlyItems) {
+      const datePart = hourlyItem.split('_')[1];
+      const date = dayjs.unix(datePart);
+      console.log('date:', date);
+      if (date.isBefore(dayjs())) {
+        localStorage.removeItem(hourlyItem);
+      }
+    }
+    console.log('hourlyItems:', hourlyItems);
+  }, []);
 
   // geoState.onError,
   // geoState.isSupported,
