@@ -37,18 +37,18 @@ export const NextHour = () => {
         )
       );
     } else {
-      let summary = capitalizeWord(
+      const summary = capitalizeWord(
         weather.forecastNextHour.summary[0].condition
       );
 
-      if (
-        !weather.forecastHourly.hours[hour].conditionCode
-          .toLowerCase()
-          .includes(weather.forecastNextHour.summary[0].condition.toLowerCase())
-      ) {
-        // console.log("let's use current condition code");
-        summary = capitalizeWord(weather.currentWeather.conditionCode);
-      }
+      // if (
+      //   !weather.forecastHourly.hours[hour].conditionCode
+      //     .toLowerCase()
+      //     .includes(weather.forecastNextHour.summary[0].condition.toLowerCase())
+      // ) {
+      //   // console.log("let's use current condition code");
+      //   summary = capitalizeWord(weather.currentWeather.conditionCode);
+      // }
 
       const minutes = weather.forecastNextHour.minutes.slice(0, 59);
 
