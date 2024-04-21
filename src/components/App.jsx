@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import { Suspense, lazy, useEffect, useMemo } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
-import utc from 'dayjs/plugin/utc';
+// import utc from 'dayjs/plugin/utc';
 
 import { apiUrl } from '../modules/helpers';
 import { initIcons } from '../modules/icons';
 import { isCacheExpired } from '../modules/local-storage';
 
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
+import { useWeatherDataContext, useWeatherDataUpdaterContext  } from '../contexts/WeatherDataContext';
 
 import 'sweetalert2/src/sweetalert2.scss';
 import './App.scss';
@@ -34,15 +34,18 @@ initIcons();
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   const {
-    setWeatherData,
+    coordinates,
+    lastUpdated,
+    locationData,
+    weatherData,
+  } = useWeatherDataContext();
+
+  const {
+    setCoordinates,
     setLastUpdated,
     setLocationData,
-    weatherData,
-    locationData,
-    lastUpdated,
-    coordinates,
-    setCoordinates,
-  } = useWeatherDataContext();
+    setWeatherData,
+  } = useWeatherDataUpdaterContext();
 
   const [geoState] = useGeolocation({
     enableHighAccuracy: true,
