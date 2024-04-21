@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 export const WeatherDataContext = createContext(null);
+export const WeatherDataUpdaterContext = createContext(null);
 
 export const WeatherDataProvider = ({ children }) => {
   const [coordinates, setCoordinates] = useLocalStorageState('coordinates', {
@@ -25,6 +26,10 @@ export const WeatherDataProvider = ({ children }) => {
         lastUpdated,
         locationData,
         weatherData,
+      }}
+    >
+    <WeatherDataUpdaterContext.Provider
+      value={{
         setCoordinates,
         setLastUpdated,
         setLocationData,
@@ -32,6 +37,7 @@ export const WeatherDataProvider = ({ children }) => {
       }}
     >
       {children}
+      </WeatherDataUpdaterContext.Provider>
     </WeatherDataContext.Provider>
   );
 };
@@ -41,6 +47,16 @@ export const useWeatherDataContext = () => {
   if (context === null) {
     throw new Error(
       'useWeatherDataContext must be used within a WeatherDataProvider'
+    );
+  }
+  return context;
+};
+
+export const useWeatherDataUpdaterContext = () => {
+  const context = useContext(WeatherDataUpdaterContext);
+  if (context === null) {
+    throw new Error(
+      'useWeatherDataUpdaterContext must be used within a WeatherDataUpdaterProvider'
     );
   }
   return context;
