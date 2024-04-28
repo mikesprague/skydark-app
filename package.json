@@ -47,7 +47,7 @@
     "axios": "1.6.8",
     "beautiful-react-hooks": "5.0.1",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.11",
     "dotenv": "16.4.5",
     "jose": "5.2.4",
     "leaflet": "1.9.4",
