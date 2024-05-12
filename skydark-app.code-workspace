@@ -47,6 +47,23 @@
       "xml",
       "xsl"
     ],
-    "cSpell.words": ["CARTO"]
+    "cSpell.words": [
+      "CARTO",
+      "darkgray",
+      "darkorange",
+      "darkslategray",
+      "deepskyblue",
+      "dodgerblue",
+      "dont",
+      "ghostwhite",
+      "lightgray",
+      "nexrad",
+      "nowcast",
+      "OPENWEATHERMAP",
+      "royalblue",
+      "skyblue",
+      "topleft",
+      "topright"
+    ]
   }
 }
