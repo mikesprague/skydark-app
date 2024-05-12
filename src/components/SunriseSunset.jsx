@@ -1,17 +1,20 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useCallback, useEffect, useState } from 'react';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import { useCallback, useEffect } from 'react';
 
 import './SunriseSunset.scss';
 
+import { weatherDataAtom } from './App';
+
 dayjs.extend(relativeTime);
 
-export const SunriseSunset = () => {
-  const [next, setNext] = useState(null);
+const nextAtom = atom(null);
 
-  const { weatherData: weather } = useWeatherDataContext();
+export const SunriseSunset = () => {
+  const [next, setNext] = useAtom(nextAtom);
+
+  const weather = useAtomValue(weatherDataAtom);
 
   const formatTimeString = useCallback((time) => {
     const totalMinutes = dayjs(dayjs(time)).diff(dayjs(), 'minute');
@@ -88,7 +91,7 @@ export const SunriseSunset = () => {
     const clockInterval = setInterval(init, 1000);
 
     return () => clearInterval(clockInterval);
-  }, [formatTimeString, weather]);
+  }, [formatTimeString, setNext, weather]);
 
   return next?.event ? (
     <div className="sunrise-sunset-time">
@@ -97,6 +100,6 @@ export const SunriseSunset = () => {
   ) : (
     ''
   );
-}
+};
 
 export default SunriseSunset;

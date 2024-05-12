@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
-// import { nanoid } from 'nanoid';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
+import { locationDataAtom, weatherDataAtom } from './App';
 
 import {
   formatAirQualityHour,
@@ -23,12 +23,12 @@ dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 dayjs.extend(advancedFormat);
 
+const apiDataAtom = atom(null);
+
 export const AirQuality = () => {
-  const [aqiData, setAqiData] = useState(null);
-  const {
-    weatherData: weather,
-    locationData: location,
-  } = useWeatherDataContext();
+  const [aqiData, setAqiData] = useAtom(apiDataAtom);
+  const weather = useAtomValue(weatherDataAtom);
+  const location = useAtomValue(locationDataAtom);
 
   useEffect(() => {
     if (!weather.airQualityData || !weather.airQualityData.length) {
@@ -38,7 +38,7 @@ export const AirQuality = () => {
     }
 
     setAqiData(weather.airQualityData);
-  }, [weather]);
+  }, [setAqiData, weather]);
 
   const airQualityHandler = () => {
     openModalWithComponent(
@@ -67,7 +67,7 @@ export const AirQuality = () => {
             <br />
             <span
               className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
-                aqiData[0],
+                aqiData[0]
               )}`}
             >
               {aqiData[0].AQI}
@@ -86,7 +86,7 @@ export const AirQuality = () => {
             <br />
             <span
               className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
-                aqiData[1],
+                aqiData[1]
               )} mt-3`}
             >
               {aqiData[1].AQI}
@@ -112,7 +112,7 @@ export const AirQuality = () => {
       {
         position: 'center',
         padding: '1rem',
-      },
+      }
     );
   };
 

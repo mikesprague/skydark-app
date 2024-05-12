@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
 import { PrecipChart } from './PrecipChart';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
   capitalizeWord,
@@ -14,11 +13,21 @@ import {
 
 import './NextHour.scss';
 
-export const NextHour = () => {
-  const [summaryText, setSummaryText] = useState(null);
-  const [minutesData, setMinutesData] = useState(null);
+import { weatherDataAtom } from './App';
 
-  const { weatherData: weather } = useWeatherDataContext();
+const summaryTextAtom = atom(null);
+const minutesDataAtom = atom(null);
+const nextHourPrecipitationAtom = atom(false);
+const longSummaryTextAtom = atom(null);
+
+export const NextHour = () => {
+  const [summaryText, setSummaryText] = useAtom(summaryTextAtom);
+  const [minutesData, setMinutesData] = useAtom(minutesDataAtom);
+  const [nextHourPrecipitation, setNextHourPrecipitation] = useAtom(
+    nextHourPrecipitationAtom
+  );
+  const [longSummaryText, setLongSummaryText] = useAtom(longSummaryTextAtom);
+  const weather = useAtomValue(weatherDataAtom);
 
   useEffect(() => {
     if (!weather) {
@@ -57,9 +66,7 @@ export const NextHour = () => {
     }
 
     return () => setSummaryText(null);
-  }, [weather]);
-
-  const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
+  }, [setMinutesData, setSummaryText, weather]);
 
   useEffect(() => {
     if (!summaryText || !minutesData) {
@@ -97,9 +104,12 @@ export const NextHour = () => {
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [weather.forecastNextHour.summary, minutesData, summaryText]);
-
-  const [longSummaryText, setLongSummaryText] = useState(null);
+  }, [
+    weather.forecastNextHour.summary,
+    minutesData,
+    setNextHourPrecipitation,
+    summaryText,
+  ]);
 
   useEffect(() => {
     if (!summaryText || !weather) {
@@ -166,7 +176,7 @@ export const NextHour = () => {
     } else {
       setLongSummaryText(`${summaryText} for the hour`);
     }
-  }, [weather, nextHourPrecipitation, summaryText]);
+  }, [weather, nextHourPrecipitation, setLongSummaryText, summaryText]);
 
   return longSummaryText || summaryText ? (
     <>

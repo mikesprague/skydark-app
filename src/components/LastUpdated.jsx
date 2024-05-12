@@ -1,18 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useEffect, useState } from 'react';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
 import './LastUpdated.scss';
 
 dayjs.extend(relativeTime);
 
+import { lastUpdatedAtom } from './App';
+
+const lastUpdatedStringAtom = atom(null);
+
 export const LastUpdated = () => {
-  const [lastUpdatedString, setLastUpdatedString] = useState(null);
-  
-  const { lastUpdated } = useWeatherDataContext();
+  const [lastUpdatedString, setLastUpdatedString] = useAtom(
+    lastUpdatedStringAtom
+  );
+
+  const lastUpdated = useAtomValue(lastUpdatedAtom);
 
   useEffect(() => {
     if (!lastUpdated) {
@@ -22,12 +27,12 @@ export const LastUpdated = () => {
     const updateString = () => {
       setLastUpdatedString(dayjs(dayjs(lastUpdated)).from());
     };
-    const clockInterval = setInterval(updateString, 1000);
+    const clockInterval = setInterval(updateString, 10000);
 
     updateString();
 
     return () => clearInterval(clockInterval);
-  }, [lastUpdated]);
+  }, [lastUpdated, setLastUpdatedString]);
 
   return (
     <div className="last-updated-container">

@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
+import { atom, useAtom } from 'jotai';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
@@ -24,6 +25,8 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
+const hourlyConditionToShowAtom = atom('temperature');
+
 export const Hour = ({
   data,
   dayData,
@@ -34,27 +37,19 @@ export const Hour = ({
   valueRange,
   maxValue,
 }) => {
-  const [hourlyConditionToShow, setHourlyConditionToShow] =
-    useState('temperature');
-
+  const [hourlyConditionToShow, setHourlyConditionToShow] = useAtom(
+    hourlyConditionToShowAtom
+  );
   useEffect(() => {
     setHourlyConditionToShow(conditionToShow);
+  }, [conditionToShow, setHourlyConditionToShow]);
 
-    // return () => {};
-  }, [conditionToShow]);
-
-  const [summaryText, setSummaryText] = useState('');
-
-  useEffect(() => {
-    setSummaryText(titleCaseAddSpace(summary));
-  }, [summary]);
-
-  const clickHandler = () => {
+  const clickHandler = useCallback(() => {
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="modal-headline">
           {`${dayjs(data.forecastStart).format('ddd, MMMM D')} at ${dayjs(
-            data.forecastStart,
+            data.forecastStart
           ).format('h:mm A')}`}
         </h3>
         <h4 className="mb-2 text-lg">
@@ -98,7 +93,7 @@ export const Hour = ({
               Feels Like:
               {` ${formatCondition(
                 data.temperatureApparent,
-                'temperatureApparent',
+                'temperatureApparent'
               )}`}
             </small>
           </div>
@@ -153,7 +148,7 @@ export const Hour = ({
               Dew Point:
               {` ${formatCondition(
                 data.temperatureDewPoint,
-                'temperatureDewPoint',
+                'temperatureDewPoint'
               )}`}
             </small>
           </div>
@@ -164,23 +159,23 @@ export const Hour = ({
               swapOpacity
               fixedWidth
               style={{
-                '--fa-priamry-color': 'royalblue',
+                '--fa-primary-color': 'royalblue',
                 '--fa-secondary-color': 'sienna',
                 '--fa-secondary-opacity': '.75',
               }}
             />
             <br />
             <small>
-              Precipitaton:
+              Precipitation:
               {` ${formatCondition(
                 data.precipitationChance,
-                'precipitationChance',
+                'precipitationChance'
               )}`}
               <br />
               Intensity:
               {` ${formatCondition(
                 data.precipitationIntensity,
-                'precipitationIntensity',
+                'precipitationIntensity'
               )} in/hr`}
             </small>
           </div>
@@ -214,7 +209,7 @@ export const Hour = ({
             />
             <br />
             <small>
-              Visibiity:
+              Visibility:
               {` ${formatCondition(data.visibility, 'visibility')} mi`}
             </small>
           </div>
@@ -226,8 +221,8 @@ export const Hour = ({
                 data.pressureTrend === 'steady'
                   ? 'gauge'
                   : data.pressureTrend === 'rising'
-                  ? 'gauge-high'
-                  : 'gauge-low',
+                    ? 'gauge-high'
+                    : 'gauge-low',
               ]}
               size="2x"
               fixedWidth
@@ -301,9 +296,9 @@ export const Hour = ({
       {
         position: 'center',
         padding: '1rem',
-      },
+      }
     );
-  };
+  }, [data, dayData]);
 
   return (
     <li className="hour">
@@ -316,7 +311,9 @@ export const Hour = ({
         <div className="time">
           {dayjs(data.forecastStart).format('h a').toUpperCase()}
         </div>
-        <div className="summary one-line">{summaryText.trim()}</div>
+        <div className="summary one-line">
+          {titleCaseAddSpace(summary.trim())}
+        </div>
         <div className="spacer">&nbsp;</div>
       </div>
       <div
@@ -348,7 +345,7 @@ export const Hour = ({
         >
           {formatCondition(
             data[hourlyConditionToShow],
-            hourlyConditionToShow,
+            hourlyConditionToShow
           ).trim()}
         </span>
       </div>
@@ -365,7 +362,7 @@ Hour.propTypes = {
       PropTypes.array,
       PropTypes.object,
       PropTypes.bool,
-    ]),
+    ])
   ).isRequired,
   dayData: PropTypes.objectOf(
     PropTypes.oneOfType([
@@ -374,7 +371,7 @@ Hour.propTypes = {
       PropTypes.array,
       PropTypes.object,
       PropTypes.bool,
-    ]),
+    ])
   ).isRequired,
   summary: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,

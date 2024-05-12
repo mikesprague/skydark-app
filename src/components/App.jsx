@@ -1,6 +1,8 @@
 import axios from 'axios';
 import useGeolocation from 'beautiful-react-hooks/useGeolocation';
 import dayjs from 'dayjs';
+import { useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import PropTypes from 'prop-types';
 import { Suspense, lazy, useEffect, useMemo } from 'react';
 
@@ -11,10 +13,13 @@ import { apiUrl } from '../modules/helpers';
 import { initIcons } from '../modules/icons';
 import { isCacheExpired } from '../modules/local-storage';
 
-import { useWeatherDataContext, useWeatherDataUpdaterContext  } from '../contexts/WeatherDataContext';
-
 import 'sweetalert2/src/sweetalert2.scss';
 import './App.scss';
+
+export const coordinatesAtom = atomWithStorage('coordinates', null);
+export const lastUpdatedAtom = atomWithStorage('lastUpdated', null);
+export const locationDataAtom = atomWithStorage('locationData', null);
+export const weatherDataAtom = atomWithStorage('weatherData', null);
 
 const AirQuality = lazy(() => import('./AirQuality'));
 const CurrentHourly = lazy(() => import('./CurrentHourly'));
@@ -33,19 +38,10 @@ dayjs.extend(relativeTime);
 initIcons();
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
-  const {
-    coordinates,
-    lastUpdated,
-    locationData,
-    weatherData,
-  } = useWeatherDataContext();
-
-  const {
-    setCoordinates,
-    setLastUpdated,
-    setLocationData,
-    setWeatherData,
-  } = useWeatherDataUpdaterContext();
+  const [coordinates, setCoordinates] = useAtom(coordinatesAtom);
+  const [lastUpdated, setLastUpdated] = useAtom(lastUpdatedAtom);
+  const [locationData, setLocationData] = useAtom(locationDataAtom);
+  const [weatherData, setWeatherData] = useAtom(weatherDataAtom);
 
   const [geoState] = useGeolocation({
     enableHighAccuracy: true,
@@ -112,9 +108,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const getWeatherData = async (latitude, longitude) => {
-      const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
+      const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
       const weatherApiData = await axios
-        .get(weatherApiurl)
+        .get(weatherApiUrl)
         .then((response) => response.data);
       const lastUpdatedString = dayjs().toString();
 
@@ -152,21 +148,21 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
   return weatherData && locationData ? (
     <Suspense fallback={<Loading fullHeight={true} />}>
-        <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-        <LayoutContainer>
-          <Currently />
-          <AirQuality />
-          <WeatherAlert />
-          <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-          <CurrentHourly />
-          <SunriseSunset />
-          <Daily />
-          <LastUpdated />
-        </LayoutContainer>
+      <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+      <LayoutContainer>
+        <Currently />
+        <AirQuality />
+        <WeatherAlert />
+        <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+        <CurrentHourly />
+        <SunriseSunset />
+        <Daily />
+        <LastUpdated />
+      </LayoutContainer>
     </Suspense>
   ) : (
     <Loading fullHeight={true} />
-  )
+  );
 };
 
 App.propTypes = {

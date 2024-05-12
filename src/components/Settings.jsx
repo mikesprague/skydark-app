@@ -1,14 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useLocalStorageState from 'use-local-storage-state';
+import { useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
 import { defaultAppSettings } from '../modules/settings';
 
 import './Settings.scss';
 
+const appSettingsAtom = atomWithStorage('appSettings', defaultAppSettings);
+
 export const Settings = () => {
-    const [_appSettings, _setAppSettings] = useLocalStorageState('appSettings', {
-      defaultValue: defaultAppSettings,
-    });
+  const [_appSettings, _setAppSettings] = useAtom(appSettingsAtom);
 
   return (
     <div className="contents">

@@ -1,5 +1,6 @@
+import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
@@ -8,42 +9,49 @@ import 'leaflet/dist/leaflet.css';
 import { initLeafletImages, openModalWithComponent } from '../modules/helpers';
 import { isDarkModeEnabled } from '../modules/theme';
 
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
-
 import { WeatherMapFull } from './WeatherMapFull';
 
 import './WeatherMapSmall.scss';
 
+import { weatherDataAtom } from './App';
+
 initLeafletImages(L);
 
+const locationCoordinatesAtom = atom(null);
+
 export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
-  const mapClickHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openModalWithComponent(
-      <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
-      {
-        didOpen: () => {
-          const closeButton = document.querySelector('.swal2-close');
+  const [locationCoordinates, setLocationCoordinates] = useAtom(
+    locationCoordinatesAtom
+  );
 
-          closeButton.style.position = 'relative';
-          closeButton.style.top = '2rem';
-          closeButton.style.marginRight = '0.65rem';
-          // closeButton.blur();
-        },
-        showClass: {
-          popup: 'animate__animated animate__fadeIn animate__faster',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOut animate__faster',
-        },
-      }
-    );
-  };
+  const weather = useAtomValue(weatherDataAtom);
 
-  const [locationCoordinates, setLocationCoordinates] = useState(null);
+  const mapClickHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openModalWithComponent(
+        <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+        {
+          didOpen: () => {
+            const closeButton = document.querySelector('.swal2-close');
 
-  const { weatherData: weather, locationData: _location } = useWeatherDataContext();
+            closeButton.style.position = 'relative';
+            closeButton.style.top = '2rem';
+            closeButton.style.marginRight = '0.65rem';
+            // closeButton.blur();
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOut animate__faster',
+          },
+        }
+      );
+    },
+    [OPENWEATHERMAP_API_KEY]
+  );
 
   useEffect(() => {
     if (!weather) {
@@ -56,7 +64,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     };
 
     setLocationCoordinates(coordinates);
-  }, [weather]);
+  }, [setLocationCoordinates, weather]);
 
   return weather ? (
     <div className="small-map-container">
@@ -158,9 +166,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
               <LayersControl.Overlay name="Radar" checked>
                 <TileLayer
                   url={`https://tilecache.rainviewer.com/${
-                    weather.radarData.past[
-                      weather.radarData.past.length - 1
-                    ].path
+                    weather.radarData.past[weather.radarData.past.length - 1]
+                      .path
                   }/512/{z}/{x}/{y}/8/1_1.png`}
                   opacity={0.9}
                   attribution={

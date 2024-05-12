@@ -1,13 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import {
   AttributionControl,
   Circle,
@@ -24,10 +19,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { initLeafletImages } from '../modules/helpers';
-import { getData } from '../modules/local-storage';
 import { isDarkModeEnabled } from '../modules/theme';
 
 import './WeatherMapFull.scss';
+
+import { coordinatesAtom, locationDataAtom, weatherDataAtom } from './App';
 
 initLeafletImages(L);
 
@@ -37,23 +33,35 @@ initLeafletImages(L);
 // transparent="true"
 // /> */}
 
-export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [popupAddress, setPopupAddress] = useState(null);
-  const coordinates = getData('coordinates');
+const popupAddressAtom = atom(null);
+const tsDataAtom = atom(null);
+const tsAtom = atom(null);
+const rangeValueAtom = atom(null);
+const rangeMaxValueAtom = atom(null);
+const radarMapUrlAtom = atom(null);
+const isPlayingAtom = atom(false);
 
-  const [tsData, setTsData] = useState(null);
+export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
+  const timerHandle = useRef();
+  const rangeSliderRef = useRef();
+
+  const [popupAddress, setPopupAddress] = useAtom(popupAddressAtom);
+  const [tsData, setTsData] = useAtom(tsDataAtom);
+  const [ts, setTs] = useAtom(tsAtom);
+  const [rangeValue, setRangeValue] = useAtom(rangeValueAtom);
+  const [rangeMaxValue, setRangeMaxValue] = useAtom(rangeMaxValueAtom);
+  const [radarMapUrl, setRadarMapUrl] = useAtom(radarMapUrlAtom);
+  const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
+
+  const coordinates = useAtomValue(coordinatesAtom);
+  const locationData = useAtomValue(locationDataAtom);
+  const weatherData = useAtomValue(weatherDataAtom);
+  const { radarData } = weatherData;
 
   useEffect(() => {
-    const locationData = getData('locationData');
-    const { radarData } = getData('weatherData');
-
     setTsData([...radarData.past, ...radarData.nowcast]);
     setPopupAddress(locationData.formattedAddress);
-  }, []);
-
-  const [ts, setTs] = useState(null);
-  const [rangeValue, setRangeValue] = useState(null);
-  const [rangeMaxValue, setRangeMaxValue] = useState(null);
+  }, [locationData, radarData, setPopupAddress, setTsData]);
 
   useEffect(() => {
     if (!tsData) {
@@ -63,9 +71,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     setTs(tsData[12]);
     setRangeValue(12);
     setRangeMaxValue(tsData.length - 1);
-  }, [tsData]);
-
-  const [radarMapUrl, setRadarMapUrl] = useState(null);
+  }, [setRangeMaxValue, setRangeValue, setTs, tsData]);
 
   useLayoutEffect(() => {
     if (!ts) {
@@ -75,7 +81,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     setRadarMapUrl(
       `https://tilecache.rainviewer.com${ts.path}/512/{z}/{x}/{y}/8/1_1.png`
     );
-  }, [ts]);
+  }, [setRadarMapUrl, ts]);
 
   const radarTileLayerRef = useRef();
 
@@ -93,7 +99,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       );
       setRangeValue(value);
     },
-    [tsData]
+    [setRadarMapUrl, setRangeValue, setTs, tsData]
   );
 
   const rangeSliderHandler = (event) => {
@@ -102,9 +108,6 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     advanceRangeSlider(value);
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const timerHandle = useRef();
-  const rangeSliderRef = useRef();
   const btnClickHandler = useCallback(() => {
     setIsPlaying((i) => !i);
 
@@ -120,7 +123,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         advanceRangeSlider(nextVal);
       }, 500);
     }
-  }, [advanceRangeSlider, isPlaying, rangeMaxValue]);
+  }, [advanceRangeSlider, isPlaying, rangeMaxValue, setIsPlaying]);
 
   return tsData && ts ? (
     <>

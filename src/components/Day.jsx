@@ -1,10 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import useLocalStorageState from 'use-local-storage-state';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import {
   apiUrl,
@@ -20,20 +19,23 @@ import { Loading } from './Loading';
 
 import './Day.scss';
 
+import { weatherDataAtom } from './App';
+
 export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   const [hourlyData, setHourlyData] = useLocalStorageState(
     `hourlyData_${dayjs(data.forecastStart).unix()}`,
     {
       defaultValue: null,
-    },
+    }
   );
-  const { wetherData: weather } = useWeatherDataContext();
+
+  const weather = useAtomValue(weatherDataAtom);
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const endDate = dayjs(date).add(1, 'day').toISOString();
-    const weatherApiurl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
+    const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
     const weatherApiData = await axios
-      .get(weatherApiurl)
+      .get(weatherApiUrl)
       .then((response) => response.data);
     // console.log(weatherApiData);
 
@@ -77,7 +79,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
         const weatherData = await getDailyWeatherData(
           lat,
           lng,
-          midnightAsIsoDate,
+          midnightAsIsoDate
         );
 
         setHourlyData({
@@ -117,7 +119,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
               <FontAwesomeIcon icon={['fad', 'droplet']} />
               {` ${formatCondition(
                 data.precipitationChance,
-                'precipitationChance',
+                'precipitationChance'
               )}`}
             </span>
           </div>
@@ -139,7 +141,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
             style={{
               position: 'relative',
               left: `${Math.round(
-                Math.round(metricToImperial.cToF(data.temperatureMin)) - minLow,
+                Math.round(metricToImperial.cToF(data.temperatureMin)) - minLow
               )}%`,
             }}
           >
@@ -150,7 +152,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
                 width: `${Math.round(
                   (metricToImperial.cToF(data.temperatureMax) -
                     metricToImperial.cToF(data.temperatureMin)) *
-                    (50 / (maxHigh - minLow)),
+                    (50 / (maxHigh - minLow))
                 )}%`,
               }}
             />
@@ -178,7 +180,7 @@ Day.propTypes = {
       PropTypes.array,
       PropTypes.object,
       PropTypes.bool,
-    ]),
+    ])
   ).isRequired,
   dayIndex: PropTypes.number.isRequired,
   minLow: PropTypes.number.isRequired,

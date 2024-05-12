@@ -1,19 +1,23 @@
+import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
-/* eslint-disable arrow-body-style */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Day } from './Day';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext';
 
 import { metricToImperial } from '../modules/helpers';
 
 import './Daily.scss';
 
+import { weatherDataAtom } from './App';
+
+const dailyDataAtom = atom(null);
+const minLowAtom = atom(0);
+const maxHighAtom = atom(0);
+
 export const Daily = () => {
-  const [dailyData, setDailyData] = useState(null);
-  
-  const { weatherData: weather } = useWeatherDataContext();
+  const [dailyData, setDailyData] = useAtom(dailyDataAtom);
+
+  const weather = useAtomValue(weatherDataAtom);
 
   useEffect(() => {
     if (!weather) {
@@ -21,10 +25,10 @@ export const Daily = () => {
     }
 
     setDailyData(weather);
-  }, [weather]);
+  }, [setDailyData, weather]);
 
-  const [minLow, setMinLow] = useState(0);
-  const [maxHigh, setMaxHigh] = useState(0);
+  const [minLow, setMinLow] = useAtom(minLowAtom);
+  const [maxHigh, setMaxHigh] = useAtom(maxHighAtom);
 
   useEffect(() => {
     if (!dailyData) {
@@ -37,7 +41,7 @@ export const Daily = () => {
 
     setMinLow(Math.round(metricToImperial.cToF(Math.min(...allLows))));
     setMaxHigh(Math.round(metricToImperial.cToF(Math.max(...allHighs))));
-  }, [dailyData]);
+  }, [dailyData, setMaxHigh, setMinLow]);
 
   return dailyData?.forecastDaily ? (
     <div className="daily-container">
