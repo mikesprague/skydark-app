@@ -27,7 +27,7 @@ export const LastUpdated = () => {
     const updateString = () => {
       setLastUpdatedString(dayjs(dayjs(lastUpdated)).from());
     };
-    const clockInterval = setInterval(updateString, 10000);
+    const clockInterval = setInterval(updateString, 10 * 1000);
 
     updateString();
 

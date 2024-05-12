@@ -59,13 +59,13 @@ export const SunriseSunset = () => {
       const [today, tomorrow] = weather.forecastDaily.days;
       const now = dayjs();
       let isSunset = false;
-      let datetime = today.sunrise;
+      let dateTime = today.sunrise;
 
       if (
         dayjs(now).isAfter(dayjs(today.sunrise)) &&
         dayjs(now).isBefore(dayjs(today.sunset))
       ) {
-        datetime = today.sunset;
+        dateTime = today.sunset;
         isSunset = true;
       }
 
@@ -73,12 +73,12 @@ export const SunriseSunset = () => {
         dayjs(now).isAfter(dayjs(today.sunset)) &&
         dayjs(now).isBefore(dayjs(tomorrow.sunrise))
       ) {
-        datetime = tomorrow.sunrise;
+        dateTime = tomorrow.sunrise;
       }
 
       const event = isSunset ? 'Sunset' : 'Sunrise';
-      const time = dayjs(datetime).format('h:mm A');
-      const timeString = formatTimeString(datetime);
+      const time = dayjs(dateTime).format('h:mm A');
+      const timeString = formatTimeString(dateTime);
 
       setNext({
         event,
@@ -88,7 +88,7 @@ export const SunriseSunset = () => {
     };
 
     init();
-    const clockInterval = setInterval(init, 1000);
+    const clockInterval = setInterval(init, 60 * 1000);
 
     return () => clearInterval(clockInterval);
   }, [formatTimeString, setNext, weather]);
