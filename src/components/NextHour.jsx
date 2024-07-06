@@ -61,7 +61,13 @@ export const NextHour = () => {
 
       const minutes = weather.forecastNextHour.minutes.slice(0, 59);
 
-      setSummaryText(titleCaseToSentenceCase(summary));
+      setSummaryText(
+        titleCaseToSentenceCase(
+          summary?.trim().toLowerCase() === 'clear'
+            ? 'No precipitation'
+            : summary
+        )
+      );
       setMinutesData(minutes);
     }
 
