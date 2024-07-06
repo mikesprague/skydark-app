@@ -51,6 +51,7 @@ const defaultModalConfig = {
   backdrop: true,
   position: 'top',
   heightAuto: true,
+  padding: 'none',
   width: '28rem',
   showClass: {
     popup: 'animate__animated animate__fadeIn animate__faster',
