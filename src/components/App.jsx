@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import PropTypes from 'prop-types';
-import { Suspense, lazy, useEffect, useMemo } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 // import utc from 'dayjs/plugin/utc';
@@ -69,30 +69,33 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   // geoState.isRetrieving,
   // geoState.position
 
-  const handleGeoChange = (geo) => {
-    if (geo?.position?.coords) {
-      const { latitude, longitude, accuracy } = geo.position.coords;
+  const handleGeoChange = useCallback(
+    (geo) => {
+      if (geo?.position?.coords) {
+        const { latitude, longitude, accuracy } = geo.position.coords;
 
-      if (coordinates?.lat && coordinates?.lng) {
-        if (
-          Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
-          Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
-          !isCacheExpired(coordinates.lastUpdated, 5)
-        ) {
-          // console.log('same coords in cache ttl, no update');
-          return;
+        if (coordinates?.lat && coordinates?.lng) {
+          if (
+            Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
+            Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
+            !isCacheExpired(coordinates.lastUpdated, 5)
+          ) {
+            // console.log('same coords in cache ttl, no update');
+            return;
+          }
         }
-      }
-      // console.log('handleGeoChange:', geoState);
+        // console.log('handleGeoChange:', geoState);
 
-      setCoordinates({
-        lat: latitude,
-        lng: longitude,
-        accuracy,
-        lastUpdated: dayjs().toString(),
-      });
-    }
-  };
+        setCoordinates({
+          lat: latitude,
+          lng: longitude,
+          accuracy,
+          lastUpdated: dayjs().toString(),
+        });
+      }
+    },
+    [coordinates, setCoordinates]
+  );
 
   useEffect(() => {
     if (coordinates && !isCacheExpired(coordinates.lastUpdated, 5)) {
