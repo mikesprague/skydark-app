@@ -12,7 +12,7 @@
     "build": "npx vite build",
     "clean": "rm -rf ./build",
     "dev": "npx vite serve",
-    "prebuild": "npm run clean",
+    "prebuild": "npm install",
     "preview": "npx vite preview",
     "start": "cross-env NODE_ENV=development concurrently 'npm run build -- --watch' 'npm run wrangler-pages-dev'",
     "test": "echo \"Error: no test specified\" && exit 1",
