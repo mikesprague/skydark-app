@@ -10,11 +10,11 @@ import './Daily.scss';
 
 import { weatherDataAtom } from './App';
 
-const dailyDataAtom = atom(null);
-const minLowAtom = atom(0);
-const maxHighAtom = atom(0);
-
 export const Daily = () => {
+  const dailyDataAtom = atom(null);
+  const minLowAtom = atom(0);
+  const maxHighAtom = atom(0);
+
   const [dailyData, setDailyData] = useAtom(dailyDataAtom);
 
   const weather = useAtomValue(weatherDataAtom);
