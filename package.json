@@ -1,6 +1,6 @@
 {
   "name": "skydark-app",
-  "version": "3.9.19",
+  "version": "3.9.20",
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
   "type": "module",
