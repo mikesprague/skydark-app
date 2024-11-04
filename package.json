@@ -59,7 +59,7 @@
     "react-dom": "18.3.1",
     "react-google-charts": "5.2.1",
     "react-leaflet": "4.2.1",
-    "sweetalert2": "11.14.4",
+    "sweetalert2": "11.14.5",
     "sweetalert2-react-content": "5.0.7",
     "tippy.js": "6.3.7",
     "use-local-storage-state": "19.4.1"
