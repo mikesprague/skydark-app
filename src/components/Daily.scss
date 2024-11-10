@@ -10,7 +10,7 @@
 
   .day {
     min-height: 4rem;
-    @apply flex;
+
     @apply w-full;
     @apply m-0;
     @apply text-lg;
@@ -24,6 +24,7 @@
       @apply align-top;
       @apply flex-grow-0;
       @apply order-1;
+
       width: 3.25rem;
 
       .precip {
@@ -47,6 +48,7 @@
       @apply flex-grow;
       @apply order-3;
       @apply flex;
+
       line-height: 1.125 !important;
 
       .temps-spacer {
@@ -58,6 +60,7 @@
         @apply border;
         @apply border-gray-300;
         @apply flex-grow-0;
+
         height: 1.4rem;
       }
     }
@@ -69,6 +72,7 @@
 
     & > summary {
       list-style: none;
+
       @apply focus:outline-none;
 
       &::marker,
@@ -79,14 +83,14 @@
   }
 
   // details {
-  //   transition: height 1s ease-in-out;
+  //   transition: height 1s ease-in-out;transitiontransition
 
   //   &:not([open]) {
-  //     height: 4rem;
+  //     height: 4rem;heightheight
   //   }
 
   //   &[open] {
-  //     height: 40.25rem;
+  //     height: 40.25rem;heightheight
   //   }
   // }
 }
