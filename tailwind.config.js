@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-import * as typography from '@tailwindcss/typography';
-import * as colors from 'tailwindcss/colors';
+const typography = require('@tailwindcss/typography');
+const colors = require('tailwindcss/colors');
 
-export default {
+module.exports = {
   mode: 'jit',
   darkMode: 'media',
   content: [
