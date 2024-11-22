@@ -1,8 +1,7 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-extraneous-dependencies */
-const colors = require('tailwindcss/colors');
+import * as typography from '@tailwindcss/typography';
+import * as colors from 'tailwindcss/colors';
 
-module.exports = {
+export default {
   mode: 'jit',
   darkMode: 'media',
   content: [
@@ -40,5 +39,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [typography],
 };

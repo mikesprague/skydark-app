@@ -1,3 +1,8 @@
+import { purgeCSSPlugin } from '@fullhuman/postcss-purgecss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import tailwindcss from 'tailwindcss';
+
 const cssWhitelistClassArray = [
   /tippy/,
   /leaflet/,
@@ -31,14 +36,14 @@ const cssWhitelistClassArray = [
 ];
 
 // Export all plugins our postcss should use
-module.exports = {
+export default {
   plugins: [
-    require('autoprefixer'),
-    require('tailwindcss'),
-    require('cssnano')({
+    autoprefixer({}),
+    tailwindcss({}),
+    cssnano({
       preset: 'default',
     }),
-    require('@fullhuman/postcss-purgecss')({
+    purgeCSSPlugin({
       content: [
         './src/index.html',
         './src/index.jsx',
