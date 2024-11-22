@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 import * as typography from '@tailwindcss/typography';
 import * as colors from 'tailwindcss/colors';
 
