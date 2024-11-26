@@ -52,7 +52,7 @@
     "jose": "5.9.6",
     "jotai": "2.10.3",
     "leaflet": "1.9.4",
-    "nanoid": "5.0.8",
+    "nanoid": "5.0.9",
     "prop-types": "15.8.1",
     "query-string": "9.1.1",
     "react": "18.3.1",
