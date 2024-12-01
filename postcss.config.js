@@ -1,7 +1,7 @@
-const tailwindcss = require('tailwindcss');
-const cssnano = require('cssnano');
-const autoprefixer = require('autoprefixer');
-const postcss = require('@fullhuman/postcss-purgecss');
+// import { purgeCSSPlugin } from '@fullhuman/postcss-purgecss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import tailwindcss from 'tailwindcss';
 
 const cssWhitelistClassArray = [
   /tippy/,
@@ -36,7 +36,7 @@ const cssWhitelistClassArray = [
 ];
 
 // Export all plugins our postcss should use
-module.exports = {
+export default {
   plugins: {
     autoprefixer: {},
     tailwindcss: {},
