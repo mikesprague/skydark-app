@@ -60,7 +60,7 @@
     "react-google-charts": "5.2.1",
     "react-leaflet": "5.0.0",
     "sweetalert2": "11.15.1",
-    "sweetalert2-react-content": "5.0.7",
+    "sweetalert2-react-content": "5.1.0",
     "tippy.js": "6.3.7",
     "use-local-storage-state": "19.5.0"
   },
