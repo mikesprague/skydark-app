@@ -5,8 +5,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">= 20.x",
-    "npm": ">= 10.x"
+    "node": ">= 22.x",
+    "npm": ">= 11.x"
   },
   "scripts": {
     "build": "npx vite build",
@@ -44,8 +44,7 @@
     "@fortawesome/react-fontawesome": "0.2.2",
     "@sweetalert2/theme-dark": "5.0.20",
     "@tippyjs/react": "4.2.6",
-    "axios": "1.7.9",
-    "beautiful-react-hooks": "5.0.2",
+    "@uidotdev/usehooks": "2.4.1",
     "cross-env": "7.0.3",
     "dayjs": "1.11.13",
     "dotenv": "16.4.7",
@@ -88,7 +87,11 @@
     "wrangler": "3.99.0"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -101,7 +104,7 @@
     }
   },
   "volta": {
-    "node": "22.11.0",
-    "npm": "10.9.0"
+    "node": "23.5.0",
+    "npm": "11.0.0"
   }
 }
