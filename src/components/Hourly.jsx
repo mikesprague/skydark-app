@@ -1,7 +1,6 @@
-import { atom, useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   formatSummary,
@@ -46,7 +45,7 @@ export const Hourly = ({ data, dayData }) => {
     }
   }, [hourlyData, hourlyConditionToShow]);
 
-  const changeHandler = (event) => {
+  const changeHandler = useCallback((event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
     const newSelection = event.target;
 
@@ -59,7 +58,7 @@ export const Hourly = ({ data, dayData }) => {
     lastSelected.classList.add('pill');
     lastSelected.classList.remove('pill-selected');
     newSelection.classList.add('pill-selected');
-  };
+  }, []);
 
   return hourlyData ? (
     <div className="hourly-container">
