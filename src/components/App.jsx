@@ -1,5 +1,4 @@
-import axios from 'axios';
-import useGeolocation from 'beautiful-react-hooks/useGeolocation';
+import { useGeolocation } from '@uidotdev/usehooks';
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
@@ -9,9 +8,9 @@ import { Suspense, lazy, useCallback, useEffect, useMemo } from 'react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 // import utc from 'dayjs/plugin/utc';
 
-import { apiUrl } from '../modules/helpers';
-import { initIcons } from '../modules/icons';
-import { isCacheExpired } from '../modules/local-storage';
+import { apiUrl } from '../modules/helpers.js';
+import { initIcons } from '../modules/icons.js';
+import { isCacheExpired } from '../modules/local-storage.js';
 
 import 'sweetalert2/src/sweetalert2.scss';
 import './App.scss';
@@ -21,17 +20,17 @@ export const lastUpdatedAtom = atomWithStorage('lastUpdated', null);
 export const locationDataAtom = atomWithStorage('locationData', null);
 export const weatherDataAtom = atomWithStorage('weatherData', null);
 
-const AirQuality = lazy(() => import('./AirQuality'));
-const CurrentHourly = lazy(() => import('./CurrentHourly'));
-const Currently = lazy(() => import('./Currently'));
-const Daily = lazy(() => import('./Daily'));
-const Header = lazy(() => import('./Header'));
-const LastUpdated = lazy(() => import('./LastUpdated'));
-const LayoutContainer = lazy(() => import('./LayoutContainer'));
-const Loading = lazy(() => import('./Loading'));
-const SunriseSunset = lazy(() => import('./SunriseSunset'));
-const WeatherAlert = lazy(() => import('./WeatherAlert'));
-const WeatherMapSmall = lazy(() => import('./WeatherMapSmall'));
+const AirQuality = lazy(() => import('./AirQuality.jsx'));
+const CurrentHourly = lazy(() => import('./CurrentHourly.jsx'));
+const Currently = lazy(() => import('./Currently.jsx'));
+const Daily = lazy(() => import('./Daily.Currently.jsx'));
+const Header = lazy(() => import('./Header.Currently.jsx'));
+const LastUpdated = lazy(() => import('./LastUpdated.Currently.jsx'));
+const LayoutContainer = lazy(() => import('./LayoutContainer.Currently.jsx'));
+const Loading = lazy(() => import('./Loading.Currently.jsx'));
+const SunriseSunset = lazy(() => import('./SunriseSunset.Currently.jsx'));
+const WeatherAlert = lazy(() => import('./WeatherAlert.Currently.jsx'));
+const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.Currently.jsx'));
 
 dayjs.extend(relativeTime);
 
@@ -43,7 +42,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   const [locationData, setLocationData] = useAtom(locationDataAtom);
   const [weatherData, setWeatherData] = useAtom(weatherDataAtom);
 
-  const [geoState] = useGeolocation({
+  const geoState = useGeolocation({
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 3600000,
@@ -64,20 +63,25 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, []);
 
-  // geoState.onError,
-  // geoState.isSupported,
-  // geoState.isRetrieving,
-  // geoState.position
-
   const handleGeoChange = useCallback(
     (geo) => {
-      if (geo?.position?.coords) {
-        const { latitude, longitude, accuracy } = geo.position.coords;
+      if (geo?.latitude && geo?.longitude) {
+        const {
+          latitude,
+          longitude,
+          accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          speed,
+          timestamp,
+          error,
+        } = geo;
 
-        if (coordinates?.lat && coordinates?.lng) {
+        if (coordinates?.latitude && coordinates?.longitude) {
           if (
-            Number(coordinates.lat).toFixed(6) === latitude.toFixed(6) &&
-            Number(coordinates.lng).toFixed(6) === longitude.toFixed(6) &&
+            Number(coordinates.latitude).toFixed(6) === latitude.toFixed(6) &&
+            Number(coordinates.longitude).toFixed(6) === longitude.toFixed(6) &&
             !isCacheExpired(coordinates.lastUpdated, 5)
           ) {
             // console.log('same coords in cache ttl, no update');
@@ -87,9 +91,15 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
         // console.log('handleGeoChange:', geoState);
 
         setCoordinates({
-          lat: latitude,
-          lng: longitude,
+          latitude,
+          longitude,
           accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          speed,
+          timestamp,
+          error,
           lastUpdated: dayjs().toString(),
         });
       }
@@ -112,9 +122,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
     const getWeatherData = async (latitude, longitude) => {
       const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
-      const weatherApiData = await axios
-        .get(weatherApiUrl)
-        .then((response) => response.data);
+      const weatherApiData = await fetch(weatherApiUrl).then((response) =>
+        response.json()
+      );
       const lastUpdatedString = dayjs().toString();
 
       setWeatherData(weatherApiData.weather);
@@ -122,14 +132,14 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
       setLastUpdated(lastUpdatedString);
     };
 
-    const { lat, lng } = coordinates;
+    const { latitude, longitude } = coordinates;
 
     if (weatherData && lastUpdated) {
       if (isCacheExpired(lastUpdated, 5)) {
-        getWeatherData(lat, lng);
+        getWeatherData(latitude, longitude);
       }
     } else {
-      getWeatherData(lat, lng);
+      getWeatherData(latitude, longitude);
     }
   }, [
     coordinates,
