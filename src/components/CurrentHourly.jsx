@@ -8,15 +8,15 @@ import {
   formatSummary,
   getNextTwentyFourText,
   metricToImperial,
-} from '../modules/helpers';
+} from '../modules/helpers.js';
 
-import { Hour } from './Hour';
-import { NextHour } from './NextHour';
-import { Pill } from './Pill';
+import { Hour } from './Hour.jsx';
+import { NextHour } from './NextHour.jsx';
+import { Pill } from './Pill.jsx';
 
 import './CurrentHourly.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 const hourlyConditionAtom = atom('temperature');
 const maxTempAtom = atom(0);

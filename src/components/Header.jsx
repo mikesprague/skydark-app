@@ -3,15 +3,15 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
-import { openModalWithComponent } from '../modules/helpers';
+import { openModalWithComponent } from '../modules/helpers.js';
 
-import { About } from './About';
-import { Settings } from './Settings';
-import { WeatherMapFull } from './WeatherMapFull';
+import { About } from './About.jsx';
+import { Settings } from './Settings.jsx';
+import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './Header.scss';
 
-import { locationDataAtom } from './App';
+import { locationDataAtom } from './App.jsx';
 
 const locationNameAtom = atom('Acquiring location');
 

@@ -6,14 +6,17 @@ import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { initLeafletImages, openModalWithComponent } from '../modules/helpers';
-import { isDarkModeEnabled } from '../modules/theme';
+import {
+  initLeafletImages,
+  openModalWithComponent,
+} from '../modules/helpers.js';
+import { isDarkModeEnabled } from '../modules/theme.js';
 
-import { WeatherMapFull } from './WeatherMapFull';
+import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './WeatherMapSmall.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 initLeafletImages(L);
 

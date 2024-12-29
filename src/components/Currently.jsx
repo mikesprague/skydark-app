@@ -6,12 +6,12 @@ import {
   formatCondition,
   openModalWithComponent,
   titleCaseAddSpace,
-} from '../modules/helpers';
-import { getWeatherIcon } from '../modules/icons';
+} from '../modules/helpers.js';
+import { getWeatherIcon } from '../modules/icons.js';
 
 import './Currently.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 const currentlyDataAtom = atom(null);
 const summaryAtom = atom(null);

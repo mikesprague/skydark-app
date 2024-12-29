@@ -8,7 +8,7 @@ import './LastUpdated.scss';
 
 dayjs.extend(relativeTime);
 
-import { lastUpdatedAtom } from './App';
+import { lastUpdatedAtom } from './App.jsx';
 
 const lastUpdatedStringAtom = atom(null);
 

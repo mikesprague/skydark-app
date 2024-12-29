@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { defaultAppSettings } from '../modules/settings';
+import { defaultAppSettings } from '../modules/settings.js';
 
 import './Settings.scss';
 

@@ -2,18 +2,18 @@ import dayjs from 'dayjs';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 
-import { PrecipChart } from './PrecipChart';
+import { PrecipChart } from './PrecipChart.jsx';
 
 import {
   capitalizeWord,
   isRaining,
   isSnowing,
   titleCaseToSentenceCase,
-} from '../modules/helpers';
+} from '../modules/helpers.js';
 
 import './NextHour.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 const summaryTextAtom = atom(null);
 const minutesDataAtom = atom(null);

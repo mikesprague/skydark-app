@@ -1,4 +1,4 @@
-import { resetData } from '../modules/local-storage';
+import { resetData } from '../modules/local-storage.js';
 
 export const ErrorView = () => {
   const clickHandler = () => {

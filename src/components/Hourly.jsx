@@ -7,11 +7,11 @@ import {
   formatSummary,
   metricToImperial,
   // titleCaseToSentenceCase,
-} from '../modules/helpers';
+} from '../modules/helpers.js';
 
-import { Hour } from './Hour';
-import { Loading } from './Loading';
-import { Pill } from './Pill';
+import { Hour } from './Hour.jsx';
+import { Loading } from './Loading.jsx';
+import { Pill } from './Pill.jsx';
 
 import './Hourly.scss';
 

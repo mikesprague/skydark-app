@@ -8,11 +8,11 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { openModalWithComponent } from '../modules/helpers';
+import { openModalWithComponent } from '../modules/helpers.js';
 
 import './WeatherAlert.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -57,7 +57,7 @@ export const WeatherAlert = () => {
 
   const weatherAlertHandler = () => {
     openModalWithComponent(
-      <>
+      <div>
         {alertData.map((alert, alertIdx) => (
           <div className="weatherAlertItem" key={nanoid(7)}>
             <h3 className="modal-heading" id="modal-headline">
@@ -110,7 +110,7 @@ export const WeatherAlert = () => {
             )}
           </div>
         ))}
-      </>,
+      </div>,
       {
         position: 'center',
         padding: '1rem',

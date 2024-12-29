@@ -2,11 +2,11 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 import { Chart } from 'react-google-charts';
 
-import { metricToImperial } from '../modules/helpers';
+import { metricToImperial } from '../modules/helpers.js';
 
 import './PrecipChart.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 const chartDataAtom = atom(null);
 

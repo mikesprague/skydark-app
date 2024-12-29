@@ -2,13 +2,13 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 
-import { Day } from './Day';
+import { Day } from './Day.jsx';
 
-import { metricToImperial } from '../modules/helpers';
+import { metricToImperial } from '../modules/helpers.js';
 
 import './Daily.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 const dailyDataAtom = atom(null);
 const minLowAtom = atom(0);

@@ -5,7 +5,7 @@ import { useCallback, useEffect } from 'react';
 
 import './SunriseSunset.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 dayjs.extend(relativeTime);
 

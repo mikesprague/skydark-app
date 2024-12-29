@@ -8,13 +8,13 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { locationDataAtom, weatherDataAtom } from './App';
+import { locationDataAtom, weatherDataAtom } from './App.jsx';
 
 import {
   formatAirQualityHour,
   getAirQualityClass,
   openModalWithComponent,
-} from '../modules/helpers';
+} from '../modules/helpers.js';
 
 import './AirQuality.scss';
 
