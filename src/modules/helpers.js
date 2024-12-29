@@ -7,8 +7,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { initAppSettings } from './settings';
-import { initDarkMode, isDarkModeEnabled } from './theme';
+import { initAppSettings } from './settings.js';
+import { initDarkMode, isDarkModeEnabled } from './theme.js';
 
 const MySwal = withReactContent(Swal);
 
