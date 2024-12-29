@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import dayjs from 'dayjs';
 import { useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
@@ -10,16 +9,16 @@ import {
   formatCondition,
   metricToImperial,
   sleep,
-} from '../modules/helpers';
-import { getWeatherIcon } from '../modules/icons';
-import { getData, isCacheExpired } from '../modules/local-storage';
+} from '../modules/helpers.js';
+import { getWeatherIcon } from '../modules/icons.js';
+import { getData, isCacheExpired } from '../modules/local-storage.js';
 
-import { Hourly } from './Hourly';
-import { Loading } from './Loading';
+import { Hourly } from './Hourly.jsx';
+import { Loading } from './Loading.jsx';
 
 import './Day.scss';
 
-import { weatherDataAtom } from './App';
+import { weatherDataAtom } from './App.jsx';
 
 export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   const [hourlyData, setHourlyData] = useLocalStorageState(
@@ -34,9 +33,9 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   const getDailyWeatherData = async (lat, lng, date) => {
     const endDate = dayjs(date).add(1, 'day').toISOString();
     const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
-    const weatherApiData = await axios
-      .get(weatherApiUrl)
-      .then((response) => response.data);
+    const weatherApiData = await fetch(weatherApiUrl).then((response) =>
+      response.json()
+    );
     // console.log(weatherApiData);
 
     return weatherApiData.weather;
@@ -69,16 +68,16 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
         setHourlyData(null);
 
         const coordinates = getData('coordinates');
-        let { lat, lng } = coordinates;
+        let { latitude, longitude } = coordinates;
 
-        if (!lat || !lng) {
-          lat = weather.currentWeather.metadata.latitude;
-          lng = weather.currentWeather.metadata.longitude;
+        if (!latitude || !longitude) {
+          latitude = weather.currentWeather.metadata.latitude;
+          longitude = weather.currentWeather.metadata.longitude;
         }
 
         const weatherData = await getDailyWeatherData(
-          lat,
-          lng,
+          latitude,
+          longitude,
           midnightAsIsoDate
         );
 
