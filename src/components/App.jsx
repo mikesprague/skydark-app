@@ -23,14 +23,14 @@ export const weatherDataAtom = atomWithStorage('weatherData', null);
 const AirQuality = lazy(() => import('./AirQuality.jsx'));
 const CurrentHourly = lazy(() => import('./CurrentHourly.jsx'));
 const Currently = lazy(() => import('./Currently.jsx'));
-const Daily = lazy(() => import('./Daily.Currently.jsx'));
-const Header = lazy(() => import('./Header.Currently.jsx'));
-const LastUpdated = lazy(() => import('./LastUpdated.Currently.jsx'));
-const LayoutContainer = lazy(() => import('./LayoutContainer.Currently.jsx'));
-const Loading = lazy(() => import('./Loading.Currently.jsx'));
-const SunriseSunset = lazy(() => import('./SunriseSunset.Currently.jsx'));
-const WeatherAlert = lazy(() => import('./WeatherAlert.Currently.jsx'));
-const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.Currently.jsx'));
+const Daily = lazy(() => import('./Daily.jsx'));
+const Header = lazy(() => import('./Header.jsx'));
+const LastUpdated = lazy(() => import('./LastUpdated.jsx'));
+const LayoutContainer = lazy(() => import('./LayoutContainer.jsx'));
+const Loading = lazy(() => import('./Loading.jsx'));
+const SunriseSunset = lazy(() => import('./SunriseSunset.jsx'));
+const WeatherAlert = lazy(() => import('./WeatherAlert.jsx'));
+const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
 
 dayjs.extend(relativeTime);
 
