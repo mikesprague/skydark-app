@@ -9,13 +9,13 @@
     "npm": ">= 11.x"
   },
   "scripts": {
-    "build": "npx vite build",
+    "build": "vite build",
     "clean": "rm -rf ./build",
-    "dev": "npx vite serve",
-    "preview": "npx vite preview",
+    "dev": "vite serve",
+    "preview": "vite preview",
     "start": "cross-env NODE_ENV=development concurrently 'npm run build -- --watch' 'npm run wrangler-pages-dev'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wrangler-pages-dev": "npx wrangler pages dev --live-reload true --local true ./build"
+    "wrangler-pages-dev": "wrangler pages dev --live-reload true --local true ./build"
   },
   "keywords": [],
   "repository": {
