@@ -63,7 +63,9 @@
       "royalblue",
       "skyblue",
       "topleft",
-      "topright"
+      "topright",
+      "uidotdev",
+      "usehooks"
     ]
   }
 }
