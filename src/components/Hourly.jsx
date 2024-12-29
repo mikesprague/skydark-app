@@ -1,7 +1,7 @@
 import { atom, useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   formatSummary,
@@ -15,18 +15,15 @@ import { Pill } from './Pill.jsx';
 
 import './Hourly.scss';
 
-const hourlyConditionToShowAtom = atom('temperature');
-const hourlyDataAtom = atom(null);
 const maxValuesAtom = atom(0);
 const valueRangeAtom = atom(0);
 
 export const Hourly = ({ data, dayData }) => {
+  const [hourlyData, setHourlyData] = useState(null);
+  const [hourlyConditionToShow, setHourlyConditionToShow] =
+    useState('temperature');
   const containerRef = useRef();
 
-  const [hourlyData, setHourlyData] = useAtom(hourlyDataAtom);
-  const [hourlyConditionToShow, setHourlyConditionToShow] = useAtom(
-    hourlyConditionToShowAtom
-  );
   const [maxValue, setMaxValue] = useAtom(maxValuesAtom);
   const [valueRange, setValueRange] = useAtom(valueRangeAtom);
 
@@ -36,7 +33,7 @@ export const Hourly = ({ data, dayData }) => {
     }
 
     setHourlyData(data.data.forecastHourly.hours.slice(0, 23));
-  }, [data, setHourlyData]);
+  }, [data]);
 
   useEffect(() => {
     if (hourlyData) {
