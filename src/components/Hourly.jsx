@@ -15,17 +15,14 @@ import { Pill } from './Pill.jsx';
 
 import './Hourly.scss';
 
-const maxValuesAtom = atom(0);
-const valueRangeAtom = atom(0);
-
 export const Hourly = ({ data, dayData }) => {
   const [hourlyData, setHourlyData] = useState(null);
   const [hourlyConditionToShow, setHourlyConditionToShow] =
     useState('temperature');
   const containerRef = useRef();
 
-  const [maxValue, setMaxValue] = useAtom(maxValuesAtom);
-  const [valueRange, setValueRange] = useAtom(valueRangeAtom);
+  const [maxValue, setMaxValue] = useState(0);
+  const [valueRange, setValueRange] = useState(0);
 
   useEffect(() => {
     if (!data) {
@@ -47,7 +44,7 @@ export const Hourly = ({ data, dayData }) => {
       setMaxValue(max);
       setValueRange(range);
     }
-  }, [hourlyConditionToShow, hourlyData, setMaxValue, setValueRange]);
+  }, [hourlyData, hourlyConditionToShow]);
 
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');
