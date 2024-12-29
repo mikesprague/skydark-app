@@ -18,12 +18,12 @@ import {
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { initLeafletImages } from '../modules/helpers';
-import { isDarkModeEnabled } from '../modules/theme';
+import { initLeafletImages } from '../modules/helpers.js';
+import { isDarkModeEnabled } from '../modules/theme.js';
 
 import './WeatherMapFull.scss';
 
-import { coordinatesAtom, locationDataAtom, weatherDataAtom } from './App';
+import { coordinatesAtom, locationDataAtom, weatherDataAtom } from './App.jsx';
 
 initLeafletImages(L);
 
@@ -131,7 +131,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         <MapContainer
           animate={true}
           boxZoom={true}
-          center={[coordinates.lat, coordinates.lng]}
+          center={[coordinates.latitude, coordinates.longitude]}
           doubleClickZoom={true}
           dragging={true}
           className="weather-map-full"
@@ -142,11 +142,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           zoom={9}
           zoomControl={false}
         >
-          <Marker position={[coordinates.lat, coordinates.lng]}>
+          <Marker position={[coordinates.latitude, coordinates.longitude]}>
             <Popup>{popupAddress}</Popup>
           </Marker>
           <Circle
-            center={[coordinates.lat, coordinates.lng]}
+            center={[coordinates.latitude, coordinates.longitude]}
             pathOptions={{ weight: 1, opacity: 0.5 }}
             radius={coordinates.accuracy}
           />

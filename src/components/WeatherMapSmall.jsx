@@ -59,8 +59,8 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     const coordinates = {
-      lat: weather.currentWeather.metadata.latitude,
-      lng: weather.currentWeather.metadata.longitude,
+      latitude: weather.currentWeather.metadata.latitude,
+      longitude: weather.currentWeather.metadata.longitude,
     };
 
     setLocationCoordinates(coordinates);
@@ -68,11 +68,14 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
 
   return weather ? (
     <div className="small-map-container">
-      {locationCoordinates?.lat ? (
+      {locationCoordinates?.latitude ? (
         // biome-ignore lint/a11y/useValidAnchor: linking the map, button not appropriate
         <a href="#" onClick={mapClickHandler}>
           <MapContainer
-            center={[locationCoordinates.lat, locationCoordinates.lng]}
+            center={[
+              locationCoordinates.latitude,
+              locationCoordinates.longitude,
+            ]}
             doubleClickZoom={false}
             dragging={false}
             id="weather-map-small"
@@ -82,7 +85,10 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
             zoom={7}
           >
             <Marker
-              position={[locationCoordinates.lat, locationCoordinates.lng]}
+              position={[
+                locationCoordinates.latitude,
+                locationCoordinates.longitude,
+              ]}
             />
             <LayersControl position="topright">
               <LayersControl.BaseLayer
