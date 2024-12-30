@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import { useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
-import { useCallback } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import {
@@ -31,7 +30,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
 
   const weather = useAtomValue(weatherDataAtom);
 
-  const getDailyWeatherData = useCallback(async (lat, lng, date) => {
+  const getDailyWeatherData = async (lat, lng, date) => {
     const endDate = dayjs(date).add(1, 'day').toISOString();
     const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
     const weatherApiData = await fetch(weatherApiUrl).then((response) =>
@@ -40,69 +39,66 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
     // console.log(weatherApiData);
 
     return weatherApiData.weather;
-  }, []);
+  };
 
-  const clickHandler = useCallback(
-    async (event) => {
-      const clickedEl = event.target;
-      const allDetails = document.querySelectorAll('details');
-      const currentDetail = clickedEl.closest('details');
-      const currentSummary = clickedEl.closest('summary');
-      const scrollMarker = currentDetail.querySelector('.scroll-marker');
-      const isOpen = currentDetail.getAttribute('open') === null;
-      const date = currentSummary.dataset.time;
-      const midnightAsIsoDate = dayjs(date)
-        .set('hour', 0)
-        .set('minute', 0)
-        .set('second', 0)
-        .set('millisecond', 0)
-        .toISOString();
+  const clickHandler = async (event) => {
+    const clickedEl = event.target;
+    const allDetails = document.querySelectorAll('details');
+    const currentDetail = clickedEl.closest('details');
+    const currentSummary = clickedEl.closest('summary');
+    const scrollMarker = currentDetail.querySelector('.scroll-marker');
+    const isOpen = currentDetail.getAttribute('open') === null;
+    const date = currentSummary.dataset.time;
+    const midnightAsIsoDate = dayjs(date)
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0)
+      .set('millisecond', 0)
+      .toISOString();
 
-      for (const detail of allDetails) {
-        if (detail !== currentDetail) {
-          detail.removeAttribute('open');
-          detail.querySelector('.scroll-marker').classList.add('hidden');
-        }
+    for (const detail of allDetails) {
+      if (detail !== currentDetail) {
+        detail.removeAttribute('open');
+        detail.querySelector('.scroll-marker').classList.add('hidden');
       }
+    }
 
-      if (isOpen) {
-        if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
-          setHourlyData(null);
+    if (isOpen) {
+      if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
+        setHourlyData(null);
 
-          const coordinates = getData('coordinates');
-          let { latitude, longitude } = coordinates;
+        const coordinates = getData('coordinates');
+        let { latitude, longitude } = coordinates;
 
-          if (!latitude || !longitude) {
-            latitude = weather.currentWeather.metadata.latitude;
-            longitude = weather.currentWeather.metadata.longitude;
-          }
-
-          const weatherData = await getDailyWeatherData(
-            latitude,
-            longitude,
-            midnightAsIsoDate
-          );
-
-          setHourlyData({
-            lastUpdated: dayjs().toString(),
-            data: weatherData,
-          });
+        if (!latitude || !longitude) {
+          latitude = weather.currentWeather.metadata.latitude;
+          longitude = weather.currentWeather.metadata.longitude;
         }
 
-        scrollMarker.classList.remove('hidden');
-        sleep(250).then(() => {
-          scrollMarker.scrollIntoView({
-            block: 'start',
-            inline: 'nearest',
-            behavior: 'smooth',
-          });
+        const weatherData = await getDailyWeatherData(
+          latitude,
+          longitude,
+          midnightAsIsoDate
+        );
+
+        setHourlyData({
+          lastUpdated: dayjs().toString(),
+          data: weatherData,
         });
-      } else {
-        scrollMarker.classList.add('hidden');
       }
-    },
-    [getDailyWeatherData, hourlyData, setHourlyData, weather]
-  );
+
+      scrollMarker.classList.remove('hidden');
+      sleep(250).then(() => {
+        scrollMarker.scrollIntoView({
+          block: 'start',
+          inline: 'nearest',
+          behavior: 'smooth',
+        });
+      });
+    } else {
+      scrollMarker.classList.add('hidden');
+    }
+  };
 
   return data ? (
     <details className="day">
