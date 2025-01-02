@@ -41,7 +41,7 @@
     "@fortawesome/pro-solid-svg-icons": "6.7.2",
     "@fortawesome/pro-thin-svg-icons": "6.7.2",
     "@fortawesome/react-fontawesome": "0.2.2",
-    "@sweetalert2/theme-dark": "5.0.20",
+    "@sweetalert2/theme-dark": "5.0.25",
     "@tippyjs/react": "4.2.6",
     "@uidotdev/usehooks": "2.4.1",
     "cross-env": "7.0.3",
