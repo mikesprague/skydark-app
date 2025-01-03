@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
-import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   formatCondition,
@@ -10,27 +9,23 @@ import {
   metricToImperial,
 } from '../modules/helpers.js';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import { Hour } from './Hour.jsx';
 import { NextHour } from './NextHour.jsx';
 import { Pill } from './Pill.jsx';
 
 import './CurrentHourly.scss';
 
-import { weatherDataAtom } from './App.jsx';
-
-const hourlyConditionAtom = atom('temperature');
-const maxTempAtom = atom(0);
-const valueRangeAtom = atom(0);
-
 export const CurrentHourly = () => {
-  const containerRef = useRef();
   const [hourlyConditionToShow, setHourlyConditionToShow] =
-    useAtom(hourlyConditionAtom);
+    useState('temperature');
+  const containerRef = useRef();
 
-  const weather = useAtomValue(weatherDataAtom);
+  const { weatherData: weather } = useWeatherDataContext();
 
-  const [maxValue, setMaxValue] = useAtom(maxTempAtom);
-  const [valueRange, setValueRange] = useAtom(valueRangeAtom);
+  const [maxValue, setMaxValue] = useState(0);
+  const [valueRange, setValueRange] = useState(0);
 
   useEffect(() => {
     if (!weather) {
@@ -46,7 +41,7 @@ export const CurrentHourly = () => {
 
     setMaxValue(max);
     setValueRange(range);
-  }, [hourlyConditionToShow, setMaxValue, setValueRange, weather]);
+  }, [hourlyConditionToShow, weather]);
 
   const changeHandler = (event) => {
     const lastSelected = containerRef.current.querySelector('.pill-selected');

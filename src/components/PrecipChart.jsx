@@ -1,19 +1,16 @@
-import { atom, useAtom, useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 
 import { metricToImperial } from '../modules/helpers.js';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import './PrecipChart.scss';
 
-import { weatherDataAtom } from './App.jsx';
-
-const chartDataAtom = atom(null);
-
 export const PrecipChart = () => {
-  const [chartData, setChartData] = useAtom(chartDataAtom);
+  const [chartData, setChartData] = useState(null);
 
-  const weather = useAtomValue(weatherDataAtom);
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather) {
@@ -43,7 +40,7 @@ export const PrecipChart = () => {
       setChartData(null);
       index = 0;
     };
-  }, [setChartData, weather]);
+  }, [weather]);
 
   return chartData ? (
     <Chart

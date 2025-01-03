@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import { useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import useLocalStorageState from 'use-local-storage-state';
 
@@ -13,12 +12,12 @@ import {
 import { getWeatherIcon } from '../modules/icons.js';
 import { getData, isCacheExpired } from '../modules/local-storage.js';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import { Hourly } from './Hourly.jsx';
 import { Loading } from './Loading.jsx';
 
 import './Day.scss';
-
-import { weatherDataAtom } from './App.jsx';
 
 export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   const [hourlyData, setHourlyData] = useLocalStorageState(
@@ -28,7 +27,7 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
     }
   );
 
-  const weather = useAtomValue(weatherDataAtom);
+  const { wetherData: weather } = useWeatherDataContext();
 
   const getDailyWeatherData = async (lat, lng, date) => {
     const endDate = dayjs(date).add(1, 'day').toISOString();

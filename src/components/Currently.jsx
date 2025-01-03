@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { atom, useAtom, useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   formatCondition,
@@ -9,17 +8,15 @@ import {
 } from '../modules/helpers.js';
 import { getWeatherIcon } from '../modules/icons.js';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import './Currently.scss';
 
-import { weatherDataAtom } from './App.jsx';
-
-const currentlyDataAtom = atom(null);
-const summaryAtom = atom(null);
-
 export const Currently = () => {
-  const [currentData, setCurrentData] = useAtom(currentlyDataAtom);
-  const [summary, setSummary] = useAtom(summaryAtom);
-  const weather = useAtomValue(weatherDataAtom);
+  const [currentData, setCurrentData] = useState(null);
+  const [summary, setSummary] = useState(null);
+
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather) {
@@ -27,7 +24,7 @@ export const Currently = () => {
     }
 
     setCurrentData(weather);
-  }, [setCurrentData, weather]);
+  }, [weather]);
 
   useEffect(() => {
     if (!weather) {
@@ -36,7 +33,7 @@ export const Currently = () => {
     const summaryText = weather.currentWeather.conditionCode;
 
     setSummary(summaryText);
-  }, [setSummary, weather]);
+  }, [weather]);
 
   const clickHandler = () => {
     openModalWithComponent(

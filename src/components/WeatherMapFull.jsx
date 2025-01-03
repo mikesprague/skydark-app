@@ -1,8 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import { atom, useAtom, useAtomValue } from 'jotai';
+import L from 'leaflet';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   AttributionControl,
   Circle,
@@ -14,16 +20,13 @@ import {
   TileLayer,
   ZoomControl,
 } from 'react-leaflet';
-
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { initLeafletImages } from '../modules/helpers.js';
+import { getData } from '../modules/local-storage.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 
 import './WeatherMapFull.scss';
-
-import { coordinatesAtom, locationDataAtom, weatherDataAtom } from './App.jsx';
 
 initLeafletImages(L);
 
@@ -33,35 +36,27 @@ initLeafletImages(L);
 // transparent="true"
 // /> */}
 
-const popupAddressAtom = atom(null);
-const tsDataAtom = atom(null);
-const tsAtom = atom(null);
-const rangeValueAtom = atom(null);
-const rangeMaxValueAtom = atom(null);
-const radarMapUrlAtom = atom(null);
-const isPlayingAtom = atom(false);
-
 export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const timerHandle = useRef();
   const rangeSliderRef = useRef();
 
-  const [popupAddress, setPopupAddress] = useAtom(popupAddressAtom);
-  const [tsData, setTsData] = useAtom(tsDataAtom);
-  const [ts, setTs] = useAtom(tsAtom);
-  const [rangeValue, setRangeValue] = useAtom(rangeValueAtom);
-  const [rangeMaxValue, setRangeMaxValue] = useAtom(rangeMaxValueAtom);
-  const [radarMapUrl, setRadarMapUrl] = useAtom(radarMapUrlAtom);
-  const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
+  const coordinates = getData('coordinates');
 
-  const coordinates = useAtomValue(coordinatesAtom);
-  const locationData = useAtomValue(locationDataAtom);
-  const weatherData = useAtomValue(weatherDataAtom);
-  const { radarData } = weatherData;
+  const [popupAddress, setPopupAddress] = useState(null);
+  const [tsData, setTsData] = useState(null);
+  const [ts, setTs] = useState(null);
+  const [rangeValue, setRangeValue] = useState(null);
+  const [rangeMaxValue, setRangeMaxValue] = useState(null);
+  const [radarMapUrl, setRadarMapUrl] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
+    const locationData = getData('locationData');
+    const { radarData } = getData('weatherData');
+
     setTsData([...radarData.past, ...radarData.nowcast]);
     setPopupAddress(locationData.formattedAddress);
-  }, [locationData, radarData, setPopupAddress, setTsData]);
+  }, []);
 
   useEffect(() => {
     if (!tsData) {
@@ -71,7 +66,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     setTs(tsData[12]);
     setRangeValue(12);
     setRangeMaxValue(tsData.length - 1);
-  }, [setRangeMaxValue, setRangeValue, setTs, tsData]);
+  }, [tsData]);
 
   useLayoutEffect(() => {
     if (!ts) {
@@ -81,7 +76,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     setRadarMapUrl(
       `https://tilecache.rainviewer.com${ts.path}/512/{z}/{x}/{y}/8/1_1.png`
     );
-  }, [setRadarMapUrl, ts]);
+  }, [ts]);
 
   const radarTileLayerRef = useRef();
 
@@ -99,7 +94,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
       );
       setRangeValue(value);
     },
-    [setRadarMapUrl, setRangeValue, setTs, tsData]
+    [tsData]
   );
 
   const rangeSliderHandler = (event) => {
@@ -123,7 +118,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
         advanceRangeSlider(nextVal);
       }, 500);
     }
-  }, [advanceRangeSlider, isPlaying, rangeMaxValue, setIsPlaying]);
+  }, [advanceRangeSlider, isPlaying, rangeMaxValue]);
 
   return tsData && ts ? (
     <>

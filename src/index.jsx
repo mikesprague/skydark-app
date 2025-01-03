@@ -5,8 +5,10 @@ import BugsnagPluginReact from '@bugsnag/plugin-react';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { App } from './components/App';
-import { ErrorView } from './components/ErrorView';
+import { App } from './components/App.jsx';
+import { ErrorView } from './components/ErrorView.jsx';
+
+import { WeatherDataProvider } from './contexts/WeatherDataContext.jsx';
 
 import { initSkyDark, openToastWithContent } from './modules/helpers';
 import { resetData } from './modules/local-storage';
@@ -26,9 +28,11 @@ const root = createRoot(container);
 root.render(
   <ErrorBoundary FallbackComponent={ErrorView}>
     <StrictMode>
-      <App
-        OPENWEATHERMAP_API_KEY={import.meta.env.VITE_OPENWEATHERMAP_API_KEY}
-      />
+      <WeatherDataProvider>
+        <App
+          OPENWEATHERMAP_API_KEY={import.meta.env.VITE_OPENWEATHERMAP_API_KEY}
+        />
+      </WeatherDataProvider>
     </StrictMode>
   </ErrorBoundary>
 );

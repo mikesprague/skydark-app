@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import { atom, useAtom, useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import { PrecipChart } from './PrecipChart.jsx';
 
@@ -13,21 +14,13 @@ import {
 
 import './NextHour.scss';
 
-import { weatherDataAtom } from './App.jsx';
-
-const summaryTextAtom = atom(null);
-const minutesDataAtom = atom(null);
-const nextHourPrecipitationAtom = atom(false);
-const longSummaryTextAtom = atom(null);
-
 export const NextHour = () => {
-  const [summaryText, setSummaryText] = useAtom(summaryTextAtom);
-  const [minutesData, setMinutesData] = useAtom(minutesDataAtom);
-  const [nextHourPrecipitation, setNextHourPrecipitation] = useAtom(
-    nextHourPrecipitationAtom
-  );
-  const [longSummaryText, setLongSummaryText] = useAtom(longSummaryTextAtom);
-  const weather = useAtomValue(weatherDataAtom);
+  const [summaryText, setSummaryText] = useState(null);
+  const [minutesData, setMinutesData] = useState(null);
+  const [nextHourPrecipitation, setNextHourPrecipitation] = useState(false);
+  const [longSummaryText, setLongSummaryText] = useState(null);
+
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather) {
@@ -72,7 +65,7 @@ export const NextHour = () => {
     }
 
     return () => setSummaryText(null);
-  }, [setMinutesData, setSummaryText, weather]);
+  }, [weather]);
 
   useEffect(() => {
     if (!summaryText || !minutesData) {
@@ -110,12 +103,7 @@ export const NextHour = () => {
     }
 
     return () => setNextHourPrecipitation(false);
-  }, [
-    weather.forecastNextHour.summary,
-    minutesData,
-    setNextHourPrecipitation,
-    summaryText,
-  ]);
+  }, [weather.forecastNextHour.summary, minutesData, summaryText]);
 
   useEffect(() => {
     if (!summaryText || !weather) {
@@ -182,7 +170,7 @@ export const NextHour = () => {
     } else {
       setLongSummaryText(`${summaryText} for the hour`);
     }
-  }, [weather, nextHourPrecipitation, setLongSummaryText, summaryText]);
+  }, [weather, nextHourPrecipitation, summaryText]);
 
   return longSummaryText || summaryText ? (
     <>

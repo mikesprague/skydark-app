@@ -1,29 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import { openModalWithComponent } from '../modules/helpers.js';
 
 import './WeatherAlert.scss';
-
-import { weatherDataAtom } from './App.jsx';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
-const alertDataAtom = atom(null);
-
 export const WeatherAlert = () => {
-  const [alertData, setAlertData] = useAtom(alertDataAtom);
+  const [alertData, setAlertData] = useState(null);
 
-  const weather = useAtomValue(weatherDataAtom);
+  const { weatherData: weather } = useWeatherDataContext();
 
   useEffect(() => {
     if (!weather.weatherAlertsData || !weather.weatherAlertsData.length) {
@@ -37,7 +34,7 @@ export const WeatherAlert = () => {
     return () => {
       setAlertData(null);
     };
-  }, [setAlertData, weather]);
+  }, [weather]);
 
   const formatAlert = (alert) => {
     let alertParts = alert.includes('\n* ')

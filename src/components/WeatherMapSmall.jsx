@@ -1,6 +1,5 @@
-import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
@@ -12,22 +11,18 @@ import {
 } from '../modules/helpers.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './WeatherMapSmall.scss';
 
-import { weatherDataAtom } from './App.jsx';
-
 initLeafletImages(L);
 
-const locationCoordinatesAtom = atom(null);
-
 export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [locationCoordinates, setLocationCoordinates] = useAtom(
-    locationCoordinatesAtom
-  );
+  const [locationCoordinates, setLocationCoordinates] = useState(null);
 
-  const weather = useAtomValue(weatherDataAtom);
+  const { weatherData: weather } = useWeatherDataContext();
 
   const mapClickHandler = useCallback(
     (e) => {
@@ -67,7 +62,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     };
 
     setLocationCoordinates(coordinates);
-  }, [setLocationCoordinates, weather]);
+  }, [weather]);
 
   return weather ? (
     <div className="small-map-container">

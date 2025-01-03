@@ -1,7 +1,5 @@
 import { useGeolocation } from '@uidotdev/usehooks';
 import dayjs from 'dayjs';
-import { useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import PropTypes from 'prop-types';
 import { Suspense, lazy, useCallback, useEffect, useMemo } from 'react';
 
@@ -12,13 +10,10 @@ import { apiUrl } from '../modules/helpers.js';
 import { initIcons } from '../modules/icons.js';
 import { isCacheExpired } from '../modules/local-storage.js';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import 'sweetalert2/src/sweetalert2.scss';
 import './App.scss';
-
-export const coordinatesAtom = atomWithStorage('coordinates', null);
-export const lastUpdatedAtom = atomWithStorage('lastUpdated', null);
-export const locationDataAtom = atomWithStorage('locationData', null);
-export const weatherDataAtom = atomWithStorage('weatherData', null);
 
 const AirQuality = lazy(() => import('./AirQuality.jsx'));
 const CurrentHourly = lazy(() => import('./CurrentHourly.jsx'));
@@ -37,14 +32,19 @@ dayjs.extend(relativeTime);
 initIcons();
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [coordinates, setCoordinates] = useAtom(coordinatesAtom);
-  const [lastUpdated, setLastUpdated] = useAtom(lastUpdatedAtom);
-  const [locationData, setLocationData] = useAtom(locationDataAtom);
-  const [weatherData, setWeatherData] = useAtom(weatherDataAtom);
+  const {
+    setWeatherData,
+    setLastUpdated,
+    setLocationData,
+    weatherData,
+    locationData,
+    lastUpdated,
+    coordinates,
+    setCoordinates,
+  } = useWeatherDataContext();
 
   const geoState = useGeolocation({
     enableHighAccuracy: true,
-    timeout: 5000,
     maximumAge: 3600000,
   });
 

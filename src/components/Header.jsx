@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { openModalWithComponent } from '../modules/helpers.js';
 
@@ -9,16 +8,15 @@ import { About } from './About.jsx';
 import { Settings } from './Settings.jsx';
 import { WeatherMapFull } from './WeatherMapFull.jsx';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+
 import './Header.scss';
 
-import { locationDataAtom } from './App.jsx';
-
-const locationNameAtom = atom('Acquiring location');
-
 export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
+  const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
-  const [locationName, setLocationName] = useAtom(locationNameAtom);
-  const location = useAtomValue(locationDataAtom);
+
+  const { locationData: location } = useWeatherDataContext();
 
   const dontAnimateModalConfig = {
     showClass: {
@@ -62,7 +60,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     setLocationName(location.locationName);
-  }, [location, setLocationName]);
+  }, [location]);
 
   useLayoutEffect(() => {
     const initScroll = () => {

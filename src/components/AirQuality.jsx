@@ -1,14 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import { atom, useAtom, useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { locationDataAtom, weatherDataAtom } from './App.jsx';
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import {
   formatAirQualityHour,
@@ -23,12 +22,10 @@ dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 dayjs.extend(advancedFormat);
 
-const apiDataAtom = atom(null);
-
 export const AirQuality = () => {
-  const [aqiData, setAqiData] = useAtom(apiDataAtom);
-  const weather = useAtomValue(weatherDataAtom);
-  const location = useAtomValue(locationDataAtom);
+  const [aqiData, setAqiData] = useState(null);
+  const { weatherData: weather, locationData: location } =
+    useWeatherDataContext();
 
   useEffect(() => {
     if (!weather.airQualityData || !weather.airQualityData.length) {
@@ -38,7 +35,7 @@ export const AirQuality = () => {
     }
 
     setAqiData(weather.airQualityData);
-  }, [setAqiData, weather]);
+  }, [weather]);
 
   const airQualityHandler = () => {
     openModalWithComponent(

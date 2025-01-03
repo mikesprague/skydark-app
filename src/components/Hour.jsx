@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import { atom, useAtom } from 'jotai';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
@@ -25,8 +24,6 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
-const hourlyConditionToShowAtom = atom('temperature');
-
 export const Hour = ({
   data,
   dayData,
@@ -37,12 +34,12 @@ export const Hour = ({
   valueRange,
   maxValue,
 }) => {
-  const [hourlyConditionToShow, setHourlyConditionToShow] = useAtom(
-    hourlyConditionToShowAtom
-  );
+  const [hourlyConditionToShow, setHourlyConditionToShow] =
+    useState('temperature');
+
   useEffect(() => {
     setHourlyConditionToShow(conditionToShow);
-  }, [conditionToShow, setHourlyConditionToShow]);
+  }, [conditionToShow]);
 
   const clickHandler = useCallback(() => {
     openModalWithComponent(
@@ -327,8 +324,10 @@ export const Hour = ({
           ].includes(conditionToShow)
             ? {
                 marginRight: `${
-                  (maxValue -
-                    Math.round(metricToImperial.cToF(data[conditionToShow]))) *
+                  (
+                    maxValue -
+                      Math.round(metricToImperial.cToF(data[conditionToShow]))
+                  ) *
                   (100 / valueRange) *
                   0.05
                 }rem`,
