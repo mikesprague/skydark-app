@@ -10,8 +10,8 @@ import { ErrorView } from './components/ErrorView.jsx';
 
 import { WeatherDataProvider } from './contexts/WeatherDataContext.jsx';
 
-import { initSkyDark, openToastWithContent } from './modules/helpers';
-import { resetData } from './modules/local-storage';
+import { initSkyDark, openToastWithContent } from './modules/helpers.js';
+import { resetData } from './modules/local-storage.js';
 
 import './index.scss';
 
