@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import { useCallback } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import {
@@ -27,18 +28,22 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
     }
   );
 
-  const { wetherData: weather } = useWeatherDataContext();
+  const { weatherData: weather } = useWeatherDataContext();
 
-  const getDailyWeatherData = async (lat, lng, date) => {
-    const endDate = dayjs(date).add(1, 'day').toISOString();
-    const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
-    const weatherApiData = await fetch(weatherApiUrl).then((response) =>
-      response.json()
-    );
-    // console.log(weatherApiData);
+  const getDailyWeatherData = useCallback(async (lat, lng, date) => {
+    try {
+      const endDate = dayjs(date).add(1, 'day').toISOString();
+      const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
+      const weatherApiData = await fetch(weatherApiUrl).then((response) =>
+        response.json()
+      );
 
-    return weatherApiData.weather;
-  };
+      return weatherApiData.weather;
+    } catch (error) {
+      console.error('Failed to fetch daily weather data:', error);
+      return null;
+    }
+  }, []);
 
   const clickHandler = async (event) => {
     const clickedEl = event.target;
