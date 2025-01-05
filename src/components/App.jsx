@@ -1,4 +1,3 @@
-import { useGeolocation } from '@uidotdev/usehooks';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { Suspense, lazy, useCallback, useEffect, useMemo } from 'react';
@@ -36,17 +35,13 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     setWeatherData,
     setLastUpdated,
     setLocationData,
+    setCoordinates,
     weatherData,
     locationData,
     lastUpdated,
     coordinates,
-    setCoordinates,
+    geoState,
   } = useWeatherDataContext();
-
-  const geoState = useGeolocation({
-    enableHighAccuracy: true,
-    maximumAge: 3600000,
-  });
 
   // clean up old localStorage data
   useEffect(() => {
@@ -63,8 +58,8 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, []);
 
-  const handleGeoChange = useCallback(
-    (geo) => {
+  const handleGeoChange = useMemo(
+    () => (geo) => {
       if (geo?.latitude && geo?.longitude) {
         const {
           latitude,

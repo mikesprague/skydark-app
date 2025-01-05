@@ -91,7 +91,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
             <LayersControl position="topright">
               <LayersControl.BaseLayer
                 name="Dark"
-                checked={isDarkModeEnabled() ? 'checked' : ''}
+                checked={isDarkModeEnabled()}
               >
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
@@ -112,7 +112,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
               </LayersControl.BaseLayer>
               <LayersControl.BaseLayer
                 name="Light"
-                checked={isDarkModeEnabled() ? '' : 'checked'}
+                checked={!isDarkModeEnabled()}
               >
                 <TileLayer
                   url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"

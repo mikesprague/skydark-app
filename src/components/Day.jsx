@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import {
@@ -45,64 +45,67 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
     }
   }, []);
 
-  const clickHandler = async (event) => {
-    const clickedEl = event.target;
-    const allDetails = document.querySelectorAll('details');
-    const currentDetail = clickedEl.closest('details');
-    const currentSummary = clickedEl.closest('summary');
-    const scrollMarker = currentDetail.querySelector('.scroll-marker');
-    const isOpen = currentDetail.getAttribute('open') === null;
-    const date = currentSummary.dataset.time;
-    const midnightAsIsoDate = dayjs(date)
-      .set('hour', 0)
-      .set('minute', 0)
-      .set('second', 0)
-      .set('millisecond', 0)
-      .toISOString();
+  const clickHandler = useMemo(
+    () => async (event) => {
+      const clickedEl = event.target;
+      const allDetails = document.querySelectorAll('details');
+      const currentDetail = clickedEl.closest('details');
+      const currentSummary = clickedEl.closest('summary');
+      const scrollMarker = currentDetail.querySelector('.scroll-marker');
+      const isOpen = currentDetail.getAttribute('open') === null;
+      const date = currentSummary.dataset.time;
+      const midnightAsIsoDate = dayjs(date)
+        .set('hour', 0)
+        .set('minute', 0)
+        .set('second', 0)
+        .set('millisecond', 0)
+        .toISOString();
 
-    for (const detail of allDetails) {
-      if (detail !== currentDetail) {
-        detail.removeAttribute('open');
-        detail.querySelector('.scroll-marker').classList.add('hidden');
+      for (const detail of allDetails) {
+        if (detail !== currentDetail) {
+          detail.removeAttribute('open');
+          detail.querySelector('.scroll-marker').classList.add('hidden');
+        }
       }
-    }
 
-    if (isOpen) {
-      if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
-        setHourlyData(null);
+      if (isOpen) {
+        if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
+          setHourlyData(null);
 
-        const coordinates = getData('coordinates');
-        let { latitude, longitude } = coordinates;
+          const coordinates = getData('coordinates');
+          let { latitude, longitude } = coordinates;
 
-        if (!latitude || !longitude) {
-          latitude = weather.currentWeather.metadata.latitude;
-          longitude = weather.currentWeather.metadata.longitude;
+          if (!latitude || !longitude) {
+            latitude = weather.currentWeather.metadata.latitude;
+            longitude = weather.currentWeather.metadata.longitude;
+          }
+
+          const weatherData = await getDailyWeatherData(
+            latitude,
+            longitude,
+            midnightAsIsoDate
+          );
+
+          setHourlyData({
+            lastUpdated: dayjs().toString(),
+            data: weatherData,
+          });
         }
 
-        const weatherData = await getDailyWeatherData(
-          latitude,
-          longitude,
-          midnightAsIsoDate
-        );
-
-        setHourlyData({
-          lastUpdated: dayjs().toString(),
-          data: weatherData,
+        scrollMarker.classList.remove('hidden');
+        sleep(250).then(() => {
+          scrollMarker.scrollIntoView({
+            block: 'start',
+            inline: 'nearest',
+            behavior: 'smooth',
+          });
         });
+      } else {
+        scrollMarker.classList.add('hidden');
       }
-
-      scrollMarker.classList.remove('hidden');
-      sleep(250).then(() => {
-        scrollMarker.scrollIntoView({
-          block: 'start',
-          inline: 'nearest',
-          behavior: 'smooth',
-        });
-      });
-    } else {
-      scrollMarker.classList.add('hidden');
-    }
-  };
+    },
+    [hourlyData, setHourlyData, weather, getDailyWeatherData]
+  );
 
   return data ? (
     <details className="day">

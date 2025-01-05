@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   formatSummary,
@@ -45,20 +45,23 @@ export const Hourly = ({ data, dayData }) => {
     }
   }, [hourlyData, hourlyConditionToShow]);
 
-  const changeHandler = (event) => {
-    const lastSelected = containerRef.current.querySelector('.pill-selected');
-    const newSelection = event.target;
+  const changeHandler = useMemo(
+    () => (event) => {
+      const lastSelected = containerRef.current.querySelector('.pill-selected');
+      const newSelection = event.target;
 
-    setHourlyConditionToShow(newSelection.dataset.label);
-    newSelection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center',
-    });
-    lastSelected.classList.add('pill');
-    lastSelected.classList.remove('pill-selected');
-    newSelection.classList.add('pill-selected');
-  };
+      setHourlyConditionToShow(newSelection.dataset.label);
+      newSelection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+      lastSelected.classList.add('pill');
+      lastSelected.classList.remove('pill-selected');
+      newSelection.classList.add('pill-selected');
+    },
+    []
+  );
 
   return hourlyData ? (
     <div className="hourly-container">

@@ -37,19 +37,19 @@ export const WeatherAlert = () => {
   }, [weather]);
 
   const formatAlert = (alert) => {
-    let alertParts = alert.includes('\n* ')
-      ? alert.split('\n* ')
-      : alert.split('...\n');
-
-    alertParts = alertParts.map((alertPart, idx) => {
-      if (idx === 0) {
-        return alertPart.replace(/\.\.\./g, ' ').trim();
-      }
-
-      return `${alertPart.replace(/\.\.\./, ': ').trim()}\n\n`;
-    });
-
-    return alertParts;
+    return alert.includes('\n* ')
+      ? alert.split('\n* ').map((alertPart, idx) => {
+          if (idx === 0) {
+            return alertPart.replace(/\.\.\./g, ' ').trim();
+          }
+          return `${alertPart.replace(/\.\.\./, ': ').trim()}\n\n`;
+        })
+      : alert.split('...\n').map((alertPart, idx) => {
+          if (idx === 0) {
+            return alertPart.replace(/\.\.\./g, ' ').trim();
+          }
+          return `${alertPart.replace(/\.\.\./, ': ').trim()}\n\n`;
+        });
   };
 
   const weatherAlertHandler = () => {

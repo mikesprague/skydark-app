@@ -19,12 +19,11 @@ export const LastUpdated = () => {
       return;
     }
 
-    const updateString = () => {
+    const clockInterval = setInterval(() => {
       setLastUpdatedString(dayjs(dayjs(lastUpdated)).from());
-    };
-    const clockInterval = setInterval(updateString, 10 * 1000);
+    }, 10 * 1000);
 
-    updateString();
+    setLastUpdatedString(dayjs(dayjs(lastUpdated)).from());
 
     return () => clearInterval(clockInterval);
   }, [lastUpdated]);
