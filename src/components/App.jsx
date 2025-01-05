@@ -139,11 +139,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
     const { latitude, longitude } = coordinates;
 
-    if (weatherData && lastUpdated) {
-      if (isCacheExpired(lastUpdated, 5)) {
-        getWeatherData(latitude, longitude);
-      }
-    } else {
+    if (!weatherData || !lastUpdated || isCacheExpired(lastUpdated, 5)) {
       getWeatherData(latitude, longitude);
     }
   }, [coordinates, lastUpdated, weatherData, getWeatherData]);
@@ -157,7 +153,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     [lastUpdated, locationData, weatherData]
   );
 
-  return weatherData && locationData ? (
+  return weatherData &&
+    locationData &&
+    !isCacheExpired(coordinates.lastUpdated, 5) ? (
     <Suspense fallback={<Loading fullHeight={true} />}>
       <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
       <LayoutContainer>
