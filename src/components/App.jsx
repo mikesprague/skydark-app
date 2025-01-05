@@ -84,11 +84,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
             Number(coordinates.longitude).toFixed(6) === longitude.toFixed(6) &&
             !isCacheExpired(coordinates.lastUpdated, 5)
           ) {
-            // console.log('same coords in cache ttl, no update');
             return;
           }
         }
-        // console.log('handleGeoChange:', geoState);
 
         setCoordinates({
           latitude,
@@ -115,22 +113,29 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     handleGeoChange(geoState);
   }, [coordinates, geoState, handleGeoChange]);
 
+  const getWeatherData = useCallback(
+    async (latitude, longitude) => {
+      try {
+        const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
+        const weatherApiData = await fetch(weatherApiUrl).then((response) =>
+          response.json()
+        );
+        const lastUpdatedString = dayjs().toString();
+
+        setWeatherData(weatherApiData.weather);
+        setLocationData(weatherApiData.location);
+        setLastUpdated(lastUpdatedString);
+      } catch (error) {
+        console.error('Failed to fetch weather data:', error);
+      }
+    },
+    [setWeatherData, setLocationData, setLastUpdated]
+  );
+
   useEffect(() => {
     if (!coordinates) {
       return;
     }
-
-    const getWeatherData = async (latitude, longitude) => {
-      const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
-      const weatherApiData = await fetch(weatherApiUrl).then((response) =>
-        response.json()
-      );
-      const lastUpdatedString = dayjs().toString();
-
-      setWeatherData(weatherApiData.weather);
-      setLocationData(weatherApiData.location);
-      setLastUpdated(lastUpdatedString);
-    };
 
     const { latitude, longitude } = coordinates;
 
@@ -141,14 +146,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     } else {
       getWeatherData(latitude, longitude);
     }
-  }, [
-    coordinates,
-    lastUpdated,
-    weatherData,
-    setWeatherData,
-    setLastUpdated,
-    setLocationData,
-  ]);
+  }, [coordinates, lastUpdated, weatherData, getWeatherData]);
 
   const _returnData = useMemo(
     () => ({
