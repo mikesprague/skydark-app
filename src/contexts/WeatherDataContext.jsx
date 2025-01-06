@@ -1,16 +1,9 @@
-import { useGeolocation } from '@uidotdev/usehooks';
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 export const WeatherDataContext = createContext(null);
 
 export const WeatherDataProvider = ({ children }) => {
-  const geoState = useGeolocation({
-    enableHighAccuracy: true,
-    maximumAge: 3600000,
-    timeout: 10000,
-  });
-
   const [coordinates, setCoordinates] = useLocalStorageState('coordinates', {
     defaultValue: null,
   });
@@ -24,8 +17,6 @@ export const WeatherDataProvider = ({ children }) => {
   const [lastUpdated, setLastUpdated] = useLocalStorageState('lastUpdated', {
     defaultValue: null,
   });
-
-  const geoStateData = useMemo(() => geoState, [geoState]);
 
   const handleSetWeatherData = useCallback(
     (data) => setWeatherData(data),
@@ -50,7 +41,6 @@ export const WeatherDataProvider = ({ children }) => {
       locationData,
       lastUpdated,
       coordinates,
-      geoState: geoStateData,
       setWeatherData: handleSetWeatherData,
       setLocationData: handleSetLocationData,
       setLastUpdated: handleSetLastUpdated,
@@ -61,7 +51,6 @@ export const WeatherDataProvider = ({ children }) => {
       locationData,
       lastUpdated,
       coordinates,
-      geoStateData,
       handleSetWeatherData,
       handleSetLocationData,
       handleSetLastUpdated,

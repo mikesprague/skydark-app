@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { Suspense, lazy, useCallback, useEffect, useMemo } from 'react';
+import { useGeolocated } from 'react-geolocated';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 // import utc from 'dayjs/plugin/utc';
@@ -40,8 +41,16 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     locationData,
     lastUpdated,
     coordinates,
-    geoState,
   } = useWeatherDataContext();
+
+  const geoState = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: true,
+      maximumAge: 3600000,
+      timeout: Number.POSITIVE_INFINITY,
+    },
+    watchPosition: false,
+  });
 
   // clean up old localStorage data
   useEffect(() => {
@@ -60,7 +69,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
   const handleGeoChange = useMemo(
     () => (geo) => {
-      if (geo?.latitude && geo?.longitude) {
+      if (geo?.coords?.latitude && geo?.coords?.longitude) {
         const {
           latitude,
           longitude,
@@ -69,8 +78,13 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
           altitudeAccuracy,
           heading,
           speed,
+        } = geo.coords;
+        const {
           timestamp,
-          error,
+          positionError,
+          // getPosition,
+          isGeolocationAvailable,
+          isGeolocationEnabled,
         } = geo;
 
         if (coordinates?.latitude && coordinates?.longitude) {
@@ -92,7 +106,9 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
           heading,
           speed,
           timestamp,
-          error,
+          positionError,
+          isGeolocationAvailable,
+          isGeolocationEnabled,
           lastUpdated: dayjs().toString(),
         });
       }
