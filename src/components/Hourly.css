@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 details {
   .hourly-container {
     @apply py-3;

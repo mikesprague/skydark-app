@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useCallback, useEffect, useState } from 'react';
 
-import './SunriseSunset.scss';
+import './SunriseSunset.css';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 

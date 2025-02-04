@@ -26,7 +26,7 @@ import { initLeafletImages } from '../modules/helpers.js';
 import { getData } from '../modules/local-storage.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 
-import './WeatherMapFull.scss';
+import './WeatherMapFull.css';
 
 initLeafletImages(L);
 

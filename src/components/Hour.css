@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .hour {
   @apply flex;
   @apply w-full;
@@ -10,7 +12,7 @@
   .hour-wrap {
     @apply flex;
     @apply flex-wrap;
-    width: 94%;
+    @apply w-[94%];
 
     &::after {
       @apply flex-grow;
@@ -22,8 +24,9 @@
       @apply dark:border-gray-600;
       @apply border-solid;
       @apply border-b;
+      @apply top-[-1.66rem];
+
       content: '';
-      top: -1.66rem;
     }
   }
 
@@ -43,7 +46,7 @@
     @apply order-2;
     @apply flex-grow-0;
     @apply w-15;
-    // width: 3.75rem;
+    /* width: 3.75rem;widthwidthwidthwidth */
   }
 
   .one-line {
@@ -60,10 +63,10 @@
     @apply text-sm;
     @apply flex-grow-0;
     @apply order-3;
-    // @apply -mr-3;
+    /* @apply -mr-3; */
     @apply italic;
     @apply whitespace-pre-line;
-    // max-width: 6rem !important;
+    /* max-width: 6rem !important;max-widthmax-widthmax-widthmax-widthmax-width */
   }
 
   .condition {

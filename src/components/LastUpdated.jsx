@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
-import './LastUpdated.scss';
+import './LastUpdated.css';
 
 dayjs.extend(relativeTime);
 

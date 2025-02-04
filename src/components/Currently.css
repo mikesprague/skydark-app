@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .current-conditions {
   @apply w-full;
   @apply flex;
@@ -24,6 +26,7 @@
 
   .icon {
     @apply text-right;
+
     margin-top: -0.1rem;
   }
 }

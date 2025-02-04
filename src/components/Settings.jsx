@@ -3,7 +3,7 @@ import useLocalStorageState from 'use-local-storage-state';
 
 import { defaultAppSettings } from '../modules/settings.js';
 
-import './Settings.scss';
+import './Settings.css';
 
 export const Settings = () => {
   const [_appSettings, _setAppSettings] = useLocalStorageState('appSettings', {

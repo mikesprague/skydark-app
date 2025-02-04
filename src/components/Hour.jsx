@@ -18,7 +18,7 @@ import {
 
 import { getWeatherIcon } from '../modules/icons.js';
 
-import './Hour.scss';
+import './Hour.css';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

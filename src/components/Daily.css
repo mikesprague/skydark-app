@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .daily-container {
   overflow-x: clip;
 }
@@ -52,7 +54,7 @@
       line-height: 1.125 !important;
 
       .temps-spacer {
-        // @apply h-6;
+        /* @apply h-6; */
         @apply mx-2;
         @apply bg-gray-100;
         @apply rounded-full;
@@ -81,16 +83,4 @@
       }
     }
   }
-
-  // details {
-  //   transition: height 1s ease-in-out;transitiontransition
-
-  //   &:not([open]) {
-  //     height: 4rem;heightheight
-  //   }
-
-  //   &[open] {
-  //     height: 40.25rem;heightheight
-  //   }
-  // }
 }

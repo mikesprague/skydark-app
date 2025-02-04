@@ -1,0 +1,20 @@
+@reference "../index.css";
+
+.small-map-container {
+  padding: 0.5rem;
+}
+
+.small-map-container  #weather-map-small {
+  height: 8rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  z-index: 0;
+}
+
+.small-map-container .leaflet-pane {
+  z-index: 0;
+}
+
+.small-map-container .leaflet-control-container {
+  display: none;
+}

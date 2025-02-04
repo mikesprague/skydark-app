@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --spacing-xxs: 1.5px;
+  --spacing-15: 3.75rem;
+  --inset-shadow-15: 3.75rem;
+}
+
+.swal2-html-container {
+  padding: 0 !important;
+}

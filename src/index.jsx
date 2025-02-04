@@ -13,7 +13,7 @@ import { WeatherDataProvider } from './contexts/WeatherDataContext.jsx';
 import { initSkyDark, openToastWithContent } from './modules/helpers.js';
 import { resetData } from './modules/local-storage.js';
 
-import './index.scss';
+import './index.css';
 
 Bugsnag.start({
   apiKey: `${import.meta.env.VITE_BUGSNAG_CLIENT_API_KEY}`,

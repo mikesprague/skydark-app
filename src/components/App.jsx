@@ -12,8 +12,8 @@ import { isCacheExpired } from '../modules/local-storage.js';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
-import 'sweetalert2/src/sweetalert2.scss';
-import './App.scss';
+import 'sweetalert2/dist/sweetalert2.css';
+import './App.css';
 
 const AirQuality = lazy(() => import('./AirQuality.jsx'));
 const CurrentHourly = lazy(() => import('./CurrentHourly.jsx'));

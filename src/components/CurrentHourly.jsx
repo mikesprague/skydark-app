@@ -15,7 +15,7 @@ import { Hour } from './Hour.jsx';
 import { NextHour } from './NextHour.jsx';
 import { Pill } from './Pill.jsx';
 
-import './CurrentHourly.scss';
+import './CurrentHourly.css';
 
 export const CurrentHourly = () => {
   const [hourlyConditionToShow, setHourlyConditionToShow] =

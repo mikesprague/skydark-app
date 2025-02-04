@@ -1,0 +1,80 @@
+.modal-heading {
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+#aqi-headline {
+  color: var(--color-orange-400);
+}
+
+.aqi-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.aqi-container {
+  text-align: center;
+  overflow-wrap: break-word;
+  margin-top: -0.4rem;
+}
+
+.aqi-bubble {
+  line-height: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-weight: 500;
+  border-width: 1px;
+  border-radius: 9999px;
+  color: var(--color-white);
+}
+
+.aqi-bubble:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.aqi-color-good {
+  background-color: var(--color-lime-600);
+  border-color: var(--color-lime-600);
+}
+
+.aqi-color-moderate {
+  background-color: var(--color-yellow-400);
+  border-color: var(--color-yellow-400);
+}
+
+.aqi-color-unhealthy-for-sensitive-groups {
+  background-color: var(--color-orange-600);
+  border-color: var(--color-orange-600);
+}
+
+.aqi-color-unhealthy {
+  background-color: var(--color-red-700);
+  border-color: var(--color-red-700);
+}
+
+.aqi-color-very-unhealthy {
+  background-color: var(--color-fuchsia-800);
+  border-color: var(--color-fuchsia-800);
+}
+
+.aqi-color-hazardous {
+  background-color: var(--color-rose-900);
+  border-color: var(--color-rose-900);
+}
+
+.aqi-modal-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.aqi-modal-item {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  width: 50%;
+}

@@ -5,7 +5,7 @@ import { Day } from './Day.jsx';
 
 import { metricToImperial } from '../modules/helpers.js';
 
-import './Daily.scss';
+import './Daily.css';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 

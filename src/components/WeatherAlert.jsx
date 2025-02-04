@@ -11,7 +11,7 @@ import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import { openModalWithComponent } from '../modules/helpers.js';
 
-import './WeatherAlert.scss';
+import './WeatherAlert.css';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

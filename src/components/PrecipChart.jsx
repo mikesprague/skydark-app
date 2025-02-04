@@ -5,7 +5,7 @@ import { metricToImperial } from '../modules/helpers.js';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
-import './PrecipChart.scss';
+import './PrecipChart.css';
 
 export const PrecipChart = () => {
   const [chartData, setChartData] = useState(null);

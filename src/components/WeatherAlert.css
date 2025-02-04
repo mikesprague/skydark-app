@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .modal-heading {
   @apply mb-3;
   @apply text-lg;

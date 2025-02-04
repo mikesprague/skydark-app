@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .current-hourly-container,
 .hourly-container {
   @apply p-3;
@@ -8,6 +10,7 @@
   @apply flex;
   @apply w-full;
   @apply overflow-x-auto;
+
   scrollbar-width: none;
 
   &::-webkit-scrollbar {

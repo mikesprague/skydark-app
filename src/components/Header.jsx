@@ -10,7 +10,7 @@ import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
-import './Header.scss';
+import './Header.css';
 
 export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const [locationName, setLocationName] = useState('Acquiring location');

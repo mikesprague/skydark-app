@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .condition-select-container {
   .pill,
   .pill-selected {
@@ -17,8 +19,8 @@
 
   .pill {
     @apply text-blue-400;
-    // @apply bg-transparent;
-    @apply bg-opacity-0;
+    /* @apply bg-transparent; */
+    @apply bg-black/0;
     @apply border-blue-400;
     @apply cursor-pointer;
   }

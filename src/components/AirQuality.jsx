@@ -15,7 +15,7 @@ import {
   openModalWithComponent,
 } from '../modules/helpers.js';
 
-import './AirQuality.scss';
+import './AirQuality.css';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

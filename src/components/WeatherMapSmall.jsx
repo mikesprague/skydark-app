@@ -15,7 +15,7 @@ import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import { WeatherMapFull } from './WeatherMapFull.jsx';
 
-import './WeatherMapSmall.scss';
+import './WeatherMapSmall.css';
 
 initLeafletImages(L);
 

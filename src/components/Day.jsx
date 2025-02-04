@@ -18,7 +18,7 @@ import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { Hourly } from './Hourly.jsx';
 import { Loading } from './Loading.jsx';
 
-import './Day.scss';
+import './Day.css';
 
 export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   const [hourlyData, setHourlyData] = useLocalStorageState(

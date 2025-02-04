@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 .sunrise-sunset-time {
   font-size: 1.05rem;
   @apply mb-3;

@@ -10,7 +10,7 @@ import { getWeatherIcon } from '../modules/icons.js';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
-import './Currently.scss';
+import './Currently.css';
 
 export const Currently = () => {
   const [currentData, setCurrentData] = useState(null);

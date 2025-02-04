@@ -1,7 +1,8 @@
 export default {
-  extends: ['stylelint-config-standard', 'stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard'],
   rules: {
-    'scss/at-rule-no-unknown': [
+    'at-rule-no-deprecated': null,
+    'at-rule-no-unknown': [
       true,
       {
         ignoreAtRules: [
@@ -10,11 +11,13 @@ export default {
           'variants',
           'responsive',
           'screen',
+          'theme',
+          'plugin',
+          'utility',
         ],
       },
     ],
     'no-descending-specificity': null,
     'no-empty-source': null,
-    'at-rule-no-unknown': null,
   },
 };

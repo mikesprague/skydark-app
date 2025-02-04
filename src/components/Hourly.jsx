@@ -12,7 +12,7 @@ import { Hour } from './Hour.jsx';
 import { Loading } from './Loading.jsx';
 import { Pill } from './Pill.jsx';
 
-import './Hourly.scss';
+import './Hourly.css';
 
 export const Hourly = ({ data, dayData }) => {
   const [hourlyData, setHourlyData] = useState(null);

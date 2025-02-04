@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 
-import './Pill.scss';
+import './Pill.css';
 
 export const Pill = ({ clickHandler, dataLabel, label, selected }) => (
-  <div className={selected ? 'pill-selected' : 'pill'} onClick={clickHandler} data-label={dataLabel}>
+  <div
+    className={selected ? 'pill-selected' : 'pill'}
+    onClick={clickHandler}
+    data-label={dataLabel}
+  >
     {label}
   </div>
 );

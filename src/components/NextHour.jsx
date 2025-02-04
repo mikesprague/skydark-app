@@ -12,7 +12,7 @@ import {
   titleCaseToSentenceCase,
 } from '../modules/helpers.js';
 
-import './NextHour.scss';
+import './NextHour.css';
 
 export const NextHour = () => {
   const [summaryText, setSummaryText] = useState(null);

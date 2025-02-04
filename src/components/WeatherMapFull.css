@@ -1,7 +1,9 @@
+@reference "../index.css";
+
 .slider-container {
   @apply bg-gray-300;
   @apply dark:bg-black;
-  @apply bg-opacity-60;
+  @apply bg-black/60;
   @apply h-10;
   @apply w-11/12;
   @apply mx-auto;
@@ -21,9 +23,8 @@
 
     .value-label {
       @apply mt-xxs;
-      @apply text-gray-800;
+      @apply text-gray-800/75;
       @apply dark:text-gray-100;
-      @apply text-opacity-75;
       @apply text-sm;
       @apply font-semibold;
       @apply mr-2;
@@ -36,9 +37,8 @@
       @apply bg-gray-400;
       @apply dark:bg-gray-700;
       @apply border;
-      @apply border-gray-200;
+      @apply border-gray-200/60;
       @apply dark:border-black;
-      @apply border-opacity-60;
       @apply text-gray-800;
       @apply dark:text-gray-100;
       @apply ml-2;
@@ -49,7 +49,9 @@
     }
 
     .range-slider {
+      appearance: none !important;
       -webkit-appearance: none !important;
+
       @apply border;
       @apply border-gray-300;
       @apply dark:border-gray-900;
@@ -61,7 +63,9 @@
       @apply my-2;
 
       &::-webkit-slider-runnable-track {
+        appearance: none;
         -webkit-appearance: none;
+
         @apply bg-gray-100;
         @apply dark:bg-gray-900;
         @apply w-full;
@@ -70,13 +74,14 @@
       }
 
       &::-webkit-slider-thumb {
+        appearance: none;
         -webkit-appearance: none;
+
         @apply bg-gray-400;
         @apply dark:bg-gray-700;
         @apply border;
-        @apply border-gray-200;
+        @apply border-gray-200/60;
         @apply dark:border-black;
-        @apply border-opacity-60;
         @apply rounded-sm;
         @apply h-6;
         @apply w-6;
@@ -142,22 +147,20 @@
     @apply dark:border-gray-700;
     @apply bg-gray-100;
     @apply dark:bg-black;
-    @apply bg-opacity-60;
-    @apply text-gray-800;
-    @apply dark:text-gray-100;
-    @apply text-opacity-75;
+    @apply bg-black/60;
+    @apply text-gray-800/75;
+    @apply dark:text-gray-100/75;
 
     a,
     a:hover {
-      @apply text-gray-800;
-      @apply dark:text-gray-100;
-      @apply text-opacity-75;
+      @apply text-gray-800/75;
+      @apply dark:text-gray-100/75;
     }
   }
 
-  // .leaflet-control-layers-overlays > label:nth-child(1) {
-  //   @apply hidden;
-  // }
+  /* .leaflet-control-layers-overlays > label:nth-child(1) {
+    @apply hidden;
+  } */
 
   .leaflet-control-attribution {
     @apply right-3;
