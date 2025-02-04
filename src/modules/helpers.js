@@ -46,8 +46,10 @@ const defaultModalConfig = {
   showCloseButton: true,
   showConfirmButton: false,
   allowOutsideClick: true,
-  background: isDarkModeEnabled() ? 'rgb(24, 24, 27)' : 'rgb(228 228 231)',
-  color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+  background: isDarkModeEnabled()
+    ? 'var(--color-gray-900)'
+    : 'var(--color-gray-50)',
+  color: isDarkModeEnabled() ? 'var(--text-gray-100)' : 'var(--text-gray-900)',
   backdrop: true,
   position: 'top',
   heightAuto: true,
@@ -71,8 +73,10 @@ const defaultToastConfig = {
   toast: true,
   position: 'top',
   allowEscapeKey: false,
-  background: isDarkModeEnabled() ? 'rgb(39 39 42)' : 'rgb(228 228 231)',
-  color: isDarkModeEnabled() ? 'rgb(244 244 245)' : 'rgb(24 24 27)',
+  background: isDarkModeEnabled()
+    ? 'var(--color-gray-700)'
+    : 'var(--color-gray-200)',
+  color: isDarkModeEnabled() ? 'var(--text-gray-50)' : 'var(--text-gray-900)',
 };
 
 export const openModalWithComponent = (componentToShow, config = null) => {
