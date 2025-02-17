@@ -46,7 +46,7 @@
     "cross-env": "7.0.3",
     "dayjs": "1.11.13",
     "dotenv": "16.4.7",
-    "jose": "5.9.6",
+    "jose": "5.10.0",
     "leaflet": "1.9.4",
     "nanoid": "5.0.9",
     "prop-types": "15.8.1",
