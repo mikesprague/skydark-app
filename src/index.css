@@ -1,9 +1,9 @@
-@import "tailwindcss";
+@import "tailwindcss" theme(static);
 
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 
-@theme {
+@theme static {
   --color-gray-50: var(--color-zinc-50);
   --color-gray-100: var(--color-zinc-100);
   --color-gray-200: var(--color-zinc-200);
