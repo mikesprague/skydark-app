@@ -1,20 +1,19 @@
 {
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "**/.devcontainer/*",
-      "**/.git/*",
-      "**/.github/*",
-      "**/.history/*",
-      "**/.wrangler/*",
-      "**/.vscode/*",
-      "**/node_modules/*",
-      "**/public/*"
+    "includes": [
+      "**",
+      "!**/.devcontainer/**/*",
+      "!**/.git/**/*",
+      "!**/.github/**/*",
+      "!**/.history/**/*",
+      "!**/.wrangler/**/*",
+      "!**/.vscode/**/*",
+      "!**/node_modules/**/*",
+      "!**/public/**/*"
     ]
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -23,11 +22,19 @@
         "useKeyWithClickEvents": "off"
       },
       "style": {
-        "useBlockStatements": "error"
+        "useBlockStatements": "error",
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
       },
-      "correctness": {
-        "all": true
-      }
+      "correctness": {}
     }
   },
   "formatter": {
@@ -49,7 +56,7 @@
       "quoteProperties": "preserve",
       "quoteStyle": "single",
       "semicolons": "always",
-      "trailingComma": "es5"
+      "trailingCommas": "es5"
     }
   }
 }
