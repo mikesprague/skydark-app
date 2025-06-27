@@ -45,7 +45,7 @@
     "@tippyjs/react": "4.2.6",
     "cross-env": "7.0.3",
     "dayjs": "1.11.13",
-    "dotenv": "16.5.0",
+    "dotenv": "16.6.0",
     "jose": "6.0.11",
     "leaflet": "1.9.4",
     "nanoid": "5.1.5",
