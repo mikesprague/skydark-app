@@ -43,7 +43,7 @@
     "@fortawesome/react-fontawesome": "3.0.2",
     "@sweetalert2/theme-dark": "5.0.27",
     "@tippyjs/react": "4.2.6",
-    "cross-env": "10.0.0",
+    "cross-env": "10.1.0",
     "dayjs": "1.11.18",
     "dotenv": "17.2.3",
     "jose": "6.1.0",
