@@ -40,7 +40,7 @@
     "@fortawesome/pro-regular-svg-icons": "7.1.0",
     "@fortawesome/pro-solid-svg-icons": "7.1.0",
     "@fortawesome/pro-thin-svg-icons": "7.1.0",
-    "@fortawesome/react-fontawesome": "3.0.2",
+    "@fortawesome/react-fontawesome": "3.1.0",
     "@sweetalert2/theme-dark": "5.0.27",
     "@tippyjs/react": "4.2.6",
     "cross-env": "10.1.0",
