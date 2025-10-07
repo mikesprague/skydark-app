@@ -56,7 +56,7 @@
     "react-geolocated": "4.3.0",
     "react-google-charts": "5.2.1",
     "react-leaflet": "5.0.0",
-    "sweetalert2": "11.23.0",
+    "sweetalert2": "11.24.0",
     "sweetalert2-react-content": "5.1.0",
     "tippy.js": "6.3.7",
     "use-local-storage-state": "19.5.0"
