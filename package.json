@@ -46,7 +46,7 @@
     "cross-env": "10.1.0",
     "dayjs": "1.11.19",
     "dotenv": "17.2.3",
-    "jose": "6.1.0",
+    "jose": "6.1.1",
     "leaflet": "1.9.4",
     "nanoid": "5.1.6",
     "prop-types": "15.8.1",
@@ -81,7 +81,11 @@
     "wrangler": "4.46.0"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -94,7 +98,7 @@
     }
   },
   "volta": {
-    "node": "23.5.0",
-    "npm": "11.0.0"
+    "node": "25.1.0",
+    "npm": "11.6.2"
   }
 }
