@@ -18,7 +18,7 @@ export const AirQuality = () => {
     useWeatherDataContext();
 
   useEffect(() => {
-    if (!weather?.airQualityData || !weather.airQualityData.length) {
+    if (!weather?.airQualityData?.length) {
       setAqiData(null);
       return;
     }
