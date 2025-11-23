@@ -118,64 +118,60 @@ export const Day = ({
 
   return data ? (
     <details className="day" open={isExpanded}>
-      <summary data-time={data.forecastStart} onClick={clickHandler}>
+      <summary
+        data-time={data.forecastStart}
+        onClick={clickHandler}
+        className="flex grow"
+      >
         <div
           ref={scrollMarkerRef}
           className={`relative w-0 h-0 text-transparent scroll-marker -top-12 ${isExpanded ? '' : 'hidden'}`}
         >
           &nbsp;
         </div>
-        <div className="flex grow">
-          <div className="name">
-            <strong>
-              {dayIndex === 0
-                ? 'TODAY'
-                : dayjs(data.forecastStart).format('ddd').toUpperCase()}
-            </strong>
-            <br />
-            <span className="precip">
-              <FontAwesomeIcon icon={['fad', 'droplet']} />
-              {` ${formatCondition(
-                data.precipitationChance,
-                'precipitationChance'
-              )}`}
-            </span>
-          </div>
-          <div className="icon">
-            <FontAwesomeIcon
-              icon={[
-                'fad',
-                getWeatherIcon(data.daytimeForecast.conditionCode).icon,
-              ]}
-              style={
-                getWeatherIcon(data.daytimeForecast.conditionCode).iconStyles
-              }
-              size="2x"
-              fixedWidth
-            />
-          </div>
-          <div
-            className="temps"
+        <div className="name">
+          <strong>
+            {dayIndex === 0
+              ? 'TODAY'
+              : dayjs(data.forecastStart).format('ddd').toUpperCase()}
+          </strong>
+          <br />
+          <span className="precip">
+            <FontAwesomeIcon icon={['fad', 'droplet']} />
+            {` ${formatCondition(
+              data.precipitationChance,
+              'precipitationChance'
+            )}`}
+          </span>
+        </div>
+        <div className="icon">
+          <FontAwesomeIcon
+            icon={[
+              'fad',
+              getWeatherIcon(data.daytimeForecast.conditionCode).icon,
+            ]}
+            style={
+              getWeatherIcon(data.daytimeForecast.conditionCode).iconStyles
+            }
+            size="2x"
+            fixedWidth
+          />
+        </div>
+        <div
+          className="temps"
+          style={{
+            position: 'relative',
+            left: `${((Math.round(metricToImperial.cToF(data.temperatureMin)) - minLow) / (maxHigh - minLow)) * 50}%`,
+          }}
+        >
+          {formatCondition(data.temperatureMin, 'temperature').trim()}
+          <span
+            className="temps-spacer"
             style={{
-              position: 'relative',
-              left: `${Math.round(
-                Math.round(metricToImperial.cToF(data.temperatureMin)) - minLow
-              )}%`,
+              width: `${((metricToImperial.cToF(data.temperatureMax) - metricToImperial.cToF(data.temperatureMin)) / (maxHigh - minLow)) * 50}%`,
             }}
-          >
-            {formatCondition(data.temperatureMin, 'temperature').trim()}
-            <span
-              className="temps-spacer"
-              style={{
-                width: `${Math.round(
-                  (metricToImperial.cToF(data.temperatureMax) -
-                    metricToImperial.cToF(data.temperatureMin)) *
-                    (50 / (maxHigh - minLow))
-                )}%`,
-              }}
-            />
-            {formatCondition(data.temperatureMax, 'temperature').trim()}
-          </div>
+          />
+          {formatCondition(data.temperatureMax, 'temperature').trim()}
         </div>
       </summary>
       {fetchError ? (
