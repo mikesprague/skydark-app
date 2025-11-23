@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { use, useEffect } from 'react';
+import { use, useEffect, useMemo } from 'react';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { createWeatherResource } from '../lib/api/resources.js';
@@ -15,8 +15,11 @@ export const WeatherDataLoader = ({ latitude, longitude, children }) => {
   const { setWeatherData, setLocationData, setLastUpdated } =
     useWeatherDataContext();
 
-  // Create weather resource - use() will suspend until data is ready
-  const weatherResource = createWeatherResource(apiUrl(), latitude, longitude);
+  // Create weather resource - memoized to prevent recreating on every render
+  const weatherResource = useMemo(
+    () => createWeatherResource(apiUrl(), latitude, longitude),
+    [latitude, longitude]
+  );
 
   // Consume the resource with use() hook
   const data = use(weatherResource);

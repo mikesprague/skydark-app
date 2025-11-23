@@ -24,8 +24,6 @@ export default defineConfig({
       manifestFilename: 'skydark.webmanifest',
       workbox: {
         navigateFallbackDenylist: [/^\/api/],
-        clientsClaim: true,
-        skipWaiting: true,
         cleanupOutdatedCaches: true,
       },
       devOptions: {

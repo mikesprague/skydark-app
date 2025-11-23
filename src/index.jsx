@@ -37,25 +37,27 @@ root.render(
   </ErrorBoundary>
 );
 
-registerSW({
+const updateSW = registerSW({
   onNeedRefresh() {
     openToastWithContent({
       icon: 'info',
       title: 'Sky Dark Updated',
-      text: 'Click this message to reload',
-      timer: 10000,
+      text: 'New content available, click Reload to update.',
       showConfirmButton: true,
       confirmButtonText: 'Reload',
+      showCancelButton: true,
+      cancelButtonText: 'Later',
+      allowOutsideClick: false,
     }).then((result) => {
-      // Only reload if user clicked the button, not on timer close
       if (result.isConfirmed) {
         resetData();
-        window.location.reload(true);
+        updateSW(true);
       }
     });
   },
-  onOfflineReady() {},
-  // immediate: true,
+  onOfflineReady() {
+    console.log('App ready to work offline');
+  },
 });
 
 initSkyDark();

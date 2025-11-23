@@ -40,8 +40,7 @@ export const createWeatherResource = (apiUrl, lat, lng, options = {}) => {
   // Create new fetch promise
   const promise = fetchWeatherData(apiUrl, lat, lng, options)
     .then((data) => {
-      // Cache the normalized data
-      setCachedData(cacheKey, data);
+      // Don't cache here - fetchWeatherData already handles caching
       // Clean up resource cache
       resourceCache.delete(cacheKey);
       return data;

@@ -85,9 +85,9 @@ export const openModalWithComponent = (componentToShow, config = null) => {
 };
 
 export const openToastWithContent = (config) => {
-  MySwal.fire({
-    ...config,
+  return MySwal.fire({
     ...defaultToastConfig,
+    ...config,
   });
 };
 
