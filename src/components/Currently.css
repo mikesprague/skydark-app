@@ -4,6 +4,10 @@
   @apply w-full;
   @apply flex;
   @apply leading-10;
+  @apply p-0;
+  @apply border-0;
+  @apply bg-transparent;
+  @apply text-left;
 
   .temperature {
     .actual-temp {

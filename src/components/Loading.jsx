@@ -2,15 +2,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 export const Loading = ({ fullHeight }) => {
-  let classList = 'flex items-center justify-center h-100 w-100 loading-container';
-
-  if (fullHeight) {
-    classList = `${classList} min-h-screen`;
-  }
+  const classList = fullHeight
+    ? 'flex items-center justify-center min-h-screen w-full'
+    : 'flex items-center justify-center h-full w-full';
 
   return (
     <div className={classList}>
-      <FontAwesomeIcon icon={['fad', 'spinner']} size="3x" className="m-8" pulse />
+      <FontAwesomeIcon
+        icon={['fad', 'spinner']}
+        size="3x"
+        className="m-8"
+        pulse
+      />
     </div>
   );
 };

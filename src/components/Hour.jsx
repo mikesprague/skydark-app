@@ -1,17 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
 
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import utc from 'dayjs/plugin/utc.js';
+import { calculateMargin } from '../lib/conditions/ranges.js';
+import { dayjs } from '../lib/time/dayjs.js';
 
 import {
   formatCondition,
   getConditionBarClass,
   getUvIndexClasses,
-  metricToImperial,
   openModalWithComponent,
   titleCaseAddSpace,
 } from '../modules/helpers.js';
@@ -19,10 +16,6 @@ import {
 import { getWeatherIcon } from '../modules/icons.js';
 
 import './Hour.css';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(relativeTime);
 
 export const Hour = ({
   data,
@@ -314,29 +307,18 @@ export const Hour = ({
         <div className="summary one-line">
           {titleCaseAddSpace(summary.trim())}
         </div>
-        <div className="spacer">&nbsp;</div>
       </div>
       <div
         className="condition"
         onClick={clickHandler}
-        style={
-          [
-            'temperature',
-            'temperatureApparent',
-            'temperatureDewPoint',
-          ].includes(conditionToShow)
-            ? {
-                marginRight: `${
-                  (
-                    maxValue -
-                      Math.round(metricToImperial.cToF(data[conditionToShow]))
-                  ) *
-                  (100 / valueRange) *
-                  0.05
-                }rem`,
-              }
-            : {}
-        }
+        style={{
+          marginRight: `${calculateMargin(
+            data[conditionToShow],
+            conditionToShow,
+            maxValue,
+            valueRange
+          )}rem`,
+        }}
       >
         <span
           className={

@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
-import { useCallback, useEffect, useState } from 'react';
-import { LayersControl, MapContainer, Marker, TileLayer } from 'react-leaflet';
-
 import L from 'leaflet';
+import PropTypes from 'prop-types';
+import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import {
   initLeafletImages,
   openModalWithComponent,
 } from '../modules/helpers.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import { WeatherMapFull } from './WeatherMapFull.jsx';
 
@@ -20,9 +18,30 @@ import './WeatherMapSmall.css';
 initLeafletImages(L);
 
 export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
-  const [locationCoordinates, setLocationCoordinates] = useState(null);
+  const radarTileLayerRef = useRef();
 
   const { weatherData: weather } = useWeatherDataContext();
+
+  const { locationCoordinates, radarMapUrl } = useMemo(() => {
+    if (!weather) {
+      return { locationCoordinates: null, radarMapUrl: null };
+    }
+
+    const coordinates = {
+      latitude: weather.currentWeather.metadata.latitude,
+      longitude: weather.currentWeather.metadata.longitude,
+    };
+
+    let url = null;
+    // Set the radar URL from the most recent past data
+    if (weather.radarData?.past?.length > 0) {
+      const latestRadar =
+        weather.radarData.past[weather.radarData.past.length - 1];
+      url = `https://tilecache.rainviewer.com${latestRadar.path}/512/{z}/{x}/{y}/8/1_1.png`;
+    }
+
+    return { locationCoordinates: coordinates, radarMapUrl: url };
+  }, [weather]);
 
   const mapClickHandler = useCallback(
     (e) => {
@@ -51,24 +70,16 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     [OPENWEATHERMAP_API_KEY]
   );
 
-  useEffect(() => {
-    if (!weather) {
-      return;
+  useLayoutEffect(() => {
+    if (radarTileLayerRef.current && radarMapUrl) {
+      radarTileLayerRef.current.setUrl(radarMapUrl);
     }
-
-    const coordinates = {
-      latitude: weather.currentWeather.metadata.latitude,
-      longitude: weather.currentWeather.metadata.longitude,
-    };
-
-    setLocationCoordinates(coordinates);
-  }, [weather]);
+  }, [radarMapUrl]);
 
   return weather ? (
     <div className="small-map-container">
       {locationCoordinates?.latitude ? (
-        // biome-ignore lint/a11y/useValidAnchor: linking the map, button not appropriate
-        <a href="#" onClick={mapClickHandler}>
+        <div className="map-wrapper" onClick={mapClickHandler}>
           <MapContainer
             center={[
               locationCoordinates.latitude,
@@ -82,106 +93,31 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
             touchZoom={false}
             zoom={7}
           >
+            <TileLayer
+              url={
+                isDarkModeEnabled()
+                  ? 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+                  : 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+              }
+              attribution={
+                '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
+              }
+            />
+            {radarMapUrl && (
+              <TileLayer
+                url={radarMapUrl}
+                opacity={0.9}
+                ref={radarTileLayerRef}
+              />
+            )}
             <Marker
               position={[
                 locationCoordinates.latitude,
                 locationCoordinates.longitude,
               ]}
             />
-            <LayersControl position="topright">
-              <LayersControl.BaseLayer
-                name="Dark"
-                checked={isDarkModeEnabled()}
-              >
-                <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Color">
-                <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_all/{z}/{x}/{y}.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer
-                name="Light"
-                checked={!isDarkModeEnabled()}
-              >
-                <TileLayer
-                  url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Street">
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Street (Gray)">
-                <TileLayer
-                  url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Black/White">
-                <TileLayer
-                  url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Black/White/Gray">
-                <TileLayer
-                  url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.BaseLayer name="Watercolor">
-                <TileLayer
-                  url="https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"
-                  opacity={1}
-                  attribution={
-                    '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
-                  }
-                />
-              </LayersControl.BaseLayer>
-              <LayersControl.Overlay name="Radar" checked>
-                <TileLayer
-                  url={`https://tilecache.rainviewer.com/${
-                    weather.radarData.past[weather.radarData.past.length - 1]
-                      .path
-                  }/512/{z}/{x}/{y}/8/1_1.png`}
-                  opacity={0.9}
-                  attribution={
-                    '&copy; <a href="https://rainviewer.com/" rel="noopener noreferrer" target="_blank">RainViewer</a>'
-                  }
-                />
-              </LayersControl.Overlay>
-            </LayersControl>
           </MapContainer>
-        </a>
+        </div>
       ) : (
         ''
       )}

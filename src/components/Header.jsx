@@ -1,14 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { openModalWithComponent } from '../modules/helpers.js';
-
 import { About } from './About.jsx';
 import { Settings } from './Settings.jsx';
 import { WeatherMapFull } from './WeatherMapFull.jsx';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import './Header.css';
 
@@ -88,15 +85,27 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
           {` ${locationName}`}
         </h1>
       </div>
-      <div className="flex-spacer">&nbsp;</div>
+      <div className="flex-spacer" />
       <div className="icons">
-        <button type="button" href="#" onClick={mapIconClickHandler}>
+        <button
+          type="button"
+          onClick={mapIconClickHandler}
+          aria-label="Open map"
+        >
           <FontAwesomeIcon icon={['fad', 'map-location-dot']} fixedWidth />
         </button>
-        <button type="button" href="#" onClick={settingsIconClickHandler}>
+        <button
+          type="button"
+          onClick={settingsIconClickHandler}
+          aria-label="Open settings"
+        >
           <FontAwesomeIcon icon={['fad', 'gear']} fixedWidth />
         </button>
-        <button type="button" href="#" onClick={aboutIconClickHandler}>
+        <button
+          type="button"
+          onClick={aboutIconClickHandler}
+          aria-label="About Sky Dark"
+        >
           <FontAwesomeIcon icon={['fad', 'circle-info']} fixedWidth />
         </button>
       </div>

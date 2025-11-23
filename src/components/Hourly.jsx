@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
+import { calculateConditionRange } from '../lib/conditions/ranges.js';
 import {
   formatSummary,
-  metricToImperial,
   // titleCaseToSentenceCase,
 } from '../modules/helpers.js';
 
@@ -15,39 +15,30 @@ import { Pill } from './Pill.jsx';
 import './Hourly.css';
 
 export const Hourly = ({ data, dayData }) => {
-  const [hourlyData, setHourlyData] = useState(null);
   const [hourlyConditionToShow, setHourlyConditionToShow] =
     useState('temperature');
   const containerRef = useRef();
 
-  const [maxValue, setMaxValue] = useState(0);
-  const [valueRange, setValueRange] = useState(0);
-
-  useEffect(() => {
+  const { hourlyData, maxValue, valueRange } = useMemo(() => {
     if (!data) {
-      return;
+      return { hourlyData: null, maxValue: 0, valueRange: 0 };
     }
 
-    setHourlyData(data.data.forecastHourly.hours.slice(0, 23));
-  }, [data]);
+    const hourlyData = data.data.forecastHourly.hours.slice(0, 23);
+    const rangeData = calculateConditionRange(
+      hourlyData,
+      hourlyConditionToShow
+    );
 
-  useEffect(() => {
-    if (hourlyData) {
-      const allValues = hourlyData
-        .slice(0, 23)
-        .map((hour) => hour[hourlyConditionToShow]);
-      const max = metricToImperial.cToF(Math.max(...allValues));
-      const min = metricToImperial.cToF(Math.min(...allValues));
-      const range = max - min;
-
-      setMaxValue(max);
-      setValueRange(range);
-    }
-  }, [hourlyData, hourlyConditionToShow]);
+    return {
+      hourlyData,
+      maxValue: rangeData.maxValue,
+      valueRange: rangeData.effectiveRange,
+    };
+  }, [data, hourlyConditionToShow]);
 
   const changeHandler = useMemo(
     () => (event) => {
-      const lastSelected = containerRef.current.querySelector('.pill-selected');
       const newSelection = event.target;
 
       setHourlyConditionToShow(newSelection.dataset.label);
@@ -56,9 +47,6 @@ export const Hourly = ({ data, dayData }) => {
         block: 'nearest',
         inline: 'center',
       });
-      lastSelected.classList.add('pill');
-      lastSelected.classList.remove('pill-selected');
-      newSelection.classList.add('pill-selected');
     },
     []
   );
@@ -98,57 +86,67 @@ export const Hourly = ({ data, dayData }) => {
         <Pill
           dataLabel="temperature"
           label="Temp (&deg;F)"
-          selected={true}
+          selected={hourlyConditionToShow === 'temperature'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="temperatureApparent"
           label="Feels-Like (&deg;F)"
+          selected={hourlyConditionToShow === 'temperatureApparent'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="precipitationChance"
           label="Precip Prob (%)"
+          selected={hourlyConditionToShow === 'precipitationChance'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="precipitationIntensity"
           label="Precip Rate (IN/HR)"
+          selected={hourlyConditionToShow === 'precipitationIntensity'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="windSpeed"
           label="Wind (MPH)"
+          selected={hourlyConditionToShow === 'windSpeed'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="windGust"
           label="Wind Gust (MPH)"
+          selected={hourlyConditionToShow === 'windGust'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="humidity"
           label="Humidity (%)"
+          selected={hourlyConditionToShow === 'humidity'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="temperatureDewPoint"
           label="Dew Point (&deg;F)"
+          selected={hourlyConditionToShow === 'temperatureDewPoint'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="uvIndex"
           label="UV Index"
+          selected={hourlyConditionToShow === 'uvIndex'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="cloudCover"
           label="Cloud Cover (%)"
+          selected={hourlyConditionToShow === 'cloudCover'}
           clickHandler={changeHandler}
         />
         <Pill
           dataLabel="pressure"
           label="Pressure (MB)"
+          selected={hourlyConditionToShow === 'pressure'}
           clickHandler={changeHandler}
         />
       </div>

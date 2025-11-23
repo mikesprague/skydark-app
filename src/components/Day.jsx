@@ -1,26 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
-
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+import { dayjs } from '../lib/time/dayjs.js';
 import {
   apiUrl,
   formatCondition,
   metricToImperial,
-  sleep,
 } from '../modules/helpers.js';
 import { getWeatherIcon } from '../modules/icons.js';
 import { getData, isCacheExpired } from '../modules/local-storage.js';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import { Hourly } from './Hourly.jsx';
 import { Loading } from './Loading.jsx';
 
 import './Day.css';
 
-export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
+export const Day = ({
+  data,
+  dayIndex,
+  minLow,
+  maxHigh,
+  isExpanded,
+  onToggle,
+}) => {
+  const scrollMarkerRef = useRef();
   const [hourlyData, setHourlyData] = useLocalStorageState(
     `hourlyData_${dayjs(data.forecastStart).unix()}`,
     {
@@ -29,6 +34,20 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
   );
 
   const { weatherData: weather } = useWeatherDataContext();
+
+  useEffect(() => {
+    if (isExpanded && hourlyData && scrollMarkerRef.current) {
+      const timer = setTimeout(() => {
+        scrollMarkerRef.current?.scrollIntoView({
+          block: 'start',
+          inline: 'nearest',
+          behavior: 'smooth',
+        });
+      }, 250);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isExpanded, hourlyData]);
 
   const getDailyWeatherData = useCallback(async (lat, lng, date) => {
     try {
@@ -47,12 +66,8 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
 
   const clickHandler = useMemo(
     () => async (event) => {
-      const clickedEl = event.target;
-      const allDetails = document.querySelectorAll('details');
-      const currentDetail = clickedEl.closest('details');
-      const currentSummary = clickedEl.closest('summary');
-      const scrollMarker = currentDetail.querySelector('.scroll-marker');
-      const isOpen = currentDetail.getAttribute('open') === null;
+      event.preventDefault(); // Prevent native <details> toggle
+      const currentSummary = event.target.closest('summary');
       const date = currentSummary.dataset.time;
       const midnightAsIsoDate = dayjs(date)
         .set('hour', 0)
@@ -61,14 +76,10 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
         .set('millisecond', 0)
         .toISOString();
 
-      for (const detail of allDetails) {
-        if (detail !== currentDetail) {
-          detail.removeAttribute('open');
-          detail.querySelector('.scroll-marker').classList.add('hidden');
-        }
-      }
+      const willBeExpanded = !isExpanded;
+      onToggle();
 
-      if (isOpen) {
+      if (willBeExpanded) {
         if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
           setHourlyData(null);
 
@@ -91,29 +102,28 @@ export const Day = ({ data, dayIndex, minLow, maxHigh }) => {
             data: weatherData,
           });
         }
-
-        scrollMarker.classList.remove('hidden');
-        sleep(250).then(() => {
-          scrollMarker.scrollIntoView({
-            block: 'start',
-            inline: 'nearest',
-            behavior: 'smooth',
-          });
-        });
-      } else {
-        scrollMarker.classList.add('hidden');
       }
     },
-    [hourlyData, setHourlyData, weather, getDailyWeatherData]
+    [
+      isExpanded,
+      onToggle,
+      hourlyData,
+      setHourlyData,
+      weather,
+      getDailyWeatherData,
+    ]
   );
 
   return data ? (
-    <details className="day">
+    <details className="day" open={isExpanded}>
       <summary data-time={data.forecastStart} onClick={clickHandler}>
-        <div className="relative hidden w-0 h-0 text-transparent scroll-marker -top-12">
+        <div
+          ref={scrollMarkerRef}
+          className={`relative w-0 h-0 text-transparent scroll-marker -top-12 ${isExpanded ? '' : 'hidden'}`}
+        >
           &nbsp;
         </div>
-        <div className="flex flex-grow">
+        <div className="flex grow">
           <div className="name">
             <strong>
               {dayIndex === 0
@@ -191,6 +201,8 @@ Day.propTypes = {
   dayIndex: PropTypes.number.isRequired,
   minLow: PropTypes.number.isRequired,
   maxHigh: PropTypes.number.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };
 
 export default Day;

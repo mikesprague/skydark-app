@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import './Pill.css';
 
 export const Pill = ({ clickHandler, dataLabel, label, selected }) => (
-  <div
+  <button
+    type="button"
     className={selected ? 'pill-selected' : 'pill'}
     onClick={clickHandler}
     data-label={dataLabel}
+    aria-pressed={selected}
   >
     {label}
-  </div>
+  </button>
 );
 
 Pill.displayName = 'Pill';
