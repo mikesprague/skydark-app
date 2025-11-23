@@ -93,6 +93,12 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
             touchZoom={false}
             zoom={7}
           >
+            <Marker
+              position={[
+                locationCoordinates.latitude,
+                locationCoordinates.longitude,
+              ]}
+            />
             <TileLayer
               url={
                 isDarkModeEnabled()
@@ -110,12 +116,6 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
                 ref={radarTileLayerRef}
               />
             )}
-            <Marker
-              position={[
-                locationCoordinates.latitude,
-                locationCoordinates.longitude,
-              ]}
-            />
           </MapContainer>
         </div>
       ) : (

@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useTransition } from 'react';
 
 import { metricToImperial } from '../modules/helpers.js';
 
@@ -11,6 +11,7 @@ import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 export const Daily = () => {
   const [expandedDayIndex, setExpandedDayIndex] = useState(null);
+  const [isPending, startTransition] = useTransition();
   const { weatherData: weather } = useWeatherDataContext();
 
   const { minLow, maxHigh } = useMemo(() => {
@@ -30,7 +31,10 @@ export const Daily = () => {
 
   return weather?.forecastDaily ? (
     <div className="daily-container">
-      <div className="daily">
+      <div
+        className="daily"
+        style={{ opacity: isPending ? 0.7 : 1, transition: 'opacity 0.2s' }}
+      >
         {weather.forecastDaily.days.slice(0, 8).map((dayData, dayIndex) => (
           <Day
             key={nanoid(7)}
@@ -40,9 +44,11 @@ export const Daily = () => {
             maxHigh={maxHigh}
             isExpanded={expandedDayIndex === dayIndex}
             onToggle={() =>
-              setExpandedDayIndex(
-                expandedDayIndex === dayIndex ? null : dayIndex
-              )
+              startTransition(() => {
+                setExpandedDayIndex(
+                  expandedDayIndex === dayIndex ? null : dayIndex
+                );
+              })
             }
           />
         ))}

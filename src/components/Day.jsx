@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+import { fetchJSONWithRetry, getErrorMessage } from '../lib/api/errors.js';
 import { dayjs } from '../lib/time/dayjs.js';
 import {
   apiUrl,
@@ -17,6 +18,23 @@ import { Loading } from './Loading.jsx';
 
 import './Day.css';
 
+/**
+ * Fetch daily weather data for a specific date
+ * Defined outside component since it doesn't depend on props/state
+ */
+const getDailyWeatherData = async (lat, lng, date) => {
+  try {
+    const endDate = dayjs(date).add(1, 'day').toISOString();
+    const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
+    const weatherApiData = await fetchJSONWithRetry(weatherApiUrl);
+
+    return weatherApiData.weather;
+  } catch (error) {
+    console.error('Failed to fetch daily weather data:', error);
+    throw error;
+  }
+};
+
 export const Day = ({
   data,
   dayIndex,
@@ -26,6 +44,7 @@ export const Day = ({
   onToggle,
 }) => {
   const scrollMarkerRef = useRef();
+  const [fetchError, setFetchError] = useState(null);
   const [hourlyData, setHourlyData] = useLocalStorageState(
     `hourlyData_${dayjs(data.forecastStart).unix()}`,
     {
@@ -49,21 +68,6 @@ export const Day = ({
     }
   }, [isExpanded, hourlyData]);
 
-  const getDailyWeatherData = useCallback(async (lat, lng, date) => {
-    try {
-      const endDate = dayjs(date).add(1, 'day').toISOString();
-      const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${lat}&lng=${lng}&dailyStart=${date}&dailyEnd=${endDate}&hourlyStart=${date}&hourlyEnd=${endDate}`;
-      const weatherApiData = await fetch(weatherApiUrl).then((response) =>
-        response.json()
-      );
-
-      return weatherApiData.weather;
-    } catch (error) {
-      console.error('Failed to fetch daily weather data:', error);
-      return null;
-    }
-  }, []);
-
   const clickHandler = useMemo(
     () => async (event) => {
       event.preventDefault(); // Prevent native <details> toggle
@@ -82,6 +86,7 @@ export const Day = ({
       if (willBeExpanded) {
         if (!hourlyData || isCacheExpired(hourlyData.lastUpdated, 15)) {
           setHourlyData(null);
+          setFetchError(null);
 
           const coordinates = getData('coordinates');
           let { latitude, longitude } = coordinates;
@@ -91,27 +96,24 @@ export const Day = ({
             longitude = weather.currentWeather.metadata.longitude;
           }
 
-          const weatherData = await getDailyWeatherData(
-            latitude,
-            longitude,
-            midnightAsIsoDate
-          );
+          try {
+            const weatherData = await getDailyWeatherData(
+              latitude,
+              longitude,
+              midnightAsIsoDate
+            );
 
-          setHourlyData({
-            lastUpdated: dayjs().toString(),
-            data: weatherData,
-          });
+            setHourlyData({
+              lastUpdated: dayjs().toString(),
+              data: weatherData,
+            });
+          } catch (error) {
+            setFetchError(error);
+          }
         }
       }
     },
-    [
-      isExpanded,
-      onToggle,
-      hourlyData,
-      setHourlyData,
-      weather,
-      getDailyWeatherData,
-    ]
+    [isExpanded, onToggle, hourlyData, setHourlyData, weather]
   );
 
   return data ? (
@@ -176,7 +178,20 @@ export const Day = ({
           </div>
         </div>
       </summary>
-      {hourlyData ? (
+      {fetchError ? (
+        <div className="p-4 text-center">
+          <p className="text-red-500 dark:text-red-400 mb-2 text-sm">
+            {getErrorMessage(fetchError)}
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 text-sm transition-colors"
+          >
+            Reload Page
+          </button>
+        </div>
+      ) : hourlyData ? (
         <Hourly data={hourlyData} dayData={data} />
       ) : (
         <Loading fullHeight={false} />

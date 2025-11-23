@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import { lazy, Suspense, useCallback, useEffect, useMemo } from 'react';
+import { lazy, Suspense, useCallback, useEffect } from 'react';
 import { useGeolocated } from 'react-geolocated';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { dayjs } from '../lib/time/dayjs.js';
-import { apiUrl } from '../modules/helpers.js';
 import { initIcons } from '../modules/icons.js';
 import { isCacheExpired } from '../modules/local-storage.js';
+
+import { ErrorBoundary } from './ErrorBoundary.jsx';
 
 import 'sweetalert2/dist/sweetalert2.css';
 import './App.css';
@@ -21,21 +22,13 @@ const LayoutContainer = lazy(() => import('./LayoutContainer.jsx'));
 const Loading = lazy(() => import('./Loading.jsx'));
 const SunriseSunset = lazy(() => import('./SunriseSunset.jsx'));
 const WeatherAlert = lazy(() => import('./WeatherAlert.jsx'));
+const WeatherDataLoader = lazy(() => import('./WeatherDataLoader.jsx'));
 const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
 
 initIcons();
 
 export const App = ({ OPENWEATHERMAP_API_KEY }) => {
-  const {
-    setWeatherData,
-    setLastUpdated,
-    setLocationData,
-    setCoordinates,
-    weatherData,
-    locationData,
-    lastUpdated,
-    coordinates,
-  } = useWeatherDataContext();
+  const { setCoordinates, coordinates } = useWeatherDataContext();
 
   const geoState = useGeolocated({
     positionOptions: {
@@ -61,8 +54,8 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     }
   }, []);
 
-  const handleGeoChange = useMemo(
-    () => (geo) => {
+  const handleGeoChange = useCallback(
+    (geo) => {
       if (geo?.coords?.latitude && geo?.coords?.longitude) {
         const {
           latitude,
@@ -118,64 +111,32 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
     handleGeoChange(geoState);
   }, [coordinates, geoState, handleGeoChange]);
 
-  const getWeatherData = useCallback(
-    async (latitude, longitude) => {
-      try {
-        const weatherApiUrl = `${apiUrl()}/apple-weather/?lat=${latitude}&lng=${longitude}`;
-        const weatherApiData = await fetch(weatherApiUrl).then((response) =>
-          response.json()
-        );
-        const lastUpdatedString = dayjs().toString();
+  // Show loading while waiting for coordinates
+  if (!coordinates) {
+    return <Loading fullHeight={true} />;
+  }
 
-        setWeatherData(weatherApiData.weather);
-        setLocationData(weatherApiData.location);
-        setLastUpdated(lastUpdatedString);
-      } catch (error) {
-        console.error('Failed to fetch weather data:', error);
-      }
-    },
-    [setWeatherData, setLocationData, setLastUpdated]
-  );
+  const { latitude, longitude } = coordinates;
 
-  useEffect(() => {
-    if (!coordinates) {
-      return;
-    }
-
-    const { latitude, longitude } = coordinates;
-
-    if (!weatherData || !lastUpdated || isCacheExpired(lastUpdated, 5)) {
-      getWeatherData(latitude, longitude);
-    }
-  }, [coordinates, lastUpdated, weatherData, getWeatherData]);
-
-  const _returnData = useMemo(
-    () => ({
-      weather: weatherData,
-      location: locationData,
-      lastUpdated,
-    }),
-    [lastUpdated, locationData, weatherData]
-  );
-
-  return weatherData &&
-    locationData &&
-    !isCacheExpired(coordinates.lastUpdated, 5) ? (
-    <Suspense fallback={<Loading fullHeight={true} />}>
-      <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-      <LayoutContainer>
-        <Currently />
-        <AirQuality />
-        <WeatherAlert />
-        <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
-        <CurrentHourly />
-        <SunriseSunset />
-        <Daily />
-        <LastUpdated />
-      </LayoutContainer>
-    </Suspense>
-  ) : (
-    <Loading fullHeight={true} />
+  // Render app with WeatherDataLoader using use() hook pattern
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<Loading fullHeight={true} />}>
+        <WeatherDataLoader latitude={latitude} longitude={longitude}>
+          <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+          <LayoutContainer>
+            <Currently />
+            <AirQuality />
+            <WeatherAlert />
+            <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+            <CurrentHourly />
+            <SunriseSunset />
+            <Daily />
+            <LastUpdated />
+          </LayoutContainer>
+        </WeatherDataLoader>
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

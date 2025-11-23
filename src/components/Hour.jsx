@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { calculateMargin } from '../lib/conditions/ranges.js';
 import { dayjs } from '../lib/time/dayjs.js';
@@ -27,13 +27,6 @@ export const Hour = ({
   valueRange,
   maxValue,
 }) => {
-  const [hourlyConditionToShow, setHourlyConditionToShow] =
-    useState('temperature');
-
-  useEffect(() => {
-    setHourlyConditionToShow(conditionToShow);
-  }, [conditionToShow]);
-
   const clickHandler = useMemo(
     () => () => {
       openModalWithComponent(
@@ -322,15 +315,12 @@ export const Hour = ({
       >
         <span
           className={
-            hourlyConditionToShow === 'uvIndex'
-              ? getUvIndexClasses(data[hourlyConditionToShow])
+            conditionToShow === 'uvIndex'
+              ? getUvIndexClasses(data[conditionToShow])
               : 'bubble'
           }
         >
-          {formatCondition(
-            data[hourlyConditionToShow],
-            hourlyConditionToShow
-          ).trim()}
+          {formatCondition(data[conditionToShow], conditionToShow).trim()}
         </span>
       </div>
     </li>
