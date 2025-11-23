@@ -32,63 +32,96 @@ export const WeatherAlert = () => {
 
   const weatherAlertHandler = () => {
     openModalWithComponent(
-      <div>
+      <div className="max-w-2xl">
         {alertData.map((alert, alertIdx) => (
-          <div className="weatherAlertItem" key={nanoid(7)}>
-            <h3 className="modal-heading" id="modal-headline">
-              {alert.description}
-            </h3>
-            <p className="pl-4 mb-4 text-sm text-left">
-              <strong>Issued: </strong>
-              {dayjs(alert.issuedTime).format('ddd, D MMM YYYY h:mm:ss A')}
-              <br />
-              <strong>Effective: </strong>
-              {dayjs(alert.effectiveTime).format('ddd, D MMM YYYY h:mm:ss A')}
-              <br />
-              <strong>Expires: </strong>
-              {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm:ss A')}
-            </p>
-            <p className="mb-6 text-center">
-              <strong>
-                {alert?.messages[0]?.text
-                  ? formatAlert(alert.messages[0].text)[0]
-                  : ''}
-              </strong>
-            </p>
-            {alert.messages[0]?.text
-              ? formatAlert(alert.messages[0].text).map((alertPart, idx) => {
-                  if (idx >= 1) {
-                    return (
-                      <p className="px-3 mb-6 text-left" key={nanoid(6)}>
-                        {alertPart}
-                      </p>
-                    );
-                  }
+          <div key={nanoid(7)}>
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <FontAwesomeIcon
+                  icon={['fad', 'triangle-exclamation']}
+                  size="2x"
+                  className="text-orange-500"
+                />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                  {alert.description}
+                </h3>
+              </div>
 
-                  return '';
-                })
-              : ''}
-            <p className="m-4 text-center">
-              <a
-                className="px-4 py-2 my-6 text-sm bg-blue-500"
-                href={alert.attributionURL}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Source
-              </a>
-            </p>
-            {alertData.length > 1 && alertIdx + 1 < alertData.length ? (
-              <hr />
-            ) : (
-              ''
+              <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4 mb-4">
+                <div className="grid grid-cols-1 gap-2 text-sm text-gray-700 dark:text-gray-300">
+                  <div>
+                    <strong className="text-gray-900 dark:text-gray-100">
+                      Issued:
+                    </strong>{' '}
+                    {dayjs(alert.issuedTime).format('ddd, D MMM YYYY h:mm A')}
+                  </div>
+                  <div>
+                    <strong className="text-gray-900 dark:text-gray-100">
+                      Effective:
+                    </strong>{' '}
+                    {dayjs(alert.effectiveTime).format(
+                      'ddd, D MMM YYYY h:mm A'
+                    )}
+                  </div>
+                  <div>
+                    <strong className="text-gray-900 dark:text-gray-100">
+                      Expires:
+                    </strong>{' '}
+                    {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm A')}
+                  </div>
+                </div>
+              </div>
+
+              {alert?.messages[0]?.text && (
+                <>
+                  <div className="mb-4 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                    <p className="font-semibold text-base text-gray-900 dark:text-gray-100">
+                      {formatAlert(alert.messages[0].text)[0]}
+                    </p>
+                  </div>
+
+                  {formatAlert(alert.messages[0].text).map((alertPart, idx) => {
+                    if (idx >= 1) {
+                      return (
+                        <p
+                          className="mb-4 text-sm text-gray-700 dark:text-gray-300 leading-relaxed"
+                          key={nanoid(6)}
+                        >
+                          {alertPart}
+                        </p>
+                      );
+                    }
+                    return null;
+                  })}
+                </>
+              )}
+
+              <div className="text-center">
+                <a
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 bg-blue-500 text-white hover:bg-blue-600"
+                  href={alert.attributionURL}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  aria-label={`View alert source for ${alert.description}`}
+                >
+                  <FontAwesomeIcon
+                    icon={['fad', 'arrow-up-right-from-square']}
+                  />
+                  View Source
+                </a>
+              </div>
+            </div>
+
+            {alertData.length > 1 && alertIdx + 1 < alertData.length && (
+              <hr className="my-6 border-gray-300 dark:border-gray-700" />
             )}
           </div>
         ))}
       </div>,
       {
         position: 'center',
-        padding: '1rem',
+        padding: '1.5rem',
+        width: '42rem',
       }
     );
   };
