@@ -1,5 +1,6 @@
 import { dayjs } from '../time/dayjs.js';
 import { getCachedData, setCachedData } from './cache.js';
+import { fetchJSONWithRetry } from './errors.js';
 
 /**
  * Weather API resource layer
@@ -21,12 +22,18 @@ const buildWeatherUrl = (baseUrl, lat, lng, options = {}) => {
   url.searchParams.set('lat', lat);
   url.searchParams.set('lng', lng);
 
-  if (options.dailyStart)
+  if (options.dailyStart) {
     url.searchParams.set('dailyStart', options.dailyStart);
-  if (options.dailyEnd) url.searchParams.set('dailyEnd', options.dailyEnd);
-  if (options.hourlyStart)
+  }
+  if (options.dailyEnd) {
+    url.searchParams.set('dailyEnd', options.dailyEnd);
+  }
+  if (options.hourlyStart) {
     url.searchParams.set('hourlyStart', options.hourlyStart);
-  if (options.hourlyEnd) url.searchParams.set('hourlyEnd', options.hourlyEnd);
+  }
+  if (options.hourlyEnd) {
+    url.searchParams.set('hourlyEnd', options.hourlyEnd);
+  }
 
   return url.toString();
 };
@@ -85,15 +92,7 @@ export const fetchWeatherData = async (apiUrl, lat, lng, options = {}) => {
 
   try {
     const url = buildWeatherUrl(apiUrl, lat, lng, options);
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(
-        `Weather API error: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const data = await response.json();
+    const data = await fetchJSONWithRetry(url);
     const normalized = normalizeWeatherData(data);
 
     // Cache the result

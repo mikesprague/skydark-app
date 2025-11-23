@@ -141,9 +141,9 @@ export const initLeafletImages = (leafletRef) => {
   // biome-ignore lint/performance/noDelete: <explanation>
   delete leafletRef.Icon.Default.prototype._getIconUrl;
   leafletRef.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'images/leaflet/marker-icon-2x.png',
-    iconUrl: 'images/leaflet/marker-icon.png',
-    shadowUrl: 'images/leaflet/marker-shadow.png',
+    iconRetinaUrl: '/images/leaflet/marker-icon-2x.png',
+    iconUrl: '/images/leaflet/marker-icon.png',
+    shadowUrl: '/images/leaflet/marker-shadow.png',
   });
 };
 

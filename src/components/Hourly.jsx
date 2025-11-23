@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useTransition } from 'react';
 
 import { calculateConditionRange } from '../lib/conditions/ranges.js';
 import {
@@ -17,6 +17,7 @@ import './Hourly.css';
 export const Hourly = ({ data, dayData }) => {
   const [hourlyConditionToShow, setHourlyConditionToShow] =
     useState('temperature');
+  const [isPending, startTransition] = useTransition();
   const containerRef = useRef();
 
   const { hourlyData, maxValue, valueRange } = useMemo(() => {
@@ -41,7 +42,11 @@ export const Hourly = ({ data, dayData }) => {
     () => (event) => {
       const newSelection = event.target;
 
-      setHourlyConditionToShow(newSelection.dataset.label);
+      // Use transition for non-blocking condition updates
+      startTransition(() => {
+        setHourlyConditionToShow(newSelection.dataset.label);
+      });
+
       newSelection.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
@@ -56,7 +61,10 @@ export const Hourly = ({ data, dayData }) => {
       {/* <p className="mb-2 -mt-2 text-sm leading-normal text-center">
         {titleCaseToSentenceCase(dayData.conditionCode)}
       </p> */}
-      <ul className="hourly">
+      <ul
+        className="hourly"
+        style={{ opacity: isPending ? 0.7 : 1, transition: 'opacity 0.2s' }}
+      >
         {hourlyData.map((hour, index) => {
           const lastHour =
             hourlyData.length === 24 ? 22 : hourlyData.length - 1;

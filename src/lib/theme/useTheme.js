@@ -1,4 +1,25 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
+
+/**
+ * Get the current system theme preference
+ */
+const getSystemTheme = () => {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+};
+
+/**
+ * Apply theme class to document root
+ */
+const applyTheme = (themeToApply) => {
+  const htmlEl = document.documentElement;
+  if (themeToApply === 'dark') {
+    htmlEl.classList.add('dark');
+  } else {
+    htmlEl.classList.remove('dark');
+  }
+};
 
 /**
  * Hook to manage theme state reactively
@@ -16,28 +37,14 @@ export const useTheme = () => {
   });
 
   const [resolvedTheme, setResolvedTheme] = useState('light');
-
-  const getSystemTheme = useCallback(() => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  }, []);
-
-  const applyTheme = useCallback((themeToApply) => {
-    const htmlEl = document.documentElement;
-    if (themeToApply === 'dark') {
-      htmlEl.classList.add('dark');
-    } else {
-      htmlEl.classList.remove('dark');
-    }
-  }, []);
+  const [isPending, startTransition] = useTransition();
 
   // Resolve the actual theme to apply
   useEffect(() => {
     const effectiveTheme = theme === 'system' ? getSystemTheme() : theme;
     setResolvedTheme(effectiveTheme);
     applyTheme(effectiveTheme);
-  }, [theme, getSystemTheme, applyTheme]);
+  }, [theme]);
 
   // Listen for system theme changes
   useEffect(() => {
@@ -54,22 +61,27 @@ export const useTheme = () => {
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme, applyTheme]);
+  }, [theme]);
 
-  const setTheme = useCallback((newTheme) => {
+  const setTheme = (newTheme) => {
     if (newTheme === 'system') {
       localStorage.removeItem('theme');
     } else {
       localStorage.setItem('theme', newTheme);
     }
-    setThemeState(newTheme);
-  }, []);
+
+    // Use transition for non-blocking theme updates
+    startTransition(() => {
+      setThemeState(newTheme);
+    });
+  };
 
   return {
     theme,
     resolvedTheme,
     setTheme,
     isDark: resolvedTheme === 'dark',
+    isPending,
   };
 };
 

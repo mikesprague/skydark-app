@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { calculateConditionRange } from '../lib/conditions/ranges.js';
@@ -23,12 +23,9 @@ export const CurrentHourly = () => {
 
   const { weatherData: weather } = useWeatherDataContext();
 
-  const [maxValue, setMaxValue] = useState(0);
-  const [valueRange, setValueRange] = useState(0);
-
-  useEffect(() => {
+  const { maxValue, valueRange } = useMemo(() => {
     if (!weather) {
-      return;
+      return { maxValue: 0, valueRange: 0 };
     }
 
     const rangeData = calculateConditionRange(
@@ -36,8 +33,10 @@ export const CurrentHourly = () => {
       hourlyConditionToShow
     );
 
-    setMaxValue(rangeData.maxValue);
-    setValueRange(rangeData.effectiveRange);
+    return {
+      maxValue: rangeData.maxValue,
+      valueRange: rangeData.effectiveRange,
+    };
   }, [hourlyConditionToShow, weather]);
 
   const changeHandler = useMemo(
