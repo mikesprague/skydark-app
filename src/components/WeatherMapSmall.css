@@ -4,7 +4,11 @@
   padding: 0.5rem;
 }
 
-.small-map-container  #weather-map-small {
+.small-map-container .map-wrapper {
+  @apply w-full block cursor-pointer;
+}
+
+.small-map-container #weather-map-small {
   height: 8rem;
   width: 100%;
   border-radius: 0.5rem;

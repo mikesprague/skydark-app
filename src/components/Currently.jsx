@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import {
   formatCondition,
   openModalWithComponent,
@@ -8,35 +9,19 @@ import {
 } from '../modules/helpers.js';
 import { getWeatherIcon } from '../modules/icons.js';
 
-import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
-
 import './Currently.css';
 
 export const Currently = () => {
-  const [currentData, setCurrentData] = useState(null);
-  const [summary, setSummary] = useState(null);
-
   const { weatherData: weather } = useWeatherDataContext();
 
-  useEffect(() => {
-    if (!weather) {
-      return;
-    }
-
-    setCurrentData(weather);
-  }, [weather]);
-
-  useEffect(() => {
-    if (!weather) {
-      return;
-    }
-    const summaryText = weather.currentWeather.conditionCode;
-
-    setSummary(summaryText);
-  }, [weather]);
+  const summary = weather?.currentWeather.conditionCode;
 
   const clickHandler = useMemo(
     () => () => {
+      if (!weather || !summary) {
+        return;
+      }
+
       openModalWithComponent(
         <>
           <h3 className="modal-heading" id="modal-headline">
@@ -47,21 +32,19 @@ export const Currently = () => {
             <FontAwesomeIcon
               icon={[
                 'fad',
-                !currentData.currentWeather.daylight &&
-                getWeatherIcon(currentData.currentWeather.conditionCode)
-                  .nightIcon
-                  ? getWeatherIcon(currentData.currentWeather.conditionCode)
+                !weather.currentWeather.daylight &&
+                getWeatherIcon(weather.currentWeather.conditionCode).nightIcon
+                  ? getWeatherIcon(weather.currentWeather.conditionCode)
                       .nightIcon
-                  : getWeatherIcon(currentData.currentWeather.conditionCode)
-                      .icon,
+                  : getWeatherIcon(weather.currentWeather.conditionCode).icon,
               ]}
               style={
-                !currentData.currentWeather.daylight &&
-                getWeatherIcon(currentData.currentWeather.conditionCode)
+                !weather.currentWeather.daylight &&
+                getWeatherIcon(weather.currentWeather.conditionCode)
                   .nightIconStyles
-                  ? getWeatherIcon(currentData.currentWeather.conditionCode)
+                  ? getWeatherIcon(weather.currentWeather.conditionCode)
                       .nightIconStyles
-                  : getWeatherIcon(currentData.currentWeather.conditionCode)
+                  : getWeatherIcon(weather.currentWeather.conditionCode)
                       .iconStyles
               }
               fixedWidth
@@ -327,29 +310,31 @@ export const Currently = () => {
         }
       );
     },
-    [currentData, summary, weather]
+    [weather, summary]
   );
 
-  return currentData ? (
-    <div className="current-conditions" onClick={clickHandler}>
+  return weather ? (
+    <button
+      type="button"
+      className="current-conditions"
+      onClick={clickHandler}
+      aria-label="View current weather details"
+    >
       <div className="icon">
         <FontAwesomeIcon
           icon={[
             'fad',
-            !currentData.currentWeather.daylight &&
-            getWeatherIcon(currentData.currentWeather.conditionCode).nightIcon
-              ? getWeatherIcon(currentData.currentWeather.conditionCode)
-                  .nightIcon
-              : getWeatherIcon(currentData.currentWeather.conditionCode).icon,
+            !weather.currentWeather.daylight &&
+            getWeatherIcon(weather.currentWeather.conditionCode).nightIcon
+              ? getWeatherIcon(weather.currentWeather.conditionCode).nightIcon
+              : getWeatherIcon(weather.currentWeather.conditionCode).icon,
           ]}
           style={
-            !currentData.currentWeather.daylight &&
-            getWeatherIcon(currentData.currentWeather.conditionCode)
-              .nightIconStyles
-              ? getWeatherIcon(currentData.currentWeather.conditionCode)
+            !weather.currentWeather.daylight &&
+            getWeatherIcon(weather.currentWeather.conditionCode).nightIconStyles
+              ? getWeatherIcon(weather.currentWeather.conditionCode)
                   .nightIconStyles
-              : getWeatherIcon(currentData.currentWeather.conditionCode)
-                  .iconStyles
+              : getWeatherIcon(weather.currentWeather.conditionCode).iconStyles
           }
           fixedWidth
           size="4x"
@@ -358,16 +343,16 @@ export const Currently = () => {
       <div className="temperature">
         <h2 className="actual-temp">
           {formatCondition(
-            currentData.currentWeather.temperature,
+            weather.currentWeather.temperature,
             'temperature'
           ).trim()}
         </h2>
         <h3 className="feels-like-temp">{`Feels ${formatCondition(
-          currentData.currentWeather.temperatureApparent,
+          weather.currentWeather.temperatureApparent,
           'temperatureApparent'
         ).trim()}`}</h3>
       </div>
-    </div>
+    </button>
   ) : (
     ''
   );

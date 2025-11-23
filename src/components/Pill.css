@@ -3,7 +3,6 @@
 .condition-select-container {
   .pill,
   .pill-selected {
-    @apply flex-grow;
     @apply flex-shrink-0;
     @apply px-2;
     @apply text-sm;
@@ -19,7 +18,6 @@
 
   .pill {
     @apply text-blue-400;
-    /* @apply bg-transparent; */
     @apply bg-black/0;
     @apply border-blue-400;
     @apply cursor-pointer;

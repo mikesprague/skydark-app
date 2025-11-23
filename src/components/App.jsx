@@ -1,16 +1,12 @@
-import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
-import { Suspense, lazy, useCallback, useEffect, useMemo } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo } from 'react';
 import { useGeolocated } from 'react-geolocated';
 
-import relativeTime from 'dayjs/plugin/relativeTime';
-// import utc from 'dayjs/plugin/utc';
-
+import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+import { dayjs } from '../lib/time/dayjs.js';
 import { apiUrl } from '../modules/helpers.js';
 import { initIcons } from '../modules/icons.js';
 import { isCacheExpired } from '../modules/local-storage.js';
-
-import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
 import 'sweetalert2/dist/sweetalert2.css';
 import './App.css';
@@ -26,8 +22,6 @@ const Loading = lazy(() => import('./Loading.jsx'));
 const SunriseSunset = lazy(() => import('./SunriseSunset.jsx'));
 const WeatherAlert = lazy(() => import('./WeatherAlert.jsx'));
 const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
-
-dayjs.extend(relativeTime);
 
 initIcons();
 

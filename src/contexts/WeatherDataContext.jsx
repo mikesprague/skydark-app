@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 export const WeatherDataContext = createContext(null);
@@ -18,43 +18,26 @@ export const WeatherDataProvider = ({ children }) => {
     defaultValue: null,
   });
 
-  const handleSetWeatherData = useCallback(
-    (data) => setWeatherData(data),
-    [setWeatherData]
-  );
-  const handleSetLocationData = useCallback(
-    (data) => setLocationData(data),
-    [setLocationData]
-  );
-  const handleSetLastUpdated = useCallback(
-    (time) => setLastUpdated(time),
-    [setLastUpdated]
-  );
-  const handleSetCoordinates = useCallback(
-    (coords) => setCoordinates(coords),
-    [setCoordinates]
-  );
-
   const value = useMemo(
     () => ({
       weatherData,
       locationData,
       lastUpdated,
       coordinates,
-      setWeatherData: handleSetWeatherData,
-      setLocationData: handleSetLocationData,
-      setLastUpdated: handleSetLastUpdated,
-      setCoordinates: handleSetCoordinates,
+      setWeatherData,
+      setLocationData,
+      setLastUpdated,
+      setCoordinates,
     }),
     [
       weatherData,
       locationData,
       lastUpdated,
       coordinates,
-      handleSetWeatherData,
-      handleSetLocationData,
-      handleSetLastUpdated,
-      handleSetCoordinates,
+      setWeatherData,
+      setLocationData,
+      setLastUpdated,
+      setCoordinates,
     ]
   );
 

@@ -1,28 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { Chart } from 'react-google-charts';
-
-import { metricToImperial } from '../modules/helpers.js';
-
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+import { metricToImperial } from '../modules/helpers.js';
 
 import './PrecipChart.css';
 
 export const PrecipChart = () => {
-  const [chartData, setChartData] = useState(null);
-
   const { weatherData: weather } = useWeatherDataContext();
 
-  useEffect(() => {
+  const chartData = useMemo(() => {
     if (!weather) {
-      return;
+      return null;
     }
 
     const dataArray = [['Minute', 'Precipitation']];
-
     const minutes = weather?.forecastNextHour?.minutes.slice(0, 61);
-    let index = 0;
 
-    for (const minute of minutes) {
+    minutes.forEach((minute, index) => {
       dataArray.push([
         index,
         metricToImperial.mmToIn(
@@ -32,14 +26,9 @@ export const PrecipChart = () => {
             : minute.precipitationIntensity
         ),
       ]);
-      index += 1;
-    }
-    setChartData(dataArray);
+    });
 
-    return () => {
-      setChartData(null);
-      index = 0;
-    };
+    return dataArray;
   }, [weather]);
 
   return chartData ? (
@@ -93,9 +82,7 @@ export const PrecipChart = () => {
         legend: 'none',
       }}
     />
-  ) : (
-    ''
-  );
+  ) : null;
 };
 
 export default PrecipChart;

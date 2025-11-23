@@ -1,12 +1,12 @@
+/**
+ * @deprecated Use useTheme hook from src/lib/theme/useTheme.js instead
+ * These functions are kept for backward compatibility during migration
+ */
+
 export const isDarkModeEnabled = () => {
   const hasSystemDarkModeEnabled = window.matchMedia(
-    '(prefers-color-scheme: dark)',
+    '(prefers-color-scheme: dark)'
   ).matches;
-  // const appTheme = getData('theme') || null;
-  // if (appTheme === 'dark' || (!appTheme && hasSystemDarkModeEnabled)) {
-  //   return true;
-  // }
-  // return false;
 
   return hasSystemDarkModeEnabled;
 };
@@ -16,10 +16,7 @@ export const toggleDarkMode = () => {
 
   if (isDarkModeEnabled()) {
     htmlEl.classList.add('dark');
-    // setData('theme', 'dark');
   } else {
-    // clearData('theme');
-    // setData('theme', 'light');
     htmlEl.classList.remove('dark');
   }
 };
@@ -29,16 +26,19 @@ export const initDarkMode = () => {
 
   if (isDarkModeEnabled()) {
     htmlEl.classList.add('dark');
-    // setData('theme', 'dark');
   } else {
-    // clearData('theme');
-    // setData('theme', 'light');
     htmlEl.classList.remove('dark');
   }
 
-  // eslint-disable-next-line no-unused-vars
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (_event) => {
-    // console.log("window.matchMedia('(prefers-color-scheme: dark)').matches: ", event.matches);
-    window.location.reload();
-  });
+  // Note: No longer reloading page on theme change
+  // Use useTheme hook for reactive theme updates
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', (event) => {
+      if (event.matches) {
+        htmlEl.classList.add('dark');
+      } else {
+        htmlEl.classList.remove('dark');
+      }
+    });
 };

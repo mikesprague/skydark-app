@@ -1,13 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
-
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+import { dayjs } from '../lib/time/dayjs.js';
 
 import {
   formatAirQualityHour,
@@ -17,20 +12,14 @@ import {
 
 import './AirQuality.css';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(relativeTime);
-dayjs.extend(advancedFormat);
-
 export const AirQuality = () => {
   const [aqiData, setAqiData] = useState(null);
   const { weatherData: weather, locationData: location } =
     useWeatherDataContext();
 
   useEffect(() => {
-    if (!weather.airQualityData || !weather.airQualityData.length) {
+    if (!weather?.airQualityData?.length) {
       setAqiData(null);
-
       return;
     }
 
@@ -38,6 +27,10 @@ export const AirQuality = () => {
   }, [weather]);
 
   const airQualityHandler = () => {
+    if (!aqiData || !aqiData.length) {
+      return;
+    }
+
     openModalWithComponent(
       <>
         <h3 className="modal-heading" id="aqi-headline">
@@ -53,7 +46,9 @@ export const AirQuality = () => {
             formatAirQualityHour(aqiData[0].HourObserved)[0]
           } ${formatAirQualityHour(aqiData[0].HourObserved)[1]}`}</small>
         </h5>
-        <div className="aqi-modal-container">
+        <div
+          className={`aqi-modal-container ${aqiData.length === 1 ? 'justify-center' : ''}`}
+        >
           <div className="leading-8 aqi-modal-item">
             <strong className="text-base">
               {aqiData[0].ParameterName.trim().toLowerCase() === 'o3'
@@ -73,25 +68,27 @@ export const AirQuality = () => {
             <br />
             {aqiData[0].Category.Name}
           </div>
-          <div className="aqi-modal-item">
-            <strong className="text-base">
-              {aqiData[1].ParameterName.trim().toLowerCase() === 'o3'
-                ? 'Ozone'
-                : aqiData[1].ParameterName}
-            </strong>
-            <br />
-            <br />
-            <span
-              className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
-                aqiData[1]
-              )} mt-3`}
-            >
-              {aqiData[1].AQI}
-            </span>
-            <br />
-            <br />
-            {aqiData[1].Category.Name}
-          </div>
+          {aqiData[1] && (
+            <div className="aqi-modal-item">
+              <strong className="text-base">
+                {aqiData[1].ParameterName.trim().toLowerCase() === 'o3'
+                  ? 'Ozone'
+                  : aqiData[1].ParameterName}
+              </strong>
+              <br />
+              <br />
+              <span
+                className={`text-xl aqi-bubble aqi-color-${getAirQualityClass(
+                  aqiData[1]
+                )} mt-3`}
+              >
+                {aqiData[1].AQI}
+              </span>
+              <br />
+              <br />
+              {aqiData[1].Category.Name}
+            </div>
+          )}
         </div>
         <p className="mt-2 text-sm">
           <a

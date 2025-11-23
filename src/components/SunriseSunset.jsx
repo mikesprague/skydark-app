@@ -1,102 +1,98 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { dayjs } from '../lib/time/dayjs.js';
 import './SunriseSunset.css';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 
-dayjs.extend(relativeTime);
-
 export const SunriseSunset = () => {
-  const [next, setNext] = useState(null);
-
   const { weatherData: weather } = useWeatherDataContext();
+  const [currentTime, setCurrentTime] = useState(dayjs());
 
   const formatTimeString = useCallback((time) => {
-    const totalMinutes = dayjs(dayjs(time)).diff(dayjs(), 'minute');
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
+    const totalMinutes = dayjs(time).diff(dayjs(), 'minute');
 
-    let hoursText = totalMinutes > 54 ? hours : '';
-
-    if (hoursText === '' && totalMinutes > 54 && totalMinutes < 67) {
-      hoursText = 1;
+    // Handle "now" case (within 7 minutes)
+    if (totalMinutes <= 7) {
+      return 'now';
     }
 
-    if (totalMinutes > 54 && (minutes > 54 || minutes < 7)) {
-      hoursText += 1;
-    }
+    // Round to nearest quarter hour for display
+    const roundedMinutes = Math.round(totalMinutes / 15) * 15;
+    const hours = Math.floor(roundedMinutes / 60);
+    const remainderMinutes = roundedMinutes % 60;
 
+    // Determine fractional display
     let minutesFraction = '';
-
-    if (minutes > 7 && minutes <= 22) {
-      minutesFraction = String.fromCharCode(188);
+    if (remainderMinutes === 15) {
+      minutesFraction = String.fromCharCode(188); // ¼
+    } else if (remainderMinutes === 30) {
+      minutesFraction = String.fromCharCode(189); // ½
+    } else if (remainderMinutes === 45) {
+      minutesFraction = String.fromCharCode(190); // ¾
     }
 
-    if (minutes > 22 && minutes <= 37) {
-      minutesFraction = String.fromCharCode(189);
+    // Format the output
+    if (hours === 0 && minutesFraction !== '') {
+      return `in ${minutesFraction} hour`;
     }
 
-    if (minutes > 37 && minutes <= 54) {
-      minutesFraction = String.fromCharCode(190);
+    if (hours > 0 && remainderMinutes === 0) {
+      return `in ${hours} hour${hours === 1 ? '' : 's'}`;
     }
 
-    return hoursText === '' && minutesFraction === ''
-      ? 'now'
-      : `in ${hoursText}${minutesFraction} hour${
-          hoursText === 1 || (hoursText === '' && minutesFraction !== '')
-            ? ''
-            : 's'
-        }`;
+    return `in ${hours}${minutesFraction} hour${hours === 1 && minutesFraction === '' ? '' : 's'}`;
   }, []);
 
-  useEffect(() => {
-    const init = () => {
-      const [today, tomorrow] = weather.forecastDaily.days;
-      const now = dayjs();
-      let isSunset = false;
-      let dateTime = today.sunrise;
+  const next = useMemo(() => {
+    if (!weather) {
+      return null;
+    }
 
-      if (
-        dayjs(now).isAfter(dayjs(today.sunrise)) &&
-        dayjs(now).isBefore(dayjs(today.sunset))
-      ) {
-        dateTime = today.sunset;
-        isSunset = true;
-      }
+    const [today, tomorrow] = weather.forecastDaily.days;
+    const now = currentTime;
+    let isSunset = false;
+    let dateTime = today.sunrise;
 
-      if (
-        dayjs(now).isAfter(dayjs(today.sunset)) &&
-        dayjs(now).isBefore(dayjs(tomorrow.sunrise))
-      ) {
-        dateTime = tomorrow.sunrise;
-      }
+    if (
+      dayjs(now).isAfter(dayjs(today.sunrise)) &&
+      dayjs(now).isBefore(dayjs(today.sunset))
+    ) {
+      dateTime = today.sunset;
+      isSunset = true;
+    }
 
-      const event = isSunset ? 'Sunset' : 'Sunrise';
-      const time = dayjs(dateTime).format('h:mm A');
-      const timeString = formatTimeString(dateTime);
+    if (
+      dayjs(now).isAfter(dayjs(today.sunset)) &&
+      dayjs(now).isBefore(dayjs(tomorrow.sunrise))
+    ) {
+      dateTime = tomorrow.sunrise;
+    }
 
-      setNext({
-        event,
-        time,
-        timeString,
-      });
+    const event = isSunset ? 'Sunset' : 'Sunrise';
+    const time = dayjs(dateTime).format('h:mm A');
+    const timeString = formatTimeString(dateTime);
+
+    return {
+      event,
+      time,
+      timeString,
     };
+  }, [weather, currentTime, formatTimeString]);
 
-    init();
-    const clockInterval = setInterval(init, 60 * 1000);
+  useEffect(() => {
+    const clockInterval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 60 * 1000);
 
     return () => clearInterval(clockInterval);
-  }, [formatTimeString, weather]);
+  }, []);
 
   return next?.event ? (
     <div className="sunrise-sunset-time">
       {`${next.event} ${next.timeString} (${next.time})`}
     </div>
-  ) : (
-    ''
-  );
+  ) : null;
 };
 
 export default SunriseSunset;

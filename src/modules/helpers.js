@@ -1,20 +1,12 @@
 import Bugsnag from '@bugsnag/js';
-import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
-
+import { dayjs } from '../lib/time/dayjs.js';
 import { initAppSettings } from './settings.js';
 import { initDarkMode, isDarkModeEnabled } from './theme.js';
 
 const MySwal = withReactContent(Swal);
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(relativeTime);
 
 export const isLocal = () => {
   if (
@@ -376,8 +368,6 @@ export const getUvIndexClasses = (uvIndex) => {
 };
 
 export const initSkyDark = () => {
-  dayjs.tz.setDefault('America/New_York');
-
   if (isDev()) {
     const { title } = window.document;
 

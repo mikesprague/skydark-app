@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { dayjs } from '../lib/time/dayjs.js';
 
 export function setData(key, data) {
   const dataToSet = JSON.stringify(data);
@@ -38,7 +38,7 @@ export function isCacheValid(key, duration, durationType) {
 export const isCacheExpired = (lastUpdated, cacheDurationInMinutes) => {
   const nextUpdateTime = dayjs(lastUpdated).add(
     cacheDurationInMinutes,
-    'minute',
+    'minute'
   );
 
   if (dayjs().isAfter(nextUpdateTime)) {
