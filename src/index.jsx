@@ -43,10 +43,15 @@ registerSW({
       icon: 'info',
       title: 'Sky Dark Updated',
       text: 'Click this message to reload',
-      didClose: () => {
+      timer: 10000,
+      showConfirmButton: true,
+      confirmButtonText: 'Reload',
+    }).then((result) => {
+      // Only reload if user clicked the button, not on timer close
+      if (result.isConfirmed) {
         resetData();
         window.location.reload(true);
-      },
+      }
     });
   },
   onOfflineReady() {},
