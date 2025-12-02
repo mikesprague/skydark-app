@@ -10,21 +10,3 @@
 #modal-headline {
   @apply text-orange-400;
 }
-
-.weather-alert-container {
-  @apply text-center;
-  @apply break-words;
-
-  .weather-alert-button {
-    @apply text-sm;
-    @apply align-text-top;
-    @apply leading-4;
-    @apply px-3;
-    @apply font-medium;
-    @apply border;
-    @apply rounded-full;
-    @apply focus:outline-none;
-    @apply border-orange-400;
-    @apply text-orange-400;
-  }
-}

@@ -5,8 +5,6 @@ import { dayjs } from '../lib/time/dayjs.js';
 
 import { openModalWithComponent } from '../modules/helpers.js';
 
-import './WeatherAlert.css';
-
 export const WeatherAlert = () => {
   const { weatherData: weather } = useWeatherDataContext();
 
@@ -15,17 +13,21 @@ export const WeatherAlert = () => {
     : null;
 
   const formatAlert = (alert) => {
+    console.log(alert);
     return alert.includes('\n* ')
       ? alert.split('\n* ').map((alertPart, idx) => {
           if (idx === 0) {
-            return alertPart.replace(/\.\.\./g, ' ').trim();
+            return `${alertPart
+              .replace('*', ' ')
+              .replace(/\.\.\./, ': ')
+              .trim()}\n\n`;
           }
           return `${alertPart.replace(/\.\.\./, ': ').trim()}\n\n`;
         })
-      : alert.split('...\n').map((alertPart, idx) => {
-          if (idx === 0) {
-            return alertPart.replace(/\.\.\./g, ' ').trim();
-          }
+      : alert.split('...\n').map((alertPart, _idx) => {
+          // if (idx === 0) {
+          //   return alertPart.replace(/\.\.\./g, ' ').trim();
+          // }
           return `${alertPart.replace(/\.\.\./, ': ').trim()}\n\n`;
         });
   };
@@ -36,19 +38,20 @@ export const WeatherAlert = () => {
         {alertData.map((alert, alertIdx) => (
           <div key={nanoid(7)}>
             <div className="mb-6">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-start gap-3 mb-5">
                 <FontAwesomeIcon
                   icon={['fad', 'triangle-exclamation']}
                   size="2x"
                   className="text-orange-500"
                 />
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
                   {alert.description}
                 </h3>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4 mb-4">
-                <div className="grid grid-cols-1 gap-2 text-sm text-gray-700 dark:text-gray-300">
+              <div className="mb-2 p-5 bg-orange-50 dark:bg-orange-900/20 rounded-xl border-2 border-orange-300 dark:border-orange-700 shadow-sm">
+                {/* <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4 mb-4"> */}
+                <div className="grid grid-cols-1 gap-2 text-base text-left text-gray-700 dark:text-gray-300">
                   <div>
                     <strong className="text-gray-900 dark:text-gray-100">
                       Issued:
@@ -70,36 +73,42 @@ export const WeatherAlert = () => {
                     {dayjs(alert.expireTime).format('ddd, D MMM YYYY h:mm A')}
                   </div>
                 </div>
+                {/* </div> */}
               </div>
 
               {alert?.messages[0]?.text && (
-                <>
-                  <div className="mb-4 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
-                    <p className="font-semibold text-base text-gray-900 dark:text-gray-100">
-                      {formatAlert(alert.messages[0].text)[0]}
-                    </p>
-                  </div>
-
-                  {formatAlert(alert.messages[0].text).map((alertPart, idx) => {
-                    if (idx >= 1) {
-                      return (
-                        <p
-                          className="mb-4 text-sm text-gray-700 dark:text-gray-300 leading-relaxed"
-                          key={nanoid(6)}
-                        >
-                          {alertPart}
-                        </p>
-                      );
-                    }
-                    return null;
+                <div className="mb-5 p-5">
+                  {formatAlert(alert.messages[0].text).map((alertPart) => {
+                    const parts = alertPart.split(/([A-Z\s]+:)/g);
+                    const partKey = nanoid(6);
+                    return (
+                      <p
+                        className="mb-4 text-lg text-left text-gray-700 dark:text-gray-300 leading-relaxed"
+                        key={partKey}
+                      >
+                        {parts.map((part, partIdx) => {
+                          if (/^[A-Z\s]+:$/.test(part)) {
+                            return (
+                              <strong
+                                key={`${nanoid(6)}-${partIdx}`}
+                                className="text-gray-900 dark:text-gray-100"
+                              >
+                                {part}
+                              </strong>
+                            );
+                          }
+                          return part;
+                        })}
+                      </p>
+                    );
                   })}
-                </>
+                </div>
               )}
 
-              <div className="text-center">
+              <div className="text-center mt-6">
                 <a
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 bg-blue-500 text-white hover:bg-blue-600"
-                  href={alert.attributionURL}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 bg-orange-500 text-white hover:bg-orange-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                  href={alert.detailsUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                   aria-label={`View alert source for ${alert.description}`}
@@ -127,18 +136,16 @@ export const WeatherAlert = () => {
   };
 
   return alertData ? (
-    <div className="weather-alert-container">
+    <div className="text-center wrap-break-word">
       <button
         type="button"
         onClick={weatherAlertHandler}
-        className="weather-alert-button"
+        className="inline-flex items-center gap-2 px-3 py-1 text-sm font-medium border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200"
       >
-        <span className="leading-loose">
-          <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
-          &nbsp;
-          {alertData.length > 1
-            ? `${alertData[0].description} | +${alertData.length - 1}`
-            : alertData[0].description}
+        <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
+        <span>
+          {alertData[0].description}
+          {alertData.length > 1 ? ` | +${alertData.length - 1}` : ''}
         </span>
       </button>
     </div>
