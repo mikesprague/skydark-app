@@ -37,7 +37,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     if (weather.radarData?.past?.length > 0) {
       const latestRadar =
         weather.radarData.past[weather.radarData.past.length - 1];
-      url = `https://tilecache.rainviewer.com${latestRadar.path}/512/{z}/{x}/{y}/8/1_1.png`;
+      url = `https://tilecache.rainviewer.com${latestRadar.path}/512/{z}/{x}/{y}/2/1_1.png`;
     }
 
     return { locationCoordinates: coordinates, radarMapUrl: url };
