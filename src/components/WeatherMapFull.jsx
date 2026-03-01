@@ -55,7 +55,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const initialRadarUrl = useMemo(
     () =>
       initialTs
-        ? `https://tilecache.rainviewer.com${initialTs.path}/512/{z}/{x}/{y}/8/1_1.png`
+        ? `https://tilecache.rainviewer.com${initialTs.path}/256/{z}/{x}/{y}/2/1_1.png`
         : null,
     [initialTs]
   );
@@ -77,7 +77,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     (value) => {
       setTs(tsData[value]);
       setRadarMapUrl(
-        `https://tilecache.rainviewer.com${tsData[value].path}/512/{z}/{x}/{y}/8/1_1.png`
+        `https://tilecache.rainviewer.com${tsData[value].path}/256/{z}/{x}/{y}/2/1_1.png`
       );
       setRangeValue(value);
     },
@@ -121,7 +121,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           scrollWheelZoom={false}
           tap={true}
           touchZoom={true}
-          zoom={9}
+          zoom={7}
           zoomControl={false}
         >
           <Marker position={[coordinates.latitude, coordinates.longitude]}>
@@ -215,7 +215,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
               <TileLayer
                 url={
                   radarMapUrl ||
-                  `https://tilecache.rainviewer.com${tsData[0].path}/512/{z}/{x}/{y}/8/1_1.png`
+                  `https://tilecache.rainviewer.com${tsData[0].path}/256/{z}/{x}/{y}/2/1_1.png`
                 }
                 opacity={0.8}
                 attribution={
