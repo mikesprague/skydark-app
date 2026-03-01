@@ -55,7 +55,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const initialRadarUrl = useMemo(
     () =>
       initialTs
-        ? `https://tilecache.rainviewer.com${initialTs.path}/256/{z}/{x}/{y}/2/1_1.png`
+        ? `https://tilecache.rainviewer.com${initialTs.path}/512/{z}/{x}/{y}/2/1_1.png`
         : null,
     [initialTs]
   );
@@ -77,7 +77,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     (value) => {
       setTs(tsData[value]);
       setRadarMapUrl(
-        `https://tilecache.rainviewer.com${tsData[value].path}/256/{z}/{x}/{y}/2/1_1.png`
+        `https://tilecache.rainviewer.com${tsData[value].path}/512/{z}/{x}/{y}/2/1_1.png`
       );
       setRangeValue(value);
     },
@@ -122,6 +122,7 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
           tap={true}
           touchZoom={true}
           zoom={7}
+          maxZoom={7}
           zoomControl={false}
         >
           <Marker position={[coordinates.latitude, coordinates.longitude]}>
@@ -175,47 +176,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
                 }
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Street (Gray)">
-              <TileLayer
-                url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Black/White">
-              <TileLayer
-                url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}@2x.png"
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Black/White/Gray">
-              <TileLayer
-                url="https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png"
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Watercolor">
-              <TileLayer
-                url="https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://stamen.com" rel="noopener noreferrer" target="_blank">Stamen Design</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
             <LayersControl.Overlay name="Radar" checked="checked">
               <TileLayer
                 url={
                   radarMapUrl ||
-                  `https://tilecache.rainviewer.com${tsData[0].path}/256/{z}/{x}/{y}/2/1_1.png`
+                  `https://tilecache.rainviewer.com${tsData[0].path}/512/{z}/{x}/{y}/2/1_1.png`
                 }
                 opacity={0.8}
                 attribution={
