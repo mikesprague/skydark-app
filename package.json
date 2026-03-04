@@ -82,7 +82,8 @@
     "wrangler": "4.70.0"
   },
   "overrides": {
-    "serialize-javascript": "^7.0.3"
+    "serialize-javascript": "^7.0.4",
+    "svgo": "^4.0.1"
   },
   "browserslist": {
     "production": [
