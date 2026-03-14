@@ -27,6 +27,35 @@ export const isDev = () => {
   return false;
 };
 
+/**
+ * Generate aligned snapshot timestamps from the oldest to the latest.
+ *
+ * @param latestSnapshot  Latest snapshot value from /tiles/v1/snapshot (epoch seconds, 10-min aligned).
+ * @param historyMinutes  How far back to go in minutes (default 120 = 2 hours).
+ * @param stepMinutes     Step between frames in minutes (default 10).
+ */
+export function generateSnapshotHistory(
+  latestSnapshot,
+  historyMinutes = 120,
+  stepMinutes = 10
+) {
+  const stepSeconds = stepMinutes * 60;
+  const historySeconds = historyMinutes * 60;
+
+  // Ensure latestSnapshot is aligned to the step (defensive, in case backend ever changes)
+  const alignedLatest = latestSnapshot - (latestSnapshot % stepSeconds);
+
+  const frameCount = Math.floor(historySeconds / stepSeconds); // e.g. 120 / 10 = 12
+  const oldest = alignedLatest - historySeconds; // e.g. latest - 7200
+
+  const timestamps = [];
+  for (let i = 0; i <= frameCount; i++) {
+    timestamps.push(oldest + i * stepSeconds);
+  }
+
+  return timestamps;
+}
+
 export const metricToImperial = {
   cToF: (value) => value * 1.8 + 32,
   mToMi: (value) => value / 1609.344,
