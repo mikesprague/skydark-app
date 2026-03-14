@@ -133,7 +133,7 @@ export const WeatherMapFull = ({
           scrollWheelZoom={false}
           tap={true}
           touchZoom={true}
-          zoom={7}
+          zoom={9}
           maxZoom={12}
           zoomControl={false}
         >
