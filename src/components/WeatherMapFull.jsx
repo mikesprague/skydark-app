@@ -51,7 +51,8 @@ export const WeatherMapFull = ({
 
     return {
       popupAddress: locationData.formattedAddress,
-      tsData: [...timestamps].reverse(),
+      tsData: [...timestamps],
+      // tsData: [...timestamps].reverse(),
     };
   }, []);
 
