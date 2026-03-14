@@ -9,7 +9,7 @@ import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './Header.css';
 
-export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
+export const Header = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
 
@@ -28,7 +28,10 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
     e.preventDefault();
     e.stopPropagation();
     openModalWithComponent(
-      <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+      <WeatherMapFull
+        OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
+        RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+      />,
       {
         didOpen: () => {
           const closeButton = document.querySelector('.swal2-close');
@@ -115,6 +118,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
 
 Header.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
+  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
 };
 
 export default Header;

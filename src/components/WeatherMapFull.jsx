@@ -16,7 +16,10 @@ import {
 import { dayjs } from '../lib/time/dayjs.js';
 import 'leaflet/dist/leaflet.css';
 
-import { initLeafletImages } from '../modules/helpers.js';
+import {
+  generateSnapshotHistory,
+  initLeafletImages,
+} from '../modules/helpers.js';
 import { getData } from '../modules/local-storage.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 
@@ -30,7 +33,10 @@ initLeafletImages(L);
 // transparent="true"
 // /> */}
 
-export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
+export const WeatherMapFull = ({
+  OPENWEATHERMAP_API_KEY,
+  RAINBOW_API_TOKEN,
+}) => {
   const timerHandle = useRef();
   const rangeSliderRef = useRef();
 
@@ -40,13 +46,20 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     const locationData = getData('locationData');
     const { radarData } = getData('weatherData');
 
+    const snapshot = radarData?.snapshot;
+    const timestamps = radarData ? generateSnapshotHistory(snapshot) : null;
+    console.log('snapshot history', timestamps);
+
     return {
       popupAddress: locationData.formattedAddress,
-      tsData: [...radarData.past, ...radarData.nowcast],
+      tsData: [...timestamps].reverse(),
     };
   }, []);
 
-  const initialTs = useMemo(() => (tsData ? tsData[12] : null), [tsData]);
+  const initialTs = useMemo(
+    () => (tsData ? tsData[tsData.length - 1] : null),
+    [tsData]
+  );
   const rangeMaxValue = useMemo(
     () => (tsData ? tsData.length - 1 : null),
     [tsData]
@@ -55,13 +68,13 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const initialRadarUrl = useMemo(
     () =>
       initialTs
-        ? `https://tilecache.rainviewer.com${initialTs.path}/512/{z}/{x}/{y}/2/1_1.png`
+        ? `https://api.rainbow.ai/tiles/v1/precip/${initialTs}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
         : null,
-    [initialTs]
+    [initialTs, RAINBOW_API_TOKEN]
   );
 
   const [ts, setTs] = useState(initialTs);
-  const [rangeValue, setRangeValue] = useState(12);
+  const [rangeValue, setRangeValue] = useState(rangeMaxValue);
   const [radarMapUrl, setRadarMapUrl] = useState(initialRadarUrl);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -77,11 +90,11 @@ export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
     (value) => {
       setTs(tsData[value]);
       setRadarMapUrl(
-        `https://tilecache.rainviewer.com${tsData[value].path}/512/{z}/{x}/{y}/2/1_1.png`
+        `https://api.rainbow.ai/tiles/v1/precip/${tsData[value]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
       );
       setRangeValue(value);
     },
-    [tsData]
+    [tsData, RAINBOW_API_TOKEN]
   );
 
   const rangeSliderHandler = (event) => {

@@ -50,7 +50,10 @@ export const WeatherMapSmall = ({
       e.preventDefault();
       e.stopPropagation();
       openModalWithComponent(
-        <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+        <WeatherMapFull
+          OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
+          RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+        />,
         {
           didOpen: () => {
             const closeButton = document.querySelector('.swal2-close');
@@ -69,7 +72,7 @@ export const WeatherMapSmall = ({
         }
       );
     },
-    [OPENWEATHERMAP_API_KEY]
+    [OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN]
   );
 
   useLayoutEffect(() => {
@@ -131,6 +134,7 @@ export const WeatherMapSmall = ({
 
 WeatherMapSmall.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
+  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
 };
 
 export default WeatherMapSmall;
