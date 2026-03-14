@@ -84,7 +84,7 @@
   "overrides": {
     "serialize-javascript": "^7.0.4",
     "svgo": "^4.0.1",
-    "undici": "^7.24.2",
+    "undici": "^7.24.3",
     "vite": "8.0.0"
   },
   "browserslist": {
