@@ -47,8 +47,7 @@ export const WeatherMapFull = ({
     const { radarData } = getData('weatherData');
 
     const snapshot = radarData?.snapshot;
-    const timestamps = radarData ? generateSnapshotHistory(snapshot) : null;
-    console.log('snapshot history', timestamps);
+    const timestamps = snapshot ? generateSnapshotHistory(snapshot) : null;
 
     return {
       popupAddress: locationData.formattedAddress,
