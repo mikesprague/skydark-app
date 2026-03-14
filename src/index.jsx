@@ -31,6 +31,7 @@ root.render(
       <WeatherDataProvider>
         <App
           OPENWEATHERMAP_API_KEY={import.meta.env.VITE_OPENWEATHERMAP_API_KEY}
+          RAINBOW_API_TOKEN={import.meta.env.VITE_RAINBOW_API_TOKEN}
         />
       </WeatherDataProvider>
     </StrictMode>

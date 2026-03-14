@@ -27,7 +27,7 @@ const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
 
 initIcons();
 
-export const App = ({ OPENWEATHERMAP_API_KEY }) => {
+export const App = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
   const { setCoordinates, coordinates } = useWeatherDataContext();
 
   const geoState = useGeolocated({
@@ -128,7 +128,10 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
             <Currently />
             <AirQuality />
             <WeatherAlert />
-            <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+            <WeatherMapSmall
+              OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
+              RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+            />
             <CurrentHourly />
             <SunriseSunset />
             <Daily />
@@ -142,6 +145,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY }) => {
 
 App.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
+  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
 };
 
 export default App;

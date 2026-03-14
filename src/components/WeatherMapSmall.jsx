@@ -17,7 +17,10 @@ import './WeatherMapSmall.css';
 
 initLeafletImages(L);
 
-export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
+export const WeatherMapSmall = ({
+  OPENWEATHERMAP_API_KEY,
+  RAINBOW_API_TOKEN,
+}) => {
   const radarTileLayerRef = useRef();
 
   const { weatherData: weather } = useWeatherDataContext();
@@ -40,7 +43,7 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
     }
 
     return { locationCoordinates: coordinates, radarMapUrl: url };
-  }, [weather]);
+  }, [weather, RAINBOW_API_TOKEN]);
 
   const mapClickHandler = useCallback(
     (e) => {
