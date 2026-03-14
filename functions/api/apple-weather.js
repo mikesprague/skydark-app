@@ -31,6 +31,7 @@ export const onRequestGet = async (context) => {
     APPLE_DEVELOPER_APP_ID,
     GOOGLE_MAPS_API_KEY,
     AIR_NOW_API_KEY,
+    RAINBOW_API_TOKEN,
   } = env;
 
   const urlParams = new URL(url).searchParams;
@@ -215,17 +216,19 @@ export const onRequestGet = async (context) => {
     }
 
     weather.radarData = {};
-    weather.radarData.past = [];
-    weather.radarData.nowcast = [];
-    await fetch('https://api.rainviewer.com/public/weather-maps.json', {
-      headers: {
-        'User-Agent': `SkyDark/${version}`,
-      },
-    }).then(async (radarResponse) => {
+    await fetch(
+      `https://api.rainbow.ai/tiles/v1/snapshot?token=${RAINBOW_API_TOKEN}`,
+      {
+        headers: {
+          'User-Agent': `SkyDark/${version}`,
+        },
+      }
+    ).then(async (radarResponse) => {
       const radarJson = await radarResponse.json();
 
-      weather.radarData.past = [...radarJson.radar.past];
-      weather.radarData.nowcast = [...radarJson.radar.nowcast];
+      weather.radarData = radarJson;
+
+      // console.log(weather.radarData);
     });
 
     weather.airQualityData = {};
