@@ -8,7 +8,7 @@
     "node": ">= 24.x",
     "npm": ">= 11.x"
   },
-  "packageManager": "npm@11.11.0",
+  "packageManager": "npm@11.11.1",
   "scripts": {
     "build": "vite build",
     "clean": "rm -rf ./build",
@@ -63,11 +63,11 @@
     "use-local-storage-state": "19.5.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.6",
+    "@biomejs/biome": "2.4.7",
     "@fullhuman/postcss-purgecss": "8.0.0",
     "@tailwindcss/forms": "0.5.11",
     "@tailwindcss/typography": "0.5.19",
-    "@tailwindcss/vite": "4.2.1",
+    "@tailwindcss/vite": "insiders",
     "@vitejs/plugin-react-swc": "4.3.0",
     "autoprefixer": "10.4.27",
     "concurrently": "9.2.1",
@@ -76,14 +76,16 @@
     "stylelint": "17.4.0",
     "stylelint-config-standard": "40.0.0",
     "tailwindcss": "4.2.1",
-    "vite": "7.3.1",
+    "vite": "8.0.0",
     "vite-plugin-html": "3.2.2",
     "vite-plugin-pwa": "1.2.0",
     "wrangler": "4.73.0"
   },
   "overrides": {
     "serialize-javascript": "^7.0.4",
-    "svgo": "^4.0.1"
+    "svgo": "^4.0.1",
+    "undici": "^7.24.2",
+    "vite": "8.0.0"
   },
   "browserslist": {
     "production": [
@@ -103,7 +105,7 @@
     }
   },
   "volta": {
-    "node": "25.7.0",
-    "npm": "11.11.0"
+    "node": "25.8.1",
+    "npm": "11.11.1"
   }
 }
