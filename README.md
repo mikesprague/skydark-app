@@ -15,6 +15,7 @@ Android app used to be my daily driver and I missed the experience.
 
 - [Apple WeatherKit (REST API)](https://developer.apple.com/weatherkit/)
 - [OpenWeatherMap API](https://openweathermap.org/api/weathermaps)
+- [Rainbow Weather (Tiles API)](https://doc.rainbow.ai/api-ref/tiles/)
 - [Leaflet](https://leafletjs.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React](https://reactjs.org/)
