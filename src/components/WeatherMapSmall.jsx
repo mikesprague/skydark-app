@@ -34,10 +34,9 @@ export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
 
     let url = null;
     // Set the radar URL from the most recent past data
-    if (weather.radarData?.past?.length > 0) {
-      const latestRadar =
-        weather.radarData.past[weather.radarData.past.length - 1];
-      url = `https://tilecache.rainviewer.com${latestRadar.path}/512/{z}/{x}/{y}/2/1_1.png`;
+    if (weather.radarData?.snapshot) {
+      const { snapshot } = weather.radarData;
+      url = `https://api.rainbow.ai/tiles/v1/precip/${snapshot}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`;
     }
 
     return { locationCoordinates: coordinates, radarMapUrl: url };
