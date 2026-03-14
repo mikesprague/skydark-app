@@ -134,7 +134,7 @@ export const WeatherMapFull = ({
           tap={true}
           touchZoom={true}
           zoom={7}
-          maxZoom={7}
+          maxZoom={12}
           zoomControl={false}
         >
           <Marker position={[coordinates.latitude, coordinates.longitude]}>
@@ -192,11 +192,11 @@ export const WeatherMapFull = ({
               <TileLayer
                 url={
                   radarMapUrl ||
-                  `https://tilecache.rainviewer.com${tsData[0].path}/512/{z}/{x}/{y}/2/1_1.png`
+                  `https://api.rainbow.ai/tiles/v1/precip/${tsData[0]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
                 }
                 opacity={0.8}
                 attribution={
-                  '&copy; <a href="https://www.rainviewer.com/api.html" rel="noopener noreferrer" target="_blank">RainViewer</a>'
+                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
                 }
                 ref={radarTileLayerRef}
               />
@@ -254,6 +254,7 @@ export const WeatherMapFull = ({
 WeatherMapFull.displayName = 'WeatherMapFull';
 WeatherMapFull.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
+  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
 };
 
 export default WeatherMapFull;
