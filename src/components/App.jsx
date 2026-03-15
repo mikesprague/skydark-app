@@ -123,7 +123,10 @@ export const App = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
     <ErrorBoundary>
       <Suspense fallback={<Loading fullHeight={true} />}>
         <WeatherDataLoader latitude={latitude} longitude={longitude}>
-          <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
+          <Header
+            OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
+            RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+          />
           <LayoutContainer>
             <Currently />
             <AirQuality />
