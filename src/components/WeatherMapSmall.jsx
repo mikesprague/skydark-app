@@ -46,7 +46,7 @@ export const WeatherMapSmall = ({
     if (weather.radarData?.snapshot) {
       const { snapshot } = weather.radarData;
       url = `https://api.rainbow.ai/tiles/v1/precip/${snapshot}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`;
-      cloudsUrl = `https://api.rainbow.ai/tiles/v1/clouds/${snapshot}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`;
+      cloudsUrl = `https://api.rainbow.ai/tiles/v1/clouds/${snapshot - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`;
     }
 
     return {
@@ -134,6 +134,9 @@ export const WeatherMapSmall = ({
                 opacity={0.9}
                 ref={radarTileLayerRef}
                 url={radarMapUrl}
+                attribution={
+                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
+                }
               />
             )}
             {cloudMapUrl && (
@@ -142,6 +145,9 @@ export const WeatherMapSmall = ({
                 opacity={0.8}
                 ref={cloudTileLayerRef}
                 url={cloudMapUrl}
+                attribution={
+                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
+                }
               />
             )}
           </MapContainer>
