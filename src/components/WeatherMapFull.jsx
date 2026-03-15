@@ -246,9 +246,7 @@ export const WeatherMapFull = ({
       <div className="slider-container">
         {tsData && ts ? (
           <div className="slider">
-            <div className="value-label">
-              {dayjs.unix(ts.time).format('h:mmA')}
-            </div>
+            <div className="value-label">{dayjs.unix(ts).format('h:mmA')}</div>
             <input
               className="range-slider"
               type="range"
