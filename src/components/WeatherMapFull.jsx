@@ -75,7 +75,7 @@ export const WeatherMapFull = ({
   const initialCloudUrl = useMemo(
     () =>
       initialTs
-        ? `https://api.rainbow.ai/tiles/v1/clouds/${initialTs}{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
+        ? `https://api.rainbow.ai/tiles/v1/clouds/${initialTs - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
         : null,
     [initialTs, RAINBOW_API_TOKEN]
   );
@@ -105,7 +105,7 @@ export const WeatherMapFull = ({
         `https://api.rainbow.ai/tiles/v1/precip/${tsData[value]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
       );
       setCloudMapUrl(
-        `https://api.rainbow.ai/tiles/v1/clouds/${tsData[value]}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
+        `https://api.rainbow.ai/tiles/v1/clouds/${tsData[value] - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
       );
       setRangeValue(value);
     },
@@ -222,7 +222,7 @@ export const WeatherMapFull = ({
               <TileLayer
                 url={
                   cloudMapUrl ||
-                  `https://api.rainbow.ai/tiles/v1/clouds/${tsData[0]}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
+                  `https://api.rainbow.ai/tiles/v1/clouds/${tsData[0] - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
                 }
                 opacity={0.8}
                 maxNativeZoom={7}
