@@ -22,12 +22,17 @@ export const WeatherMapSmall = ({
   RAINBOW_API_TOKEN,
 }) => {
   const radarTileLayerRef = useRef();
+  const cloudTileLayerRef = useRef();
 
   const { weatherData: weather } = useWeatherDataContext();
 
-  const { locationCoordinates, radarMapUrl } = useMemo(() => {
+  const { locationCoordinates, radarMapUrl, cloudMapUrl } = useMemo(() => {
     if (!weather) {
-      return { locationCoordinates: null, radarMapUrl: null };
+      return {
+        locationCoordinates: null,
+        radarMapUrl: null,
+        cloudMapUrl: null,
+      };
     }
 
     const coordinates = {
@@ -36,13 +41,19 @@ export const WeatherMapSmall = ({
     };
 
     let url = null;
+    let cloudsUrl = null;
     // Set the radar URL from the most recent past data
     if (weather.radarData?.snapshot) {
       const { snapshot } = weather.radarData;
       url = `https://api.rainbow.ai/tiles/v1/precip/${snapshot}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`;
+      cloudsUrl = `https://api.rainbow.ai/tiles/v1/clouds/${snapshot}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`;
     }
 
-    return { locationCoordinates: coordinates, radarMapUrl: url };
+    return {
+      locationCoordinates: coordinates,
+      radarMapUrl: url,
+      cloudMapUrl: cloudsUrl,
+    };
   }, [weather, RAINBOW_API_TOKEN]);
 
   const mapClickHandler = useCallback(
@@ -79,7 +90,10 @@ export const WeatherMapSmall = ({
     if (radarTileLayerRef.current && radarMapUrl) {
       radarTileLayerRef.current.setUrl(radarMapUrl);
     }
-  }, [radarMapUrl]);
+    if (cloudTileLayerRef.current && cloudMapUrl) {
+      cloudTileLayerRef.current.setUrl(cloudMapUrl);
+    }
+  }, [radarMapUrl, cloudMapUrl]);
 
   return weather ? (
     <div className="small-map-container">
@@ -116,9 +130,18 @@ export const WeatherMapSmall = ({
             />
             {radarMapUrl && (
               <TileLayer
-                url={radarMapUrl}
+                maxNativeZoom={12}
                 opacity={0.9}
                 ref={radarTileLayerRef}
+                url={radarMapUrl}
+              />
+            )}
+            {cloudMapUrl && (
+              <TileLayer
+                maxNativeZoom={7}
+                opacity={0.8}
+                ref={cloudTileLayerRef}
+                url={cloudMapUrl}
               />
             )}
           </MapContainer>
