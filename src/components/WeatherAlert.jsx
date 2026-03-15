@@ -140,7 +140,7 @@ export const WeatherAlert = () => {
       <button
         type="button"
         onClick={weatherAlertHandler}
-        className="inline-flex items-center gap-2 px-3 py-1 text-sm font-medium border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200"
+        className="inline-flex items-center gap-2 px-3 py-1 text-sm font-medium border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white focus:outline-none focus:ring-none transition-colors duration-200"
       >
         <FontAwesomeIcon icon={['far', 'circle-exclamation']} />
         <span>
