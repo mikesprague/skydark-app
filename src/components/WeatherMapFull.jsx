@@ -52,7 +52,6 @@ export const WeatherMapFull = ({
     return {
       popupAddress: locationData.formattedAddress,
       tsData: [...timestamps],
-      // tsData: [...timestamps].reverse(),
     };
   }, []);
 
@@ -73,24 +72,40 @@ export const WeatherMapFull = ({
     [initialTs, RAINBOW_API_TOKEN]
   );
 
+  const initialCloudUrl = useMemo(
+    () =>
+      initialTs
+        ? `https://api.rainbow.ai/tiles/v1/clouds/${initialTs}{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
+        : null,
+    [initialTs, RAINBOW_API_TOKEN]
+  );
+
   const [ts, setTs] = useState(initialTs);
   const [rangeValue, setRangeValue] = useState(rangeMaxValue);
   const [radarMapUrl, setRadarMapUrl] = useState(initialRadarUrl);
+  const [cloudMapUrl, setCloudMapUrl] = useState(initialCloudUrl);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const radarTileLayerRef = useRef();
+  const cloudTileLayerRef = useRef();
 
   useLayoutEffect(() => {
     if (radarTileLayerRef.current && radarMapUrl) {
       radarTileLayerRef.current.setUrl(radarMapUrl);
     }
-  }, [radarMapUrl]);
+    if (cloudTileLayerRef.current && cloudMapUrl) {
+      cloudTileLayerRef.current.setUrl(cloudMapUrl);
+    }
+  }, [radarMapUrl, cloudMapUrl]);
 
   const advanceRangeSlider = useCallback(
     (value) => {
       setTs(tsData[value]);
       setRadarMapUrl(
         `https://api.rainbow.ai/tiles/v1/precip/${tsData[value]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
+      );
+      setCloudMapUrl(
+        `https://api.rainbow.ai/tiles/v1/clouds/${tsData[value]}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
       );
       setRangeValue(value);
     },
@@ -152,7 +167,7 @@ export const WeatherMapFull = ({
           <LayersControl>
             <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled()}>
               <TileLayer
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}@2x.png"
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -164,7 +179,7 @@ export const WeatherMapFull = ({
               checked={!isDarkModeEnabled()}
             >
               <TileLayer
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png"
+                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}@2x.png"
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -173,7 +188,7 @@ export const WeatherMapFull = ({
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Light">
               <TileLayer
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png"
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -196,10 +211,25 @@ export const WeatherMapFull = ({
                   `https://api.rainbow.ai/tiles/v1/precip/${tsData[0]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
                 }
                 opacity={0.8}
+                maxNativeZoom={12}
                 attribution={
                   '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
                 }
                 ref={radarTileLayerRef}
+              />
+            </LayersControl.Overlay>
+            <LayersControl.Overlay name="Clouds">
+              <TileLayer
+                url={
+                  cloudMapUrl ||
+                  `https://api.rainbow.ai/tiles/v1/clouds/${tsData[0]}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
+                }
+                opacity={0.8}
+                maxNativeZoom={7}
+                attribution={
+                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
+                }
+                ref={cloudTileLayerRef}
               />
             </LayersControl.Overlay>
             <LayersControl.Overlay name="Temperature">
