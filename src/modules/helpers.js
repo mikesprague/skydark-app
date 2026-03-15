@@ -86,6 +86,7 @@ const defaultModalConfig = {
     backdrop: 'swal2-backdrop-hide',
     icon: 'swal2-icon-hide',
   },
+  theme: isDarkModeEnabled() ? 'dark' : undefined,
 };
 
 const defaultToastConfig = {
@@ -98,6 +99,7 @@ const defaultToastConfig = {
     ? 'var(--color-gray-700)'
     : 'var(--color-gray-200)',
   color: isDarkModeEnabled() ? 'var(--text-gray-50)' : 'var(--text-gray-900)',
+  theme: isDarkModeEnabled() ? 'dark' : undefined,
 };
 
 export const openModalWithComponent = (componentToShow, config = null) => {
