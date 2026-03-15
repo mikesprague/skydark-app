@@ -22,16 +22,17 @@ export const WeatherMapSmall = ({
   RAINBOW_API_TOKEN,
 }) => {
   const radarTileLayerRef = useRef();
-  const cloudTileLayerRef = useRef();
+  // const cloudTileLayerRef = useRef();
 
   const { weatherData: weather } = useWeatherDataContext();
 
-  const { locationCoordinates, radarMapUrl, cloudMapUrl } = useMemo(() => {
+  // const { locationCoordinates, radarMapUrl, cloudMapUrl } = useMemo(() => {
+  const { locationCoordinates, radarMapUrl } = useMemo(() => {
     if (!weather) {
       return {
         locationCoordinates: null,
         radarMapUrl: null,
-        cloudMapUrl: null,
+        // cloudMapUrl: null,
       };
     }
 
@@ -41,18 +42,18 @@ export const WeatherMapSmall = ({
     };
 
     let url = null;
-    let cloudsUrl = null;
+    // let cloudsUrl = null;
     // Set the radar URL from the most recent past data
     if (weather.radarData?.snapshot) {
       const { snapshot } = weather.radarData;
       url = `https://api.rainbow.ai/tiles/v1/precip/${snapshot}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`;
-      cloudsUrl = `https://api.rainbow.ai/tiles/v1/clouds/${snapshot - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`;
+      // cloudsUrl = `https://api.rainbow.ai/tiles/v1/clouds/${snapshot - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`;
     }
 
     return {
       locationCoordinates: coordinates,
       radarMapUrl: url,
-      cloudMapUrl: cloudsUrl,
+      // cloudMapUrl: cloudsUrl,
     };
   }, [weather, RAINBOW_API_TOKEN]);
 
@@ -90,10 +91,10 @@ export const WeatherMapSmall = ({
     if (radarTileLayerRef.current && radarMapUrl) {
       radarTileLayerRef.current.setUrl(radarMapUrl);
     }
-    if (cloudTileLayerRef.current && cloudMapUrl) {
-      cloudTileLayerRef.current.setUrl(cloudMapUrl);
-    }
-  }, [radarMapUrl, cloudMapUrl]);
+    // if (cloudTileLayerRef.current && cloudMapUrl) {
+    //   cloudTileLayerRef.current.setUrl(cloudMapUrl);
+    // }
+  }, [radarMapUrl]);
 
   return weather ? (
     <div className="small-map-container">
@@ -139,17 +140,18 @@ export const WeatherMapSmall = ({
                 }
               />
             )}
-            {cloudMapUrl && (
+            {/* {cloudMapUrl && (
               <TileLayer
                 maxNativeZoom={7}
                 opacity={0.8}
+                ref={cloudTileLayerRef}
                 ref={cloudTileLayerRef}
                 url={cloudMapUrl}
                 attribution={
                   '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
                 }
               />
-            )}
+            )} */}
           </MapContainer>
         </div>
       ) : (
