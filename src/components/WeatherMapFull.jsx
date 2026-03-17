@@ -59,9 +59,13 @@ export const WeatherMapFull = ({
     () => (tsData ? tsData[tsData.length - 1] : null),
     [tsData]
   );
-  const rangeMaxValue = useMemo(
+  const latestTsIndex = useMemo(
     () => (tsData ? tsData.length - 1 : null),
     [tsData]
+  );
+  const rangeMaxValue = useMemo(
+    () => (latestTsIndex !== null ? latestTsIndex + 10 : null),
+    [latestTsIndex]
   );
 
   const initialRadarUrl = useMemo(
@@ -81,7 +85,7 @@ export const WeatherMapFull = ({
   );
 
   const [ts, setTs] = useState(initialTs);
-  const [rangeValue, setRangeValue] = useState(rangeMaxValue);
+  const [rangeValue, setRangeValue] = useState(latestTsIndex);
   const [radarMapUrl, setRadarMapUrl] = useState(initialRadarUrl);
   const [cloudMapUrl, setCloudMapUrl] = useState(initialCloudUrl);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -100,20 +104,26 @@ export const WeatherMapFull = ({
 
   const advanceRangeSlider = useCallback(
     (value) => {
-      setTs(tsData[value]);
+      const isForecastFrame = value > latestTsIndex;
+      const nextForecastTime = isForecastFrame
+        ? (value - latestTsIndex) * 600
+        : 0;
+      const baseTs = isForecastFrame ? tsData[latestTsIndex] : tsData[value];
+
+      setTs(baseTs + nextForecastTime);
       setRadarMapUrl(
-        `https://api.rainbow.ai/tiles/v1/precip/${tsData[value]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
+        `https://api.rainbow.ai/tiles/v1/precip/${baseTs}/${nextForecastTime}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
       );
       setCloudMapUrl(
-        `https://api.rainbow.ai/tiles/v1/clouds/${tsData[value] - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
+        `https://api.rainbow.ai/tiles/v1/clouds/${baseTs - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
       );
       setRangeValue(value);
     },
-    [tsData, RAINBOW_API_TOKEN]
+    [latestTsIndex, tsData, RAINBOW_API_TOKEN]
   );
 
   const rangeSliderHandler = (event) => {
-    const { value } = event.target;
+    const value = Number(event.target.value);
 
     advanceRangeSlider(value);
   };
