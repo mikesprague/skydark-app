@@ -51,7 +51,9 @@ export const NextHour = () => {
       let hasPrecip = false;
       if (minutes) {
         const precipNextHour = minutes.filter(
-          (minute) => minute.precipitationIntensity > 0
+          (minute) =>
+            minute.precipitationIntensity > 0.2 &&
+            minute.precipitationChance > 0.2
         );
 
         const summaryHasPrecip = (summaryParts) => {

@@ -17,15 +17,22 @@ export const PrecipChart = () => {
     const minutes = weather?.forecastNextHour?.minutes.slice(0, 61);
 
     minutes.forEach((minute, index) => {
-      dataArray.push([
-        index,
-        metricToImperial.mmToIn(
-          weather?.forecastNextHour?.summary[0]?.condition.toLowerCase() ===
-            'snow'
-            ? minute.precipitationIntensity * 1.35
-            : minute.precipitationIntensity
-        ),
-      ]);
+      if (
+        minute.precipitationIntensity > 0.2 &&
+        minute.precipitationChance > 0.2
+      ) {
+        dataArray.push([
+          index,
+          metricToImperial.mmToIn(
+            weather?.forecastNextHour?.summary[0]?.condition.toLowerCase() ===
+              'snow'
+              ? minute.precipitationIntensity * 1.35
+              : minute.precipitationIntensity
+          ),
+        ]);
+      } else {
+        dataArray.push([index, 0]);
+      }
     });
 
     return dataArray;
