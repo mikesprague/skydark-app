@@ -70,7 +70,7 @@
     "@vitejs/plugin-react": "6.0.1",
     "autoprefixer": "10.5.0",
     "concurrently": "9.2.1",
-    "cssnano": "7.1.7",
+    "cssnano": "7.1.8",
     "cz-git": "1.13.0",
     "stylelint": "17.9.1",
     "stylelint-config-standard": "40.0.0",
