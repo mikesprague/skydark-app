@@ -1,14 +1,19 @@
 {
   "name": "skydark-app",
   "version": "4.0.0-rc.5",
-  "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">= 24.x",
-    "npm": ">= 11.x"
+  "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
+  "keywords": [],
+  "homepage": "https://skydark.app",
+  "license": "MIT",
+  "author": {
+    "name": "Michael Sprague",
+    "email": "mikesprague@gmail.com"
   },
-  "packageManager": "npm@11.17.0",
+  "repository": {
+    "url": "https://github.com/mikesprague/skydark-app"
+  },
+  "type": "module",
   "scripts": {
     "build": "vite build",
     "clean": "rm -rf ./build",
@@ -18,16 +23,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "wrangler-pages-dev": "wrangler pages dev --live-reload true --local true ./build"
   },
-  "keywords": [],
-  "repository": {
-    "url": "https://github.com/mikesprague/skydark-app"
-  },
-  "author": {
-    "name": "Michael Sprague",
-    "email": "mikesprague@gmail.com"
-  },
-  "homepage": "https://skydark.app",
-  "license": "MIT",
   "dependencies": {
     "@bugsnag/core": "8.9.0",
     "@bugsnag/js": "8.9.0",
@@ -85,8 +80,14 @@
     "glob": "^13.0.6",
     "serialize-javascript": "^7.0.5",
     "svgo": "^4.0.1",
-    "undici": "^8.4.1",
-    "vite": "8.0.16"
+    "undici": "^8.5.0",
+    "vite": "8.0.16",
+    "ws": "^8.21.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-git"
+    }
   },
   "browserslist": {
     "production": [
@@ -100,19 +101,19 @@
       "last 1 safari version"
     ]
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-git"
-    }
+  "engines": {
+    "node": ">= 24.x",
+    "npm": ">= 11.x"
   },
   "volta": {
     "node": "26.3.0",
     "npm": "11.17.0"
   },
+  "packageManager": "npm@11.17.0",
   "allowScripts": {
     "esbuild@0.28.1": true,
-    "workerd@1.20260611.1": true,
     "sharp@0.34.5": true,
-    "fsevents@2.3.3": true
+    "fsevents@2.3.3": true,
+    "workerd@1.20260616.1": true
   }
 }
