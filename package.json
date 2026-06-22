@@ -67,7 +67,7 @@
     "cssnano": "8.0.2",
     "cz-git": "1.13.1",
     "oxfmt": "0.56.0",
-    "oxlint": "1.70.0",
+    "oxlint": "1.71.0",
     "stylelint": "17.13.0",
     "stylelint-config-standard": "40.0.0",
     "tailwindcss": "4.3.1",
