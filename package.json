@@ -45,7 +45,7 @@
     "leaflet": "1.9.4",
     "nanoid": "5.1.16",
     "prop-types": "15.8.1",
-    "query-string": "9.4.0",
+    "query-string": "9.4.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-geolocated": "4.4.0",
