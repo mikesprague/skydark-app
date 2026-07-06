@@ -1,6 +1,6 @@
 {
   "name": "skydark-app",
-  "version": "4.0.0-rc.6",
+  "version": "4.0.0-rc.7",
   "private": true,
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "keywords": [],
@@ -66,8 +66,8 @@
     "concurrently": "10.0.3",
     "cssnano": "8.0.2",
     "cz-git": "1.13.1",
-    "oxfmt": "0.57.0",
-    "oxlint": "1.72.0",
+    "oxfmt": "0.58.0",
+    "oxlint": "1.73.0",
     "stylelint": "17.14.0",
     "stylelint-config-standard": "40.0.0",
     "tailwindcss": "4.3.2",
@@ -109,6 +109,6 @@
     "esbuild@0.28.1": true,
     "sharp@0.34.5": true,
     "fsevents@2.3.3": true,
-    "workerd@1.20260625.1": true
+    "workerd@1.20260701.1": true
   }
 }
