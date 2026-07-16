@@ -54,7 +54,7 @@
     "sweetalert2": "11.26.25",
     "sweetalert2-react-content": "5.1.2",
     "tippy.js": "6.3.7",
-    "use-local-storage-state": "19.5.0"
+    "use-local-storage-state": "20.0.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "8.0.0",
