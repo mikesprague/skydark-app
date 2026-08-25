@@ -39,7 +39,7 @@
     "@fortawesome/react-fontawesome": "3.5.0",
     "@tippyjs/react": "4.2.6",
     "cross-env": "10.1.0",
-    "dayjs": "1.11.21",
+    "dayjs": "1.11.23",
     "dotenv": "17.4.2",
     "jose": "6.2.8",
     "leaflet": "1.9.4",
