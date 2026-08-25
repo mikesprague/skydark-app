@@ -65,7 +65,7 @@
     "autoprefixer": "10.5.4",
     "concurrently": "10.0.4",
     "cssnano": "8.0.4",
-    "cz-git": "1.13.1",
+    "cz-git": "1.14.0",
     "oxfmt": "0.62.0",
     "oxlint": "1.77.0",
     "stylelint": "17.14.1",
