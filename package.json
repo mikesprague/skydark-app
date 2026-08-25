@@ -66,7 +66,7 @@
     "concurrently": "10.0.4",
     "cssnano": "8.0.4",
     "cz-git": "1.14.0",
-    "oxfmt": "0.62.0",
+    "oxfmt": "0.64.0",
     "oxlint": "1.77.0",
     "stylelint": "17.14.1",
     "stylelint-config-standard": "40.0.0",
