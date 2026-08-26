@@ -63,7 +63,7 @@
     "@tailwindcss/vite": "4.3.3",
     "@vitejs/plugin-react": "6.1.0",
     "autoprefixer": "10.5.4",
-    "concurrently": "10.0.4",
+    "concurrently": "10.0.5",
     "cssnano": "8.0.8",
     "cz-git": "1.14.0",
     "oxfmt": "0.64.0",
