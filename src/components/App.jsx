@@ -29,7 +29,7 @@ initIcons();
 export const App = ({
   OPENWEATHERMAP_API_KEY,
   RAINBOW_API_TOKEN,
-  CARTO_MAPS_API_KEY,
+  CARTO_BASEMAPS_API_KEY,
 }) => {
   const { setCoordinates, coordinates } = useWeatherDataContext();
 
@@ -129,7 +129,7 @@ export const App = ({
           <Header
             OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
             RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-            CARTO_MAPS_API_KEY={CARTO_MAPS_API_KEY}
+            CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
           />
           <LayoutContainer>
             <Currently />
@@ -138,7 +138,7 @@ export const App = ({
             <WeatherMapSmall
               OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
               RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-              CARTO_MAPS_API_KEY={CARTO_MAPS_API_KEY}
+              CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
             />
             <CurrentHourly />
             <SunriseSunset />
@@ -154,6 +154,7 @@ export const App = ({
 App.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
   RAINBOW_API_TOKEN: PropTypes.string.isRequired,
+  CARTO_BASEMAPS_API_KEY: PropTypes.string.isRequired,
 };
 
 export default App;

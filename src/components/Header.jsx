@@ -13,7 +13,7 @@ import './Header.css';
 export const Header = ({
   OPENWEATHERMAP_API_KEY,
   RAINBOW_API_TOKEN,
-  CARTO_MAPS_API_KEY,
+  CARTO_BASEMAPS_API_KEY,
 }) => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
@@ -36,7 +36,7 @@ export const Header = ({
       <WeatherMapFull
         OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
         RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-        CARTO_MAPS_API_KEY={CARTO_MAPS_API_KEY}
+        CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
       />,
       {
         didOpen: () => {
@@ -125,6 +125,7 @@ export const Header = ({
 Header.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
   RAINBOW_API_TOKEN: PropTypes.string.isRequired,
+  CARTO_BASEMAPS_API_KEY: PropTypes.string.isRequired,
 };
 
 export default Header;

@@ -38,7 +38,7 @@ initLeafletImages(L);
 export const WeatherMapFull = ({
   OPENWEATHERMAP_API_KEY,
   RAINBOW_API_TOKEN,
-  CARTO_MAPS_API_KEY,
+  CARTO_BASEMAPS_API_KEY,
 }) => {
   const timerHandle = useRef();
   const rangeSliderRef = useRef();
@@ -180,7 +180,7 @@ export const WeatherMapFull = ({
           <LayersControl>
             <LayersControl.BaseLayer name='Dark' checked={isDarkModeEnabled()}>
               <TileLayer
-                url={`https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}@2x.png?key=${CARTO_MAPS_API_KEY}`}
+                url={`https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_API_KEY}`}
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -192,7 +192,7 @@ export const WeatherMapFull = ({
               checked={!isDarkModeEnabled()}
             >
               <TileLayer
-                url={`https://{s}.basemaps.cartocdn.com/rastertiles/rastertiles/voyager/{z}/{x}/{y}@2x.png?key=${CARTO_MAPS_API_KEY}`}
+                url={`https://{s}.basemaps.cartocdn.com/rastertiles/rastertiles/voyager/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_API_KEY}`}
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -201,7 +201,7 @@ export const WeatherMapFull = ({
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name='Light'>
               <TileLayer
-                url={`https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}@2x.png?key=${CARTO_MAPS_API_KEY}`}
+                url={`https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_API_KEY}`}
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'

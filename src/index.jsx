@@ -29,7 +29,7 @@ root.render(
         <App
           OPENWEATHERMAP_API_KEY={import.meta.env.VITE_OPENWEATHERMAP_API_KEY}
           RAINBOW_API_TOKEN={import.meta.env.VITE_RAINBOW_API_TOKEN}
-          CARTO_MAPS_API_KEY={import.meta.env.VITE_CARTO_MAPS_API_KEY}
+          CARTO_BASEMAPS_API_KEY={import.meta.env.VITE_CARTO_BASEMAPS_API_KEY}
         />
       </WeatherDataProvider>
     </StrictMode>

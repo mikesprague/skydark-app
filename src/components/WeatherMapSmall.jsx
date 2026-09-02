@@ -20,7 +20,7 @@ initLeafletImages(L);
 export const WeatherMapSmall = ({
   OPENWEATHERMAP_API_KEY,
   RAINBOW_API_TOKEN,
-  CARTO_MAPS_API_KEY,
+  CARTO_BASEMAPS_API_KEY,
 }) => {
   const radarTileLayerRef = useRef();
   // const cloudTileLayerRef = useRef();
@@ -66,6 +66,7 @@ export const WeatherMapSmall = ({
         <WeatherMapFull
           OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
           RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+          CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
         />,
         {
           didOpen: () => {
@@ -85,7 +86,7 @@ export const WeatherMapSmall = ({
         }
       );
     },
-    [OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN]
+    [OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN, CARTO_BASEMAPS_API_KEY]
   );
 
   useLayoutEffect(() => {
@@ -123,8 +124,8 @@ export const WeatherMapSmall = ({
             <TileLayer
               url={
                 isDarkModeEnabled()
-                  ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
-                  : `https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
+                  ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${CARTO_BASEMAPS_API_KEY}`
+                  : `https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${CARTO_BASEMAPS_API_KEY}`
 
                 // 'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key='
               }
