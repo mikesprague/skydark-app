@@ -123,8 +123,8 @@ export const WeatherMapSmall = ({
             <TileLayer
               url={
                 isDarkModeEnabled()
-                  ? `https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
-                  : `https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
+                  ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
+                  : `https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
 
                 // 'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key='
               }
