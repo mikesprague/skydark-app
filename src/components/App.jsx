@@ -6,7 +6,6 @@ import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { dayjs } from '../lib/time/dayjs.js';
 import { initIcons } from '../modules/icons.js';
 import { isCacheExpired } from '../modules/local-storage.js';
-
 import { ErrorBoundary } from './ErrorBoundary.jsx';
 
 import 'sweetalert2/dist/sweetalert2.css';
@@ -27,7 +26,11 @@ const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
 
 initIcons();
 
-export const App = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
+export const App = ({
+  OPENWEATHERMAP_API_KEY,
+  RAINBOW_API_TOKEN,
+  CARTO_MAPS_API_KEY,
+}) => {
   const { setCoordinates, coordinates } = useWeatherDataContext();
 
   const geoState = useGeolocated({
@@ -126,6 +129,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
           <Header
             OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
             RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+            CARTO_MAPS_API_KEY={CARTO_MAPS_API_KEY}
           />
           <LayoutContainer>
             <Currently />
@@ -134,6 +138,7 @@ export const App = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
             <WeatherMapSmall
               OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
               RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+              CARTO_MAPS_API_KEY={CARTO_MAPS_API_KEY}
             />
             <CurrentHourly />
             <SunriseSunset />

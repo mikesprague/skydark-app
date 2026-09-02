@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { openModalWithComponent } from '../modules/helpers.js';
 import { About } from './About.jsx';
@@ -9,7 +10,11 @@ import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './Header.css';
 
-export const Header = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
+export const Header = ({
+  OPENWEATHERMAP_API_KEY,
+  RAINBOW_API_TOKEN,
+  CARTO_MAPS_API_KEY,
+}) => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
 
@@ -31,6 +36,7 @@ export const Header = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
       <WeatherMapFull
         OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
         RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
+        CARTO_MAPS_API_KEY={CARTO_MAPS_API_KEY}
       />,
       {
         didOpen: () => {
@@ -81,33 +87,33 @@ export const Header = ({ OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN }) => {
   });
 
   return (
-    <div ref={headerRef} className="header">
-      <div className="location-name">
+    <div ref={headerRef} className='header'>
+      <div className='location-name'>
         <h1>
           <FontAwesomeIcon icon={['fad', 'location-dot']} fixedWidth />
           {` ${locationName}`}
         </h1>
       </div>
-      <div className="flex-spacer" />
-      <div className="icons">
+      <div className='flex-spacer' />
+      <div className='icons'>
         <button
-          type="button"
+          type='button'
           onClick={mapIconClickHandler}
-          aria-label="Open map"
+          aria-label='Open map'
         >
           <FontAwesomeIcon icon={['fad', 'map-location-dot']} fixedWidth />
         </button>
         <button
-          type="button"
+          type='button'
           onClick={settingsIconClickHandler}
-          aria-label="Open settings"
+          aria-label='Open settings'
         >
           <FontAwesomeIcon icon={['fad', 'gear']} fixedWidth />
         </button>
         <button
-          type="button"
+          type='button'
           onClick={aboutIconClickHandler}
-          aria-label="About Sky Dark"
+          aria-label='About Sky Dark'
         >
           <FontAwesomeIcon icon={['fad', 'circle-info']} fixedWidth />
         </button>

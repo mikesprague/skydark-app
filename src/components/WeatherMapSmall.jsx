@@ -2,6 +2,7 @@ import L from 'leaflet';
 import PropTypes from 'prop-types';
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+
 import 'leaflet/dist/leaflet.css';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
@@ -10,7 +11,6 @@ import {
   openModalWithComponent,
 } from '../modules/helpers.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
-
 import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './WeatherMapSmall.css';
@@ -20,6 +20,7 @@ initLeafletImages(L);
 export const WeatherMapSmall = ({
   OPENWEATHERMAP_API_KEY,
   RAINBOW_API_TOKEN,
+  CARTO_MAPS_API_KEY,
 }) => {
   const radarTileLayerRef = useRef();
   // const cloudTileLayerRef = useRef();
@@ -97,9 +98,9 @@ export const WeatherMapSmall = ({
   }, [radarMapUrl]);
 
   return weather ? (
-    <div className="small-map-container">
+    <div className='small-map-container'>
       {locationCoordinates?.latitude ? (
-        <div className="map-wrapper" onClick={mapClickHandler}>
+        <div className='map-wrapper' onClick={mapClickHandler}>
           <MapContainer
             center={[
               locationCoordinates.latitude,
@@ -107,7 +108,7 @@ export const WeatherMapSmall = ({
             ]}
             doubleClickZoom={false}
             dragging={false}
-            id="weather-map-small"
+            id='weather-map-small'
             keyboard={false}
             scrollWheelZoom={false}
             touchZoom={false}
@@ -122,8 +123,10 @@ export const WeatherMapSmall = ({
             <TileLayer
               url={
                 isDarkModeEnabled()
-                  ? 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
-                  : 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+                  ? `https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
+                  : `https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${CARTO_MAPS_API_KEY}`
+
+                // 'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key='
               }
               attribution={
                 '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'

@@ -1,15 +1,12 @@
-// eslint-disable-next-line import/no-unresolved
-import { registerSW } from 'virtual:pwa-register';
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { registerSW } from 'virtual:pwa-register';
 
 import { App } from './components/App.jsx';
 import { ErrorView } from './components/ErrorView.jsx';
-
 import { WeatherDataProvider } from './contexts/WeatherDataContext.jsx';
-
 import { initSkyDark, openToastWithContent } from './modules/helpers.js';
 import { resetData } from './modules/local-storage.js';
 
@@ -32,6 +29,7 @@ root.render(
         <App
           OPENWEATHERMAP_API_KEY={import.meta.env.VITE_OPENWEATHERMAP_API_KEY}
           RAINBOW_API_TOKEN={import.meta.env.VITE_RAINBOW_API_TOKEN}
+          CARTO_MAPS_API_KEY={import.meta.env.VITE_CARTO_MAPS_API_KEY}
         />
       </WeatherDataProvider>
     </StrictMode>

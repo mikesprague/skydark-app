@@ -13,7 +13,9 @@ import {
   TileLayer,
   ZoomControl,
 } from 'react-leaflet';
+
 import { dayjs } from '../lib/time/dayjs.js';
+
 import 'leaflet/dist/leaflet.css';
 
 import {
@@ -36,6 +38,7 @@ initLeafletImages(L);
 export const WeatherMapFull = ({
   OPENWEATHERMAP_API_KEY,
   RAINBOW_API_TOKEN,
+  CARTO_MAPS_API_KEY,
 }) => {
   const timerHandle = useRef();
   const rangeSliderRef = useRef();
@@ -147,14 +150,14 @@ export const WeatherMapFull = ({
 
   return tsData && ts ? (
     <>
-      <div className="map-container">
+      <div className='map-container'>
         <MapContainer
           animate={true}
           boxZoom={true}
           center={[coordinates.latitude, coordinates.longitude]}
           doubleClickZoom={true}
           dragging={true}
-          className="weather-map-full"
+          className='weather-map-full'
           keyboard={false}
           scrollWheelZoom={false}
           tap={true}
@@ -171,13 +174,13 @@ export const WeatherMapFull = ({
             pathOptions={{ weight: 1, opacity: 0.5 }}
             radius={coordinates.accuracy}
           />
-          <ScaleControl position="topleft" />
-          <ZoomControl position="topleft" />
-          <AttributionControl position="topright" />
+          <ScaleControl position='topleft' />
+          <ZoomControl position='topleft' />
+          <AttributionControl position='topright' />
           <LayersControl>
-            <LayersControl.BaseLayer name="Dark" checked={isDarkModeEnabled()}>
+            <LayersControl.BaseLayer name='Dark' checked={isDarkModeEnabled()}>
               <TileLayer
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}@2x.png"
+                url={`https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}@2x.png?key=${CARTO_MAPS_API_KEY}`}
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
@@ -185,36 +188,36 @@ export const WeatherMapFull = ({
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer
-              name="Color"
+              name='Color'
               checked={!isDarkModeEnabled()}
             >
               <TileLayer
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}@2x.png"
+                url={`https://basemaps.cartocdn.com/rastertiles/rastertiles/voyager/{z}/{x}/{y}@2x.png?key=${CARTO_MAPS_API_KEY}`}
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
                 }
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Light">
+            <LayersControl.BaseLayer name='Light'>
               <TileLayer
-                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png"
+                url={`https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}@2x.png?key=${CARTO_MAPS_API_KEY}`}
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
                 }
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Street">
+            <LayersControl.BaseLayer name='Street'>
               <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 opacity={1}
                 attribution={
                   '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
                 }
               />
             </LayersControl.BaseLayer>
-            <LayersControl.Overlay name="Radar" checked="checked">
+            <LayersControl.Overlay name='Radar' checked='checked'>
               <TileLayer
                 url={
                   radarMapUrl ||
@@ -228,7 +231,7 @@ export const WeatherMapFull = ({
                 ref={radarTileLayerRef}
               />
             </LayersControl.Overlay>
-            <LayersControl.Overlay name="Clouds">
+            <LayersControl.Overlay name='Clouds'>
               <TileLayer
                 url={
                   cloudMapUrl ||
@@ -242,7 +245,7 @@ export const WeatherMapFull = ({
                 ref={cloudTileLayerRef}
               />
             </LayersControl.Overlay>
-            <LayersControl.Overlay name="Temperature">
+            <LayersControl.Overlay name='Temperature'>
               <TileLayer
                 url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
                 attribution={
@@ -253,13 +256,13 @@ export const WeatherMapFull = ({
           </LayersControl>
         </MapContainer>
       </div>
-      <div className="slider-container">
+      <div className='slider-container'>
         {tsData && ts ? (
-          <div className="slider">
-            <div className="value-label">{dayjs.unix(ts).format('h:mmA')}</div>
+          <div className='slider'>
+            <div className='value-label'>{dayjs.unix(ts).format('h:mmA')}</div>
             <input
-              className="range-slider"
-              type="range"
+              className='range-slider'
+              type='range'
               min={0}
               max={rangeMaxValue}
               step={1}
@@ -269,8 +272,8 @@ export const WeatherMapFull = ({
               ref={rangeSliderRef}
             />
             <button
-              type="button"
-              className="btn-play-radar-loop"
+              type='button'
+              className='btn-play-radar-loop'
               onClick={btnClickHandler}
             >
               {isPlaying ? (
