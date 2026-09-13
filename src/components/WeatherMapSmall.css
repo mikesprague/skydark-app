@@ -15,14 +15,6 @@
   z-index: 0;
 }
 
-.small-map-container .leaflet-pane {
-  z-index: 0;
-}
-
 .small-map-container .maplibregl-map {
   z-index: 0;
-}
-
-.small-map-container .leaflet-control-container {
-  display: none;
 }
