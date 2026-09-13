@@ -6,7 +6,7 @@ import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
 import { openModalWithComponent } from '../modules/helpers.js';
 import { About } from './About.jsx';
 import { Settings } from './Settings.jsx';
-import { WeatherMapFullML } from './WeatherMapFullML.jsx';
+import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './Header.css';
 
@@ -29,15 +29,18 @@ export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
     e.preventDefault();
     e.stopPropagation();
     openModalWithComponent(
-      <WeatherMapFullML OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+      <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
       {
         didOpen: () => {
           const closeButton = document.querySelector('.swal2-close');
 
           closeButton.style.position = 'relative';
           closeButton.style.top = '2rem';
-          closeButton.style.marginRight = '0.65rem';
-          // closeButton.blur();
+          // Centre the close button over the map's layers toggle below it.
+          // .swal2-close is 1.2em wide at font-size 2.5em (3rem), so with no
+          // right margin its centre sits 1.5rem from the container edge --
+          // matching the layers button (w-8 at right-2: 0.5rem + 1rem).
+          closeButton.style.marginRight = '0';
         },
         ...dontAnimateModalConfig,
       }

@@ -22,7 +22,7 @@ const Loading = lazy(() => import('./Loading.jsx'));
 const SunriseSunset = lazy(() => import('./SunriseSunset.jsx'));
 const WeatherAlert = lazy(() => import('./WeatherAlert.jsx'));
 const WeatherDataLoader = lazy(() => import('./WeatherDataLoader.jsx'));
-const WeatherMapSmall = lazy(() => import('./WeatherMapSmallML.jsx'));
+const WeatherMapSmall = lazy(() => import('./WeatherMapSmall.jsx'));
 
 initIcons();
 

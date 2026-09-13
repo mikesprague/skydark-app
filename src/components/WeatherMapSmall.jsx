@@ -10,11 +10,11 @@ import { getBasemapForTheme } from '../lib/map/basemaps.js';
 import { radarTileUrl } from '../lib/map/overlays.js';
 import { openModalWithComponent } from '../modules/helpers.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
-import { WeatherMapFullML } from './WeatherMapFullML.jsx';
+import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './WeatherMapSmall.css';
 
-export const WeatherMapSmallML = ({ OPENWEATHERMAP_API_KEY }) => {
+export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [isMapLoaded, setIsMapLoaded] = useState(false);
@@ -59,14 +59,16 @@ export const WeatherMapSmallML = ({ OPENWEATHERMAP_API_KEY }) => {
       e.preventDefault();
       e.stopPropagation();
       openModalWithComponent(
-        <WeatherMapFullML OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
+        <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
         {
           didOpen: () => {
             const closeButton = document.querySelector('.swal2-close');
 
             closeButton.style.position = 'relative';
             closeButton.style.top = '2rem';
-            closeButton.style.marginRight = '0.65rem';
+            // Centre the close button over the map's layers toggle below it.
+            // See the matching comment in Header.jsx for the arithmetic.
+            closeButton.style.marginRight = '0';
           },
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
@@ -173,8 +175,8 @@ export const WeatherMapSmallML = ({ OPENWEATHERMAP_API_KEY }) => {
   );
 };
 
-WeatherMapSmallML.propTypes = {
+WeatherMapSmall.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
-export default WeatherMapSmallML;
+export default WeatherMapSmall;

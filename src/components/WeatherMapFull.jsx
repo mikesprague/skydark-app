@@ -80,7 +80,7 @@ const accuracyCircleFeature = (
   };
 };
 
-export const WeatherMapFullML = ({ OPENWEATHERMAP_API_KEY }) => {
+export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const timerHandle = useRef();
@@ -426,9 +426,9 @@ export const WeatherMapFullML = ({ OPENWEATHERMAP_API_KEY }) => {
   );
 };
 
-WeatherMapFullML.displayName = 'WeatherMapFullML';
-WeatherMapFullML.propTypes = {
+WeatherMapFull.displayName = 'WeatherMapFull';
+WeatherMapFull.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
 };
 
-export default WeatherMapFullML;
+export default WeatherMapFull;
