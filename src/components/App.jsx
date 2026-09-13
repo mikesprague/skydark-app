@@ -26,11 +26,7 @@ const WeatherMapSmall = lazy(() => import('./WeatherMapSmallML.jsx'));
 
 initIcons();
 
-export const App = ({
-  OPENWEATHERMAP_API_KEY,
-  RAINBOW_API_TOKEN,
-  CARTO_BASEMAPS_API_KEY,
-}) => {
+export const App = ({ OPENWEATHERMAP_API_KEY }) => {
   const { setCoordinates, coordinates } = useWeatherDataContext();
 
   const geoState = useGeolocated({
@@ -126,20 +122,12 @@ export const App = ({
     <ErrorBoundary>
       <Suspense fallback={<Loading fullHeight={true} />}>
         <WeatherDataLoader latitude={latitude} longitude={longitude}>
-          <Header
-            OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
-            RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-            CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
-          />
+          <Header OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
           <LayoutContainer>
             <Currently />
             <AirQuality />
             <WeatherAlert />
-            <WeatherMapSmall
-              OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
-              RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-              CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
-            />
+            <WeatherMapSmall OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />
             <CurrentHourly />
             <SunriseSunset />
             <Daily />
@@ -153,8 +141,6 @@ export const App = ({
 
 App.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
-  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
-  CARTO_BASEMAPS_API_KEY: PropTypes.string.isRequired,
 };
 
 export default App;

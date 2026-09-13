@@ -1,6 +1,6 @@
 {
   "name": "skydark-app",
-  "version": "4.0.0-rc.8",
+  "version": "4.0.0-rc.8.1",
   "private": true,
   "description": "Open source PWA built as an homage to the now defunct Dark Sky for Android app",
   "keywords": [],
@@ -43,7 +43,7 @@
     "dotenv": "17.4.2",
     "jose": "6.2.12",
     "leaflet": "1.9.4",
-    "maplibre-gl": "5.24.0",
+    "maplibre-gl": "6.9.0",
     "nanoid": "6.0.1",
     "prop-types": "15.8.1",
     "query-string": "9.5.1",

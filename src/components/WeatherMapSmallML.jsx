@@ -1,22 +1,20 @@
-import maplibregl from 'maplibre-gl';
+import { MapLibreMap, Marker } from 'maplibre-gl';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
+import '../lib/map/worker.js';
 import { getBasemapForTheme } from '../lib/map/basemaps.js';
+import { radarTileUrl } from '../lib/map/overlays.js';
 import { openModalWithComponent } from '../modules/helpers.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
-import { WeatherMapFull } from './WeatherMapFull.jsx';
+import { WeatherMapFullML } from './WeatherMapFullML.jsx';
 
 import './WeatherMapSmall.css';
 
-export const WeatherMapSmallML = ({
-  OPENWEATHERMAP_API_KEY,
-  RAINBOW_API_TOKEN,
-  CARTO_BASEMAPS_API_KEY,
-}) => {
+export const WeatherMapSmallML = ({ OPENWEATHERMAP_API_KEY }) => {
   const mapContainerRef = useRef();
   const mapRef = useRef();
   const [isMapLoaded, setIsMapLoaded] = useState(false);
@@ -42,7 +40,7 @@ export const WeatherMapSmallML = ({
     // api.rainbow.ai does not send CORS headers.
     if (weather.radarData?.snapshot) {
       const { snapshot } = weather.radarData;
-      url = `/api/radar/precip/${snapshot}/0/{z}/{x}/{y}?color=2`;
+      url = radarTileUrl(snapshot, 0);
     }
 
     return {
@@ -61,11 +59,7 @@ export const WeatherMapSmallML = ({
       e.preventDefault();
       e.stopPropagation();
       openModalWithComponent(
-        <WeatherMapFull
-          OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
-          RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-          CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
-        />,
+        <WeatherMapFullML OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
         {
           didOpen: () => {
             const closeButton = document.querySelector('.swal2-close');
@@ -83,7 +77,7 @@ export const WeatherMapSmallML = ({
         }
       );
     },
-    [OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN, CARTO_BASEMAPS_API_KEY]
+    [OPENWEATHERMAP_API_KEY]
   );
 
   useEffect(() => {
@@ -91,7 +85,7 @@ export const WeatherMapSmallML = ({
       return;
     }
 
-    const map = new maplibregl.Map({
+    const map = new MapLibreMap({
       container: mapContainerRef.current,
       center: [longitude, latitude],
       // MapLibre serves 512px vector tiles, so a given zoom renders one level
@@ -159,9 +153,7 @@ export const WeatherMapSmallML = ({
       return;
     }
 
-    const marker = new maplibregl.Marker()
-      .setLngLat([longitude, latitude])
-      .addTo(map);
+    const marker = new Marker().setLngLat([longitude, latitude]).addTo(map);
 
     return () => marker.remove();
   }, [isMapLoaded, latitude, longitude]);
@@ -183,8 +175,6 @@ export const WeatherMapSmallML = ({
 
 WeatherMapSmallML.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
-  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
-  CARTO_BASEMAPS_API_KEY: PropTypes.string.isRequired,
 };
 
 export default WeatherMapSmallML;

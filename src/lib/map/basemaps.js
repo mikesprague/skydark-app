@@ -36,5 +36,8 @@ export const basemaps = {
  * `voyager`/"Color" is the intended light default). `positron` stays available
  * as an explicit "Light" choice in the full map's base-layer switcher.
  */
+export const getBasemapIdForTheme = (isDark) =>
+  isDark ? 'dark-matter' : 'voyager';
+
 export const getBasemapForTheme = (isDark) =>
-  isDark ? basemaps['dark-matter'] : basemaps.voyager;
+  basemaps[getBasemapIdForTheme(isDark)];
