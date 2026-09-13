@@ -10,11 +10,7 @@ import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './Header.css';
 
-export const Header = ({
-  OPENWEATHERMAP_API_KEY,
-  RAINBOW_API_TOKEN,
-  CARTO_BASEMAPS_API_KEY,
-}) => {
+export const Header = ({ OPENWEATHERMAP_API_KEY }) => {
   const [locationName, setLocationName] = useState('Acquiring location');
   const headerRef = useRef();
 
@@ -33,19 +29,18 @@ export const Header = ({
     e.preventDefault();
     e.stopPropagation();
     openModalWithComponent(
-      <WeatherMapFull
-        OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
-        RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-        CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
-      />,
+      <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
       {
         didOpen: () => {
           const closeButton = document.querySelector('.swal2-close');
 
           closeButton.style.position = 'relative';
           closeButton.style.top = '2rem';
-          closeButton.style.marginRight = '0.65rem';
-          // closeButton.blur();
+          // Centre the close button over the map's layers toggle below it.
+          // .swal2-close is 1.2em wide at font-size 2.5em (3rem), so with no
+          // right margin its centre sits 1.5rem from the container edge --
+          // matching the layers button (w-8 at right-2: 0.5rem + 1rem).
+          closeButton.style.marginRight = '0';
         },
         ...dontAnimateModalConfig,
       }
@@ -124,8 +119,6 @@ export const Header = ({
 
 Header.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
-  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
-  CARTO_BASEMAPS_API_KEY: PropTypes.string.isRequired,
 };
 
 export default Header;

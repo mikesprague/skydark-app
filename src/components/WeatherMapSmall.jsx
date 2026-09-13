@@ -1,39 +1,31 @@
-import L from 'leaflet';
+import { MapLibreMap, Marker } from 'maplibre-gl';
 import PropTypes from 'prop-types';
-import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import 'leaflet/dist/leaflet.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { useWeatherDataContext } from '../contexts/WeatherDataContext.jsx';
-import {
-  initLeafletImages,
-  openModalWithComponent,
-} from '../modules/helpers.js';
+import '../lib/map/worker.js';
+import { getBasemapForTheme } from '../lib/map/basemaps.js';
+import { radarTileUrl } from '../lib/map/overlays.js';
+import { openModalWithComponent } from '../modules/helpers.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 import { WeatherMapFull } from './WeatherMapFull.jsx';
 
 import './WeatherMapSmall.css';
 
-initLeafletImages(L);
-
-export const WeatherMapSmall = ({
-  OPENWEATHERMAP_API_KEY,
-  RAINBOW_API_TOKEN,
-  CARTO_BASEMAPS_API_KEY,
-}) => {
-  const radarTileLayerRef = useRef();
-  // const cloudTileLayerRef = useRef();
+export const WeatherMapSmall = ({ OPENWEATHERMAP_API_KEY }) => {
+  const mapContainerRef = useRef();
+  const mapRef = useRef();
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   const { weatherData: weather } = useWeatherDataContext();
 
-  // const { locationCoordinates, radarMapUrl, cloudMapUrl } = useMemo(() => {
   const { locationCoordinates, radarMapUrl } = useMemo(() => {
     if (!weather) {
       return {
         locationCoordinates: null,
         radarMapUrl: null,
-        // cloudMapUrl: null,
       };
     }
 
@@ -43,39 +35,40 @@ export const WeatherMapSmall = ({
     };
 
     let url = null;
-    // let cloudsUrl = null;
-    // Set the radar URL from the most recent past data
+    // Set the radar URL from the most recent past data. Tiles are proxied
+    // through /api/radar because MapLibre requires CORS-clean images and
+    // api.rainbow.ai does not send CORS headers.
     if (weather.radarData?.snapshot) {
       const { snapshot } = weather.radarData;
-      url = `https://api.rainbow.ai/tiles/v1/precip/${snapshot}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`;
-      // cloudsUrl = `https://api.rainbow.ai/tiles/v1/clouds/${snapshot - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`;
+      url = radarTileUrl(snapshot, 0);
     }
 
     return {
       locationCoordinates: coordinates,
       radarMapUrl: url,
-      // cloudMapUrl: cloudsUrl,
     };
-  }, [weather, RAINBOW_API_TOKEN]);
+  }, [weather]);
+
+  const latitude = locationCoordinates?.latitude;
+  const longitude = locationCoordinates?.longitude;
+
+  const basemap = useMemo(() => getBasemapForTheme(isDarkModeEnabled()), []);
 
   const mapClickHandler = useCallback(
     (e) => {
       e.preventDefault();
       e.stopPropagation();
       openModalWithComponent(
-        <WeatherMapFull
-          OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY}
-          RAINBOW_API_TOKEN={RAINBOW_API_TOKEN}
-          CARTO_BASEMAPS_API_KEY={CARTO_BASEMAPS_API_KEY}
-        />,
+        <WeatherMapFull OPENWEATHERMAP_API_KEY={OPENWEATHERMAP_API_KEY} />,
         {
           didOpen: () => {
             const closeButton = document.querySelector('.swal2-close');
 
             closeButton.style.position = 'relative';
             closeButton.style.top = '2rem';
-            closeButton.style.marginRight = '0.65rem';
-            // closeButton.blur();
+            // Centre the close button over the map's layers toggle below it.
+            // See the matching comment in Header.jsx for the arithmetic.
+            closeButton.style.marginRight = '0';
           },
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
@@ -86,77 +79,92 @@ export const WeatherMapSmall = ({
         }
       );
     },
-    [OPENWEATHERMAP_API_KEY, RAINBOW_API_TOKEN, CARTO_BASEMAPS_API_KEY]
+    [OPENWEATHERMAP_API_KEY]
   );
 
-  useLayoutEffect(() => {
-    if (radarTileLayerRef.current && radarMapUrl) {
-      radarTileLayerRef.current.setUrl(radarMapUrl);
+  useEffect(() => {
+    if (!latitude || !longitude || !mapContainerRef.current || mapRef.current) {
+      return;
     }
-    // if (cloudTileLayerRef.current && cloudMapUrl) {
-    //   cloudTileLayerRef.current.setUrl(cloudMapUrl);
-    // }
-  }, [radarMapUrl]);
+
+    const map = new MapLibreMap({
+      container: mapContainerRef.current,
+      center: [longitude, latitude],
+      // MapLibre serves 512px vector tiles, so a given zoom renders one level
+      // closer than Leaflet's 256px raster tiles. 6 here matches the legacy
+      // Leaflet zoom of 7.
+      zoom: 6,
+      interactive: false,
+      // Attribution is shown on the full map only, matching legacy behavior.
+      attributionControl: false,
+      style: basemap.styleUrl,
+    });
+
+    mapRef.current = map;
+
+    // `load` fires once the style is fully parsed, which is the earliest point
+    // addSource/addLayer are safe. Gating on this instead of construction
+    // avoids racing the style fetch.
+    map.on('load', () => setIsMapLoaded(true));
+
+    if (import.meta.env.DEV) {
+      map.on('error', (event) => console.error('MapLibre error:', event.error));
+    }
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+      setIsMapLoaded(false);
+    };
+  }, [latitude, longitude, basemap]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (!isMapLoaded || !map || !radarMapUrl) {
+      return;
+    }
+
+    const existingSource = map.getSource('radar');
+
+    if (existingSource) {
+      existingSource.setTiles([radarMapUrl]);
+      return;
+    }
+
+    map.addSource('radar', {
+      type: 'raster',
+      tiles: [radarMapUrl],
+      tileSize: 256,
+      maxzoom: 12,
+    });
+    map.addLayer({
+      id: 'radar',
+      type: 'raster',
+      source: 'radar',
+      paint: {
+        'raster-opacity': 0.9,
+      },
+    });
+  }, [isMapLoaded, radarMapUrl]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (!isMapLoaded || !map || !latitude || !longitude) {
+      return;
+    }
+
+    const marker = new Marker().setLngLat([longitude, latitude]).addTo(map);
+
+    return () => marker.remove();
+  }, [isMapLoaded, latitude, longitude]);
 
   return weather ? (
     <div className='small-map-container'>
-      {locationCoordinates?.latitude ? (
+      {latitude ? (
         <div className='map-wrapper' onClick={mapClickHandler}>
-          <MapContainer
-            center={[
-              locationCoordinates.latitude,
-              locationCoordinates.longitude,
-            ]}
-            doubleClickZoom={false}
-            dragging={false}
-            id='weather-map-small'
-            keyboard={false}
-            scrollWheelZoom={false}
-            touchZoom={false}
-            zoom={7}
-          >
-            <Marker
-              position={[
-                locationCoordinates.latitude,
-                locationCoordinates.longitude,
-              ]}
-            />
-            <TileLayer
-              url={
-                isDarkModeEnabled()
-                  ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${CARTO_BASEMAPS_API_KEY}`
-                  : `https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${CARTO_BASEMAPS_API_KEY}`
-
-                // 'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key='
-              }
-              attribution={
-                '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-              }
-            />
-            {radarMapUrl && (
-              <TileLayer
-                maxNativeZoom={12}
-                opacity={0.9}
-                ref={radarTileLayerRef}
-                url={radarMapUrl}
-                attribution={
-                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
-                }
-              />
-            )}
-            {/* {cloudMapUrl && (
-              <TileLayer
-                maxNativeZoom={7}
-                opacity={0.8}
-                ref={cloudTileLayerRef}
-                ref={cloudTileLayerRef}
-                url={cloudMapUrl}
-                attribution={
-                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
-                }
-              />
-            )} */}
-          </MapContainer>
+          <div id='weather-map-small' ref={mapContainerRef} />
         </div>
       ) : (
         ''
@@ -169,7 +177,6 @@ export const WeatherMapSmall = ({
 
 WeatherMapSmall.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
-  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
 };
 
 export default WeatherMapSmall;

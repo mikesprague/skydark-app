@@ -11,15 +11,6 @@ div#swal2-html-container {
   margin: 0 !important;
 }
 
-.leaflet-top.leaflet-right .leaflet-control-layers.leaflet-control {
-  position: relative;
-  top: 3rem !important;
-}
-
-.leaflet-control-layers-list {
-  text-align: left !important;
-}
-
 .conditions-item {
   @apply mb-4;
   @apply leading-4;

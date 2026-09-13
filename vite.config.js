@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+
 import { version } from './package.json';
 
 export default defineConfig({
@@ -9,6 +10,23 @@ export default defineConfig({
   build: {
     // Relative to the root
     outDir: '../build',
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            // Keep MapLibre in its own chunk. Bundled together with the map
+            // components, any edit to those components invalidates ~1MB of
+            // library code for returning users; split out, the library chunk
+            // keeps its hash across app changes.
+            {
+              name: 'maplibre-gl',
+              test: /node_modules[\\/]maplibre-gl[\\/]/,
+              priority: 20,
+            },
+          ],
+        },
+      },
+    },
   },
   publicDir: '../public',
   base: './',

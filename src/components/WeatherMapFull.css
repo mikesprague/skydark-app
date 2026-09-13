@@ -113,6 +113,7 @@
   @apply p-0;
   @apply w-full;
   @apply h-screen;
+  @apply relative;
 
   .weather-map-full {
     @apply h-full;
@@ -120,34 +121,75 @@
     @apply z-0;
   }
 
-  .leaflet-control-layers {
-    @apply bg-gray-100;
-    @apply dark:bg-gray-700;
-    @apply text-gray-700;
-    @apply dark:text-gray-100;
-  }
+  /* Replaces Leaflet's LayersControl, which MapLibre has no equivalent for.
+     Collapsed to an icon button by default and offset below the modal's close
+     button, matching the legacy layout. */
+  .map-layers-control {
+    @apply absolute;
+    @apply right-2;
+    @apply z-10;
+    @apply flex;
+    @apply flex-col;
+    @apply items-end;
+    @apply gap-1;
 
-  .leaflet-bar {
-    a,
-    a:hover {
+    top: 5rem;
+
+    .btn-toggle-layers {
+      @apply w-8;
+      @apply h-8;
+      @apply rounded-md;
+      @apply shadow-md;
+      @apply text-center;
+      @apply bg-gray-100;
+      @apply dark:bg-gray-700;
+      @apply text-gray-700;
+      @apply dark:text-gray-100;
+      @apply focus:outline-none;
+    }
+
+    .layers-panel {
+      @apply rounded-md;
+      @apply p-2;
+      @apply text-left;
+      @apply text-sm;
+      @apply shadow-md;
       @apply bg-gray-100;
       @apply dark:bg-gray-700;
       @apply text-gray-700;
       @apply dark:text-gray-100;
     }
+
+    fieldset + fieldset {
+      @apply mt-2;
+      @apply pt-2;
+      @apply border-t;
+      @apply border-gray-300;
+      @apply dark:border-gray-900;
+    }
+
+    legend {
+      @apply font-semibold;
+      @apply text-xs;
+      @apply uppercase;
+      @apply opacity-70;
+    }
+
+    label {
+      @apply flex;
+      @apply items-center;
+      @apply gap-2;
+      @apply cursor-pointer;
+    }
   }
 
-  .leaflet-control-scale {
-    @apply left-1;
-  }
-
-  .leaflet-control-attribution,
-  .leaflet-control-scale-line {
-    @apply border-gray-300;
-    @apply dark:border-gray-700;
+  /* Attribution sits top-right and themed, as the legacy map did, instead of
+     MapLibre's light bottom-right default. */
+  .maplibregl-ctrl-top-right .maplibregl-ctrl-attrib {
+    @apply rounded-md;
+    @apply text-xs;
     @apply bg-gray-100;
-    @apply dark:bg-black;
-    @apply bg-black/60;
+    @apply dark:bg-black/60;
     @apply text-gray-800/75;
     @apply dark:text-gray-100/75;
 
@@ -158,23 +200,74 @@
     }
   }
 
-  /* .leaflet-control-layers-overlays > label:nth-child(1) {
-    @apply hidden;
-  } */
-
-  .leaflet-control-attribution {
-    @apply right-3;
-    @apply top-2;
-  }
-
-  .leaflet-bottom.leaflet-right .leaflet-control-attribution {
-    @apply hidden;
-  }
-
-  .leaflet-popup-content-wrapper,
-  .leaflet-popup-tip {
+  /* Zoom buttons. MapLibre hardcodes a white group background, and the +/-
+     glyphs are SVG data-URI background-images with a baked-in dark fill, so
+     unlike Leaflet's text glyphs they can't be recolored with `color` --
+     they're inverted instead. */
+  .maplibregl-ctrl-group {
     @apply bg-gray-100;
     @apply dark:bg-gray-700;
+  }
+
+  .maplibregl-ctrl-group button + button {
+    @apply border-gray-300;
+    @apply dark:border-gray-900;
+  }
+
+  .maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+    @apply dark:invert;
+  }
+
+  /* Scale bars: MapLibre defaults to a translucent white box with #333 text. */
+  .maplibregl-ctrl-scale {
+    @apply border-gray-300;
+    @apply dark:border-gray-700;
+    @apply bg-gray-100;
+    @apply dark:bg-black/60;
+    @apply text-gray-800/75;
+    @apply dark:text-gray-100/75;
+  }
+
+  .maplibregl-ctrl-attrib-button {
+    @apply dark:invert;
+  }
+
+  /* Popups. MapLibre's tip is a CSS border-triangle coloured per anchor
+     direction, not Leaflet's rotated square, so `background-color` has no
+     effect -- the relevant border side has to match the content background for
+     each of the 8 runtime-selected anchors. */
+  .maplibregl-popup-content {
+    @apply bg-gray-100;
+    @apply dark:bg-gray-700;
+    @apply text-gray-700;
+    @apply dark:text-gray-100;
+  }
+
+  .maplibregl-popup-anchor-top .maplibregl-popup-tip,
+  .maplibregl-popup-anchor-top-left .maplibregl-popup-tip,
+  .maplibregl-popup-anchor-top-right .maplibregl-popup-tip {
+    @apply border-b-gray-100;
+    @apply dark:border-b-gray-700;
+  }
+
+  .maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
+  .maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip,
+  .maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip {
+    @apply border-t-gray-100;
+    @apply dark:border-t-gray-700;
+  }
+
+  .maplibregl-popup-anchor-left .maplibregl-popup-tip {
+    @apply border-r-gray-100;
+    @apply dark:border-r-gray-700;
+  }
+
+  .maplibregl-popup-anchor-right .maplibregl-popup-tip {
+    @apply border-l-gray-100;
+    @apply dark:border-l-gray-700;
+  }
+
+  .maplibregl-popup-close-button {
     @apply text-gray-700;
     @apply dark:text-gray-100;
   }

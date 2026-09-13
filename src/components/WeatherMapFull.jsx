@@ -1,47 +1,94 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import L from 'leaflet';
-import PropTypes from 'prop-types';
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   AttributionControl,
-  Circle,
-  LayersControl,
-  MapContainer,
+  MapLibreMap,
   Marker,
+  NavigationControl,
   Popup,
   ScaleControl,
-  TileLayer,
-  ZoomControl,
-} from 'react-leaflet';
-
-import { dayjs } from '../lib/time/dayjs.js';
-
-import 'leaflet/dist/leaflet.css';
-
+} from 'maplibre-gl';
+import PropTypes from 'prop-types';
 import {
-  generateSnapshotHistory,
-  initLeafletImages,
-} from '../modules/helpers.js';
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
+
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+import '../lib/map/worker.js';
+import { basemaps, getBasemapIdForTheme } from '../lib/map/basemaps.js';
+import {
+  addOverlays,
+  buildOverlays,
+  cloudsTileUrl,
+  preserveLayers,
+  radarTileUrl,
+  temperatureTileUrl,
+} from '../lib/map/overlays.js';
+import { dayjs } from '../lib/time/dayjs.js';
+import { generateSnapshotHistory } from '../modules/helpers.js';
 import { getData } from '../modules/local-storage.js';
 import { isDarkModeEnabled } from '../modules/theme.js';
 
 import './WeatherMapFull.css';
 
-initLeafletImages(L);
+const EARTH_RADIUS_METERS = 6378137;
+const OVERLAY_IDS = ['radar', 'clouds', 'temperature'];
 
-// {/* <TileLayer
-// url="https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
-// layers="nexrad-n0q-900913"
-// transparent="true"
-// /> */}
+// Everything added at runtime must be carried across a setStyle basemap switch.
+const RUNTIME_SOURCE_IDS = [...OVERLAY_IDS, 'accuracy-circle'];
+const RUNTIME_LAYER_IDS = [
+  ...OVERLAY_IDS,
+  'accuracy-circle-fill',
+  'accuracy-circle-outline',
+];
 
-export const WeatherMapFull = ({
-  OPENWEATHERMAP_API_KEY,
-  RAINBOW_API_TOKEN,
-  CARTO_BASEMAPS_API_KEY,
-}) => {
+/**
+ * MapLibre has no circle primitive, so the geolocation accuracy radius is
+ * drawn as a GeoJSON polygon approximating the circle.
+ */
+const accuracyCircleFeature = (
+  longitude,
+  latitude,
+  radiusMeters,
+  steps = 64
+) => {
+  const coordinates = [];
+  const latitudeRadians = (latitude * Math.PI) / 180;
+
+  for (let step = 0; step <= steps; step += 1) {
+    const angle = (step / steps) * 2 * Math.PI;
+    const offsetX = radiusMeters * Math.cos(angle);
+    const offsetY = radiusMeters * Math.sin(angle);
+
+    const deltaLatitude = (offsetY / EARTH_RADIUS_METERS) * (180 / Math.PI);
+    const deltaLongitude =
+      (offsetX / (EARTH_RADIUS_METERS * Math.cos(latitudeRadians))) *
+      (180 / Math.PI);
+
+    coordinates.push([longitude + deltaLongitude, latitude + deltaLatitude]);
+  }
+
+  return {
+    type: 'Feature',
+    properties: {},
+    geometry: { type: 'Polygon', coordinates: [coordinates] },
+  };
+};
+
+export const WeatherMapFull = ({ OPENWEATHERMAP_API_KEY }) => {
+  const mapContainerRef = useRef();
+  const mapRef = useRef();
   const timerHandle = useRef();
   const rangeSliderRef = useRef();
+
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isLayersPanelOpen, setIsLayersPanelOpen] = useState(false);
+  const [, startTransition] = useTransition();
 
   const coordinates = getData('coordinates');
 
@@ -71,39 +118,189 @@ export const WeatherMapFull = ({
     [latestTsIndex]
   );
 
-  const initialRadarUrl = useMemo(
-    () =>
-      initialTs
-        ? `https://api.rainbow.ai/tiles/v1/precip/${initialTs}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
-        : null,
-    [initialTs, RAINBOW_API_TOKEN]
-  );
-
-  const initialCloudUrl = useMemo(
-    () =>
-      initialTs
-        ? `https://api.rainbow.ai/tiles/v1/clouds/${initialTs - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
-        : null,
-    [initialTs, RAINBOW_API_TOKEN]
-  );
-
   const [ts, setTs] = useState(initialTs);
   const [rangeValue, setRangeValue] = useState(latestTsIndex);
-  const [radarMapUrl, setRadarMapUrl] = useState(initialRadarUrl);
-  const [cloudMapUrl, setCloudMapUrl] = useState(initialCloudUrl);
+  const [radarMapUrl, setRadarMapUrl] = useState(() =>
+    initialTs ? radarTileUrl(initialTs, 0) : null
+  );
+  const [cloudMapUrl, setCloudMapUrl] = useState(() =>
+    initialTs ? cloudsTileUrl(initialTs - 600) : null
+  );
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const radarTileLayerRef = useRef();
-  const cloudTileLayerRef = useRef();
+  const [basemapId, setBasemapId] = useState(() =>
+    getBasemapIdForTheme(isDarkModeEnabled())
+  );
+  const [visibleOverlays, setVisibleOverlays] = useState(() => ({
+    radar: true,
+    clouds: false,
+    temperature: false,
+  }));
 
-  useLayoutEffect(() => {
-    if (radarTileLayerRef.current && radarMapUrl) {
-      radarTileLayerRef.current.setUrl(radarMapUrl);
+  // These are the initial tile URLs only. Later frames are pushed with
+  // setTiles so the overlay layers are never torn down and rebuilt.
+  const overlays = useMemo(() => {
+    const baseTs = initialTs ?? tsData[0];
+
+    return buildOverlays({
+      radarUrl: radarTileUrl(baseTs, 0),
+      cloudsUrl: cloudsTileUrl(baseTs - 600),
+      temperatureUrl: temperatureTileUrl(OPENWEATHERMAP_API_KEY),
+    });
+  }, [initialTs, tsData, OPENWEATHERMAP_API_KEY]);
+
+  // Create the map once.
+  useEffect(() => {
+    if (!coordinates?.latitude || !mapContainerRef.current || mapRef.current) {
+      return;
     }
-    if (cloudTileLayerRef.current && cloudMapUrl) {
-      cloudTileLayerRef.current.setUrl(cloudMapUrl);
+
+    const map = new MapLibreMap({
+      container: mapContainerRef.current,
+      center: [coordinates.longitude, coordinates.latitude],
+      // MapLibre's 512px tiles render one level closer than Leaflet's 256px,
+      // so legacy zoom 9 / maxZoom 12 become 8 / 11.
+      zoom: 8,
+      maxZoom: 11,
+      scrollZoom: false,
+      style: basemaps[basemapId].styleUrl,
+      // Added explicitly below so it lands top-right like the legacy map,
+      // rather than the default bottom-right.
+      attributionControl: false,
+    });
+
+    // Controls stack in the order they are added. Legacy Leaflet showed the
+    // scale bars above the zoom buttons, and both metric and imperial.
+    map.addControl(new ScaleControl({ unit: 'metric' }), 'top-left');
+    map.addControl(new ScaleControl({ unit: 'imperial' }), 'top-left');
+    // Legacy had zoom in/out only, no compass/pitch reset.
+    map.addControl(
+      new NavigationControl({
+        showCompass: false,
+        showZoom: true,
+      }),
+      'top-left'
+    );
+    map.addControl(new AttributionControl({ compact: false }), 'top-right');
+
+    map.on('load', () => setIsMapLoaded(true));
+
+    if (import.meta.env.DEV) {
+      map.on('error', (event) => console.error('MapLibre error:', event.error));
     }
-  }, [radarMapUrl, cloudMapUrl]);
+
+    mapRef.current = map;
+
+    // The map lives inside a SweetAlert modal, so the container can be sized
+    // after the map is constructed. WebGL needs an explicit resize.
+    const resizeObserver = new ResizeObserver(() => map.resize());
+    resizeObserver.observe(mapContainerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+      map.remove();
+      mapRef.current = null;
+      setIsMapLoaded(false);
+    };
+    // Basemap changes are applied with setStyle, not by recreating the map.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coordinates?.latitude, coordinates?.longitude]);
+
+  // Overlays, marker, popup and accuracy circle, once the style is ready.
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (!isMapLoaded || !map) {
+      return;
+    }
+
+    addOverlays(map, overlays);
+
+    if (!map.getSource('accuracy-circle')) {
+      map.addSource('accuracy-circle', {
+        type: 'geojson',
+        data: accuracyCircleFeature(
+          coordinates.longitude,
+          coordinates.latitude,
+          coordinates.accuracy
+        ),
+      });
+      map.addLayer({
+        id: 'accuracy-circle-fill',
+        type: 'fill',
+        source: 'accuracy-circle',
+        paint: { 'fill-color': '#3388ff', 'fill-opacity': 0.2 },
+      });
+      map.addLayer({
+        id: 'accuracy-circle-outline',
+        type: 'line',
+        source: 'accuracy-circle',
+        paint: {
+          'line-color': '#3388ff',
+          'line-opacity': 0.5,
+          'line-width': 1,
+        },
+      });
+    }
+
+    const marker = new Marker()
+      .setLngLat([coordinates.longitude, coordinates.latitude])
+      .setPopup(new Popup({ offset: 25 }).setText(popupAddress))
+      .addTo(map);
+
+    return () => marker.remove();
+  }, [isMapLoaded, overlays, coordinates, popupAddress]);
+
+  // Push new radar/cloud frames without rebuilding the layers.
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (!isMapLoaded || !map) {
+      return;
+    }
+
+    if (radarMapUrl) {
+      map.getSource('radar')?.setTiles([radarMapUrl]);
+    }
+    if (cloudMapUrl) {
+      map.getSource('clouds')?.setTiles([cloudMapUrl]);
+    }
+  }, [isMapLoaded, radarMapUrl, cloudMapUrl]);
+
+  const basemapChangeHandler = useCallback((nextBasemapId) => {
+    const map = mapRef.current;
+
+    setBasemapId(nextBasemapId);
+
+    if (!map) {
+      return;
+    }
+
+    // transformStyle carries the overlay sources/layers into the new style so
+    // they survive the basemap switch atomically.
+    map.setStyle(basemaps[nextBasemapId].styleUrl, {
+      transformStyle: preserveLayers({
+        sourceIds: RUNTIME_SOURCE_IDS,
+        layerIds: RUNTIME_LAYER_IDS,
+      }),
+    });
+  }, []);
+
+  const overlayToggleHandler = useCallback((overlayId) => {
+    const map = mapRef.current;
+
+    setVisibleOverlays((current) => {
+      const nextVisible = !current[overlayId];
+
+      map?.setLayoutProperty(
+        overlayId,
+        'visibility',
+        nextVisible ? 'visible' : 'none'
+      );
+
+      return { ...current, [overlayId]: nextVisible };
+    });
+  }, []);
 
   const advanceRangeSlider = useCallback(
     (value) => {
@@ -114,21 +311,17 @@ export const WeatherMapFull = ({
       const baseTs = isForecastFrame ? tsData[latestTsIndex] : tsData[value];
 
       setTs(baseTs + nextForecastTime);
-      setRadarMapUrl(
-        `https://api.rainbow.ai/tiles/v1/precip/${baseTs}/${nextForecastTime}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
-      );
-      setCloudMapUrl(
-        `https://api.rainbow.ai/tiles/v1/clouds/${baseTs - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
-      );
+      setRadarMapUrl(radarTileUrl(baseTs, nextForecastTime));
+      setCloudMapUrl(cloudsTileUrl(baseTs - 600));
       setRangeValue(value);
     },
-    [latestTsIndex, tsData, RAINBOW_API_TOKEN]
+    [latestTsIndex, tsData]
   );
 
   const rangeSliderHandler = (event) => {
     const value = Number(event.target.value);
 
-    advanceRangeSlider(value);
+    startTransition(() => advanceRangeSlider(value));
   };
 
   const btnClickHandler = useCallback(() => {
@@ -141,151 +334,91 @@ export const WeatherMapFull = ({
         const currentVal = Number.parseInt(rangeSliderRef.current.value, 10);
         const nextVal = currentVal === rangeMaxValue ? 0 : currentVal + 1;
 
-        // console.log(currentVal, nextVal);
         rangeSliderRef.current.value = nextVal;
-        advanceRangeSlider(nextVal);
+        startTransition(() => advanceRangeSlider(nextVal));
       }, 500);
     }
   }, [advanceRangeSlider, isPlaying, rangeMaxValue]);
 
+  // Stop the loop if the map is closed mid-playback.
+  useEffect(() => () => clearInterval(timerHandle.current), []);
+
   return tsData && ts ? (
     <>
       <div className='map-container'>
-        <MapContainer
-          animate={true}
-          boxZoom={true}
-          center={[coordinates.latitude, coordinates.longitude]}
-          doubleClickZoom={true}
-          dragging={true}
-          className='weather-map-full'
-          keyboard={false}
-          scrollWheelZoom={false}
-          tap={true}
-          touchZoom={true}
-          zoom={9}
-          maxZoom={12}
-          zoomControl={false}
-        >
-          <Marker position={[coordinates.latitude, coordinates.longitude]}>
-            <Popup>{popupAddress}</Popup>
-          </Marker>
-          <Circle
-            center={[coordinates.latitude, coordinates.longitude]}
-            pathOptions={{ weight: 1, opacity: 0.5 }}
-            radius={coordinates.accuracy}
-          />
-          <ScaleControl position='topleft' />
-          <ZoomControl position='topleft' />
-          <AttributionControl position='topright' />
-          <LayersControl>
-            <LayersControl.BaseLayer name='Dark' checked={isDarkModeEnabled()}>
-              <TileLayer
-                url={`https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_API_KEY}`}
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer
-              name='Color'
-              checked={!isDarkModeEnabled()}
-            >
-              <TileLayer
-                url={`https://{s}.basemaps.cartocdn.com/rastertiles/rastertiles/voyager/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_API_KEY}`}
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name='Light'>
-              <TileLayer
-                url={`https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}@2x.png?key=${CARTO_BASEMAPS_API_KEY}`}
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://carto.com/" rel="noopener noreferrer" target="_blank">CARTO</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name='Street'>
-              <TileLayer
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                opacity={1}
-                attribution={
-                  '&copy; <a href="https://osm.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a>'
-                }
-              />
-            </LayersControl.BaseLayer>
-            <LayersControl.Overlay name='Radar' checked='checked'>
-              <TileLayer
-                url={
-                  radarMapUrl ||
-                  `https://api.rainbow.ai/tiles/v1/precip/${tsData[0]}/0/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}&color=2`
-                }
-                opacity={0.8}
-                maxNativeZoom={12}
-                attribution={
-                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
-                }
-                ref={radarTileLayerRef}
-              />
-            </LayersControl.Overlay>
-            <LayersControl.Overlay name='Clouds'>
-              <TileLayer
-                url={
-                  cloudMapUrl ||
-                  `https://api.rainbow.ai/tiles/v1/clouds/${tsData[0] - 600}/{z}/{x}/{y}?token=${RAINBOW_API_TOKEN}`
-                }
-                opacity={0.8}
-                maxNativeZoom={7}
-                attribution={
-                  '&copy; <a href="https://rainbow.ai/" rel="noopener noreferrer" target="_blank">Rainbow Weather</a>'
-                }
-                ref={cloudTileLayerRef}
-              />
-            </LayersControl.Overlay>
-            <LayersControl.Overlay name='Temperature'>
-              <TileLayer
-                url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPENWEATHERMAP_API_KEY}`}
-                attribution={
-                  '&copy; <a href="https://openweathermap.org/" rel="noopener noreferrer" target="_blank">OpenWeatherMap</a>'
-                }
-              />
-            </LayersControl.Overlay>
-          </LayersControl>
-        </MapContainer>
+        <div className='weather-map-full' ref={mapContainerRef} />
+        <div className='map-layers-control'>
+          <button
+            type='button'
+            className='btn-toggle-layers'
+            onClick={() => setIsLayersPanelOpen((open) => !open)}
+            aria-expanded={isLayersPanelOpen}
+            aria-label={
+              isLayersPanelOpen ? 'Hide map layers' : 'Show map layers'
+            }
+          >
+            <FontAwesomeIcon icon={['fad', 'layer-group']} fixedWidth />
+          </button>
+          <div className='layers-panel' hidden={!isLayersPanelOpen}>
+            <fieldset>
+              <legend>Base map</legend>
+              {Object.entries(basemaps).map(([id, basemap]) => (
+                <label key={id}>
+                  <input
+                    type='radio'
+                    name='basemap'
+                    value={id}
+                    checked={basemapId === id}
+                    onChange={() => basemapChangeHandler(id)}
+                  />
+                  {basemap.name}
+                </label>
+              ))}
+            </fieldset>
+            <fieldset>
+              <legend>Overlays</legend>
+              {overlays.map((overlay) => (
+                <label key={overlay.id}>
+                  <input
+                    type='checkbox'
+                    checked={visibleOverlays[overlay.id]}
+                    onChange={() => overlayToggleHandler(overlay.id)}
+                  />
+                  {overlay.label}
+                </label>
+              ))}
+            </fieldset>
+          </div>
+        </div>
       </div>
       <div className='slider-container'>
-        {tsData && ts ? (
-          <div className='slider'>
-            <div className='value-label'>{dayjs.unix(ts).format('h:mmA')}</div>
-            <input
-              className='range-slider'
-              type='range'
-              min={0}
-              max={rangeMaxValue}
-              step={1}
-              value={rangeValue}
-              onChange={rangeSliderHandler}
-              onInput={rangeSliderHandler}
-              ref={rangeSliderRef}
-            />
-            <button
-              type='button'
-              className='btn-play-radar-loop'
-              onClick={btnClickHandler}
-            >
-              {isPlaying ? (
-                <FontAwesomeIcon icon={['fad', 'stop']} fixedWidth />
-              ) : (
-                <FontAwesomeIcon icon={['fad', 'play']} fixedWidth />
-              )}
-            </button>
-          </div>
-        ) : (
-          ''
-        )}
+        <div className='slider'>
+          <div className='value-label'>{dayjs.unix(ts).format('h:mmA')}</div>
+          <input
+            className='range-slider'
+            type='range'
+            min={0}
+            max={rangeMaxValue}
+            step={1}
+            value={rangeValue}
+            onChange={rangeSliderHandler}
+            onInput={rangeSliderHandler}
+            ref={rangeSliderRef}
+            aria-label='Radar timestamp'
+          />
+          <button
+            type='button'
+            className='btn-play-radar-loop'
+            onClick={btnClickHandler}
+            aria-label={isPlaying ? 'Stop radar loop' : 'Play radar loop'}
+          >
+            {isPlaying ? (
+              <FontAwesomeIcon icon={['fad', 'stop']} fixedWidth />
+            ) : (
+              <FontAwesomeIcon icon={['fad', 'play']} fixedWidth />
+            )}
+          </button>
+        </div>
       </div>
     </>
   ) : (
@@ -296,7 +429,6 @@ export const WeatherMapFull = ({
 WeatherMapFull.displayName = 'WeatherMapFull';
 WeatherMapFull.propTypes = {
   OPENWEATHERMAP_API_KEY: PropTypes.string.isRequired,
-  RAINBOW_API_TOKEN: PropTypes.string.isRequired,
 };
 
 export default WeatherMapFull;
