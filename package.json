@@ -40,7 +40,7 @@
     "@tippyjs/react": "4.2.6",
     "cross-env": "10.1.0",
     "dayjs": "1.11.23",
-    "dotenv": "18.0.1",
+    "dotenv": "18.0.2",
     "jose": "6.2.12",
     "maplibre-gl": "6.10.0",
     "nanoid": "6.0.1",
