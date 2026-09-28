@@ -24,9 +24,9 @@
     "wrangler-pages-dev": "wrangler pages dev --live-reload true --local true ./build"
   },
   "dependencies": {
-    "@bugsnag/core": "8.9.0",
-    "@bugsnag/js": "8.10.0",
-    "@bugsnag/plugin-react": "8.9.0",
+    "@bugsnag/core": "9.0.0",
+    "@bugsnag/js": "9.0.0",
+    "@bugsnag/plugin-react": "9.0.0",
     "@fortawesome/fontawesome-svg-core": "7.3.1",
     "@fortawesome/free-brands-svg-icons": "7.3.1",
     "@fortawesome/free-regular-svg-icons": "7.3.1",
