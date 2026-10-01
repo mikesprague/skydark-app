@@ -4,7 +4,6 @@ import queryString from 'query-string';
 
 import { version } from '../../package.json';
 
-/* eslint-disable import/prefer-default-export */
 export const onRequestGet = async (context) => {
   const CACHE_NAME = 'apple-weather';
   const { env, request } = context;
@@ -231,38 +230,91 @@ export const onRequestGet = async (context) => {
       // console.log(weather.radarData);
     });
 
-    weather.airQualityData = {};
+    weather.airQualityData = [];
     await fetch(
-      `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&distance=150&API_KEY=${AIR_NOW_API_KEY}`,
+      `https://www.airnowapi.org/aq/observation/current/ziplatlong/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&api_key=${AIR_NOW_API_KEY}`,
       {
         headers: {
           'User-Agent': `SkyDark/${version}`,
         },
       }
-    ).then(async (airQualityResponse) => {
-      const airQualityJson = await airQualityResponse.json();
+    )
+      .then(async (airQualityResponse) => {
+        if (!airQualityResponse.ok) {
+          return;
+        }
 
-      // eslint-disable-next-line no-confusing-arrow
-      const airQualityObject = airQualityJson.sort((a, b) =>
-        a.AQI > b.AQI ? -1 : 1
-      );
+        const airQualityJson = await airQualityResponse.json();
 
-      weather.airQualityData = airQualityObject;
-    });
+        if (!Array.isArray(airQualityJson)) {
+          return;
+        }
 
-    weather.airQualityForecastData = {};
+        const categories = [
+          'Good',
+          'Moderate',
+          'Unhealthy for Sensitive Groups',
+          'Unhealthy',
+          'Very Unhealthy',
+          'Hazardous',
+        ];
+
+        weather.airQualityData = airQualityJson
+          .filter(
+            (observation) =>
+              observation &&
+              Number.isFinite(observation.nowcastAQI) &&
+              observation.nowcastAQI >= 0 &&
+              typeof observation.parameterName === 'string' &&
+              typeof observation.reportingAreaName === 'string' &&
+              /^\d{2}:00$/.test(observation.hourObserved) &&
+              Number.parseInt(observation.hourObserved, 10) < 24 &&
+              categories.includes(observation.aqiCategoryName)
+          )
+          .map((observation) => ({
+            DateObserved: observation.dateObserved,
+            HourObserved: Number.parseInt(observation.hourObserved, 10),
+            LocalTimeZone: observation.localTimeZone,
+            ReportingArea: observation.reportingAreaName,
+            ParameterName:
+              observation.parameterName.trim().toUpperCase() === 'OZONE'
+                ? 'O3'
+                : observation.parameterName,
+            AQI: observation.nowcastAQI,
+            Category: {
+              Number: categories.indexOf(observation.aqiCategoryName) + 1,
+              Name: observation.aqiCategoryName,
+            },
+          }))
+          .sort((a, b) => b.AQI - a.AQI);
+      })
+      .catch(() => {
+        console.error('Unable to fetch AirNow observations');
+      });
+
+    weather.airQualityForecastData = [];
     await fetch(
-      `https://www.airnowapi.org/aq/forecast/latLong/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&date=&distance=150&API_KEY=${AIR_NOW_API_KEY}`,
+      `https://www.airnowapi.org/aq/forecast/current/?format=application/json&latitude=${weather.currentWeather.metadata.latitude}&longitude=${weather.currentWeather.metadata.longitude}&api_key=${AIR_NOW_API_KEY}`,
       {
         headers: {
           'User-Agent': `SkyDark/${version}`,
         },
       }
-    ).then(async (airQualityResponse) => {
-      const airQualityJson = await airQualityResponse.json();
+    )
+      .then(async (airQualityResponse) => {
+        if (!airQualityResponse.ok) {
+          return;
+        }
 
-      weather.airQualityForecastData = airQualityJson;
-    });
+        const airQualityJson = await airQualityResponse.json();
+
+        if (Array.isArray(airQualityJson)) {
+          weather.airQualityForecastData = airQualityJson;
+        }
+      })
+      .catch(() => {
+        console.error('Unable to fetch AirNow forecasts');
+      });
 
     const returnData = {
       weather,
