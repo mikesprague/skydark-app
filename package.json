@@ -64,7 +64,7 @@
     "@vitejs/plugin-react": "6.1.2",
     "autoprefixer": "10.6.1",
     "concurrently": "10.0.6",
-    "cssnano": "9.5.0",
+    "cssnano": "9.7.0",
     "cz-git": "1.14.0",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
