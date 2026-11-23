@@ -61,7 +61,7 @@
     "@tailwindcss/typography": "0.5.20",
     "@tailwindcss/vite": "4.3.5",
     "@vitejs/plugin-react": "6.3.0",
-    "autoprefixer": "10.6.2",
+    "autoprefixer": "10.7.0",
     "concurrently": "10.0.7",
     "cssnano": "9.9.0",
     "cz-git": "1.14.0",
